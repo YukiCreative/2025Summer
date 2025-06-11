@@ -1,5 +1,6 @@
 #include "SceneTest.h"
 #include <DxLib.h>
+#include "Camera.h"
 #include "Input.h"
 
 SceneTest::SceneTest()
@@ -8,6 +9,8 @@ SceneTest::SceneTest()
 
 void SceneTest::Init()
 {
+	m_camera = std::make_shared<Camera>();
+	m_camera->Init();
 }
 
 void SceneTest::Update()

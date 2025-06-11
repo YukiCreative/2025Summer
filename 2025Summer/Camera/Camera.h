@@ -3,12 +3,6 @@
 #include "Vector3.h"
 #include <memory>
 
-namespace
-{
-	constexpr float kLerpMin = 0;
-	constexpr float kLerpMax = 1;
-}
-
 class Player;
 
 // DxLibにカメラが一つしか存在しないのでシングルトンでも良さげ？
