@@ -1,0 +1,58 @@
+#pragma once
+#include <memory>
+#include <string>
+#include "Vector3.h"
+
+class Model;
+
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
+// 3Dモデルをいい感じに使いやすくアニメーションさせる
+// Modelを継承してしまうか考え中
+class AnimationModel
+{
+public:
+	AnimationModel();
+	~AnimationModel();
+
+	void Init(const std::string& path, const float animSpeed);
+	// すでにあるハンドルを参照するパターン
+	// デストラクタでモデルを削除しない
+	void Init(const int handle, const float animSpeed);
+
+	void Update();
+	void Draw(const Vector3& drawPos) const;
+	void Draw() const;
+
+	void Stop() { m_isPlaying = false; }
+	void Play() { m_isPlaying = true; }
+	const bool IsPlaying() const { return m_isPlaying; }
+	// アニメーションが終わっているかどうか
+	const bool IsEnd() const { return !m_isPlaying; }
+	// アニメーションのブレンドはできない
+	void ChangeAnimation(const int animId, bool isLoop = true);
+	void ChangeAnimation(const std::string& animName, bool isLoop = true);
+
+	// この辺Modelクラスの中継
+	// Y軸を基準に回転
+	void RotateUpVecY(const float rad);
+	void RotateUpVecZ(const float rad);
+	void SetPos(const Vector3& pos);
+	DxLib::tagMATRIX GetMatrix() const;
+	void SetMatrix(const DxLib::tagMATRIX& mat);
+	// 今のアニメーションを確かめるときに使う
+	const bool CheckAnimName(const std::string name);
+private:
+	std::shared_ptr<Model> m_model;
+
+	int m_animHandle;
+	float m_playTime;
+	float m_playSpeed;
+	bool m_isPlaying;
+	float m_animTotalTime;
+	bool m_isLoop;
+};
+

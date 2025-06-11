@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{200f3b6b-539a-42b3-a292-e3d45c59323e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="General\Application.cpp" />
+    <ClCompile Include="General\Input.cpp" />
+    <ClCompile Include="Geometry\Quaternion.cpp" />
+    <ClCompile Include="Geometry\Vector2.cpp" />
+    <ClCompile Include="Geometry\Vector3.cpp" />
+    <ClCompile Include="Main\main.cpp" />
+    <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SceneController.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Shape\Sphere.cpp" />
+    <ClCompile Include="Text\FontLoader.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\ButtonSystem.cpp" />
+    <ClCompile Include="UI\Image.cpp" />
+    <ClCompile Include="UI\ImageStore.cpp" />
+    <ClCompile Include="Effect\EffectManager.cpp" />
+    <ClCompile Include="Effect\EffekseerEffect.cpp" />
+    <ClCompile Include="Geometry\Geometry.cpp" />
+    <ClCompile Include="Model\AnimationModel.cpp" />
+    <ClCompile Include="Physics\Collidable.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\Rigid.cpp" />
+    <ClCompile Include="Physics\Collider\Collider3D.cpp" />
+    <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
+    <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
+    <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Sound\Music.cpp" />
+    <ClCompile Include="Sound\Sound.cpp" />
+    <ClCompile Include="Sound\SoundManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Actor\Actor.h" />
+    <ClInclude Include="Actor\ActorController.h" />
+    <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="General\Application.h" />
+    <ClInclude Include="General\Color.h" />
+    <ClInclude Include="General\Game.h" />
+    <ClInclude Include="General\Input.h" />
+    <ClInclude Include="Geometry\Geometry.h" />
+    <ClInclude Include="Geometry\Quaternion.h" />
+    <ClInclude Include="Geometry\Vector2.h" />
+    <ClInclude Include="Geometry\Vector3.h" />
+    <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneController.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Shape\Sphere.h" />
+    <ClInclude Include="Text\FontLoader.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\ButtonNoFocus.h" />
+    <ClInclude Include="UI\ButtonSystem.h" />
+    <ClInclude Include="UI\Image.h" />
+    <ClInclude Include="UI\ImageStore.h" />
+    <ClInclude Include="Utility\RangeLimitedValue.h" />
+    <ClInclude Include="Utility\Utility.h" />
+    <ClInclude Include="Effect\EffectManager.h" />
+    <ClInclude Include="Effect\EffekseerEffect.h" />
+    <ClInclude Include="Model\AnimationModel.h" />
+    <ClInclude Include="Physics\Collidable.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Rigid.h" />
+    <ClInclude Include="Physics\Collider\Collider3D.h" />
+    <ClInclude Include="Physics\Collider\CollisionChecker.h" />
+    <ClInclude Include="Physics\Collider\PolygonCollider.h" />
+    <ClInclude Include="Physics\Collider\SphereCollider.h" />
+    <ClInclude Include="Actor\ActorKind.h" />
+    <ClInclude Include="Sound\Music.h" />
+    <ClInclude Include="Sound\Sound.h" />
+    <ClInclude Include="Sound\SoundManager.h" />
+  </ItemGroup>
+</Project>

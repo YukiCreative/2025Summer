@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Effect\EffectManager.cpp" />
+    <ClCompile Include="Effect\EffekseerEffect.cpp" />
+    <ClCompile Include="General\Application.cpp" />
+    <ClCompile Include="General\Input.cpp" />
+    <ClCompile Include="Geometry\Geometry.cpp" />
+    <ClCompile Include="Geometry\Quaternion.cpp" />
+    <ClCompile Include="Geometry\Vector2.cpp" />
+    <ClCompile Include="Geometry\Vector3.cpp" />
+    <ClCompile Include="Main\main.cpp" />
+    <ClCompile Include="Model\AnimationModel.cpp" />
+    <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Physics\Collidable.cpp" />
+    <ClCompile Include="Physics\Collider\Collider3D.cpp" />
+    <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
+    <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
+    <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\Rigid.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SceneController.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Shape\Sphere.cpp" />
+    <ClCompile Include="Sound\Music.cpp" />
+    <ClCompile Include="Sound\Sound.cpp" />
+    <ClCompile Include="Sound\SoundManager.cpp" />
+    <ClCompile Include="Text\FontLoader.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\ButtonSystem.cpp" />
+    <ClCompile Include="UI\Image.cpp" />
+    <ClCompile Include="UI\ImageStore.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Actor\Actor.h" />
+    <ClInclude Include="Actor\ActorController.h" />
+    <ClInclude Include="Actor\ActorKind.h" />
+    <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Effect\EffectManager.h" />
+    <ClInclude Include="Effect\EffekseerEffect.h" />
+    <ClInclude Include="General\Application.h" />
+    <ClInclude Include="General\Color.h" />
+    <ClInclude Include="General\Game.h" />
+    <ClInclude Include="General\Input.h" />
+    <ClInclude Include="Geometry\Geometry.h" />
+    <ClInclude Include="Geometry\Quaternion.h" />
+    <ClInclude Include="Geometry\Vector2.h" />
+    <ClInclude Include="Geometry\Vector3.h" />
+    <ClInclude Include="Model\AnimationModel.h" />
+    <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="Physics\Collidable.h" />
+    <ClInclude Include="Physics\Collider\Collider3D.h" />
+    <ClInclude Include="Physics\Collider\CollisionChecker.h" />
+    <ClInclude Include="Physics\Collider\PolygonCollider.h" />
+    <ClInclude Include="Physics\Collider\SphereCollider.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Rigid.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneController.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Shape\Sphere.h" />
+    <ClInclude Include="Sound\Music.h" />
+    <ClInclude Include="Sound\Sound.h" />
+    <ClInclude Include="Sound\SoundManager.h" />
+    <ClInclude Include="Text\FontLoader.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\ButtonNoFocus.h" />
+    <ClInclude Include="UI\ButtonSystem.h" />
+    <ClInclude Include="UI\Image.h" />
+    <ClInclude Include="UI\ImageStore.h" />
+    <ClInclude Include="Utility\RangeLimitedValue.h" />
+    <ClInclude Include="Utility\Utility.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0f0d5bb6-c86d-4def-a73e-58b6fafd84c5}</ProjectGuid>
+    <RootNamespace>_2025Summer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
