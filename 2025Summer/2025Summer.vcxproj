@@ -195,7 +195,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>

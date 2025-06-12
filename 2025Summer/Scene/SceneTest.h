@@ -4,6 +4,7 @@
 #include <memory>
 
 class Camera;
+class ActorController;
 
 class SceneTest : public Scene
 {
@@ -19,6 +20,7 @@ public:
 
 private:
 	std::shared_ptr<Camera> m_camera;
+	std::shared_ptr<ActorController> m_actors;
 
 private:
 	void DrawGrid(const int xNum, const int zNum) const;

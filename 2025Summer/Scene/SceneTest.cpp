@@ -2,6 +2,8 @@
 #include <DxLib.h>
 #include "Camera.h"
 #include "Input.h"
+#include "ActorController.h"
+#include "Player.h"
 
 namespace
 {
@@ -17,15 +19,27 @@ void SceneTest::Init()
 {
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
+
+	m_actors = std::make_shared<ActorController>();
+	m_actors->Init();
+
+	auto player = std::make_shared<Player>();
+	player->Init();
+	m_actors->AddActor(player);
 }
 
 void SceneTest::Update()
 {
 	m_camera->Update();
+	m_actors->Update();
 }
 
 void SceneTest::Draw() const
 {
+	m_camera->Draw_Debug();
+
+	m_actors->Draw();
+
 	Input& input = Input::GetInstance();
 	const Vector2 left = input.GetLeftInputAxis();
 	const Vector2 right = input.GetRightInputAxis();

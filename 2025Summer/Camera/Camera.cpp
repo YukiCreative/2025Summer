@@ -15,11 +15,13 @@ namespace
 	// å©è„Ç∞ÇÁÇÍÇÈç≈ëÂíl
 	constexpr float kCameraVRotMinusThreshold = 1.0f;
 
-	const Vector3 kInitTargetToCamera = { 0, 300, -900 };
+	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, -5 }.GetNormalize();
+	constexpr float kInitCameraDistance = 300.0f;
 }
 
 Camera::Camera() :
-	m_targetToCamera(kInitTargetToCamera)
+	m_targetToCamera(kInitTargetToCamera),
+	m_targetDistance(kInitCameraDistance)
 {
 }
 
@@ -40,7 +42,7 @@ void Camera::Update()
 
 	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
 	// DxLibÇÃÉJÉÅÉâÇ…îΩâf
-	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera, m_lerpedTargetPos);
+	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_targetDistance, m_lerpedTargetPos);
 }
 
 void Camera::Draw_Debug() const

@@ -1,6 +1,11 @@
 #pragma once
 #include "Vector3.h"
 
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
 class Quaternion
 {
 private:
@@ -36,6 +41,9 @@ public:
 
 	// ‹t‰ñ“]
 	Quaternion Inverce() const;
+
+	// DxLib‚Ìs—ñ‚Ö‚Ì•ÏŠ·
+	DxLib::tagMATRIX ToMatrix() const;
 
 public:
 	float w, x, y, z;

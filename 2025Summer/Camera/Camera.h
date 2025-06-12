@@ -36,6 +36,8 @@ private:
 	Vector3 m_targetPos;
 	// 実際に見る位置
 	Vector3 m_lerpedTargetPos;
-	// 注視点から見たカメラの相対位置
+	// 注視点から見たカメラの向き
 	Vector3 m_targetToCamera;
+	// 注視点とカメラの距離
+	float m_targetDistance;
 };
