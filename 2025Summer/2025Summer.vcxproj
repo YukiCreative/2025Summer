@@ -40,6 +40,8 @@
     <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Physics\Rigid.cpp" />
+    <ClCompile Include="Actor\Player\Player.cpp" />
+    <ClCompile Include="Actor\Player\PlayerState.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneController.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
@@ -77,6 +79,8 @@
     <ClInclude Include="Physics\Collider\SphereCollider.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Physics\Rigid.h" />
+    <ClInclude Include="Actor\Player\Player.h" />
+    <ClInclude Include="Actor\Player\PlayerState.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneController.h" />
     <ClInclude Include="Scene\SceneTest.h" />
@@ -209,7 +213,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>

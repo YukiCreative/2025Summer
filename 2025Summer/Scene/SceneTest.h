@@ -19,4 +19,7 @@ public:
 
 private:
 	std::shared_ptr<Camera> m_camera;
+
+private:
+	void DrawGrid(const int xNum, const int zNum) const;
 };

@@ -43,6 +43,8 @@
     <ClCompile Include="Sound\Music.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
+    <ClCompile Include="Actor\Player\Player.cpp" />
+    <ClCompile Include="Actor\Player\PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -83,5 +85,7 @@
     <ClInclude Include="Sound\Music.h" />
     <ClInclude Include="Sound\Sound.h" />
     <ClInclude Include="Sound\SoundManager.h" />
+    <ClInclude Include="Actor\Player\Player.h" />
+    <ClInclude Include="Actor\Player\PlayerState.h" />
   </ItemGroup>
 </Project>

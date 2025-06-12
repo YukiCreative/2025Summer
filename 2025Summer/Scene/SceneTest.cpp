@@ -3,6 +3,12 @@
 #include "Camera.h"
 #include "Input.h"
 
+namespace
+{
+	constexpr float kLineOffset = 100;
+	constexpr float kLineLength = 500;
+}
+
 SceneTest::SceneTest()
 {
 }
@@ -15,6 +21,7 @@ void SceneTest::Init()
 
 void SceneTest::Update()
 {
+	m_camera->Update();
 }
 
 void SceneTest::Draw() const
@@ -29,6 +36,8 @@ void SceneTest::Draw() const
 	{
 		DrawString(0,30,"‰E‰Ÿ‚³‚ê‚Ä‚Ü‚·", 0xffffff);
 	}
+
+	DrawGrid(10,10);
 }
 
 void SceneTest::Entry()
@@ -37,4 +46,17 @@ void SceneTest::Entry()
 
 void SceneTest::Reave()
 {
+}
+
+void SceneTest::DrawGrid(const int xNum, const int zNum) const
+{
+	for (int x = 0; x < xNum; ++x)
+	{
+		DrawLine3D({ kLineOffset * x - (xNum * 0.5f) * kLineOffset, 0, -kLineLength }, { kLineOffset * x - (xNum * 0.5f) * kLineOffset, 0, kLineLength }, 0xffffff);
+	}
+
+	for (int z = 0; z < zNum; ++z)
+	{
+		DrawLine3D({ -kLineLength, 0, kLineOffset * z - (zNum * 0.5f) * kLineOffset }, { kLineLength, 0, kLineOffset * z - (zNum * 0.5f) * kLineOffset }, 0xffffff);
+	}
 }
