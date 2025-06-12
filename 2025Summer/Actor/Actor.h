@@ -24,7 +24,7 @@ public:
 	virtual void Draw() const abstract;
 
 	const Vector3&  GetPos()  const { return m_pos; }
-	bool        HasCollidable() const;
+	bool        CanCollide() const;
 	Collidable& GetCollidable() const;
 	bool        HasCol() const;
 	Collider3D& GetCol() const;

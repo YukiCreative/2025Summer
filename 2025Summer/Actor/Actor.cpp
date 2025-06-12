@@ -18,7 +18,7 @@ void Actor::ClearActorList()
 	m_spawnActorList.clear();
 }
 
-bool Actor::HasCollidable() const
+bool Actor::CanCollide() const
 {
 	return static_cast<bool>(m_collidable);
 }

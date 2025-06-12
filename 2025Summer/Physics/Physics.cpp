@@ -28,20 +28,19 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 	{
 		for (auto& actB : actorList)
 		{
-			if (!actA->HasCollidable() || !actB->HasCollidable() ||
-				!actA->HasCol       () || !actB->HasCol       () ||
-				!actA->HasRigid     () || !actB->HasRigid     ()) continue;
+			if (!actA->CanCollide() || !actB->CanCollide()) continue;
 
 			// 同一人物なら計算しない
 			if (actA == actB) continue;
 
 			Collidable& colA = actA->GetCollidable();
 			Collidable& colB = actB->GetCollidable();
-			const ColKind3D colKindA = colA.GetColKind();
-			const ColKind3D colKindB = colB.GetColKind();
 
 			// どちらも今フレームに動いていなければ当たっていない
 			if (colA.IsStop() && colB.IsStop()) continue;
+
+			const ColKind3D colKindA = colA.GetColKind();
+			const ColKind3D colKindB = colB.GetColKind();
 
 			// すり抜けるかどうか
 			const bool skipPushBack = colA.IsThrough() || colB.IsThrough();
@@ -95,7 +94,7 @@ void Physics::DrawColRange(std::list<std::shared_ptr<Actor>> actorList) const
 	// Colliderの描画関数を呼ぶ それだけ
 	for (auto& actor : actorList)
 	{
-		if (!actor->HasCollidable() || !actor->HasCol()) continue;
+		if (!actor->CanCollide() || !actor->HasCol()) continue;
 		actor->GetCol().Draw();
 	}
 }
@@ -105,7 +104,7 @@ void Physics::Gravity(std::list<std::shared_ptr<Actor>> actorList)
 	for (auto& actor : actorList)
 	{
 		// 持っていない可能性がある
-		if (!actor->HasCollidable() || !actor->HasRigid()) continue;
+		if (!actor->CanCollide() || !actor->HasRigid()) continue;
 
 		// staticのやつは動かさない
 		if (actor->GetCol().IsStatic()) continue;
