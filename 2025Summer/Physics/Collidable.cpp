@@ -12,6 +12,11 @@ void Collidable::Init(std::shared_ptr<Collider3D> col, std::shared_ptr<Rigid> ri
 	m_rigid = rigid;
 }
 
+Vector3 Collidable::UpdateRigid()
+{
+	return m_rigid->Update();
+}
+
 const Vector3 Collidable::GetVel() const
 {
 	return m_rigid->GetVel();
@@ -50,6 +55,11 @@ const Vector3 Collidable::GetPos() const
 const float Collidable::GetBounce() const
 {
 	return m_rigid->GetBounce();
+}
+
+void Collidable::AddVel(const Vector3& vel)
+{
+	m_rigid->AddVel(vel);
 }
 
 void Collidable::SetVel(const Vector3& vel)

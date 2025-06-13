@@ -1,5 +1,6 @@
 #include "Quaternion.h"
 #include <cmath>
+#include <DxLib.h>
 
 Quaternion::Quaternion()
 {
@@ -132,4 +133,21 @@ Quaternion Quaternion::operator/(const float right) const
 Quaternion Quaternion::Inverce() const
 {
 	return Quaternion(w, -x, -y, -z);
+}
+
+DxLib::tagMATRIX Quaternion::ToMatrix() const
+{
+	MATRIX result;
+
+	result.m[0][0] = 2 * w * w + 2 * x * x - 1;
+	result.m[0][1] = 2 * x * y - 2 * z * w;
+	result.m[0][2] = 2 * x * z + 2 * y * w;
+	result.m[1][0] = 2 * x * y + 2 * z * w;
+	result.m[1][1] = 2 * w * w + 2 * y * y - 1;
+	result.m[1][2] = 2 * y * z - 2 * x * w;
+	result.m[2][0] = 2 * x * z - 2 * y * w;
+	result.m[2][1] = 2 * y * z + 2 * x * w;
+	result.m[2][2] = 2 * w * w + 2 * z * z - 1;
+
+	return result;
 }

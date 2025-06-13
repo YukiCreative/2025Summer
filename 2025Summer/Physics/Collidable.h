@@ -16,6 +16,8 @@ public:
 	// ŠO‚Å¶¬‚µ‚Ä‚±‚ê‚É‚Ô‚¿‚Ş
 	void Init(std::shared_ptr<Collider3D> col, std::shared_ptr<Rigid> rigid);
 
+	Vector3 UpdateRigid();
+
 	// Collider,Rigid‚Ì•Ï”‚ğ‚»‚ê‚ç‚ğŒo—R‚¹‚¸‚Éæ“¾‚Å‚«‚é
 	const Vector3   GetVel()     const;
 	const ColKind3D GetColKind() const;
@@ -26,6 +28,7 @@ public:
 	const Vector3   GetPos()     const;
 	const float     GetBounce()  const;
 
+	void AddVel(const Vector3& vel);
 	void SetVel(const Vector3& vel);
 	void SetPos(const Vector3& pos);
 
