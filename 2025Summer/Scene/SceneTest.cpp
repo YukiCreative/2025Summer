@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "ActorController.h"
 #include "Player.h"
+#include "SceneDebug.h"
 
 namespace
 {

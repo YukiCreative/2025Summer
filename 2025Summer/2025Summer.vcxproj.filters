@@ -45,6 +45,11 @@
     <ClCompile Include="Sound\SoundManager.cpp" />
     <ClCompile Include="Actor\Player\Player.cpp" />
     <ClCompile Include="Actor\Player\PlayerState.cpp" />
+    <ClCompile Include="Scene\SceneDebug.cpp" />
+    <ClCompile Include="Scene\SceneTitle.cpp" />
+    <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Scene\SceneMenu.cpp" />
+    <ClCompile Include="Scene\SceneResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -87,5 +92,10 @@
     <ClInclude Include="Sound\SoundManager.h" />
     <ClInclude Include="Actor\Player\Player.h" />
     <ClInclude Include="Actor\Player\PlayerState.h" />
+    <ClInclude Include="Scene\SceneDebug.h" />
+    <ClInclude Include="Scene\SceneTitle.h" />
+    <ClInclude Include="Scene\SceneGame.h" />
+    <ClInclude Include="Scene\SceneMenu.h" />
+    <ClInclude Include="Scene\SceneResult.h" />
   </ItemGroup>
 </Project>

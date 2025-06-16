@@ -1,6 +1,7 @@
 #include "SceneController.h"
 #include "Scene.h"
-#include "SceneTest.h"
+//#include "SceneTest.h"
+#include "SceneDebug.h"
 #include <cassert>
 
 SceneController::SceneController()
@@ -15,7 +16,7 @@ SceneController& SceneController::GetInstance()
 
 void SceneController::Init()
 {
-	StackScene(std::make_shared<SceneTest>());
+	StackScene(std::make_shared<SceneDebug>());
 }
 
 void SceneController::Update()
