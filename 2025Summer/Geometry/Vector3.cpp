@@ -130,7 +130,7 @@ Vector3 Vector3::GetNormalize() const
 	return { x / mag, y / mag, z / mag };
 }
 
-void Vector3::Normaize()
+void Vector3::Normalize()
 {
 	const float mag = Magnitude();
 

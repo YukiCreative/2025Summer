@@ -89,13 +89,18 @@ void Input::Update()
 	GetHitKeyStateAll(m_keyInput.data());
 
 	// スティックの入力を取得
-	int leftX, leftY;
+	int dPadX = 0, dPadY = 0;
 	// キーボード、十字キーも取得
-	if (IsPressed("Up"))    leftY = -1000;
-	if (IsPressed("Down"))  leftY = 1000;
-	if (IsPressed("Right")) leftX = 1000;
-	if (IsPressed("Left"))  leftX = -1000;
-	GetJoypadAnalogInput(&leftX, &leftY, DX_INPUT_PAD1);
+	if (IsPressed("Up"))	dPadY += -1000;
+	if (IsPressed("Down"))  dPadY += 1000;
+	if (IsPressed("Right")) dPadX += 1000;
+	if (IsPressed("Left"))  dPadX += -1000;
+	int lStickX = 0, lStickY = 0;
+	GetJoypadAnalogInput(&lStickX, &lStickY, DX_INPUT_PAD1);
+	// 十字キーとアナログスティックの入力を両立するための処理
+	if (lStickX == 0)	lStickX = dPadX;
+	if (lStickY == 0)	lStickY = dPadY;
+
 	int rightX, rightY;
 	GetJoypadAnalogInputRight(&rightX, &rightY, DX_INPUT_PAD1);
 
@@ -106,7 +111,7 @@ void Input::Update()
 		rightInputAxis.Normalize();
 		rightInputAxis *= 1000;
 	}
-	Vector2 leftInputAxis(static_cast<float>(leftX), static_cast<float>(leftY));
+	Vector2 leftInputAxis(static_cast<float>(lStickX), static_cast<float>(lStickY));
 	if (leftInputAxis.SqrMagnitude() > 1000 * 1000)
 	{
 		leftInputAxis.Normalize();

@@ -10,7 +10,7 @@ class Player : public Actor
 public:
 	Player();
 
-	void Init();
+	void Init(const std::weak_ptr<Camera> camera);
 
 	void Update() override;
 	void Draw() const override;
@@ -21,5 +21,8 @@ private:
 
 	std::shared_ptr<AnimationModel> m_model;
 	std::weak_ptr<Camera> m_camera;
+
+private:
+	void Move();
 };
 

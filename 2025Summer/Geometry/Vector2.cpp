@@ -89,12 +89,18 @@ const Vector2 Vector2::Left()
 Vector2 Vector2::GetNormalize() const
 {
 	const float mag = Magnitude();
+
+	if (mag <= 0.000001f) return *this;
+
 	return { x / mag, y / mag };
 }
 
 void Vector2::Normalize()
 {
 	const float mag = Magnitude();
+
+	if (mag <= 0.000001f) return;
+
 	x /= mag;
 	y /= mag;
 }

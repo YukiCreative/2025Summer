@@ -48,7 +48,7 @@ public:
 	// ³‹K‰»‚µ‚½ƒRƒs[‚ğ•Ô‚·
 	Vector3 GetNormalize() const;
 	// ©•ª‚ğ³‹K‰»
-	void  Normaize();
+	void  Normalize();
 	float SqrMagnitude() const;
 	float Magnitude() const;
 	float Dot(const Vector3& other) const;

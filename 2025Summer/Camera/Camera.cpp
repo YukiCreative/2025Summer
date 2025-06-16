@@ -15,7 +15,7 @@ namespace
 	// å©è„Ç∞ÇÁÇÍÇÈç≈ëÂíl
 	constexpr float kCameraVRotMinusThreshold = 1.0f;
 
-	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, -5 }.GetNormalize();
+	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, 5 }.GetNormalize();
 	constexpr float kInitCameraDistance = 300.0f;
 }
 

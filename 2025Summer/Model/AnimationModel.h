@@ -45,6 +45,9 @@ public:
 	void SetMatrix(const DxLib::tagMATRIX& mat);
 	// 今のアニメーションを確かめるときに使う
 	const bool CheckAnimName(const std::string name);
+	// モデルの行列のZ基底ベクトルだったものを返す
+	// (つまりモデルの向きよ)
+	const Vector3 GetDirection();
 private:
 	std::shared_ptr<Model> m_model;
 

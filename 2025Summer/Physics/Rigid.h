@@ -6,16 +6,26 @@
 struct PhysicalMaterial
 {
 	// 0~1までのfloat型を宣言する
-	using Parameter = RangeLimitedValue<float, 0.0f, 1.0f>;
+	using PhysicalParameter = RangeLimitedValue<float, 0.0f, 1.0f>;
+
+	PhysicalMaterial(const float _groundDrag, const float _airDrag, const float _bounceFactor) :
+		groundDrag(_groundDrag),
+		airDrag(_airDrag),
+		bounceFactor(_bounceFactor)
+	{
+
+	}
+
+	PhysicalMaterial() = default;
 
 	// 速度の減衰に使う　地上の抵抗(摩擦)
 	// 値が大きいほど加速しにくい
-	Parameter groundDrag;
+	PhysicalParameter groundDrag;
 	// 空気抵抗
 	// 重力とかジャンプとか
-	Parameter airDrag;
+	PhysicalParameter airDrag;
 	// 反発係数っぽいやつ
-	Parameter bounceFactor;
+	PhysicalParameter bounceFactor;
 };
 
 // Actorの移動速度に関する処理

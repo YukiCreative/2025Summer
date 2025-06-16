@@ -5,6 +5,11 @@
 
 class Player;
 
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
 // DxLibにカメラが一つしか存在しないのでシングルトンでも良さげ？
 // せずに済むならそれが一番なのだが
 class Camera

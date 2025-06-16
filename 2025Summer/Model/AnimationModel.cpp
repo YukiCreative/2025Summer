@@ -59,6 +59,17 @@ const bool AnimationModel::CheckAnimName(const std::string name)
 	return  a == b;
 }
 
+const Vector3 AnimationModel::GetDirection()
+{
+	auto mat = m_model->GetMatrix();
+	return
+	{
+		mat.m[2][0],
+		mat.m[2][1],
+		mat.m[2][2],
+	};
+}
+
 AnimationModel::AnimationModel() :
 	m_animHandle(-1),
 	m_isPlaying(false),

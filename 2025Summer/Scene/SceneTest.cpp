@@ -24,7 +24,7 @@ void SceneTest::Init()
 	m_actors->Init();
 
 	auto player = std::make_shared<Player>();
-	player->Init();
+	player->Init(m_camera);
 	m_actors->AddActor(player);
 }
 
