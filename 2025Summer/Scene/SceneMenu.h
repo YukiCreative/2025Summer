@@ -2,6 +2,7 @@
 #include "Scene.h"
 class SceneMenu : public Scene
 {
+public:
 	SceneMenu();
 
 	virtual void Init();

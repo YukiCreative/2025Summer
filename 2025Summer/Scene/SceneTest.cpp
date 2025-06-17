@@ -5,6 +5,7 @@
 #include "ActorController.h"
 #include "Player.h"
 #include "SceneDebug.h"
+#include "SceneController.h"
 
 namespace
 {
@@ -37,11 +38,16 @@ void SceneTest::Update()
 
 void SceneTest::Draw() const
 {
+	Input& input = Input::GetInstance();
+	if (input.IsTrigger("GoDebug"))
+	{
+		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
+	}
+
 	m_camera->Draw_Debug();
 
 	m_actors->Draw();
 
-	Input& input = Input::GetInstance();
 	const Vector2 left = input.GetLeftInputAxis();
 	const Vector2 right = input.GetRightInputAxis();
 	DrawFormatString(0,0,0xffffff, "左スティック x:%f,y:%f",left.x, left.y);

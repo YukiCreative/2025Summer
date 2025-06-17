@@ -39,13 +39,20 @@ void SceneDebug::Update()
 		{
 		case 0:
 			SceneController::GetInstance().ChangeScene(std::make_shared<SceneTitle>());
+			break;
 		case 1:
 			SceneController::GetInstance().ChangeScene(std::make_shared<SceneMenu>());
+			break;
 		case 2:
 			SceneController::GetInstance().ChangeScene(std::make_shared<SceneGame>());
+			break;
 		case 3:
 			SceneController::GetInstance().ChangeScene(std::make_shared<SceneResult>());
+			break;
 		default:
+#if _DEBUG
+			printf("シーンがSwitch文に設定されてないよ");
+#endif
 			break;
 		}
 	}
@@ -65,6 +72,8 @@ void SceneDebug::Draw() const
 		DrawString(0, 15 + 15*i, str.c_str(), color);
 		++i;
 	}
+
+	DrawString(200, 0, "それぞれのシーンでF1キーを押したらデバッグシーンに戻ります", 0xffffff);
 }
 
 void SceneDebug::Entry()

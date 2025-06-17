@@ -3,6 +3,8 @@
 
 class SceneTitle : public Scene
 {
+public:
+
 	SceneTitle();
 
 	virtual void Init();

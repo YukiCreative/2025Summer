@@ -72,6 +72,11 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_RCONTROL}
 	};
+
+	m_inputEvent["GoDebug"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_F1}
+	};
 }
 
 void Input::Init()
