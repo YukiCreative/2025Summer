@@ -1,13 +1,18 @@
 #pragma once
 #include "Actor.h"
-#include "PlayerState.h"
 
 class AnimationModel;
 class Camera;
+class PlayerState;
 
+
+// アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
+// 悪用厳禁！
 class Player : public Actor
 {
 public:
+	// 外部から見てもいい関数
+
 	Player();
 
 	void Init(const std::weak_ptr<Camera> camera);
@@ -17,12 +22,15 @@ public:
 
 	void CommitMove() override;
 
-private:
-
+public:
+	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;
 	std::weak_ptr<Camera> m_camera;
+	std::shared_ptr<PlayerState> m_state;
 
-private:
+public:
+	// 自分かPlayerStateだけで見てほしい関数
 	void Move();
+	void CameraMove();
 };
 

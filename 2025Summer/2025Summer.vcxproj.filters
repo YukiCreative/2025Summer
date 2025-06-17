@@ -50,6 +50,8 @@
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Scene\SceneMenu.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
+    <ClCompile Include="Actor\Player\PlayerMove.cpp" />
+    <ClCompile Include="Actor\Player\PlayerIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -97,5 +99,7 @@
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneMenu.h" />
     <ClInclude Include="Scene\SceneResult.h" />
+    <ClInclude Include="Actor\Player\PlayerMove.h" />
+    <ClInclude Include="Actor\Player\PlayerIdle.h" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "SphereCollider.h"
 #include "Camera.h"
 #include <DxLib.h>
+#include "PlayerState.h"
 
 namespace
 {
@@ -44,14 +45,11 @@ void Player::Init(const std::weak_ptr<Camera> camera)
 
 void Player::Update()
 {
+	m_state->Update();
+
 	Move();
 
-	// ƒJƒƒ‰‚ð“®‚©‚·
-	Vector2 rightAxis = Input::GetInstance().GetRightInputAxis();
-	rightAxis.y *= -1;
-
-	m_camera.lock()->RotateCameraUpVecY(rightAxis.x * kCameraHSpeed);
-	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
+	CameraMove();
 
 	if (m_pos.y < 0)
 	{
@@ -60,6 +58,16 @@ void Player::Update()
 
 	m_camera.lock()->SetTargetPos(m_pos + kCameraTargetOffset);
 	m_model->SetPos(m_pos);
+}
+
+void Player::CameraMove()
+{
+	// ƒJƒƒ‰‚ð“®‚©‚·
+	Vector2 rightAxis = Input::GetInstance().GetRightInputAxis();
+	rightAxis.y *= -1;
+
+	m_camera.lock()->RotateCameraUpVecY(rightAxis.x * kCameraHSpeed);
+	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
 }
 
 void Player::Move()
