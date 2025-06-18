@@ -8,5 +8,9 @@ public:
 	~PlayerHovering();
 
 	std::shared_ptr<PlayerState> Update() override;
+
+private:
+
+	int m_frame;
 };
 

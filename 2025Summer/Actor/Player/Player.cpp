@@ -69,6 +69,16 @@ void Player::CameraMove()
 	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
 }
 
+float Player::DefaultGroundDrag()
+{
+	return kPhysiMat.groundDrag.Value();
+}
+
+float Player::DefaultAirDrag()
+{
+	return kPhysiMat.airDrag.Value();
+}
+
 void Player::Move(const float moveSpeed)
 {
 	// “ü—Í‚ÅˆÚ“®
@@ -88,7 +98,7 @@ void Player::Move(const float moveSpeed)
 	const float dot = dir.Dot(vel);
 
 	// ^”½‘Î‚ÉˆÚ“®‚µ‚æ‚¤‚Æ‚·‚é‚ÆA‹““®‚ªƒoƒO‚é‚Ì‚Å“Á•Ê‚Éˆ—
-	if (cross.y <= 0.0001f && dot <= -0.9999f)
+	if (cross.y <= 0.01f && dot <= -0.9999f)
 	{
 		// Œü‚«‚ğ–³—‚â‚è‰ñ“]‚³‚¹‚ÄƒoƒO‚ğ‘j~‚µ‚Æ‚±
 		// Œã‚©‚ç‚Å‚à‹}ù‰ñó‘ÔAì‚Á‚Ä‚¢‚¢‚ñ‚Å‚·‚æH
@@ -97,9 +107,11 @@ void Player::Move(const float moveSpeed)
 
 	m_model->RotateUpVecY(cross.y * 0.3f);
 
+	const float clampDot = max(dot, -0.1f);
+
 	// ©•ª‚ÌŒü‚«‚ÆˆÚ“®•ûŒü‚ª˜¨—£‚µ‚Ä‚¢‚é‚ÆAˆÚ“®—Ê‚ª”½“]‚·‚é
 	// U‚èŒü‚­Û‚Éˆêu”½‘Î•ûŒü‚ÉˆÚ“®‚·‚é‚İ‚½‚¢‚È
-	m_collidable->AddVel(vel * dot);
+	m_collidable->AddVel(vel * clampDot);
 }
 
 void Player::Draw() const

@@ -3,6 +3,7 @@
 #include "PlayerDash.h"
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
+#include "PlayerJump.h"
 
 namespace
 {
@@ -38,6 +39,10 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	if (m_moveFrame > kDashFrame)
 	{
 		return std::make_shared<PlayerDash>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
 	}
 
 	++m_moveFrame;

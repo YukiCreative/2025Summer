@@ -1,13 +1,15 @@
-#include "PlayerJump.h"
-#include "Player.h"
 #include "Input.h"
-#include "Rigid.h"
+#include "Player.h"
+#include "PlayerHovering.h"
+#include "PlayerJump.h"
 #include "PlayerLanding.h"
+#include "Rigid.h"
 
 namespace
 {
 	const Vector3 kJumpForce = {0, 50, 0};
-	constexpr float kJumpTopVel = 0.05f;
+	constexpr float kJumpTopVel = 5.0f;
+	constexpr float kJumpingMoveSpeed = 0.0005f;
 }
 
 PlayerJump::PlayerJump(std::weak_ptr<Player> parent) :
@@ -27,17 +29,12 @@ PlayerJump::~PlayerJump()
 std::shared_ptr<PlayerState> PlayerJump::Update()
 {
 	m_player.lock()->CameraMove();
+	m_player.lock()->Move(kJumpingMoveSpeed);
 
-	// 地面についたら着地モーションへ
-	// 当たり判定ができるまでは仮
-	if (m_player.lock()->GetPos().y < 0)
-	{
-		return std::make_shared<PlayerLanding>(m_player);
-	}
 	// ジャンプ最高点近くになったら、ちょっと滞空したい
 	if (m_player.lock()->GetRigid().GetVel().y < kJumpTopVel)
 	{
-		return std::make_shared<>
+		return std::make_shared<PlayerHovering>(m_player);
 	}
 
 	return shared_from_this();

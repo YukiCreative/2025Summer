@@ -57,6 +57,7 @@
     <ClCompile Include="Physics\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
     <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
+    <ClCompile Include="Actor\Player\PlayerFall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -111,5 +112,6 @@
     <ClInclude Include="Physics\Collider\CapsuleCollider.h" />
     <ClInclude Include="Actor\Player\PlayerLanding.h" />
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
+    <ClInclude Include="Actor\Player\PlayerFall.h" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "AnimationModel.h"
 #include "Input.h"
 #include "PlayerMove.h"
+#include "Rigid.h"
 
 namespace
 {
@@ -15,6 +16,9 @@ PlayerLanding::PlayerLanding(std::weak_ptr<Player> parent) :
 	m_landFrame(0)
 {
 	// モーションを再生
+
+
+	m_player.lock()->GetRigid().ChangeStateGround();
 }
 
 PlayerLanding::~PlayerLanding()
@@ -26,7 +30,7 @@ std::shared_ptr<PlayerState> PlayerLanding::Update()
 	// モーションが終わるまで継続
 	if (m_player.lock()->m_model->IsEnd())
 	{
-		return std::make_shared<PlayerIdle>(m_player);
+ 		return std::make_shared<PlayerIdle>(m_player);
 	}
 	// もしくは一定時間経過後、入力があったら遷移
 	++m_landFrame;

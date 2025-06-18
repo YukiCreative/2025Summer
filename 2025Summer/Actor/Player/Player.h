@@ -32,5 +32,7 @@ public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”
 	void Move(const float moveSpeed);
 	void CameraMove();
+	float DefaultGroundDrag();
+	float DefaultAirDrag();
 };
 

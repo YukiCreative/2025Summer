@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Actor\Player\PlayerFall.cpp" />
     <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
     <ClCompile Include="Actor\Player\PlayerIdle.cpp" />
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\ActorController.h" />
     <ClInclude Include="Actor\ActorKind.h" />
+    <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerIdle.h" />
     <ClInclude Include="Actor\Player\PlayerLanding.h" />

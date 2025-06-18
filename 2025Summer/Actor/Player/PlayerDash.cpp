@@ -1,8 +1,9 @@
-#include "PlayerDash.h"
 #include "Input.h"
-#include "PlayerMove.h"
-#include "PlayerIdle.h"
 #include "Player.h"
+#include "PlayerDash.h"
+#include "PlayerIdle.h"
+#include "PlayerJump.h"
+#include "PlayerMove.h"
 
 namespace
 {
@@ -28,6 +29,10 @@ std::shared_ptr<PlayerState> PlayerDash::Update()
 	if (input.GetLeftInputAxis().SqrMagnitude() < kMoveThreshold)
 	{
 		return std::make_shared<PlayerIdle>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
 	}
 
 	return shared_from_this();
