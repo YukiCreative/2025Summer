@@ -77,6 +77,11 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_F1}
 	};
+	m_inputEvent["Jump"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_SPACE},
+		{PeripheralType::kPad, kPadA}
+	};
 }
 
 void Input::Init()

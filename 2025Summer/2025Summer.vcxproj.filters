@@ -52,6 +52,11 @@
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Actor\Player\PlayerMove.cpp" />
     <ClCompile Include="Actor\Player\PlayerIdle.cpp" />
+    <ClCompile Include="Actor\Player\PlayerDash.cpp" />
+    <ClCompile Include="Actor\Player\PlayerJump.cpp" />
+    <ClCompile Include="Physics\Collider\CapsuleCollider.cpp" />
+    <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
+    <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -101,5 +106,10 @@
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Actor\Player\PlayerMove.h" />
     <ClInclude Include="Actor\Player\PlayerIdle.h" />
+    <ClInclude Include="Actor\Player\PlayerDash.h" />
+    <ClInclude Include="Actor\Player\PlayerJump.h" />
+    <ClInclude Include="Physics\Collider\CapsuleCollider.h" />
+    <ClInclude Include="Actor\Player\PlayerLanding.h" />
+    <ClInclude Include="Actor\Player\PlayerHovering.h" />
   </ItemGroup>
 </Project>

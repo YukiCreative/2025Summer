@@ -6,6 +6,7 @@
 #include "SceneMenu.h"
 #include "SceneGame.h"
 #include "SceneResult.h"
+#include "SceneTest.h"
 
 SceneDebug::SceneDebug() : 
 	m_selectNum(0)
@@ -19,6 +20,7 @@ void SceneDebug::Init()
 	m_menuList.emplace_back("Menu");
 	m_menuList.emplace_back("Game");
 	m_menuList.emplace_back("Result");
+	m_menuList.emplace_back("Test");
 }
 
 void SceneDebug::Update()
@@ -48,6 +50,9 @@ void SceneDebug::Update()
 			break;
 		case 3:
 			SceneController::GetInstance().ChangeScene(std::make_shared<SceneResult>());
+			break;
+		case 4:
+			SceneController::GetInstance().ChangeScene(std::make_shared<SceneTest>());
 			break;
 		default:
 #if _DEBUG

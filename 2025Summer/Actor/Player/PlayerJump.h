@@ -1,10 +1,10 @@
 #pragma once
 #include "PlayerState.h"
-class PlayerIdle : public PlayerState
+class PlayerJump : public PlayerState
 {
 public:
-	PlayerIdle(std::weak_ptr<Player> parent);
-	~PlayerIdle();
+	PlayerJump(std::weak_ptr<Player> parent);
+	~PlayerJump();
 
 	std::shared_ptr<PlayerState> Update() override;
 };

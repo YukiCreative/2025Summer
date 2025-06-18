@@ -18,7 +18,7 @@ public:
 	void Init(const Vector3& initPos, const int weight, const bool isThrough, const bool isStatic, const int handle, const bool useTransform);
 
 	// DxLibの参照メッシュの更新
-	// 当たり判定する時にでも呼んでくれ
+	// 当たり判定する時に呼んでくれ
 	void RefreshRefMesh();
 	void Draw() const override;
 

@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include "Vector3.h"
+#include "RangeLimitedValue.h"
 
 class Model;
 
@@ -51,7 +52,13 @@ public:
 private:
 	std::shared_ptr<Model> m_model;
 
-	int m_animHandle;
+	int m_beforeAnimHandle;
+	int m_nowAnimHandle;
+
+	using BlendRate_t = RangeLimitedValue<float, 0.0f, 1.0f>;
+	BlendRate_t m_blendRate;
+
+	float m_animBlendSpeed;
 	float m_playTime;
 	float m_playSpeed;
 	bool m_isPlaying;

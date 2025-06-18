@@ -44,7 +44,7 @@ void SceneTest::Draw() const
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
 	}
 
-	m_camera->Draw_Debug();
+	//m_camera->Draw_Debug();
 
 	m_actors->Draw();
 

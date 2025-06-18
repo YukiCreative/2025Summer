@@ -8,7 +8,7 @@ class PlayerState;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
-class Player : public Actor
+class Player : public Actor, public std::enable_shared_from_this<Player>
 {
 public:
 	// 外部から見てもいい関数
@@ -30,7 +30,7 @@ public:
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
-	void Move();
+	void Move(const float moveSpeed);
 	void CameraMove();
 };
 

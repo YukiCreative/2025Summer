@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include <DxLib.h>
 #include "PlayerState.h"
+#include "PlayerIdle.h"
 
 namespace
 {
@@ -17,8 +18,6 @@ namespace
 
 	const Vector3 kCameraTargetOffset = { 0, 200, 0 };
 
-	constexpr float kRunSpeed    = 0.001f;
-	constexpr float kDashSpeed   = 0.002f;
 	constexpr float kCameraHSpeed = 0.0001f;
 	constexpr float kCameraVSpeed = 0.0001f;
 }
@@ -41,15 +40,15 @@ void Player::Init(const std::weak_ptr<Camera> camera)
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
+
+	m_state = std::make_shared<PlayerIdle>(weak_from_this());
 }
 
 void Player::Update()
 {
-	m_state->Update();
-
-	Move();
-
-	CameraMove();
+	// 状態を更新
+	// 切り替わったら違うインスタンスが入ってくる
+	m_state = m_state->Update();
 
 	if (m_pos.y < 0)
 	{
@@ -70,14 +69,14 @@ void Player::CameraMove()
 	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
 }
 
-void Player::Move()
+void Player::Move(const float moveSpeed)
 {
 	// 入力で移動
 	Vector2 inputAxis = Input::GetInstance().GetLeftInputAxis();
 	inputAxis.x *= -1;		// 左右(もしくは上下)が反転しているので直す
 	// アナログ入力を生かしたいので正規化はしない
 
-	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } *kRunSpeed;
+	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } * moveSpeed;
 	// 移動量をカメラの向きに補正
 	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
 

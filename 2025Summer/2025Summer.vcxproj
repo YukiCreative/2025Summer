@@ -21,7 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
     <ClCompile Include="Actor\Player\PlayerIdle.cpp" />
+    <ClCompile Include="Actor\Player\PlayerJump.cpp" />
+    <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
@@ -35,6 +38,7 @@
     <ClCompile Include="Model\AnimationModel.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Physics\Collidable.cpp" />
+    <ClCompile Include="Physics\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Physics\Collider\Collider3D.cpp" />
     <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
     <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
@@ -44,6 +48,7 @@
     <ClCompile Include="Actor\Player\Player.cpp" />
     <ClCompile Include="Actor\Player\PlayerState.cpp" />
     <ClCompile Include="Actor\Player\PlayerMove.cpp" />
+    <ClCompile Include="Actor\Player\PlayerDash.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneMenu.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
@@ -66,7 +71,9 @@
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\ActorController.h" />
     <ClInclude Include="Actor\ActorKind.h" />
+    <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerIdle.h" />
+    <ClInclude Include="Actor\Player\PlayerLanding.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />
@@ -81,6 +88,7 @@
     <ClInclude Include="Model\AnimationModel.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Physics\Collidable.h" />
+    <ClInclude Include="Physics\Collider\CapsuleCollider.h" />
     <ClInclude Include="Physics\Collider\Collider3D.h" />
     <ClInclude Include="Physics\Collider\CollisionChecker.h" />
     <ClInclude Include="Physics\Collider\PolygonCollider.h" />
@@ -90,6 +98,8 @@
     <ClInclude Include="Actor\Player\Player.h" />
     <ClInclude Include="Actor\Player\PlayerState.h" />
     <ClInclude Include="Actor\Player\PlayerMove.h" />
+    <ClInclude Include="Actor\Player\PlayerDash.h" />
+    <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneMenu.h" />
     <ClInclude Include="Scene\SceneGame.h" />

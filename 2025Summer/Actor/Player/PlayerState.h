@@ -3,6 +3,12 @@
 
 class Player;
 
+// PlayerStateで共有したい定数はここに入れよう
+namespace
+{
+	constexpr float kMoveThreshold = 0.001f;
+}
+
 // プレイヤーの状態をクラスに分ける
 class PlayerState abstract : public std::enable_shared_from_this<PlayerState>
 {
