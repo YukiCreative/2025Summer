@@ -27,6 +27,7 @@ public:
 	std::shared_ptr<AnimationModel> m_model;
 	std::weak_ptr<Camera> m_camera;
 	std::shared_ptr<PlayerState> m_state;
+	Vector3 m_targetPos;
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”

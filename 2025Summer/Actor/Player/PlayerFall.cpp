@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "PlayerLanding.h"
 #include "Rigid.h"
+#include "Camera.h"
 
 namespace
 {
@@ -28,6 +29,10 @@ std::shared_ptr<PlayerState> PlayerFall::Update()
 	// ˆÚ“®
 	m_player.lock()->Move(kFallingMoveSpeed);
 	m_player.lock()->CameraMove();
+
+	MoveCameraTargetIgnoreY(0.01f);
+
+	m_player.lock()->m_camera.lock()->SetTargetPos({0,0,0});
 
 	if (m_player.lock()->GetPos().y < 0)
 	{

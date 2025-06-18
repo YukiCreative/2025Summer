@@ -7,7 +7,7 @@
 
 namespace
 {
-	const Vector3 kJumpForce = {0, 50, 0};
+	const Vector3 kJumpForce = {0, 40, 0};
 	constexpr float kJumpTopVel = 5.0f;
 	constexpr float kJumpingMoveSpeed = 0.0005f;
 }
@@ -30,6 +30,8 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
 {
 	m_player.lock()->CameraMove();
 	m_player.lock()->Move(kJumpingMoveSpeed);
+
+	MoveCameraTargetIgnoreY(0.01f);
 
 	// ジャンプ最高点近くになったら、ちょっと滞空したい
 	if (m_player.lock()->GetRigid().GetVel().y < kJumpTopVel)

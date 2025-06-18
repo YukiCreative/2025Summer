@@ -35,6 +35,7 @@ public:
 	// 第二引数に入れられた座標軸をカメラの奥行として設定する
 	// 例：vec2={0,0,1} → z+方向がカメラの奥行になる
 	Vector3 RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2);
+	void SetTargetFoV(const float deg);
 
 private:
 	// どこに向くか
@@ -45,4 +46,7 @@ private:
 	Vector3 m_targetToCamera;
 	// 注視点とカメラの距離
 	float m_targetDistance;
+	// 視野角を滑らかに変化させたい
+	float m_FoV;
+	float m_targetFoV;
 };

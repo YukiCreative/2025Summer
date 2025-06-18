@@ -9,19 +9,22 @@ namespace
 	constexpr float kInitCameraFar = 10000;
 	constexpr float kCameraRotateSensitivity = 1.0f;
 	constexpr float kLerpStrength = 0.1f;
-	constexpr float kFovDegrees = 80.0f * Geometry::kDegToRad;
+	constexpr float kInitFovDegrees = 80.0f * Geometry::kDegToRad;
+	constexpr float kChangeFoVSpeed = 0.1f;
 	// å©â∫ÇÎÇπÇÈç≈ëÂíl
 	constexpr float kCameraVRotPlusThreshold = 0.3f;
 	// å©è„Ç∞ÇÁÇÍÇÈç≈ëÂíl
 	constexpr float kCameraVRotMinusThreshold = 1.0f;
 
 	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, 5 }.GetNormalize();
-	constexpr float kInitCameraDistance = 300.0f;
+	constexpr float kInitCameraDistance = 400.0f;
 }
 
 Camera::Camera() :
 	m_targetToCamera(kInitTargetToCamera),
-	m_targetDistance(kInitCameraDistance)
+	m_targetDistance(kInitCameraDistance),
+	m_targetFoV(kInitFovDegrees),
+	m_FoV(kInitFovDegrees)
 {
 }
 
@@ -32,7 +35,7 @@ Camera::~Camera()
 void Camera::Init()
 {
 	SetCameraNearFar(kInitCameraNear, kInitCameraFar);
-	SetupCamera_Perspective(kFovDegrees);
+	SetupCamera_Perspective(m_targetFoV);
 }
 
 void Camera::Update()
@@ -43,6 +46,9 @@ void Camera::Update()
 	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
 	// DxLibÇÃÉJÉÅÉâÇ…îΩâf
 	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_targetDistance, m_lerpedTargetPos);
+
+	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
+	SetupCamera_Perspective(m_FoV);
 }
 
 void Camera::Draw_Debug() const
@@ -107,4 +113,9 @@ Vector3 Camera::RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2)
 {
 	const MATRIX camMat = MGetRotVec2(vec2, GetCameraDirXZ());
 	return VTransformSR(vec, camMat);
+}
+
+void Camera::SetTargetFoV(const float deg)
+{
+	m_targetFoV = deg * Geometry::kDegToRad;
 }

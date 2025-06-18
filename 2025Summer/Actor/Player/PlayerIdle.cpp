@@ -23,6 +23,7 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	// ‰½‚à‚µ‚È‚¢
 	Input& input = Input::GetInstance();
 
+	MoveCameraTarget();
 	m_player.lock()->CameraMove();
 
 	// “ü—Í‚ª‚ ‚Á‚½‚ç

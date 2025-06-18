@@ -30,6 +30,8 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	m_player.lock()->Move(kRunSpeed);
 	m_player.lock()->CameraMove();
 
+	MoveCameraTarget();
+
 	// “ü—Í‚ªØ‚ê‚½‚ç‘Ò‹@ó‘Ô‚Ö
 	if (input.GetLeftInputAxis().SqrMagnitude() < kMoveThreshold)
 	{

@@ -25,6 +25,9 @@ PlayerHovering::~PlayerHovering()
 std::shared_ptr<PlayerState> PlayerHovering::Update()
 {
 	// ˆê’èŽžŠÔ‘Ò‚Â
+	m_player.lock()->CameraMove();
+
+	MoveCameraTargetIgnoreY();
 
 	if (m_frame > kHoveringTime)
 	{

@@ -27,6 +27,9 @@ PlayerLanding::~PlayerLanding()
 
 std::shared_ptr<PlayerState> PlayerLanding::Update()
 {
+	m_player.lock()->CameraMove();
+	MoveCameraTarget();
+
 	// ƒ‚[ƒVƒ‡ƒ“‚ªI‚í‚é‚Ü‚ÅŒp‘±
 	if (m_player.lock()->m_model->IsEnd())
 	{

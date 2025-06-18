@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Vector3.h"
 
 class Player;
 
@@ -7,6 +8,7 @@ class Player;
 namespace
 {
 	constexpr float kMoveThreshold = 0.001f;
+	const Vector3 kCameraTargetOffset = { 0,200,0 };
 }
 
 // プレイヤーの状態をクラスに分ける
@@ -20,6 +22,10 @@ public:
 	// 遷移したとき、遷移した状態を返す
 	// そうでないときは自分を返す
 	virtual std::shared_ptr<PlayerState> Update() abstract;
+
+	void MoveCameraTarget();
+	// どれくらいの割合含むかを設定できます
+	void MoveCameraTargetIgnoreY(const float includeRatio = 0.0f);
 
 protected:
 	std::weak_ptr<Player> m_player;

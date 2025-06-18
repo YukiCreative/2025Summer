@@ -4,24 +4,31 @@
 #include "PlayerIdle.h"
 #include "PlayerJump.h"
 #include "PlayerMove.h"
+#include "Camera.h"
 
 namespace
 {
 	constexpr float kDashSpeed = 0.0015f;
+	constexpr float kDashFoV = 100;
+	constexpr float kDefaultFoV = 80;
 }
 
 PlayerDash::PlayerDash(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
+	m_player.lock()->m_camera.lock()->SetTargetFoV(kDashFoV);
 }
 
 PlayerDash::~PlayerDash()
 {
+	m_player.lock()->m_camera.lock()->SetTargetFoV(kDefaultFoV);
 }
 
 std::shared_ptr<PlayerState> PlayerDash::Update()
 {
 	Input& input = Input::GetInstance();
+
+	MoveCameraTarget();
 
 	m_player.lock()->Move(kDashSpeed);
 	m_player.lock()->CameraMove();

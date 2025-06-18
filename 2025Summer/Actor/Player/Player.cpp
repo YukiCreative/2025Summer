@@ -16,13 +16,12 @@ namespace
 		0.1f, 0.05f, 0.1f
 	};
 
-	const Vector3 kCameraTargetOffset = { 0, 200, 0 };
-
 	constexpr float kCameraHSpeed = 0.0001f;
 	constexpr float kCameraVSpeed = 0.0001f;
 }
 
-Player::Player()
+Player::Player() :
+	m_targetPos()
 {
 }
 
@@ -55,7 +54,7 @@ void Player::Update()
 		m_pos.y = 0;
 	}
 
-	m_camera.lock()->SetTargetPos(m_pos + kCameraTargetOffset);
+	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
 }
 
