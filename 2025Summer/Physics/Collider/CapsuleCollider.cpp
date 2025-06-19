@@ -51,6 +51,11 @@ const Vector3 CapsuleCollider::EndPos() const
 	return m_end;
 }
 
+const Vector3 CapsuleCollider::Direction() const
+{
+	return (m_end - m_start).GetNormalize();
+}
+
 Vector3 CapsuleCollider::MiddlePoint() const
 {
 	return (m_start + m_end) * 0.5f;

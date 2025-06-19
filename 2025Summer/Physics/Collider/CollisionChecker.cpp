@@ -5,6 +5,7 @@
 #include "Rigid.h"
 //#include "Collider3D.h"
 #include <array>
+#include "CapsuleCollider.h"
 
 bool CollisionChecker::CheckHitSS(const Collidable& colA, const Collidable& colB, float& time)
 {
@@ -187,7 +188,21 @@ void CollisionChecker::FixMoveSP(Collidable& _sphereCol, Collidable& _polygonCol
 
 bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol, float& time)
 {
-	auto& sphereCol = 
+	auto& sphereCol = static_cast<SphereCollider&>(sCol.GetCol());
+	auto& capsuleCol = static_cast<CapsuleCollider&>(cCol.GetCol());
+
+	// 球の中心とカプセル線分との最近接点を出す
+
+	const Vector3 startToSphere = sphereCol.GetPos() - capsuleCol.StartPos();
+	const Vector3 capsuleDir = capsuleCol.Direction();
+
+	const float projection = startToSphere.Dot(capsuleDir);
+
+	// 
+
+	const Vector3 nearestPosOnLine = capsuleCol.StartPos() + capsuleDir * projection;
+
+
 
 	return 
 }

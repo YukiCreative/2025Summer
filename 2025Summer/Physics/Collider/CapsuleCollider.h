@@ -14,6 +14,8 @@ public:
 
 	const Vector3 StartPos() const;
 	const Vector3 EndPos() const;
+	// start→endの単位ベクトル
+	const Vector3 Direction() const;
 
 private:
 
