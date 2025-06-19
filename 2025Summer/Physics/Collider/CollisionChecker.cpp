@@ -185,6 +185,13 @@ void CollisionChecker::FixMoveSP(Collidable& _sphereCol, Collidable& _polygonCol
 	_sphereCol.GetRigid().SetVel(_sphereCol.GetVel() * (hitData.time - 1));
 }
 
+bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol, float& time)
+{
+	auto& sphereCol = 
+
+	return 
+}
+
 // ===============================================
 
 PolyHitData::PolyHitData() :

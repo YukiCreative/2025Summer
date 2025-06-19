@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "SceneController.h"
 #include <DxLib.h>
+#include "EffectManager.h"
 
 #if _DEBUG
 namespace
@@ -54,8 +55,10 @@ void Application::Run() const
 {
 	SceneController& scenes = SceneController::GetInstance();
 	Input& input = Input::GetInstance();
+	EffectManager& effect = EffectManager::GetInstance();
 	scenes.Init();
 	input.Init();
+	effect.Init();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (ProcessMessage() == 0)
@@ -71,6 +74,9 @@ void Application::Run() const
 		// ‚±‚±‚ÉƒQ[ƒ€‚Ìˆ—‚ğ‘‚­
 		scenes.Update();
 		scenes.Draw();
+
+		effect.Update();
+		effect.Draw();
 
 		// •`‰æ‚µ‚½— ‰æ–Ê‚ğ”½‰f
 		ScreenFlip();

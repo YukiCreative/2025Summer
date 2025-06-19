@@ -9,7 +9,7 @@ enum class ColKind3D
 	kSphere,
 	kBox,
 	kPolygon,
-	// カプセルの当たり判定は、必要になったら作れ
+	kCapsule,
 };
 
 // 当たり判定クラス
@@ -25,7 +25,7 @@ public:
 	virtual void Draw() const abstract;
 
 	const ColKind3D GetColKind() const { return m_colKind; }
-	void SetPos(const Vector3& pos);
+	virtual void SetPos(const Vector3& pos);
 	const Vector3& GetPos() const { return m_pos; }
 	const int  GetWeight() const { return m_weight; }
 	const bool IsThrough() const { return m_isThrough; }

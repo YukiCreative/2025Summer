@@ -61,4 +61,7 @@ private:
 	/// <returns>“–‚½‚Á‚½‚©‚Ç‚¤‚©</returns>
 	static bool CheckHitSP(const Collidable& sCol, const Collidable& pCol, PolyHitData& hit);
 	static void FixMoveSP(Collidable& sphereCol, Collidable& polygonCol, const PolyHitData& hitData);
+
+	// ƒJƒvƒZƒ‹x‹…
+	static bool CheckHitCS(const Collidable& cCol, const Collidable& sCol, float& time);
 };
