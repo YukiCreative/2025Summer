@@ -49,6 +49,9 @@ public:
 	// モデルの行列のZ基底ベクトルだったものを返す
 	// (つまりモデルの向きよ)
 	const Vector3 GetDirection();
+	// 0～1
+	void SetAnimBlendSpeed(const float speed) { m_animBlendSpeed = speed; }
+
 private:
 	std::shared_ptr<Model> m_model;
 

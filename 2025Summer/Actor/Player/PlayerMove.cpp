@@ -4,18 +4,22 @@
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
 #include "PlayerJump.h"
+#include "AnimationModel.h"
 
 namespace
 {
 	constexpr float kRunSpeed = 0.001f;
 	constexpr int   kDashFrame = 120;
+
+	const std::string kMoveAnimName = "Armature|Jog";
 }
 
 PlayerMove::PlayerMove(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_moveFrame(0)
 {
-
+	// アニメーションを遷移
+	m_player.lock()->m_model->ChangeAnimation(kMoveAnimName);
 }
 
 PlayerMove::~PlayerMove()

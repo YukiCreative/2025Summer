@@ -33,7 +33,6 @@ private:
 	// CheckHit〇〇系
 	// Colliderの種類に応じた当たり判定の処理
 	// 当たったかどうかを返す　そのほかに返したいデータがあったら参照を要求する
-	// これらすべての関数で、そのフレームの移動量を加味して判定する
 
 	// FixMove〇〇系
 	// 実際に当たる瞬間(当たらなくなる位置)まで移動させ、
@@ -63,5 +62,7 @@ private:
 	static void FixMoveSP(Collidable& sphereCol, Collidable& polygonCol, const PolyHitData& hitData);
 
 	// カプセルx球
-	static bool CheckHitCS(const Collidable& cCol, const Collidable& sCol, float& time);
+	// 貫通は検知できません
+	static bool CheckHitCS(const Collidable& cCol, const Collidable& sCol);
+	static void FixMoveCS(Collidable& cCol, Collidable& sCol);
 };

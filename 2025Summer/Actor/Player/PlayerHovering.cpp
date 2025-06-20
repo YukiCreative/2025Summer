@@ -2,11 +2,13 @@
 #include "Player.h"
 #include "Rigid.h"
 #include "PlayerFall.h"
+#include "AnimationModel.h"
 
 namespace
 {
 	constexpr float kHoveringDrag = 0.0f;
 	constexpr int   kHoveringTime = 20;
+	const std::string kAnimName = "Armature|FrontFlip";
 }
 
 PlayerHovering::PlayerHovering(std::weak_ptr<Player> parent) :
@@ -15,6 +17,7 @@ PlayerHovering::PlayerHovering(std::weak_ptr<Player> parent) :
 {
 	// ‚±‚Ìó‘Ô‘JˆÚŽž‚ÉA‹ó’†‚Ì‹ó‹C’ïR‚ðŒ¸‚ç‚·
 	m_player.lock()->GetRigid().SetAirDrag(kHoveringDrag);
+	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
 }
 
 PlayerHovering::~PlayerHovering()

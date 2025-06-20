@@ -20,6 +20,8 @@ public:
 	void Update() override;
 	void Draw() const override;
 
+	void OnCollision(std::shared_ptr<Actor> other) override;
+
 	void CommitMove() override;
 
 public:
@@ -28,6 +30,7 @@ public:
 	std::weak_ptr<Camera> m_camera;
 	std::shared_ptr<PlayerState> m_state;
 	Vector3 m_targetPos;
+	bool m_isLockOn;
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”

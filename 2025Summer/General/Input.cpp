@@ -46,22 +46,22 @@ void Input::SetKeyDefault()
 	};
 	m_inputEvent["Up"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_UP},
+		{PeripheralType::kKeyboard, KEY_INPUT_W},
 		{PeripheralType::kPad, PAD_INPUT_UP},
 	};
 	m_inputEvent["Down"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_DOWN},
+		{PeripheralType::kKeyboard, KEY_INPUT_S},
 		{PeripheralType::kPad, PAD_INPUT_DOWN},
 	};
 	m_inputEvent["Right"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_RIGHT},
+		{PeripheralType::kKeyboard, KEY_INPUT_D},
 		{PeripheralType::kPad, PAD_INPUT_RIGHT},
 	};
 	m_inputEvent["Left"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_LEFT},
+		{PeripheralType::kKeyboard, KEY_INPUT_A},
 		{PeripheralType::kPad, PAD_INPUT_LEFT},
 	};
 	m_inputEvent["Rise"] =
@@ -81,6 +81,27 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_SPACE},
 		{PeripheralType::kPad, kPadA}
+	};
+	m_inputEvent["CameraUp"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_I}
+	};
+	m_inputEvent["CameraLeft"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_J}
+	};
+	m_inputEvent["CameraDown"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_K}
+	};
+	m_inputEvent["CameraRight"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_L}
+	};
+	m_inputEvent["LockOn"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_LSHIFT},
+		{PeripheralType::kPad, kPadR},
 	};
 }
 
@@ -111,8 +132,17 @@ void Input::Update()
 	if (lStickX == 0)	lStickX = dPadX;
 	if (lStickY == 0)	lStickY = dPadY;
 
+	// 右スティックをキーボードで代替する入力を取得
+	int rKeyX = 0, rKeyY = 0;
+	if (IsPressed("CameraUp"))	  rKeyY += -1000;
+	if (IsPressed("CameraDown"))  rKeyY += 1000;
+	if (IsPressed("CameraRight")) rKeyX += 1000;
+	if (IsPressed("CameraLeft"))  rKeyX += -1000;
+
 	int rightX, rightY;
 	GetJoypadAnalogInputRight(&rightX, &rightY, DX_INPUT_PAD1);
+	if (rightX == 0)	rightX = rKeyX;
+	if (rightY == 0)	rightY = rKeyY;
 
 	// アナログ入力の大きさを1000までに制限する
 	Vector2 rightInputAxis(static_cast<float>(rightX), static_cast<float>(rightY));

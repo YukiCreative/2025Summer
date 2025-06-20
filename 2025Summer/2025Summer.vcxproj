@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyTest.cpp" />
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
     <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
     <ClCompile Include="Actor\Player\PlayerIdle.cpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\ActorController.h" />
     <ClInclude Include="Actor\ActorKind.h" />
+    <ClInclude Include="Actor\Enemy\EnemyTest.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerIdle.h" />
@@ -185,7 +187,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -194,6 +196,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput>$(OutDir)%(Filename).cso;%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -203,7 +209,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -214,6 +220,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput>$(OutDir)%(Filename).cso;%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -221,7 +231,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -230,6 +240,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput>$(OutDir)%(Filename).cso;%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -239,7 +253,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -250,6 +264,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput>$(OutDir)%(Filename).cso;%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

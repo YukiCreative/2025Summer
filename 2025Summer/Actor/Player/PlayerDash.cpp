@@ -5,9 +5,11 @@
 #include "PlayerJump.h"
 #include "PlayerMove.h"
 #include "Camera.h"
+#include "AnimationModel.h"
 
 namespace
 {
+	const std::string kAnimName = "Armature|Dash";
 	constexpr float kDashSpeed = 0.0015f;
 	constexpr float kDashFoV = 100;
 	constexpr float kDefaultFoV = 80;
@@ -16,7 +18,9 @@ namespace
 PlayerDash::PlayerDash(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
+	// Ž‹–ìŠp‚ðL‚°‚é
 	m_player.lock()->m_camera.lock()->SetTargetFoV(kDashFoV);
+	m_player.lock()->m_model->ChangeAnimation(kAnimName);
 }
 
 PlayerDash::~PlayerDash()

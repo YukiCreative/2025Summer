@@ -4,6 +4,8 @@
 #include "SceneController.h"
 #include <DxLib.h>
 #include "EffectManager.h"
+#include <EffekseerForDXLib.h>
+#include "SoundManager.h"
 
 #if _DEBUG
 namespace
@@ -56,9 +58,11 @@ void Application::Run() const
 	SceneController& scenes = SceneController::GetInstance();
 	Input& input = Input::GetInstance();
 	EffectManager& effect = EffectManager::GetInstance();
+	SoundManager& sound = SoundManager::GetInstance();
 	scenes.Init();
 	input.Init();
 	effect.Init();
+	sound.Init();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (ProcessMessage() == 0)
@@ -78,6 +82,8 @@ void Application::Run() const
 		effect.Update();
 		effect.Draw();
 
+		sound.Update();
+
 		// •`‰æ‚µ‚½— ‰æ–Ê‚ğ”½‰f
 		ScreenFlip();
 
@@ -91,6 +97,9 @@ void Application::Run() const
 
 void Application::Tarminate() const
 {
+	// Effekseer‚Ì‚ ‚Æ‚µ‚Ü‚Â
+	Effkseer_End();
+
 	// DxLib‚ÌI—¹ˆ—
 	DxLib_End();
 

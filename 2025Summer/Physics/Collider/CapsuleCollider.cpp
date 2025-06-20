@@ -29,8 +29,8 @@ void CapsuleCollider::SetPos(const Vector3& pos)
 	const Vector3 diff = pos - m_pos;
 
 	m_pos    =  pos;
-	m_start -= diff;
-	m_end   -= diff;
+	m_start += diff;
+	m_end   += diff;
 }
 
 void CapsuleCollider::SetPos(const Vector3& start, const Vector3& end)
@@ -59,4 +59,9 @@ const Vector3 CapsuleCollider::Direction() const
 Vector3 CapsuleCollider::MiddlePoint() const
 {
 	return (m_start + m_end) * 0.5f;
+}
+
+const float CapsuleCollider::Length() const
+{
+	return (m_end - m_start).Magnitude();
 }

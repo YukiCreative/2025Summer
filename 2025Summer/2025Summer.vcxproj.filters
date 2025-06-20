@@ -58,6 +58,7 @@
     <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
     <ClCompile Include="Actor\Player\PlayerHovering.cpp" />
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -113,5 +114,6 @@
     <ClInclude Include="Actor\Player\PlayerLanding.h" />
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
+    <ClInclude Include="Actor\Enemy\EnemyTest.h" />
   </ItemGroup>
 </Project>

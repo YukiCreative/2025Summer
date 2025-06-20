@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "Collidable.h"
 #include "Rigid.h"
-#include "SphereCollider.h"
+#include "CapsuleCollider.h"
 #include "Camera.h"
 #include <DxLib.h>
 #include "PlayerState.h"
@@ -16,12 +16,19 @@ namespace
 		0.1f, 0.05f, 0.1f
 	};
 
+	constexpr int kWeight = 100;
+
 	constexpr float kCameraHSpeed = 0.0001f;
 	constexpr float kCameraVSpeed = 0.0001f;
+
+	const Vector3 kCapsuleEndPosOffset = {0, 200, 0};
+	constexpr float kCapsuleRadius = 30;
+	constexpr float kAnimPlaySpeed = 30.0f;
 }
 
 Player::Player() :
-	m_targetPos()
+	m_targetPos(),
+	m_isLockOn(false)
 {
 }
 
@@ -30,10 +37,10 @@ void Player::Init(const std::weak_ptr<Camera> camera)
 	m_camera = camera;
 
 	m_model = std::make_shared<AnimationModel>();
-	m_model->Init("Data/Model/Player.mv1", 3);
+	m_model->Init("Data/Model/Player.mv1", kAnimPlaySpeed);
 
-	auto col = std::make_shared<SphereCollider>();
-	col->Init(m_pos, 1, false, false, 1);
+	auto col = std::make_shared<CapsuleCollider>();
+	col->Init(m_pos, m_pos + kCapsuleEndPosOffset, kWeight, false, false, kCapsuleRadius);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kPhysiMat);
 
@@ -49,10 +56,18 @@ void Player::Update()
 	// 切り替わったら違うインスタンスが入ってくる
 	m_state = m_state->Update();
 
+	// ロックオンボタンを押したら近くの敵をロックオン
+	if (Input::GetInstance().IsTrigger("LockOn"))
+	{
+		// TODO：ロックオンの処理
+	}
+
 	if (m_pos.y < 0)
 	{
 		m_pos.y = 0;
 	}
+
+	m_model->Update();
 
 	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
@@ -116,10 +131,21 @@ void Player::Move(const float moveSpeed)
 void Player::Draw() const
 {
 	m_model->Draw();
+
+	m_collidable->GetCol().Draw();
+
+	DrawFormatString(300, 0, 0xffffff, "CapsuleCol x:%f,y:%f,z:%f", m_collidable->GetPos().x, m_collidable->GetPos().y, m_collidable->GetPos().z);
+}
+
+void Player::OnCollision(std::shared_ptr<Actor> other)
+{
+	printf("なんか当たってる");
 }
 
 void Player::CommitMove()
 {
 	// 速度減衰させて取得
-	m_pos += m_collidable->UpdateRigid();
+	const Vector3 vel = m_collidable->UpdateRigid();
+	m_pos += vel;
+	m_collidable->SetPos(m_pos + kCapsuleEndPosOffset * 0.5f);
 }

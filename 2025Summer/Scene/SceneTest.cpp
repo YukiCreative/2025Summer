@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SceneDebug.h"
 #include "SceneController.h"
+#include "EnemyTest.h"
 
 namespace
 {
@@ -27,7 +28,10 @@ void SceneTest::Init()
 
 	auto player = std::make_shared<Player>();
 	player->Init(m_camera);
+	auto enemy = std::make_shared<EnemyTest>();
+	enemy->Init();
 	m_actors->AddActor(player);
+	m_actors->AddActor(enemy);
 }
 
 void SceneTest::Update()

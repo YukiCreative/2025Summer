@@ -11,7 +11,7 @@ namespace
 {
 	// 重力は定数
 	// 後で変数にするかも？？？
-	const Vector3 kGravity = {0, -0.8f, 0};
+	const Vector3 kGravity = { 0, -0.8f, 0 };
 }
 
 void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
@@ -75,6 +75,18 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					if (!skipPushBack)
 					{
 						CollisionChecker::FixMoveSP(colA, colB, hitData);
+					}
+				}
+			}
+			else if (colKindA == ColKind3D::kCapsule && colKindB == ColKind3D::kSphere)
+			{
+				hitResult = CollisionChecker::CheckHitCS(colA, colB);
+				if (hitResult)
+				{
+					// 押し戻し
+					if (!skipPushBack)
+					{
+						CollisionChecker::FixMoveCS(colA, colB);
 					}
 				}
 			}

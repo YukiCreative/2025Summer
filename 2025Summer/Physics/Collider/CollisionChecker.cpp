@@ -6,6 +6,7 @@
 //#include "Collider3D.h"
 #include <array>
 #include "CapsuleCollider.h"
+#include <algorithm>
 
 bool CollisionChecker::CheckHitSS(const Collidable& colA, const Collidable& colB, float& time)
 {
@@ -186,25 +187,94 @@ void CollisionChecker::FixMoveSP(Collidable& _sphereCol, Collidable& _polygonCol
 	_sphereCol.GetRigid().SetVel(_sphereCol.GetVel() * (hitData.time - 1));
 }
 
-bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol, float& time)
+bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol)
 {
 	auto& sphereCol = static_cast<SphereCollider&>(sCol.GetCol());
 	auto& capsuleCol = static_cast<CapsuleCollider&>(cCol.GetCol());
 
 	// 球の中心とカプセル線分との最近接点を出す
 
-	const Vector3 startToSphere = sphereCol.GetPos() - capsuleCol.StartPos();
-	const Vector3 capsuleDir = capsuleCol.Direction();
+	const Vector3 sphereNextPos = sphereCol.GetPos() + sCol.GetRigid().GetVel();
+	const Vector3 capsuleNextStartPos = capsuleCol.StartPos() + cCol.GetRigid().GetVel();
 
-	const float projection = startToSphere.Dot(capsuleDir);
+	const Vector3 startToSphere = sphereNextPos - capsuleNextStartPos;
+	const Vector3 capsuleDir = capsuleCol.Direction(); // 向きは移動量を含んでも変わらんだろ
 
-	// 
+	float projection = startToSphere.Dot(capsuleDir);
 
-	const Vector3 nearestPosOnLine = capsuleCol.StartPos() + capsuleDir * projection;
+	// projectionを線分の長さまでに制限
+	projection = std::clamp(projection, 0.0f, capsuleCol.Length());
+
+	const Vector3 nearestPosOnLine = capsuleNextStartPos + capsuleDir * projection;
+
+	const float radiusSum = sphereCol.GetRadius() + capsuleCol.GetRadius();
+
+	// 球の中心→最近接点がそれぞれの半径の合計より短ければ当たってる
+	return (nearestPosOnLine - sphereCol.GetPos()).SqrMagnitude() < radiusSum * radiusSum;
+}
+
+void CollisionChecker::FixMoveCS(Collidable& cCol, Collidable& sCol)
+{
+	// 当たらない位置まで速度を補正
 
 
+	auto& sphereCol = static_cast<SphereCollider&>(sCol.GetCol());
+	auto& capsuleCol = static_cast<CapsuleCollider&>(cCol.GetCol());
 
-	return 
+	// 球の中心とカプセル線分との最近接点をもう一回出す
+
+	const Vector3 sphereNextPos = sphereCol.GetPos() + sCol.GetRigid().GetVel();
+	const Vector3 capsuleNextStartPos = capsuleCol.StartPos() + cCol.GetRigid().GetVel();
+
+	const Vector3 startToSphere = sphereNextPos - capsuleNextStartPos;
+	const Vector3 capsuleDir = capsuleCol.Direction(); // 向きは移動量を含んでも変わらんだろ
+
+	float projection = startToSphere.Dot(capsuleDir);
+
+	// projectionを線分の長さまでに制限
+	projection = std::clamp(projection, 0.0f, capsuleCol.Length());
+
+	const Vector3 nearestPosOnLine = capsuleNextStartPos + capsuleDir * projection;
+
+	const Vector3 sphereToNearest = nearestPosOnLine - sphereNextPos;
+	const Vector3 sphereToNearestN = sphereToNearest.GetNormalize();
+
+	const Vector3 sphereToNearestSRadius = sphereToNearestN * sphereCol.GetRadius();
+
+	const Vector3 sphereToNearestDiff = sphereToNearest - sphereToNearestSRadius;
+
+	const Vector3 nearestToSphereCRadius = (sphereNextPos - nearestPosOnLine).GetNormalize() * capsuleCol.GetRadius();
+
+	// めり込んでいるベクトルがほしい
+	const Vector3 overlap = sphereToNearestDiff + nearestToSphereCRadius;
+
+	DrawLine3D({0,0,0}, overlap, 0xff0000);
+
+	// めり込んだベクトルを、それぞれの重さの比率で分配
+
+	float weightRate = static_cast<float>(cCol.GetWeight()) / (static_cast<float>(cCol.GetWeight()) + static_cast<float>(sCol.GetWeight())); // 球体が受ける移動量の割合
+
+	// もしAかBどちらかがstaticなら、そいつは動かずに
+	// 動く方にすべてを押し付ける
+	if (cCol.IsStatic())
+	{
+		weightRate = 1.0f;
+	}
+	else if (sCol.IsStatic())
+	{
+		weightRate = 0.0f;
+	}
+	// どっちもstaticならもう動くな
+	if (cCol.IsStatic() && sCol.IsStatic())
+	{
+		cCol.SetVel(Vector3::Zero());
+		sCol.SetVel(Vector3::Zero());
+		return;
+	}
+
+	cCol.SetVel(-overlap * (1 - weightRate));
+	sCol.SetVel(overlap * weightRate);
+
 }
 
 // ===============================================

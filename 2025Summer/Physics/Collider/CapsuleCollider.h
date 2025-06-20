@@ -16,6 +16,8 @@ public:
 	const Vector3 EndPos() const;
 	// start→endの単位ベクトル
 	const Vector3 Direction() const;
+	const float GetRadius() const { return m_radius; }
+	const float Length() const;
 
 private:
 
