@@ -71,3 +71,17 @@ bool ActorController::CheckIsAlive(std::shared_ptr<Actor> checkAct)
 	}
 	return false;
 }
+
+ActorList_t ActorController::SearchCanLockOnActor() const
+{
+	ActorList_t result;
+
+	for (auto& actor : m_actors)
+	{
+		if (!actor->CanLockOn()) continue;
+
+		result.emplace_back(actor);
+	}
+
+	return result;
+}

@@ -1,11 +1,12 @@
 #include "Actor.h"
 #include "Collidable.h"
 
-Actor::Actor() :
+Actor::Actor(const bool canLockOn) :
 	m_isAlive(true),
 	m_pos(),
 	m_collidable(nullptr),
-	m_kind(ActorKind::kNone)
+	m_kind(ActorKind::kNone),
+	LockOnState(canLockOn)
 {
 }
 

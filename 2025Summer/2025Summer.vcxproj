@@ -74,6 +74,7 @@
     <ClInclude Include="Actor\ActorController.h" />
     <ClInclude Include="Actor\ActorKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyTest.h" />
+    <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerIdle.h" />

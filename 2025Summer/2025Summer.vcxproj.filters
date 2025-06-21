@@ -115,5 +115,6 @@
     <ClInclude Include="Actor\Player\PlayerHovering.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Enemy\EnemyTest.h" />
+    <ClInclude Include="Actor\LockOnState.h" />
   </ItemGroup>
 </Project>

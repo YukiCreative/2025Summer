@@ -12,7 +12,8 @@ namespace
 	};
 }
 
-EnemyTest::EnemyTest()
+EnemyTest::EnemyTest() :
+	Actor(true) // ロックオンできるか…なんだけど、ぱっと見じゃ分かりにくい
 {
 }
 

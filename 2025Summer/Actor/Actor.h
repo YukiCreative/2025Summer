@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include <list>
 #include <memory>
+#include "LockOnstate.h"
 
 class Collidable;
 class Rigid;
@@ -13,10 +14,10 @@ using SpawnActorList_t = std::list<std::shared_ptr<Actor>>;
 
 // ゲーム内に登場する物体
 // GameObjectだと「全部やん」ってなるので
-class Actor abstract
+class Actor abstract : public LockOnState
 {
 public:
-	Actor();
+	Actor(const bool canLockOn);
 	virtual ~Actor();
 
 	void ClearActorList();

@@ -27,7 +27,7 @@ void SceneTest::Init()
 	m_actors->Init();
 
 	auto player = std::make_shared<Player>();
-	player->Init(m_camera);
+	player->Init(m_camera, m_actors);
 	auto enemy = std::make_shared<EnemyTest>();
 	enemy->Init();
 	m_actors->AddActor(player);

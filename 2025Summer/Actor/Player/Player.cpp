@@ -8,6 +8,8 @@
 #include <DxLib.h>
 #include "PlayerState.h"
 #include "PlayerIdle.h"
+#include "ActorController.h"
+#include "Game.h"
 
 namespace
 {
@@ -28,13 +30,15 @@ namespace
 
 Player::Player() :
 	m_targetPos(),
-	m_isLockOn(false)
+	m_isLockOn(false),
+	Actor(false)
 {
 }
 
-void Player::Init(const std::weak_ptr<Camera> camera)
+void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont)
 {
 	m_camera = camera;
+	m_cont = cont;
 
 	m_model = std::make_shared<AnimationModel>();
 	m_model->Init("Data/Model/Player.mv1", kAnimPlaySpeed);
@@ -59,7 +63,7 @@ void Player::Update()
 	// ロックオンボタンを押したら近くの敵をロックオン
 	if (Input::GetInstance().IsTrigger("LockOn"))
 	{
-		// TODO：ロックオンの処理
+		LockOn();
 	}
 
 	if (m_pos.y < 0)
@@ -91,6 +95,55 @@ float Player::DefaultGroundDrag()
 float Player::DefaultAirDrag()
 {
 	return kPhysiMat.airDrag.Value();
+}
+
+void Player::LockOn()
+{
+	// もしロックオン中なら、
+	if (m_isLockOn)
+	{
+		// 解除して終わり
+		m_isLockOn = false;
+		m_lockOnActor.reset();
+		return;
+	}
+
+	// 画面中央に一番近い、ロックオンできる敵を探す
+	auto lockOnList = m_cont.lock()->SearchCanLockOnActor();
+
+	// 画面内にいるか
+	ActorList_t inScreenActor;
+	for (auto& actor : lockOnList)
+	{
+		// FIX:バウンディングボックスによる判定に変える
+		if (CheckCameraViewClip(actor->GetPos()))
+		{
+			inScreenActor.emplace_back(actor);
+		}
+	}
+
+	// とりあえず先頭の要素を入れておく
+	std::weak_ptr<Actor> centerActor = inScreenActor.front();
+	const Vector3 kScreenCenterPos = {Game::kScreenHalfWidth, Game::kScreenHalfHeight, 0 };
+	// 中心からの距離(の二乗)
+	float centerPosLength = (kScreenCenterPos - ConvWorldPosToScreenPos(centerActor.lock()->GetPos())).SqrMagnitude();
+
+	for (auto& actor : inScreenActor)
+	{
+		auto screenPos = ConvWorldPosToScreenPos(actor->GetPos());
+
+		// こちらの方が近ければ
+		float actorToCenterLength = (kScreenCenterPos - ConvWorldPosToScreenPos(actor->GetPos())).SqrMagnitude();
+		if (actorToCenterLength > centerPosLength) continue;
+
+		// 更新
+		centerActor = actor;
+		centerPosLength = actorToCenterLength;
+	}
+
+	// 定まったActorにロックオン
+	m_lockOnActor = centerActor;
+	m_isLockOn = true;
 }
 
 void Player::Move(const float moveSpeed)

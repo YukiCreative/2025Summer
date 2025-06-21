@@ -4,7 +4,7 @@
 class AnimationModel;
 class Camera;
 class PlayerState;
-
+class ActorController;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
@@ -15,7 +15,7 @@ public:
 
 	Player();
 
-	void Init(const std::weak_ptr<Camera> camera);
+	void Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont);
 
 	void Update() override;
 	void Draw() const override;
@@ -31,6 +31,8 @@ public:
 	std::shared_ptr<PlayerState> m_state;
 	Vector3 m_targetPos;
 	bool m_isLockOn;
+	std::weak_ptr<Actor> m_lockOnActor;
+	std::weak_ptr<ActorController> m_cont;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
@@ -38,5 +40,6 @@ public:
 	void CameraMove();
 	float DefaultGroundDrag();
 	float DefaultAirDrag();
+	void LockOn();
 };
 

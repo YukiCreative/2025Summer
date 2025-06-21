@@ -47,21 +47,25 @@ void Input::SetKeyDefault()
 	m_inputEvent["Up"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_W},
+		{PeripheralType::kKeyboard, KEY_INPUT_UP},
 		{PeripheralType::kPad, PAD_INPUT_UP},
 	};
 	m_inputEvent["Down"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_S},
+		{PeripheralType::kKeyboard, KEY_INPUT_DOWN},
 		{PeripheralType::kPad, PAD_INPUT_DOWN},
 	};
 	m_inputEvent["Right"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_D},
+		{PeripheralType::kKeyboard, KEY_INPUT_RIGHT},
 		{PeripheralType::kPad, PAD_INPUT_RIGHT},
 	};
 	m_inputEvent["Left"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_A},
+		{PeripheralType::kKeyboard, KEY_INPUT_LEFT},
 		{PeripheralType::kPad, PAD_INPUT_LEFT},
 	};
 	m_inputEvent["Rise"] =
