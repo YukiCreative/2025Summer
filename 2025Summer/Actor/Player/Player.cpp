@@ -10,6 +10,7 @@
 #include "PlayerIdle.h"
 #include "ActorController.h"
 #include "Game.h"
+#include "Image.h"
 
 namespace
 {
@@ -26,11 +27,12 @@ namespace
 	const Vector3 kCapsuleEndPosOffset = {0, 200, 0};
 	constexpr float kCapsuleRadius = 30;
 	constexpr float kAnimPlaySpeed = 30.0f;
+
+	const std::string kLockOnCursorFile = "LockOnCursor.png";
 }
 
 Player::Player() :
 	m_targetPos(),
-	m_isLockOn(false),
 	Actor(false)
 {
 }
@@ -51,6 +53,9 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
 
+	m_lockOnGraph = std::make_shared<Image>();
+	m_lockOnGraph->Init(kLockOnCursorFile);
+
 	m_state = std::make_shared<PlayerIdle>(weak_from_this());
 }
 
@@ -64,6 +69,16 @@ void Player::Update()
 	if (Input::GetInstance().IsTrigger("LockOn"))
 	{
 		LockOn();
+	}
+
+	// ロックオンしている状態で、対象が画面外に出たら
+	if (!m_lockOnActor.expired() && CheckCameraViewClip(m_lockOnActor.lock()->GetPos()))
+	{
+		// ロックオン解除
+		m_lockOnActor.reset();
+
+		// FIX:本来はプレイヤーが移動しても敵が画面外に出ないよう回転するのが正しい
+		// 頑張れ未来の自分！
 	}
 
 	if (m_pos.y < 0)
@@ -100,10 +115,9 @@ float Player::DefaultAirDrag()
 void Player::LockOn()
 {
 	// もしロックオン中なら、
-	if (m_isLockOn)
+	if (!m_lockOnActor.expired())
 	{
 		// 解除して終わり
-		m_isLockOn = false;
 		m_lockOnActor.reset();
 		return;
 	}
@@ -115,12 +129,14 @@ void Player::LockOn()
 	ActorList_t inScreenActor;
 	for (auto& actor : lockOnList)
 	{
-		// FIX:バウンディングボックスによる判定に変える
-		if (CheckCameraViewClip(actor->GetPos()))
+		if (!CheckCameraViewClip(actor->GetPos()))
 		{
 			inScreenActor.emplace_back(actor);
 		}
 	}
+
+	// 何もなかったら、終わり
+	if (inScreenActor.empty()) return;
 
 	// とりあえず先頭の要素を入れておく
 	std::weak_ptr<Actor> centerActor = inScreenActor.front();
@@ -143,7 +159,6 @@ void Player::LockOn()
 
 	// 定まったActorにロックオン
 	m_lockOnActor = centerActor;
-	m_isLockOn = true;
 }
 
 void Player::Move(const float moveSpeed)
@@ -187,6 +202,12 @@ void Player::Draw() const
 
 	m_collidable->GetCol().Draw();
 
+	// ロックオン描画
+	if (!m_lockOnActor.expired())
+	{
+		m_lockOnGraph->Draw({ m_lockOnCursorPos.x, m_lockOnCursorPos.y });
+	}
+
 	DrawFormatString(300, 0, 0xffffff, "CapsuleCol x:%f,y:%f,z:%f", m_collidable->GetPos().x, m_collidable->GetPos().y, m_collidable->GetPos().z);
 }
 
@@ -201,4 +222,10 @@ void Player::CommitMove()
 	const Vector3 vel = m_collidable->UpdateRigid();
 	m_pos += vel;
 	m_collidable->SetPos(m_pos + kCapsuleEndPosOffset * 0.5f);
+
+	// ロックオンカーソルの挙動
+	if (!m_lockOnActor.expired())
+	{
+		m_lockOnCursorPos = ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
+	}
 }
