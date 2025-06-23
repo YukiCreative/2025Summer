@@ -4,7 +4,7 @@
 #include "PlayerJump.h"
 #include "PlayerMove.h"
 #include "AnimationModel.h"
-#include "LockOnIdle.h"
+#include "PlayerLockOnIdle.h"
 
 namespace
 {
@@ -39,7 +39,8 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	}
 	if (!m_player.lock()->m_lockOnActor.expired())
 	{
-		return std::make_shared<LockOnIdle>(m_player);
+		// ÉçÉbÉNÉIÉì
+		return std::make_shared<PlayerLockOnIdle>(m_player);
 	}
 
 	return shared_from_this();

@@ -40,6 +40,16 @@ Vector3 Geometry::GetRotatedPosAnyUpVec(const Vector3& movePos, const Vector3& b
 
 float Geometry::Corner(const Vector3& a, const Vector3& b)
 {
+	const float aMag = a.Magnitude();
+	const float bMag = b.Magnitude();
+
+	if (aMag < 0.001f || bMag < 0.001f)
+	{
+		return 0;
+	}
+
 	// ŒöŽ®’Ê‚è‚É‚â‚é‚Æ‚¾‚¢‚Ôd‚½‚»‚¤‚ÉŒ©‚¦‚éˆ—‚É‚È‚Á‚½‚È
-	return acosf(a.Dot(b) / (a.Magnitude() * b.Magnitude()));
+	float deg = acosf(a.Dot(b) / (aMag * bMag));
+
+	return deg;
 }

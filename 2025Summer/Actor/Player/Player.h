@@ -7,6 +7,12 @@ class PlayerState;
 class ActorController;
 class Image;
 
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
+
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
 class Player : public Actor, public std::enable_shared_from_this<Player>
@@ -25,6 +31,9 @@ public:
 
 	void CommitMove() override;
 
+	// 使ってるモデルの向きが特殊なのでそれ用に修正した行列を返す
+	DxLib::tagMATRIX GetModelMatrix() const;
+
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;
@@ -39,6 +48,7 @@ public:
 public:
 	// 自分かPlayerStateだけで見てほしい関数
 	void Move(const float moveSpeed);
+	void MoveWithoutRotate(const float moveSpeed);
 	void CameraMove();
 	float DefaultGroundDrag();
 	float DefaultAirDrag();

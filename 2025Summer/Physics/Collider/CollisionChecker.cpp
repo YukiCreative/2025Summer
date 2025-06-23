@@ -236,19 +236,21 @@ void CollisionChecker::FixMoveCS(Collidable& cCol, Collidable& sCol)
 
 	const Vector3 nearestPosOnLine = capsuleNextStartPos + capsuleDir * projection;
 
-	const Vector3 sphereToNearest = nearestPosOnLine - sphereNextPos;
-	const Vector3 sphereToNearestN = sphereToNearest.GetNormalize();
-
-	const Vector3 sphereToNearestSRadius = sphereToNearestN * sphereCol.GetRadius();
-
-	const Vector3 sphereToNearestDiff = sphereToNearest - sphereToNearestSRadius;
-
-	const Vector3 nearestToSphereCRadius = (sphereNextPos - nearestPosOnLine).GetNormalize() * capsuleCol.GetRadius();
-
 	// めり込んでいるベクトルがほしい
-	const Vector3 overlap = sphereToNearestDiff + nearestToSphereCRadius;
+
+	auto sphereToNearest = nearestPosOnLine - sphereNextPos;
+	auto sphereToNearestN = sphereToNearest.GetNormalize();
+
+	auto sphereToNearestLength = sphereToNearest.Magnitude();
+
+	auto radiusSum = capsuleCol.GetRadius() + sphereCol.GetRadius();
+
+	auto diff = radiusSum - sphereToNearestLength;
+
+	const Vector3 overlap = sphereToNearestN * diff;
 
 	DrawLine3D({0,0,0}, overlap, 0xff0000);
+	DrawSphere3D(nearestPosOnLine, 10, 10, 0xffffff, 0xffffff, true);
 
 	// めり込んだベクトルを、それぞれの重さの比率で分配
 
@@ -272,8 +274,8 @@ void CollisionChecker::FixMoveCS(Collidable& cCol, Collidable& sCol)
 		return;
 	}
 
-	cCol.SetVel(-overlap * (1 - weightRate));
-	sCol.SetVel(overlap * weightRate);
+	cCol.SetVel(overlap * (1.0f - weightRate));
+	sCol.SetVel(-overlap * weightRate);
 
 }
 

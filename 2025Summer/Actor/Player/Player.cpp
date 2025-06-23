@@ -205,8 +205,7 @@ void Player::Move(const float moveSpeed)
 	// 真反対に移動しようとすると、挙動がバグるので特別に処理
 	if (cross.y <= 0.01f && dot <= -0.9999f)
 	{
-		// 向きを無理やり回転させてバグを阻止しとこ
-		// 後からでも急旋回状態、作っていいんですよ？
+		// 強制的に回す
 		cross.y += 0.1f;
 	}
 
@@ -217,6 +216,23 @@ void Player::Move(const float moveSpeed)
 	// 自分の向きと移動方向が乖離していると、移動量が反転する
 	// 振り向く際に一瞬反対方向に移動するみたいな
 	m_collidable->AddVel(vel * clampDot);
+}
+
+void Player::MoveWithoutRotate(const float moveSpeed)
+{
+	// その名の通り回転しないMove
+	// 向きによる移動制限も行わない
+
+		// 入力で移動
+	Vector2 inputAxis = Input::GetInstance().GetLeftInputAxis();
+	inputAxis.x *= -1;		// 左右(もしくは上下)が反転しているので直す
+	// アナログ入力を生かしたいので正規化はしない
+
+	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } *moveSpeed;
+	// 移動量をカメラの向きに補正
+	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
+
+	m_collidable->AddVel(vel);
 }
 
 void Player::Draw() const
@@ -257,4 +273,15 @@ void Player::CommitMove()
 	{
 		m_lockOnCursorPos = ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
 	}
+}
+
+DxLib::tagMATRIX Player::GetModelMatrix() const
+{
+	auto mat = m_model->GetMatrix();
+
+	mat.m[0][0] *= -1;
+	mat.m[0][1] *= -1;
+	mat.m[0][2] *= -1;
+
+	return mat;
 }
