@@ -24,80 +24,92 @@ void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
 
 void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 {
-	for (auto& actA : actorList)
+	bool isHit = true;
+	int loopCount = 0;
+
+	// 当たらなくなるか、基底の回数ループするまで処理を継続
+	while (isHit && loopCount < 100)
 	{
-		for (auto& actB : actorList)
+		isHit = false;
+
+		for (auto& actA : actorList)
 		{
-			if (!actA->CanCollide() || !actB->CanCollide()) continue;
-
-			// 同一人物なら計算しない
-			if (actA == actB) continue;
-
-			Collidable& colA = actA->GetCollidable();
-			Collidable& colB = actB->GetCollidable();
-
-			// どちらも今フレームに動いていなければ当たっていない
-			if (colA.IsStop() && colB.IsStop()) continue;
-
-			const ColKind3D colKindA = colA.GetColKind();
-			const ColKind3D colKindB = colB.GetColKind();
-
-			// すり抜けるかどうか
-			const bool skipPushBack = colA.IsThrough() || colB.IsThrough();
-			bool hitResult = false;
-
-			// 二つのColliderの種類に応じた当たり判定関数を呼ぶ
-			if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kSphere)
+			for (auto& actB : actorList)
 			{
-				float time;
-				hitResult = CollisionChecker::CheckHitSS(colA, colB, time);
+				if (!actA->CanCollide() || !actB->CanCollide()) continue;
 
-				if (hitResult)
+				// 同一人物なら計算しない
+				if (actA == actB) continue;
+
+				Collidable& colA = actA->GetCollidable();
+				Collidable& colB = actB->GetCollidable();
+
+				// どちらも今フレームに動いていなければ当たっていない
+				if (colA.IsStop() && colB.IsStop()) continue;
+
+				const ColKind3D colKindA = colA.GetColKind();
+				const ColKind3D colKindB = colB.GetColKind();
+
+				// すり抜けるかどうか
+				const bool skipPushBack = colA.IsThrough() || colB.IsThrough();
+				bool hitResult = false;
+
+				// 二つのColliderの種類に応じた当たり判定関数を呼ぶ
+				if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kSphere)
 				{
-					// 押し戻しする
-					// 透過設定を確認して、どちらも不透過なら押し戻し
-					if (!skipPushBack)
+					float time;
+					hitResult = CollisionChecker::CheckHitSS(colA, colB, time);
+
+					if (hitResult)
+					{
+						// 押し戻しする
+						// 透過設定を確認して、どちらも不透過なら押し戻し
+						if (!skipPushBack)
+						{
+							// 押し戻し
+							CollisionChecker::FixMoveSS(colA, colB, time);
+						}
+					}
+				}
+				else if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kPolygon)
+				{
+					PolyHitData hitData;
+					// これ反対のケースも列挙しないといけないのゴミコード過ぎん？
+					hitResult = CollisionChecker::CheckHitSP(colA, colB, hitData);
+
+					if (hitResult)
 					{
 						// 押し戻し
-						CollisionChecker::FixMoveSS(colA, colB, time);
+						if (!skipPushBack)
+						{
+							CollisionChecker::FixMoveSP(colA, colB, hitData);
+						}
 					}
 				}
-			}
-			else if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kPolygon)
-			{
-				PolyHitData hitData;
-				// これ反対のケースも列挙しないといけないのゴミコード過ぎん？
-				hitResult = CollisionChecker::CheckHitSP(colA, colB, hitData);
+				else if (colKindA == ColKind3D::kCapsule && colKindB == ColKind3D::kSphere)
+				{
+					hitResult = CollisionChecker::CheckHitCS(colA, colB);
+					if (hitResult)
+					{
+						// 押し戻し
+						if (!skipPushBack)
+						{
+							CollisionChecker::FixMoveCS(colA, colB);
+						}
+					}
+				}
+				// 他の当たり判定を増やしたいときはここにelseでつなげる
 
 				if (hitResult)
 				{
-					// 押し戻し
-					if (!skipPushBack)
-					{
-						CollisionChecker::FixMoveSP(colA, colB, hitData);
-					}
+					actA->OnCollision(actB);
+					actB->OnCollision(actA);
 				}
-			}
-			else if (colKindA == ColKind3D::kCapsule && colKindB == ColKind3D::kSphere)
-			{
-				hitResult = CollisionChecker::CheckHitCS(colA, colB);
-				if (hitResult)
-				{
-					// 押し戻し
-					if (!skipPushBack)
-					{
-						CollisionChecker::FixMoveCS(colA, colB);
-					}
-				}
-			}
-			// 他の当たり判定を増やしたいときはここにelseでつなげる
 
-			if (hitResult)
-			{
-				actA->OnCollision(actB);
-				actB->OnCollision(actA);
+				isHit |= hitResult;
 			}
 		}
+		++loopCount;
 	}
 }
 

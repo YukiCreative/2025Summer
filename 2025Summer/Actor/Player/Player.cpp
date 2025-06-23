@@ -19,7 +19,7 @@ namespace
 		0.1f, 0.05f, 0.1f
 	};
 
-	constexpr int kWeight = 100;
+	constexpr int kWeight = 10;
 
 	constexpr float kCameraHSpeed = 0.0001f;
 	constexpr float kCameraVSpeed = 0.0001f;
@@ -29,6 +29,9 @@ namespace
 	constexpr float kAnimPlaySpeed = 30.0f;
 
 	const std::string kLockOnCursorFile = "LockOnCursor.png";
+
+	const Vector3 kLockOnCameraPosOffsetLeft =  {-200, 200, -50};
+	const Vector3 kLockOnCameraPosOffsetRight = { 200, 200, -50};
 }
 
 Player::Player() :
@@ -70,15 +73,14 @@ void Player::Update()
 	{
 		LockOn();
 	}
-
-	// ロックオンしている状態で、対象が画面外に出たら
-	if (!m_lockOnActor.expired() && CheckCameraViewClip(m_lockOnActor.lock()->GetPos()))
+	
+	// 通常のカメラ回転
+	CameraMove();
+	
+	// ロックオンした敵が画面内に収まるようにする
+	if (!m_lockOnActor.expired())
 	{
-		// ロックオン解除
-		m_lockOnActor.reset();
-
-		// FIX:本来はプレイヤーが移動しても敵が画面外に出ないよう回転するのが正しい
-		// 頑張れ未来の自分！
+		LockOnRotate();
 	}
 
 	if (m_pos.y < 0)
@@ -161,6 +163,27 @@ void Player::LockOn()
 	m_lockOnActor = centerActor;
 }
 
+void Player::LockOnRotate()
+{
+	// プレイヤーとロックオン対象が画面外に出ないようにしたい
+
+	auto cam = m_camera.lock();
+
+	// カメラの位置を決めてしまう
+
+	// プレイヤーが画面右側か左側か
+	if (ConvWorldPosToScreenPos(m_pos).x < Game::kScreenHalfWidth)
+	{
+		// 左側
+		cam->SetPos(m_pos + VTransformSR(kLockOnCameraPosOffsetLeft, m_model->GetMatrix()));
+	}
+	else
+	{
+		// 左側
+		cam->SetPos(m_pos + VTransformSR(kLockOnCameraPosOffsetRight, m_model->GetMatrix()));
+	}
+}
+
 void Player::Move(const float moveSpeed)
 {
 	// 入力で移動
@@ -200,15 +223,21 @@ void Player::Draw() const
 {
 	m_model->Draw();
 
-	m_collidable->GetCol().Draw();
-
 	// ロックオン描画
 	if (!m_lockOnActor.expired())
 	{
 		m_lockOnGraph->Draw({ m_lockOnCursorPos.x, m_lockOnCursorPos.y });
 	}
 
-	DrawFormatString(300, 0, 0xffffff, "CapsuleCol x:%f,y:%f,z:%f", m_collidable->GetPos().x, m_collidable->GetPos().y, m_collidable->GetPos().z);
+#if _DEBUG
+	m_collidable->GetCol().Draw();
+
+	if (!m_lockOnActor.expired())
+	{
+		DrawLine3D(m_pos + kCapsuleEndPosOffset, m_lockOnActor.lock()->GetPos(), 0xfffffff);
+	}
+
+#endif
 }
 
 void Player::OnCollision(std::shared_ptr<Actor> other)

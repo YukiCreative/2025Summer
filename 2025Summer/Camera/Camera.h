@@ -23,6 +23,7 @@ public:
 	void Draw_Debug() const;
 
 	void SetTargetPos(const Vector3& targetPos);
+	void SetPos(const Vector3& pos);
 	// Y²Šî€‚ÅtargetPos‚ğ’†S‚É‰ñ“]
 	void RotateCameraUpVecY(const float rad);
 	// ƒJƒƒ‰‚ğã‰º‚É‰ñ“]‚³‚¹‚é

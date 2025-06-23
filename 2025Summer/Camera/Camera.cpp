@@ -70,6 +70,14 @@ void Camera::SetTargetPos(const Vector3& targetPos)
 	m_targetPos = targetPos;
 }
 
+void Camera::SetPos(const Vector3& pos)
+{
+	const Vector3 targetToPos = pos - m_targetPos;
+	// Žw’è‚³‚ê‚½ˆÊ’u‚É—ˆ‚é‚æ‚¤‚ÉtargetToCamera‚ÆtargetDistance‚ð‚¢‚¶‚é
+	m_targetToCamera = targetToPos.GetNormalize();
+	m_targetDistance = targetToPos.Magnitude();
+}
+
 void Camera::RotateCameraUpVecY(const float rad)
 {
 	m_targetToCamera = VTransformSR(m_targetToCamera, MGetRotY(rad));

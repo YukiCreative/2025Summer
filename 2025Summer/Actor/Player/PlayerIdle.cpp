@@ -4,6 +4,7 @@
 #include "PlayerJump.h"
 #include "PlayerMove.h"
 #include "AnimationModel.h"
+#include "LockOnIdle.h"
 
 namespace
 {
@@ -26,7 +27,6 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	Input& input = Input::GetInstance();
 
 	MoveCameraTarget();
-	m_player.lock()->CameraMove();
 
 	// “ü—Í‚ª‚ ‚Á‚½‚ç
 	if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
@@ -36,6 +36,10 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	if (input.IsTrigger("Jump"))
 	{
 		return std::make_shared<PlayerJump>(m_player);
+	}
+	if (!m_player.lock()->m_lockOnActor.expired())
+	{
+		return std::make_shared<LockOnIdle>(m_player);
 	}
 
 	return shared_from_this();

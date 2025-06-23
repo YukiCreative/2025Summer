@@ -28,7 +28,6 @@ PlayerJump::~PlayerJump()
 
 std::shared_ptr<PlayerState> PlayerJump::Update()
 {
-	m_player.lock()->CameraMove();
 	m_player.lock()->Move(kJumpingMoveSpeed);
 
 	MoveCameraTargetIgnoreY(0.01f);

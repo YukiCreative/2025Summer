@@ -28,7 +28,6 @@ std::shared_ptr<PlayerState> PlayerFall::Update()
 
 	// ˆÚ“®
 	m_player.lock()->Move(kFallingMoveSpeed);
-	m_player.lock()->CameraMove();
 
 	MoveCameraTargetIgnoreY(0.01f);
 

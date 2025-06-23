@@ -32,7 +32,6 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 
 	// ˆÚ“®
 	m_player.lock()->Move(kRunSpeed);
-	m_player.lock()->CameraMove();
 
 	MoveCameraTarget();
 
