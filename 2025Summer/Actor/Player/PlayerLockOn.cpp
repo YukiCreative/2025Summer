@@ -60,7 +60,7 @@ void PlayerLockOn::ReleaseLockOn()
     m_player.lock()->m_lockOnActor.reset();
 
     // ‚¢‚¶‚Á‚½ƒJƒƒ‰‚ðŒ³‚É–ß‚·
-    m_player.lock()->m_camera.lock()->ChangeStateDD();
+    m_player.lock()->m_camera.lock()->ChangeStateDD(m_player.lock()->GetPos() + kLockOnLineStartOffset);
 }
 
 void PlayerLockOn::CameraMove()

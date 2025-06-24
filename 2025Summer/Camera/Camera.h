@@ -39,7 +39,7 @@ public:
 	void SetTargetFoV(const float deg);
 
 	// Direction&Distance
-	void ChangeStateDD();
+	void ChangeStateDD(const Vector3& targetPos);
 	// DirectlyPosition
 	void ChangeStateDP();
 
@@ -52,6 +52,7 @@ private:
 	Vector3 m_targetToCamera;
 	// ’‹“_‚ÆƒJƒƒ‰‚Ì‹——£
 	float m_targetDistance;
+	float m_lerpedTargetDistance;
 	// ‹–ìŠp‚ğŠŠ‚ç‚©‚É•Ï‰»‚³‚¹‚½‚¢
 	float m_FoV;
 	float m_targetFoV;
