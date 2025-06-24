@@ -64,6 +64,8 @@
     <ClCompile Include="Actor\Player\PlayerLockOnMoveLeft.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnMoveFoward.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnMoveBack.cpp" />
+    <ClCompile Include="Actor\Player\PlayerLockOn.cpp" />
+    <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -126,5 +128,7 @@
     <ClInclude Include="Actor\Player\PlayerLockOnMoveLeft.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnMoveFoward.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnMoveBack.h" />
+    <ClInclude Include="Actor\Player\PlayerLockOn.h" />
+    <ClInclude Include="Actor\Player\PlayerNormal.h" />
   </ItemGroup>
 </Project>

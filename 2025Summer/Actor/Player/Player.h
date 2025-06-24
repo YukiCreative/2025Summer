@@ -53,6 +53,5 @@ public:
 	float DefaultGroundDrag();
 	float DefaultAirDrag();
 	void LockOn();
-	void LockOnRotate();
 };
 

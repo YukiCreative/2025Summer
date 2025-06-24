@@ -24,7 +24,8 @@ Camera::Camera() :
 	m_targetToCamera(kInitTargetToCamera),
 	m_targetDistance(kInitCameraDistance),
 	m_targetFoV(kInitFovDegrees),
-	m_FoV(kInitFovDegrees)
+	m_FoV(kInitFovDegrees),
+	m_state(&Camera::UpdateUseDirectionAndDistance)
 {
 }
 
@@ -40,15 +41,7 @@ void Camera::Init()
 
 void Camera::Update()
 {
-	// Effekseerのカメラと同期？する
-	Effekseer_Sync3DSetting();
-
-	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
-	// DxLibのカメラに反映
-	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_targetDistance, m_lerpedTargetPos);
-
-	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
-	SetupCamera_Perspective(m_FoV);
+	(this->*m_state)();
 }
 
 void Camera::Draw_Debug() const
@@ -70,12 +63,9 @@ void Camera::SetTargetPos(const Vector3& targetPos)
 	m_targetPos = targetPos;
 }
 
-void Camera::SetPos(const Vector3& pos)
+void Camera::SetLerpPos(const Vector3& pos)
 {
-	const Vector3 targetToPos = pos - m_targetPos;
-	// 指定された位置に来るようにtargetToCameraとtargetDistanceをいじる
-	m_targetToCamera = targetToPos.GetNormalize();
-	m_targetDistance = targetToPos.Magnitude();
+	m_targetCameraPos = pos;
 }
 
 void Camera::RotateCameraUpVecY(const float rad)
@@ -126,4 +116,48 @@ Vector3 Camera::RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2)
 void Camera::SetTargetFoV(const float deg)
 {
 	m_targetFoV = deg * Geometry::kDegToRad;
+}
+
+void Camera::ChangeStateDD()
+{
+	m_state = &Camera::UpdateUseDirectionAndDistance;
+
+	// DPの位置になるようにDirectionとDistanceを調整
+	const Vector3 targetToDP = m_targetCameraPos - m_targetPos;
+	m_targetToCamera = targetToDP.GetNormalize();
+}
+
+void Camera::ChangeStateDP()
+{
+	m_state = &Camera::UpdateUseDirectlyPosition;
+}
+
+void Camera::UpdateUseDirectionAndDistance()
+{
+	// Effekseerのカメラと同期？する
+	Effekseer_Sync3DSetting();
+
+	// 注視点をlerp
+	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
+	// DxLibのカメラに反映
+	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_targetDistance, m_lerpedTargetPos);
+
+	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
+	SetupCamera_Perspective(m_FoV);
+}
+
+void Camera::UpdateUseDirectlyPosition()
+{
+	// Effekseerのカメラと同期？する
+	Effekseer_Sync3DSetting();
+
+	// カメラの位置をlerp
+	m_lerpedCameraPos.LerpMyself(m_targetCameraPos, kLerpStrength);
+	// 注視点もlerp
+	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
+	// DxLibのカメラに反映(位置を直接)
+	SetCameraPositionAndTarget_UpVecY(m_lerpedCameraPos, m_lerpedTargetPos);
+
+	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
+	SetupCamera_Perspective(m_FoV);
 }

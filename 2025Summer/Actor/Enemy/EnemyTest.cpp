@@ -19,10 +19,10 @@ EnemyTest::EnemyTest() :
 
 void EnemyTest::Init()
 {
-	m_pos = { 200, 0, 0 };
+	m_pos = { 200, 100, 0 };
 
 	auto col = std::make_shared<SphereCollider>();
-	col->Init(m_pos, 10, false, false, 30);
+	col->Init(m_pos, 10, false, true, 30);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kPhysiMat);
 

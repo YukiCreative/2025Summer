@@ -5,11 +5,17 @@
 #include "Input.h"
 #include <DxLib.h>
 #include "PlayerLockOnIdle.h"
+#include "PlayerLockOnMoveLeft.h"
+#include "PlayerLockOnMoveFoward.h"
+#include "PlayerLockOnMoveBack.h"
 #include "Camera.h"
 
 namespace
 {
 	const std::string kAnimName = "Armature|WalkRight";
+
+	// 内積の1～-1の四等分
+	constexpr float kMoveDirThreshold = 0.5f;
 }
 
 PlayerLockOnMoveRight::PlayerLockOnMoveRight(std::weak_ptr<Player> parent) :
@@ -17,6 +23,7 @@ PlayerLockOnMoveRight::PlayerLockOnMoveRight(std::weak_ptr<Player> parent) :
 {
 	// アニメーション
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
+	printf("RightMoveです");
 }
 
 PlayerLockOnMoveRight::~PlayerLockOnMoveRight()
@@ -28,12 +35,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 	// 移動
 	auto p = m_player.lock();
 
-	p->Move(kLockOnWalkSpeed);
-
-	if (p->m_lockOnActor.expired())
-	{
-		return std::make_shared<PlayerIdle>(m_player);
-	}
+	p->MoveWithoutRotate(kLockOnWalkSpeed);
 
 	// プレイヤーを敵方向に回転
 	auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
@@ -63,6 +65,32 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 	if (cameraRotatedAxis.SqrMagnitude() < kMoveThreshold)
 	{
 		return std::make_shared<PlayerLockOnIdle>(m_player);
+	}
+
+	const Vector3 modelDir = -p->m_model->GetDirection();
+
+	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
+
+	// キャラの向きに対して入力がどんな位置関係か調べたい
+	const Vector3 cross = modelDir.Cross(cameraRotatedAxisN);
+
+	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
+
+	// 左
+	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
+		&& cross.y < 0)
+	{
+		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
+	}
+	// 前
+	if (modelAxisDot >= 1 - kMoveDirThreshold)
+	{
+		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
+	}
+	// 後
+	if (modelAxisDot <= -1 + kMoveDirThreshold)
+	{
+		return std::make_shared<PlayerLockOnMoveBack>(m_player);
 	}
 
 	return shared_from_this();

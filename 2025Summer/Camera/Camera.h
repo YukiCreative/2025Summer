@@ -23,7 +23,7 @@ public:
 	void Draw_Debug() const;
 
 	void SetTargetPos(const Vector3& targetPos);
-	void SetPos(const Vector3& pos);
+	void SetLerpPos(const Vector3& pos);
 	// Y軸基準でtargetPosを中心に回転
 	void RotateCameraUpVecY(const float rad);
 	// カメラを上下に回転させる
@@ -38,6 +38,11 @@ public:
 	Vector3 RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2);
 	void SetTargetFoV(const float deg);
 
+	// Direction&Distance
+	void ChangeStateDD();
+	// DirectlyPosition
+	void ChangeStateDP();
+
 private:
 	// どこに向くか
 	Vector3 m_targetPos;
@@ -50,4 +55,24 @@ private:
 	// 視野角を滑らかに変化させたい
 	float m_FoV;
 	float m_targetFoV;
+
+
+	// カメラが目指す座標
+	Vector3 m_targetCameraPos;
+	Vector3 m_lerpedCameraPos;
+
+	using CameraState_t = void (Camera::*)();
+
+	CameraState_t m_state;
+
+
+private:
+
+	// カメラの位置を、向きと距離で表す
+	// カメラの距離を変えやすい
+	void UpdateUseDirectionAndDistance();
+
+	// カメラの位置を直接座標で表す
+	// カメラを特定の位置に固定したいときに分かりやすい
+	void UpdateUseDirectlyPosition();
 };

@@ -122,6 +122,8 @@ Vector3 Vector3::GetNormalize() const
 {
 	const float mag = Magnitude();
 
+	if (mag < 0.0001f) return *this;
+
 	if (mag == 0)
 	{
 		return {x, y, z};

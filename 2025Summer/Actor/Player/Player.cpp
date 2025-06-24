@@ -7,7 +7,7 @@
 #include "Camera.h"
 #include <DxLib.h>
 #include "PlayerState.h"
-#include "PlayerIdle.h"
+#include "PlayerNormal.h"
 #include "ActorController.h"
 #include "Game.h"
 #include "Image.h"
@@ -29,9 +29,6 @@ namespace
 	constexpr float kAnimPlaySpeed = 30.0f;
 
 	const std::string kLockOnCursorFile = "LockOnCursor.png";
-
-	const Vector3 kLockOnCameraPosOffsetLeft =  {-200, 200, -50};
-	const Vector3 kLockOnCameraPosOffsetRight = { 200, 200, -50};
 }
 
 Player::Player() :
@@ -59,7 +56,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_lockOnGraph = std::make_shared<Image>();
 	m_lockOnGraph->Init(kLockOnCursorFile);
 
-	m_state = std::make_shared<PlayerIdle>(weak_from_this());
+	m_state = std::make_shared<PlayerNormal>(weak_from_this());
 }
 
 void Player::Update()
@@ -67,21 +64,6 @@ void Player::Update()
 	// 状態を更新
 	// 切り替わったら違うインスタンスが入ってくる
 	m_state = m_state->Update();
-
-	// ロックオンボタンを押したら近くの敵をロックオン
-	if (Input::GetInstance().IsTrigger("LockOn"))
-	{
-		LockOn();
-	}
-	
-	// 通常のカメラ回転
-	CameraMove();
-	
-	// ロックオンした敵が画面内に収まるようにする
-	if (!m_lockOnActor.expired())
-	{
-		LockOnRotate();
-	}
 
 	if (m_pos.y < 0)
 	{
@@ -112,76 +94,6 @@ float Player::DefaultGroundDrag()
 float Player::DefaultAirDrag()
 {
 	return kPhysiMat.airDrag.Value();
-}
-
-void Player::LockOn()
-{
-	// もしロックオン中なら、
-	if (!m_lockOnActor.expired())
-	{
-		// 解除して終わり
-		m_lockOnActor.reset();
-		return;
-	}
-
-	// 画面中央に一番近い、ロックオンできる敵を探す
-	auto lockOnList = m_cont.lock()->SearchCanLockOnActor();
-
-	// 画面内にいるか
-	ActorList_t inScreenActor;
-	for (auto& actor : lockOnList)
-	{
-		if (!CheckCameraViewClip(actor->GetPos()))
-		{
-			inScreenActor.emplace_back(actor);
-		}
-	}
-
-	// 何もなかったら、終わり
-	if (inScreenActor.empty()) return;
-
-	// とりあえず先頭の要素を入れておく
-	std::weak_ptr<Actor> centerActor = inScreenActor.front();
-	const Vector3 kScreenCenterPos = {Game::kScreenHalfWidth, Game::kScreenHalfHeight, 0 };
-	// 中心からの距離(の二乗)
-	float centerPosLength = (kScreenCenterPos - ConvWorldPosToScreenPos(centerActor.lock()->GetPos())).SqrMagnitude();
-
-	for (auto& actor : inScreenActor)
-	{
-		auto screenPos = ConvWorldPosToScreenPos(actor->GetPos());
-
-		// こちらの方が近ければ
-		float actorToCenterLength = (kScreenCenterPos - ConvWorldPosToScreenPos(actor->GetPos())).SqrMagnitude();
-		if (actorToCenterLength > centerPosLength) continue;
-
-		// 更新
-		centerActor = actor;
-		centerPosLength = actorToCenterLength;
-	}
-
-	// 定まったActorにロックオン
-	m_lockOnActor = centerActor;
-}
-
-void Player::LockOnRotate()
-{
-	// プレイヤーとロックオン対象が画面外に出ないようにしたい
-
-	auto cam = m_camera.lock();
-
-	// カメラの位置を決めてしまう
-
-	// プレイヤーが画面右側か左側か
-	if (ConvWorldPosToScreenPos(m_pos).x < Game::kScreenHalfWidth)
-	{
-		// 左側
-		cam->SetPos(m_pos + VTransformSR(kLockOnCameraPosOffsetLeft, m_model->GetMatrix()));
-	}
-	else
-	{
-		// 左側
-		cam->SetPos(m_pos + VTransformSR(kLockOnCameraPosOffsetRight, m_model->GetMatrix()));
-	}
 }
 
 void Player::Move(const float moveSpeed)

@@ -14,18 +14,7 @@ PlayerState::~PlayerState()
 
 void PlayerState::MoveCameraTarget()
 {
-	// ‚Ó‚Â‚¤‚Í‚±‚ê
-	// •K—v‚É‰ž‚¶‚Äoverride‚µ‚Ä
-
-	if (m_player.lock()->m_lockOnActor.expired())
-	{
-		m_player.lock()->m_targetPos = m_player.lock()->GetPos() + kCameraTargetOffset;
-	}
-	else
-	{
-		// ‚È‚°‚¦
-		m_player.lock()->m_targetPos = (m_player.lock()->GetPos() + kCameraTargetOffset + m_player.lock()->m_lockOnActor.lock()->GetPos()) * 0.5f;
-	}
+	m_player.lock()->m_targetPos = m_player.lock()->GetPos() + kCameraTargetOffset;
 }
 
 void PlayerState::MoveCameraTargetIgnoreY(const float includeRatio)
@@ -34,16 +23,6 @@ void PlayerState::MoveCameraTargetIgnoreY(const float includeRatio)
 
 	const Vector3 beforeTargetPos = m_player.lock()->m_targetPos;
 
-	if (m_player.lock()->m_lockOnActor.expired())
-	{
-		m_player.lock()->m_targetPos = m_player.lock()->GetPos() + kCameraTargetOffset;
-		m_player.lock()->m_targetPos.y = std::lerp(beforeTargetPos.y, m_player.lock()->m_targetPos.y, includeRatio);
-	}
-	else
-	{
-		const Vector3 lockOnTarget = (m_player.lock()->GetPos() + kCameraTargetOffset + m_player.lock()->m_lockOnActor.lock()->GetPos()) * 0.5f;
-
-		m_player.lock()->m_targetPos = lockOnTarget;
-		m_player.lock()->m_targetPos.y = std::lerp(beforeTargetPos.y, m_player.lock()->m_targetPos.y, includeRatio);
-	}
+	m_player.lock()->m_targetPos = m_player.lock()->GetPos() + kCameraTargetOffset;
+	m_player.lock()->m_targetPos.y = std::lerp(beforeTargetPos.y, m_player.lock()->m_targetPos.y, includeRatio);
 }
