@@ -164,7 +164,6 @@ void Player::Draw() const
 	{
 		DrawLine3D(m_pos + kCapsuleEndPosOffset, m_lockOnActor.lock()->GetPos(), 0xfffffff);
 	}
-
 #endif
 }
 

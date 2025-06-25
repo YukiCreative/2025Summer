@@ -19,7 +19,9 @@ PlayerJump::PlayerJump(std::weak_ptr<Player> parent) :
 	auto& rigid = m_player.lock()->GetRigid();
 
 	rigid.ChangeStateAir();
-	rigid.AddVel(kJumpForce);
+	auto tempVel = rigid.GetVel();
+	tempVel.y = kJumpForce.y;
+	rigid.SetVel(tempVel);
 }
 
 PlayerJump::~PlayerJump()

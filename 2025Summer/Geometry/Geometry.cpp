@@ -53,3 +53,8 @@ float Geometry::Corner(const Vector3& a, const Vector3& b)
 
 	return deg;
 }
+
+Vector3 Geometry::PointSegmentNearestPos(const Vector3& point, const Vector3& lineStart, const Vector3& lineEnd)
+{
+	return Vector3();
+}

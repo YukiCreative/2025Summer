@@ -321,72 +321,73 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 	auto& cColA = static_cast<CapsuleCollider&>(colA.GetCol());
 	auto& cColB = static_cast<CapsuleCollider&>(colB.GetCol());
 
-	const Vector3 deltaPos = cColA.GetPos() - cColB.GetPos();
+	float t, s;
+	Vector3 minPos1, minPos2;
 
-	const Vector3 dirA = cColA.Direction();
-	const Vector3 dirB = cColB.Direction();
+	//const Vector3 dirA = cColA.Direction();
+	//const Vector3 dirB = cColB.Direction();
+	const Vector3 dirA = cColA.EndPos() - cColA.GetPos();
+	const Vector3 dirB = cColB.EndPos() - cColB.GetPos();
 
-	const Vector3 normal = VCross(dirA, dirB);
+	const Vector3 deltaPos = colB.GetPos() - cColA.GetPos();
+	const Vector3 dirNormal = dirA.Cross(dirB);
 
-	float s = 0;
-	float t = 0;
-
-	// 二つのカプセルが平行かそうでないかで処理が分かれる
-	if (normal.SqrMagnitude() < 0.001f)
+	// カプセルが平行かどうか
+	if (dirNormal.SqrMagnitude() < 0.01f)
 	{
-		// 平行の時
-		// どうやって最近接点求めればええんや
-		s = dirA.Dot(deltaPos) / dirA.SqrMagnitude();
-		t = dirB.Dot(deltaPos * -1) / dirB.SqrMagnitude();
+		// 平行
+
+		// Aの適当な端点から、一番近いBの点を求める
+		// そこから、一番近いAの点を求める
+		// 出た二つの点が最近接点
+
+		const Vector3 nearestB = 
 	}
 	else
 	{
-		// 連立方程式を解くのに行列を使う
+		// 平行でない
 
-		/*計算用の行列の作成*/
-		//4*4の単位行列の作成
-		MATRIX matSolve = MGetIdent();
-		//列単位で数値を入れている。
-		//1列目に方向ベクトル
-		//2列目にターゲットの方向ベクトルを反転させたもの
-		//3列目に互いの法線ベクトル(つまり外積)
-		matSolve = MGetAxis1(dirA, dirB * -1, normal, { 0,0,0 });
-		//最後に逆行列にする
+		// 行列で連立方程式が解けるらしい
+		MATRIX matSolve = MGetAxis1
+		(
+			 dirA,
+			-dirB,
+			dirNormal,
+			{0,0,0}
+		);
+
 		matSolve = MInverse(matSolve);
 
-		//パラメータsを出す。
-		s = Vector3{ matSolve.m[0][0],matSolve.m[0][1],matSolve.m[0][2] }.Dot(deltaPos);
-		//パラメータtを出す。
-		t = Vector3{ matSolve.m[1][0],matSolve.m[1][1],matSolve.m[1][2] }.Dot(deltaPos);
+		s = Vector3{ matSolve.m[0][0],matSolve.m[1][0] ,matSolve.m[2][0] }.Dot(deltaPos);
+		t = Vector3{ matSolve.m[0][1],matSolve.m[1][1] ,matSolve.m[2][1] }.Dot(deltaPos);
 	}
 
 	// clamp
-	s = std::clamp(s, -cColA.Length() * 0.5f, cColA.Length() * 0.5f);
-	t = std::clamp(t, -cColB.Length() * 0.5f, cColB.Length() * 0.5f);
+	s = std::clamp(s, -1.0f, 1.0f);
+	t = std::clamp(t, -1.0f, 1.0f);
 
-	// それぞれの最近接点
-	const Vector3 minPos1 = dirA * s + cColA.GetPos();
-	const Vector3 minPos2 = dirB * t + cColB.GetPos();
+	minPos1 = cColA.GetPos() + dirA * s;
+	minPos2 = cColB.GetPos() + dirB * t;
 
-	DrawSphere3D(minPos1, 10,10, 0xffffff, 0xffffff, true);
-	DrawSphere3D(minPos2, 10,10, 0xffffff, 0xffffff, true);
+	DrawSphere3D(minPos1, 10,10,0xffffff, 0xffffff, true);
+	DrawSphere3D(minPos2, 10,10,0xffffff, 0xffffff, true);
 
 	// 後は球体の押し戻しと同じ
 	// めり込んでいるベクトルがほしい
 
-	const Vector3 nearestPosDiff = minPos1 - minPos2;
+	const Vector3 nearestPosDiff = minPos2 - minPos1;
 	const Vector3 nearestPosDiffN = nearestPosDiff.GetNormalize();
 
 	const float radiusSum = cColA.GetRadius() + cColB.GetRadius();
 	const float rerativeLength = nearestPosDiff.Magnitude();
-	const float diff = radiusSum - rerativeLength + 0.1f;
+	const float diff = radiusSum - rerativeLength + 0.01f;
 
 	const Vector3 overlap = nearestPosDiffN * diff;
 
 	const float weightRate = WeightRate(colA, colB);
 
-	colA.AddVel(-overlap * weightRate);
-	colB.AddVel(overlap * (1.0f - weightRate));
+	//colA.AddVel(-overlap * weightRate);
+	//colB.AddVel(overlap * (1.0 - weightRate));
 }
 
 // ===============================================
