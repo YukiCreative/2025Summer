@@ -8,6 +8,30 @@
 #include "CapsuleCollider.h"
 #include <algorithm>
 
+float CollisionChecker::WeightRate(Collidable& colA, Collidable& colB)
+{
+	float weightRate = static_cast<float>(colB.GetWeight()) / (static_cast<float>(colA.GetWeight()) + static_cast<float>(colB.GetWeight())); // 球体が受ける移動量の割合
+
+	// もしAかBどちらかがstaticなら、そいつは動かずに
+	// 動く方にすべてを押し付ける
+	if (colA.IsStatic())
+	{
+		weightRate = 0.0f;
+	}
+	else if (colB.IsStatic())
+	{
+		weightRate = 1.0f;
+	}
+	// どっちもstaticならもう動くな
+	if (colA.IsStatic() && colB.IsStatic())
+	{
+		colA.SetVel(Vector3::Zero());
+		colB.SetVel(Vector3::Zero());
+	}
+
+	return weightRate;
+}
+
 bool CollisionChecker::CheckHitSS(const Collidable& colA, const Collidable& colB, float& time)
 {
 	auto& sphereColA = static_cast<SphereCollider&>(colA.GetCol());
@@ -274,9 +298,95 @@ void CollisionChecker::FixMoveCS(Collidable& cCol, Collidable& sCol)
 		return;
 	}
 
-	cCol.SetVel(overlap * (1.0f - weightRate));
-	sCol.SetVel(-overlap * weightRate);
+	cCol.AddVel(overlap * (1.0f - weightRate));
+	sCol.AddVel(-overlap * weightRate);
 
+}
+
+bool CollisionChecker::CheckHitCC(const Collidable& colA, const Collidable& colB)
+{
+	auto& cColA = static_cast<CapsuleCollider&>(colA.GetCol());
+	auto& cColB = static_cast<CapsuleCollider&>(colB.GetCol());
+
+	// DxLibを使わせていただく
+	return HitCheck_Capsule_Capsule(cColA.StartPos(), cColA.EndPos(), cColA.GetRadius(), cColB.StartPos(), cColB.EndPos(), cColB.GetRadius());
+}
+
+void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
+{
+	// 最近接点をそれぞれ中心に持った球の押し戻し
+
+	// 結局計算するじゃん
+
+	auto& cColA = static_cast<CapsuleCollider&>(colA.GetCol());
+	auto& cColB = static_cast<CapsuleCollider&>(colB.GetCol());
+
+	const Vector3 deltaPos = cColA.GetPos() - cColB.GetPos();
+
+	const Vector3 dirA = cColA.Direction();
+	const Vector3 dirB = cColB.Direction();
+
+	const Vector3 normal = VCross(dirA, dirB);
+
+	float s = 0;
+	float t = 0;
+
+	// 二つのカプセルが平行かそうでないかで処理が分かれる
+	if (normal.SqrMagnitude() < 0.001f)
+	{
+		// 平行の時
+		// どうやって最近接点求めればええんや
+		s = dirA.Dot(deltaPos) / dirA.SqrMagnitude();
+		t = dirB.Dot(deltaPos * -1) / dirB.SqrMagnitude();
+	}
+	else
+	{
+		// 連立方程式を解くのに行列を使う
+
+		/*計算用の行列の作成*/
+		//4*4の単位行列の作成
+		MATRIX matSolve = MGetIdent();
+		//列単位で数値を入れている。
+		//1列目に方向ベクトル
+		//2列目にターゲットの方向ベクトルを反転させたもの
+		//3列目に互いの法線ベクトル(つまり外積)
+		matSolve = MGetAxis1(dirA, dirB * -1, normal, { 0,0,0 });
+		//最後に逆行列にする
+		matSolve = MInverse(matSolve);
+
+		//パラメータsを出す。
+		s = Vector3{ matSolve.m[0][0],matSolve.m[0][1],matSolve.m[0][2] }.Dot(deltaPos);
+		//パラメータtを出す。
+		t = Vector3{ matSolve.m[1][0],matSolve.m[1][1],matSolve.m[1][2] }.Dot(deltaPos);
+	}
+
+	// clamp
+	s = std::clamp(s, -cColA.Length() * 0.5f, cColA.Length() * 0.5f);
+	t = std::clamp(t, -cColB.Length() * 0.5f, cColB.Length() * 0.5f);
+
+	// それぞれの最近接点
+	const Vector3 minPos1 = dirA * s + cColA.GetPos();
+	const Vector3 minPos2 = dirB * t + cColB.GetPos();
+
+	DrawSphere3D(minPos1, 10,10, 0xffffff, 0xffffff, true);
+	DrawSphere3D(minPos2, 10,10, 0xffffff, 0xffffff, true);
+
+	// 後は球体の押し戻しと同じ
+	// めり込んでいるベクトルがほしい
+
+	const Vector3 nearestPosDiff = minPos1 - minPos2;
+	const Vector3 nearestPosDiffN = nearestPosDiff.GetNormalize();
+
+	const float radiusSum = cColA.GetRadius() + cColB.GetRadius();
+	const float rerativeLength = nearestPosDiff.Magnitude();
+	const float diff = radiusSum - rerativeLength + 0.1f;
+
+	const Vector3 overlap = nearestPosDiffN * diff;
+
+	const float weightRate = WeightRate(colA, colB);
+
+	colA.AddVel(-overlap * weightRate);
+	colB.AddVel(overlap * (1.0f - weightRate));
 }
 
 // ===============================================

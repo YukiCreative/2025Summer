@@ -1,8 +1,9 @@
-#include "SceneTitle.h"
-#include <DxLib.h>
+#include "ButtonSystem.h"
 #include "Input.h"
 #include "SceneController.h"
 #include "SceneDebug.h"
+#include "SceneTitle.h"
+#include <DxLib.h>
 
 SceneTitle::SceneTitle()
 {
@@ -10,7 +11,7 @@ SceneTitle::SceneTitle()
 
 void SceneTitle::Init()
 {
-
+	m_buttons = std::make_shared<ButtonSystem>();
 }
 
 void SceneTitle::Update()
@@ -20,6 +21,8 @@ void SceneTitle::Update()
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
 	}
+
+	m_buttons->Update();
 }
 
 void SceneTitle::Draw() const

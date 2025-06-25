@@ -75,32 +75,11 @@ void Camera::SetLerpPos(const Vector3& pos)
 
 void Camera::RotateCameraUpVecY(const float rad)
 {
-	//m_targetToCamera = VTransformSR(m_targetToCamera, MGetRotY(rad));
 	m_cameraVel.x += rad;
 }
 
 void Camera::RotateCameraV(const float rad)
 {
-	//// ‚Ü‚¸‰ñ“]²‚ğè‚É“ü‚ê‚é
-	//// “]’us—ñ‚ğæ‚Á‚Ä‚¢‚é‚Ì‚Í‰ñ“]•ûŒü‚ğ‹t‚É‚·‚é‚½‚ß
-	//// ‹ts—ñ‚æ‚èŒy‚¢‚Ì‚Å
-	//// ‚È‚ñ‚Å‹t‚ª³‚µ‚¢‚Ì‚©‚Í•ª‚©‚ç‚ñ
-	//const MATRIX camMat = MTranspose(GetCameraViewMatrix());
-	//// ƒJƒƒ‰‚É‚Æ‚Á‚Ä‚ÌX²@‚ğæ“¾‚µ‚Ä‚¢‚é
-	//const Vector3 rightAxis = {camMat.m[0][0],camMat.m[0][1],camMat.m[0][2]};
-
-	//// ˆê’èˆÈã‹}‚ÈŠp“x‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
-	//// ‰ñ“]‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éŒü‚«‚ªAŠp“x‚ğŒ³‚É–ß‚·•ûŒü‚È‚ç‹–‚·
-	//const Vector3 unitTargetToCamera   = m_targetToCamera.GetNormalize();
-	//const Vector3 unitTargetToCameraXZ = {unitTargetToCamera.x, 0, unitTargetToCamera.z};
-	//const float dot = unitTargetToCamera.Dot(unitTargetToCameraXZ);
-
-	//if (dot < kCameraVRotPlusThreshold && rad > 0 && m_targetToCamera.y > 0) return;
-	//if (dot < kCameraVRotMinusThreshold && rad < 0 && m_targetToCamera.y < 0) return;
-
-	//// ‰ñ“]²‚É‚»‚Á‚Ä‰ñ“]
-	//m_targetToCamera = VTransform(m_targetToCamera, MGetRotAxis(rightAxis, rad));
-
 	m_cameraVel.y += rad;
 }
 

@@ -30,6 +30,11 @@ class CollisionChecker
 	friend Physics;
 private:
 	
+	// 便利関数
+
+	// 第一引数の重さの比重を計算
+	static float WeightRate(Collidable& colA, Collidable& colB);
+
 	// CheckHit〇〇系
 	// Colliderの種類に応じた当たり判定の処理
 	// 当たったかどうかを返す　そのほかに返したいデータがあったら参照を要求する
@@ -65,4 +70,7 @@ private:
 	// 貫通は検知できません
 	static bool CheckHitCS(const Collidable& cCol, const Collidable& sCol);
 	static void FixMoveCS(Collidable& cCol, Collidable& sCol);
+
+	static bool CheckHitCC(const Collidable& colA, const Collidable& colB);
+	static void FixMoveCC(Collidable& colA,  Collidable& sCol);
 };

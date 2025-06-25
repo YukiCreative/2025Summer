@@ -12,6 +12,8 @@ namespace
 	// 重力は定数
 	// 後で変数にするかも？？？
 	const Vector3 kGravity = { 0, -0.8f, 0 };
+
+	constexpr int kCheckLoopMax = 1;
 }
 
 void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
@@ -28,7 +30,7 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 	int loopCount = 0;
 
 	// 当たらなくなるか、基底の回数ループするまで処理を継続
-	while (isHit && loopCount < 100)
+	while (isHit && loopCount < kCheckLoopMax)
 	{
 		isHit = false;
 
@@ -95,6 +97,17 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 						if (!skipPushBack)
 						{
 							CollisionChecker::FixMoveCS(colA, colB);
+						}
+					}
+				}
+				else if (colKindA == ColKind3D::kCapsule && colKindB == ColKind3D::kCapsule)
+				{
+					hitResult = CollisionChecker::CheckHitCC(colA, colB);
+					if (hitResult)
+					{
+						if (!skipPushBack)
+						{
+							CollisionChecker::FixMoveCC(colA, colB);
 						}
 					}
 				}

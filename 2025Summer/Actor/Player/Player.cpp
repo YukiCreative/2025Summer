@@ -149,7 +149,7 @@ void Player::MoveWithoutRotate(const float moveSpeed)
 
 void Player::Draw() const
 {
-	m_model->Draw();
+	//m_model->Draw();
 
 	// ƒƒbƒNƒIƒ“•`‰æ
 	if (!m_lockOnActor.expired())

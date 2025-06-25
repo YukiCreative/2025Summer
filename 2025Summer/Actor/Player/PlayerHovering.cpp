@@ -18,6 +18,8 @@ PlayerHovering::PlayerHovering(std::weak_ptr<Player> parent) :
 	// ‚±‚Ìó‘Ô‘JˆÚŽž‚ÉA‹ó’†‚Ì‹ó‹C’ïR‚ðŒ¸‚ç‚·
 	m_player.lock()->GetRigid().SetAirDrag(kHoveringDrag);
 	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
+
+	m_player.lock()->GetRigid().AddVel({0,5,0});
 }
 
 PlayerHovering::~PlayerHovering()
