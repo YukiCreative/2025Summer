@@ -1,6 +1,7 @@
 #pragma once
 #include "RangeLimitedValue.h"
 #include "Vector3.h"
+#include "Vector2.h"
 #include <memory>
 
 class Player;
@@ -56,6 +57,7 @@ private:
 	// 視野角を滑らかに変化させたい
 	float m_FoV;
 	float m_targetFoV;
+	Vector2 m_cameraVel;
 
 
 	// カメラが目指す座標
@@ -76,4 +78,6 @@ private:
 	// カメラの位置を直接座標で表す
 	// カメラを特定の位置に固定したいときに分かりやすい
 	void UpdateUseDirectlyPosition();
+
+	void Rotate();
 };

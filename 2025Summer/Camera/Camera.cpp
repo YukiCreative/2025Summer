@@ -9,7 +9,7 @@ namespace
 	constexpr float kInitCameraFar = 10000;
 	constexpr float kCameraRotateSensitivity = 1.0f;
 	constexpr float kLerpStrength = 0.1f;
-	constexpr float kDistanceLerpStrength = 0.05f;
+	constexpr float kDistanceLerpStrength = 0.07f;
 	constexpr float kInitFovDegrees = 80.0f * Geometry::kDegToRad;
 	constexpr float kChangeFoVSpeed = 0.1f;
 	// Œ©‰º‚ë‚¹‚éÅ‘å’l
@@ -19,6 +19,7 @@ namespace
 
 	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, 5 }.GetNormalize();
 	constexpr float kInitCameraDistance = 400.0f;
+	constexpr float kCameraDrag = 0.15f;
 }
 
 Camera::Camera() :
@@ -44,6 +45,8 @@ void Camera::Init()
 void Camera::Update()
 {
 	(this->*m_state)();
+
+	Rotate();
 }
 
 void Camera::Draw_Debug() const
@@ -72,30 +75,33 @@ void Camera::SetLerpPos(const Vector3& pos)
 
 void Camera::RotateCameraUpVecY(const float rad)
 {
-	m_targetToCamera = VTransformSR(m_targetToCamera, MGetRotY(rad));
+	//m_targetToCamera = VTransformSR(m_targetToCamera, MGetRotY(rad));
+	m_cameraVel.x += rad;
 }
 
 void Camera::RotateCameraV(const float rad)
 {
-	// ‚Ü‚¸‰ñ“]²‚ğè‚É“ü‚ê‚é
-	// “]’us—ñ‚ğæ‚Á‚Ä‚¢‚é‚Ì‚Í‰ñ“]•ûŒü‚ğ‹t‚É‚·‚é‚½‚ß
-	// ‹ts—ñ‚æ‚èŒy‚¢‚Ì‚Å
-	// ‚È‚ñ‚Å‹t‚ª³‚µ‚¢‚Ì‚©‚Í•ª‚©‚ç‚ñ
-	const MATRIX camMat = MTranspose(GetCameraViewMatrix());
-	// ƒJƒƒ‰‚É‚Æ‚Á‚Ä‚ÌX²@‚ğæ“¾‚µ‚Ä‚¢‚é
-	const Vector3 rightAxis = {camMat.m[0][0],camMat.m[0][1],camMat.m[0][2]};
+	//// ‚Ü‚¸‰ñ“]²‚ğè‚É“ü‚ê‚é
+	//// “]’us—ñ‚ğæ‚Á‚Ä‚¢‚é‚Ì‚Í‰ñ“]•ûŒü‚ğ‹t‚É‚·‚é‚½‚ß
+	//// ‹ts—ñ‚æ‚èŒy‚¢‚Ì‚Å
+	//// ‚È‚ñ‚Å‹t‚ª³‚µ‚¢‚Ì‚©‚Í•ª‚©‚ç‚ñ
+	//const MATRIX camMat = MTranspose(GetCameraViewMatrix());
+	//// ƒJƒƒ‰‚É‚Æ‚Á‚Ä‚ÌX²@‚ğæ“¾‚µ‚Ä‚¢‚é
+	//const Vector3 rightAxis = {camMat.m[0][0],camMat.m[0][1],camMat.m[0][2]};
 
-	// ˆê’èˆÈã‹}‚ÈŠp“x‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
-	// ‰ñ“]‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éŒü‚«‚ªAŠp“x‚ğŒ³‚É–ß‚·•ûŒü‚È‚ç‹–‚·
-	const Vector3 unitTargetToCamera   = m_targetToCamera.GetNormalize();
-	const Vector3 unitTargetToCameraXZ = {unitTargetToCamera.x, 0, unitTargetToCamera.z};
-	const float dot = unitTargetToCamera.Dot(unitTargetToCameraXZ);
+	//// ˆê’èˆÈã‹}‚ÈŠp“x‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+	//// ‰ñ“]‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éŒü‚«‚ªAŠp“x‚ğŒ³‚É–ß‚·•ûŒü‚È‚ç‹–‚·
+	//const Vector3 unitTargetToCamera   = m_targetToCamera.GetNormalize();
+	//const Vector3 unitTargetToCameraXZ = {unitTargetToCamera.x, 0, unitTargetToCamera.z};
+	//const float dot = unitTargetToCamera.Dot(unitTargetToCameraXZ);
 
-	if (dot < kCameraVRotPlusThreshold && rad > 0 && m_targetToCamera.y > 0) return;
-	if (dot < kCameraVRotMinusThreshold && rad < 0 && m_targetToCamera.y < 0) return;
+	//if (dot < kCameraVRotPlusThreshold && rad > 0 && m_targetToCamera.y > 0) return;
+	//if (dot < kCameraVRotMinusThreshold && rad < 0 && m_targetToCamera.y < 0) return;
 
-	// ‰ñ“]²‚É‚»‚Á‚Ä‰ñ“]
-	m_targetToCamera = VTransform(m_targetToCamera, MGetRotAxis(rightAxis, rad));
+	//// ‰ñ“]²‚É‚»‚Á‚Ä‰ñ“]
+	//m_targetToCamera = VTransform(m_targetToCamera, MGetRotAxis(rightAxis, rad));
+
+	m_cameraVel.y += rad;
 }
 
 Vector3 Camera::GetCameraDir() const
@@ -178,4 +184,36 @@ void Camera::UpdateUseDirectlyPosition()
 
 	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
 	SetupCamera_Perspective(m_FoV);
+}
+
+void Camera::Rotate()
+{
+	// ƒJƒƒ‰‘¬“xŒ¸Š
+	m_cameraVel -= m_cameraVel * kCameraDrag;
+
+	// …•½‰ñ“]
+	m_targetToCamera = VTransformSR(m_targetToCamera, MGetRotY(m_cameraVel.x));
+
+	// ‚’¼‰ñ“]
+	// ‚Ü‚¸‰ñ“]²‚ğè‚É“ü‚ê‚é
+	const MATRIX camMat = MTranspose(GetCameraViewMatrix());
+	// ƒJƒƒ‰‚É‚Æ‚Á‚Ä‚ÌX²@‚ğæ“¾‚µ‚Ä‚¢‚é
+	const Vector3 rightAxis = { camMat.m[0][0],camMat.m[0][1],camMat.m[0][2] };
+
+	// ˆê’èˆÈã‹}‚ÈŠp“x‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+	// ‰ñ“]‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éŒü‚«‚ªAŠp“x‚ğŒ³‚É–ß‚·•ûŒü‚È‚ç‹–‚·
+	const Vector3 unitTargetToCamera = m_targetToCamera.GetNormalize();
+	const Vector3 unitTargetToCameraXZ = { unitTargetToCamera.x, 0, unitTargetToCamera.z };
+	const float dot = unitTargetToCamera.Dot(unitTargetToCameraXZ);
+
+	if ((dot < kCameraVRotPlusThreshold  && m_cameraVel.y > 0 && m_targetToCamera.y > 0) ||
+		(dot < kCameraVRotMinusThreshold && m_cameraVel.y < 0 && m_targetToCamera.y < 0)
+		)
+	{
+		m_cameraVel.y = 0;
+		return;
+	}
+
+	// ‰ñ“]²‚É‚»‚Á‚Ä‰ñ“]
+	m_targetToCamera = VTransform(m_targetToCamera, MGetRotAxis(rightAxis, m_cameraVel.y));
 }
