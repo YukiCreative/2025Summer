@@ -1,5 +1,7 @@
 #include "Geometry.h"
 #include <cmath>
+#include <algorithm>
+
 Vector3 Geometry::GetRotatedPosUpVecY(const Vector3& movePos, const Vector3& basePos, const float rad)
 {
 	// basePos‚ªŒ´“_‚¾‚Á‚½‚ÌmovePos‚ÌˆÊ’u‚ğo‚·
@@ -56,5 +58,15 @@ float Geometry::Corner(const Vector3& a, const Vector3& b)
 
 Vector3 Geometry::PointSegmentNearestPos(const Vector3& point, const Vector3& lineStart, const Vector3& lineEnd)
 {
-	return Vector3();
+	const Vector3 diff = point - lineStart;
+
+	const Vector3 lineDir    = lineEnd - lineStart;
+	const Vector3 lineDirN   = lineDir.GetNormalize();
+	const float   lineLength = lineDir.Magnitude();
+
+	float projection = diff.Dot(lineDirN);
+
+	projection = std::clamp(projection, 0.0f, lineLength);
+
+	return lineStart + lineDirN * projection;
 }

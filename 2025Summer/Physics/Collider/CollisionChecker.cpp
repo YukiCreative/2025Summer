@@ -1,12 +1,12 @@
-#include "CollisionChecker.h"
-#include <DxLib.h>
 #include "Actor.h"
-#include "Collidable.h"
-#include "Rigid.h"
-//#include "Collider3D.h"
-#include <array>
 #include "CapsuleCollider.h"
+#include "Collidable.h"
+#include "CollisionChecker.h"
+#include "Geometry.h"
+#include "Rigid.h"
 #include <algorithm>
+#include <array>
+#include <DxLib.h>
 
 float CollisionChecker::WeightRate(Collidable& colA, Collidable& colB)
 {
@@ -308,8 +308,11 @@ bool CollisionChecker::CheckHitCC(const Collidable& colA, const Collidable& colB
 	auto& cColA = static_cast<CapsuleCollider&>(colA.GetCol());
 	auto& cColB = static_cast<CapsuleCollider&>(colB.GetCol());
 
+	const auto velA = colA.GetVel();
+	const auto velB = colB.GetVel();
+
 	// DxLibを使わせていただく
-	return HitCheck_Capsule_Capsule(cColA.StartPos(), cColA.EndPos(), cColA.GetRadius(), cColB.StartPos(), cColB.EndPos(), cColB.GetRadius());
+	return HitCheck_Capsule_Capsule(cColA.StartPos() + velA, cColA.EndPos() + velA, cColA.GetRadius(), cColB.StartPos() + velB, cColB.EndPos() + velB, cColB.GetRadius());
 }
 
 void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
@@ -324,12 +327,20 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 	float t, s;
 	Vector3 minPos1, minPos2;
 
-	//const Vector3 dirA = cColA.Direction();
-	//const Vector3 dirB = cColB.Direction();
-	const Vector3 dirA = cColA.EndPos() - cColA.GetPos();
-	const Vector3 dirB = cColB.EndPos() - cColB.GetPos();
+	const Vector3 velA       = colA.GetVel();
+	const Vector3 velB       = colB.GetVel();
+	const Vector3 nextPosA   = cColA.GetPos()   + velA;
+	const Vector3 nextStartA = cColA.StartPos() + velA;
+	const Vector3 nextEndA   = cColA.EndPos()   + velA;
+	const Vector3 nextPosB   = cColB.GetPos()   + velB;
+	const Vector3 nextStartB = cColB.StartPos() + velB;
+	const Vector3 nextEndB   = cColB.EndPos()   + velB;
 
-	const Vector3 deltaPos = colB.GetPos() - cColA.GetPos();
+	// 正規化されていない線分が必要
+	const Vector3 dirA = nextEndA - nextPosA;
+	const Vector3 dirB = nextEndB - nextPosB;
+
+	const Vector3 deltaPos = nextPosB - nextPosA;
 	const Vector3 dirNormal = dirA.Cross(dirB);
 
 	// カプセルが平行かどうか
@@ -341,7 +352,9 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 		// そこから、一番近いAの点を求める
 		// 出た二つの点が最近接点
 
-		const Vector3 nearestB = 
+		minPos2 = Geometry::PointSegmentNearestPos(nextStartA, nextStartB, nextEndB);
+
+		minPos1 = Geometry::PointSegmentNearestPos(minPos2, nextStartA, nextEndA);
 	}
 	else
 	{
@@ -360,17 +373,19 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 
 		s = Vector3{ matSolve.m[0][0],matSolve.m[1][0] ,matSolve.m[2][0] }.Dot(deltaPos);
 		t = Vector3{ matSolve.m[0][1],matSolve.m[1][1] ,matSolve.m[2][1] }.Dot(deltaPos);
+
+		// clamp
+		s = std::clamp(s, -1.0f, 1.0f);
+		t = std::clamp(t, -1.0f, 1.0f);
+
+		minPos1 = nextPosA + dirA * s;
+		minPos2 = nextPosB + dirB * t;
+
+		// なんか完ぺきではないけどこれでいいや
 	}
 
-	// clamp
-	s = std::clamp(s, -1.0f, 1.0f);
-	t = std::clamp(t, -1.0f, 1.0f);
-
-	minPos1 = cColA.GetPos() + dirA * s;
-	minPos2 = cColB.GetPos() + dirB * t;
-
-	DrawSphere3D(minPos1, 10,10,0xffffff, 0xffffff, true);
-	DrawSphere3D(minPos2, 10,10,0xffffff, 0xffffff, true);
+	DrawSphere3D(minPos1, 10,10, 0xffffff,0xffffff, true);
+	DrawSphere3D(minPos2, 10,10, 0xffffff,0xffffff, true);
 
 	// 後は球体の押し戻しと同じ
 	// めり込んでいるベクトルがほしい
@@ -380,14 +395,14 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 
 	const float radiusSum = cColA.GetRadius() + cColB.GetRadius();
 	const float rerativeLength = nearestPosDiff.Magnitude();
-	const float diff = radiusSum - rerativeLength + 0.01f;
+	const float diff = radiusSum - rerativeLength;
 
 	const Vector3 overlap = nearestPosDiffN * diff;
 
 	const float weightRate = WeightRate(colA, colB);
 
-	//colA.AddVel(-overlap * weightRate);
-	//colB.AddVel(overlap * (1.0 - weightRate));
+	colA.AddVel(-overlap * weightRate);
+	colB.AddVel(overlap * (1.0 - weightRate));
 }
 
 // ===============================================

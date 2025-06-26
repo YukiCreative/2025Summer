@@ -7,14 +7,18 @@
 #include <EffekseerForDXLib.h>
 #include "SoundManager.h"
 
-#if _DEBUG
+
 namespace
 {
+#if _DEBUG
 	// コンソール用
 	FILE* in = 0;
 	FILE* out = 0;
-}
 #endif
+
+	constexpr LONGLONG kWaitTime = 16667;
+}
+
 
 Application::Application() :
 	m_isRunning(true)

@@ -8,6 +8,8 @@
 #include "SceneController.h"
 #include "EnemyTest.h"
 
+#include "Geometry.h"
+
 namespace
 {
 	constexpr float kLineOffset = 100;
