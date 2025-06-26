@@ -3,8 +3,10 @@
 #include "Vector3.h"
 #include "Vector2.h"
 #include <memory>
+#include <list>
 
 class Player;
+class VirtualCamera;
 
 namespace DxLib
 {
@@ -68,6 +70,7 @@ private:
 
 	CameraState_t m_state;
 
+	std::list <std::shared_ptr<VirtualCamera>> m_virtalCameras;
 
 private:
 

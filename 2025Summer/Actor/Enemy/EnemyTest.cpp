@@ -20,10 +20,12 @@ EnemyTest::EnemyTest() :
 
 void EnemyTest::Init()
 {
+	printf("‚ ‚ ‚ ‚ ");
+
 	m_pos = { 200, 100, 0 };
 
 	auto col = std::make_shared<CapsuleCollider>();
-	col->Init(m_pos, m_pos + Vector3{0, 100, 100}, 10, false, false, 30);
+	col->Init(m_pos, m_pos + Vector3{0, 100, 100}, 10, false, true, 30);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kPhysiMat);
 

@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "Geometry.h"
 #include <EffekseerForDXLib.h>
+#include "VirtualCamera.h"
 
 namespace
 {
@@ -45,6 +46,18 @@ void Camera::Init()
 void Camera::Update()
 {
 	(this->*m_state)();
+
+	std::shared_ptr<VirtualCamera> activeVCamera = m_virtalCameras.front();
+	for (auto& vCamera : m_virtalCameras)
+	{
+		if (vCamera->IsActive()) continue; // アクティブで、
+		if (vCamera->GetPriority() < activeVCamera->GetPriority()) continue; // 優先度が高い
+
+		activeVCamera = vCamera;
+	}
+
+	// ここでカメラの位置をいじったりする
+	activeVCamera->Update();
 
 	Rotate();
 }
