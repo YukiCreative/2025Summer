@@ -7,8 +7,7 @@
 #include "SceneDebug.h"
 #include "SceneController.h"
 #include "EnemyTest.h"
-
-#include "Geometry.h"
+#include "VirtualCamera.h"
 
 namespace
 {
@@ -22,9 +21,6 @@ SceneTest::SceneTest()
 
 void SceneTest::Init()
 {
-	m_camera = std::make_shared<Camera>();
-	m_camera->Init();
-
 	m_actors = std::make_shared<ActorController>();
 	m_actors->Init();
 
@@ -38,7 +34,6 @@ void SceneTest::Init()
 
 void SceneTest::Update()
 {
-	m_camera->Update();
 	m_actors->Update();
 }
 

@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include <memory>
 #include <list>
+#include "Geometry.h"
 
 class Player;
 class VirtualCamera;
@@ -13,17 +14,22 @@ namespace DxLib
 	struct tagMATRIX;
 }
 
-// DxLibにカメラが一つしか存在しないのでシングルトンでも良さげ？
-// せずに済むならそれが一番なのだが
 class Camera
 {
-public:
+private:
 	Camera();
+	Camera(const Camera&) = delete;
+	void operator=(const Camera&) = delete;
+public:
 	~Camera();
+
+	static Camera& GetInstance();
 
 	void Init();
 	void Update();
 	void Draw_Debug() const;
+
+	void AddVCamera(std::shared_ptr<VirtualCamera> cCam);
 
 	void SetTargetPos(const Vector3& targetPos);
 	void SetLerpPos(const Vector3& pos);
@@ -61,6 +67,9 @@ private:
 	float m_targetFoV;
 	Vector2 m_cameraVel;
 
+	Vector3 m_beforeVCameraPos;
+	Vector3 m_beforeVCameraTarget;
+	float   m_beforeVCameraFoV;
 
 	// カメラが目指す座標
 	Vector3 m_targetCameraPos;
@@ -70,7 +79,14 @@ private:
 
 	CameraState_t m_state;
 
-	std::list <std::shared_ptr<VirtualCamera>> m_virtalCameras;
+	std::list <std::weak_ptr<VirtualCamera>> m_virtualCameras;
+	std::weak_ptr<VirtualCamera> m_activeVCamera;
+
+	int m_frame;
+	// 何フレームで遷移するか
+	int m_interpolateFrame;
+
+	Geometry::EasingFunction_t m_eFunc;
 
 private:
 

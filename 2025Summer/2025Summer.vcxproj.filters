@@ -67,6 +67,7 @@
     <ClCompile Include="Actor\Player\PlayerLockOn.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
     <ClCompile Include="Camera\VirtualCamera.cpp" />
+    <ClCompile Include="Camera\RotateCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -132,5 +133,6 @@
     <ClInclude Include="Actor\Player\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
     <ClInclude Include="Camera\VirtualCamera.h" />
+    <ClInclude Include="Camera\RotateCamera.h" />
   </ItemGroup>
 </Project>

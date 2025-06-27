@@ -6,6 +6,7 @@
 #include "EffectManager.h"
 #include <EffekseerForDXLib.h>
 #include "SoundManager.h"
+#include "Camera.h"
 
 
 namespace
@@ -63,10 +64,12 @@ void Application::Run() const
 	Input& input = Input::GetInstance();
 	EffectManager& effect = EffectManager::GetInstance();
 	SoundManager& sound = SoundManager::GetInstance();
+	Camera& camera = Camera::GetInstance();
 	scenes.Init();
 	input.Init();
 	effect.Init();
 	sound.Init();
+	camera.Init();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (ProcessMessage() == 0)
@@ -87,6 +90,8 @@ void Application::Run() const
 		effect.Draw();
 
 		sound.Update();
+
+		camera.Update();
 
 		// •`‰æ‚µ‚½— ‰æ–Ê‚ğ”½‰f
 		ScreenFlip();

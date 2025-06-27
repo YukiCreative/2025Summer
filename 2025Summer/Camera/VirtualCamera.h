@@ -7,7 +7,6 @@ class Camera;
 // ‚±‚ê‚ğŒp³‚µ‚Ä“Áê‚Èˆ—‚ğ‚·‚éVirtualCamera‚ğì‚Á‚Ä‚à‚æ‚¢
 class VirtualCamera
 {
-	// ”h¶ƒNƒ‰ƒX‚Å’Ç‰Á‚·‚é•Ï”‚Í­‚È‚¢‚Æ”»’f
 	friend Camera;
 
 public:
@@ -26,12 +25,16 @@ public:
 	const bool IsActive()    const { return m_isActive; }
 	const int  GetPriority() const { return m_priority; }
 
-private:
+	void SetPos(const Vector3& pos) { m_pos = pos; }
+	void SetTarget(const Vector3& target) { m_target = target; }
+
+protected:
 
 	bool m_isActive;
 	int m_priority;
 	Vector3 m_pos;
 	Vector3 m_target;
+	float m_fov;
 
 };
 

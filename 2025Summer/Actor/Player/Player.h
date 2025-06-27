@@ -6,6 +6,8 @@ class Camera;
 class PlayerState;
 class ActorController;
 class Image;
+class VirtualCamera;
+class RotateCamera;
 
 namespace DxLib
 {
@@ -22,7 +24,7 @@ public:
 
 	Player();
 
-	void Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont);
+	void Init(std::weak_ptr<ActorController> cont);
 
 	void Update() override;
 	void Draw() const override;
@@ -37,13 +39,14 @@ public:
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚½‚¢ƒƒ“ƒo•Ï”
 	std::shared_ptr<AnimationModel> m_model;
-	std::weak_ptr<Camera> m_camera;
 	std::shared_ptr<PlayerState> m_state;
 	Vector3 m_targetPos;
 	std::weak_ptr<Actor> m_lockOnActor;
 	std::weak_ptr<ActorController> m_cont;
 	Vector3 m_lockOnCursorPos;
 	std::shared_ptr<Image> m_lockOnGraph;
+
+	std::shared_ptr<RotateCamera> m_rotateCamera;
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”
