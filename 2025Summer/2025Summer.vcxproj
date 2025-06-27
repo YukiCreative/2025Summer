@@ -34,7 +34,6 @@
     <ClCompile Include="Actor\Player\PlayerLockOnMoveLeft.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
-    <ClCompile Include="Camera\RotateCamera.cpp" />
     <ClCompile Include="Camera\VirtualCamera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
@@ -95,7 +94,6 @@
     <ClInclude Include="Actor\Player\PlayerLockOnMoveLeft.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
     <ClInclude Include="Camera\Camera.h" />
-    <ClInclude Include="Camera\RotateCamera.h" />
     <ClInclude Include="Camera\VirtualCamera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />

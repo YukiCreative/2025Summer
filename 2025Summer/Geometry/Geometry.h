@@ -24,8 +24,4 @@ namespace Geometry
 
 	// 点と線分との、線分上で一番近い点を出します
 	Vector3 PointSegmentNearestPos(const Vector3& point, const Vector3& lineStart, const Vector3& lineEnd);
-
-	using EasingFunction_t = float (*)(float);
-
-	float Liner(float x);
 }

@@ -70,8 +70,3 @@ Vector3 Geometry::PointSegmentNearestPos(const Vector3& point, const Vector3& li
 
 	return lineStart + lineDirN * projection;
 }
-
-float Geometry::Liner(float x)
-{
-	return x;
-}

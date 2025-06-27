@@ -11,7 +11,6 @@
 #include "ActorController.h"
 #include "Game.h"
 #include "Image.h"
-#include "RotateCamera.h"
 
 namespace
 {
@@ -30,9 +29,6 @@ namespace
 	constexpr float kAnimPlaySpeed = 30.0f;
 
 	const std::string kLockOnCursorFile = "LockOnCursor.png";
-
-	const Vector3 kInitTargetToCamera = Vector3{ 0, 3, 5 }.GetNormalize();
-	constexpr float kInitCameraDistance = 400.0f;
 }
 
 Player::Player() :
@@ -41,13 +37,9 @@ Player::Player() :
 {
 }
 
-void Player::Init(std::weak_ptr<ActorController> cont)
+void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont)
 {
-	m_rotateCamera = std::make_shared<RotateCamera>();
-	m_rotateCamera->Init(m_pos + kCameraTargetOffset, kInitTargetToCamera, kInitCameraDistance);
-
-	Camera::GetInstance().AddVCamera(m_rotateCamera);
-
+	m_camera = camera;
 	m_cont = cont;
 
 	m_model = std::make_shared<AnimationModel>();
@@ -79,7 +71,19 @@ void Player::Update()
 	}
 
 	m_model->Update();
+
+	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
+}
+
+void Player::CameraMove()
+{
+	// カメラを動かす
+	Vector2 rightAxis = Input::GetInstance().GetRightInputAxis();
+	rightAxis.y *= -1;
+
+	m_camera.lock()->RotateCameraUpVecY(rightAxis.x * kCameraHSpeed);
+	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
 }
 
 float Player::DefaultGroundDrag()
@@ -101,7 +105,7 @@ void Player::Move(const float moveSpeed)
 
 	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } * moveSpeed;
 	// 移動量をカメラの向きに補正
-	vel = Camera::GetInstance().RotateVecToCameraDirXZ(vel, Vector3::Back());
+	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
 
 	// プレイヤーの現在の向きを取得
 	const Vector3 dir = m_model->GetDirection() * -1; // 逆なので反転
@@ -138,7 +142,7 @@ void Player::MoveWithoutRotate(const float moveSpeed)
 
 	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } *moveSpeed;
 	// 移動量をカメラの向きに補正
-	vel = Camera::GetInstance().RotateVecToCameraDirXZ(vel, Vector3::Back());
+	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
 
 	m_collidable->AddVel(vel);
 }

@@ -1,7 +1,8 @@
 #include "Camera.h"
-#include "VirtualCamera.h"
 #include <DxLib.h>
+#include "Geometry.h"
 #include <EffekseerForDXLib.h>
+#include "VirtualCamera.h"
 
 namespace
 {
@@ -28,23 +29,12 @@ Camera::Camera() :
 	m_lerpedTargetDistance(kInitCameraDistance),
 	m_targetFoV(kInitFovDegrees),
 	m_FoV(kInitFovDegrees),
-	m_state(&Camera::UpdateUseDirectionAndDistance),
-	m_beforeVCameraPos(),
-	m_beforeVCameraTarget(),
-	m_eFunc(Geometry::Liner),
-	m_interpolateFrame(60),
-	m_frame(0)
+	m_state(&Camera::UpdateUseDirectionAndDistance)
 {
 }
 
 Camera::~Camera()
 {
-}
-
-Camera& Camera::GetInstance()
-{
-	static Camera instance;
-	return instance;
 }
 
 void Camera::Init()
@@ -55,46 +45,21 @@ void Camera::Init()
 
 void Camera::Update()
 {
-	if (m_virtualCameras.empty()) return;
+	(this->*m_state)();
 
-	if (m_activeVCamera.expired()) m_activeVCamera = m_virtualCameras.front();
-
-	auto beforeActiveVCamera = m_activeVCamera;
-	for (auto& vCamera : m_virtualCameras)
+	std::shared_ptr<VirtualCamera> activeVCamera = m_virtalCameras.front();
+	for (auto& vCamera : m_virtalCameras)
 	{
-		auto lockedVCam = vCamera.lock();
+		if (vCamera->IsActive()) continue; // アクティブで、
+		if (vCamera->GetPriority() < activeVCamera->GetPriority()) continue; // 優先度が高い
 
-		if (!lockedVCam->IsActive()) continue; // アクティブで、
-		if (lockedVCam->GetPriority() < m_activeVCamera.lock()->GetPriority()) continue; // 優先度が高い
-
-		m_activeVCamera = vCamera;
+		activeVCamera = vCamera;
 	}
 
-	// カメラが変わっていたら
-	if (m_activeVCamera.lock() != beforeActiveVCamera.lock())
-	{
-		// 前のカメラの位置、注視点と遷移方法を取得
-		m_beforeVCameraPos = beforeActiveVCamera.lock()->m_pos;
-		m_beforeVCameraTarget = beforeActiveVCamera.lock()->m_target;
-	}
+	// ここでカメラの位置をいじったりする
+	activeVCamera->Update();
 
-	// ここでVirtualCameraの位置が変わったりする
-	m_activeVCamera.lock()->Update();
-
-	float time = static_cast<float>(m_frame) / static_cast<float>(m_interpolateFrame);
-
-	time = std::clamp(time, 0.0f, 1.0f);
-
-	// 前の位置から補間する
-	const Vector3 interpolatedPos    = m_beforeVCameraPos.Lerp(m_activeVCamera.lock()->m_pos, m_eFunc(time));
-	const Vector3 interpolatedTarget = m_beforeVCameraTarget.Lerp(m_activeVCamera.lock()->m_target, m_eFunc(time));
-	const float   interpolatedFoV    = std::lerp(m_beforeVCameraFoV, m_activeVCamera.lock()->m_fov, m_eFunc(time));
-
-	// DxLibのカメラに反映
-	SetCameraPositionAndTarget_UpVecY(interpolatedPos, interpolatedTarget);
-	SetupCamera_Perspective(interpolatedFoV);
-
-	++m_frame;
+	Rotate();
 }
 
 void Camera::Draw_Debug() const
@@ -109,14 +74,6 @@ void Camera::Draw_Debug() const
 	DrawLine3D(m_targetPos + rightAxis,  m_targetPos + rightAxis*200,0xffff00);
 	const Vector3 strPos = ConvWorldPosToScreenPos(m_targetPos + rightAxis * 200);
 	DrawStringF(strPos.x, strPos.y, "←カメラの垂直回転軸", 0xffffff);
-}
-
-void Camera::AddVCamera(std::shared_ptr<VirtualCamera> vCam)
-{
-	// 既に登録されていれば無視
-	if (std::find(m_virtualCameras.begin(), m_virtualCameras.end(), vCam) != m_virtualCameras.end()) return;
-
-	m_virtualCameras.emplace_back(vCam);
 }
 
 void Camera::SetTargetPos(const Vector3& targetPos)

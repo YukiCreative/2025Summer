@@ -19,6 +19,7 @@ public:
 	virtual void Reave();
 
 private:
+	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ActorController> m_actors;
 
 private:
