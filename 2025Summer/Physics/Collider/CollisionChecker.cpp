@@ -319,8 +319,6 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 {
 	// 最近接点をそれぞれ中心に持った球の押し戻し
 
-	// 結局計算するじゃん
-
 	auto& cColA = static_cast<CapsuleCollider&>(colA.GetCol());
 	auto& cColB = static_cast<CapsuleCollider&>(colB.GetCol());
 
@@ -381,7 +379,16 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 		minPos1 = nextPosA + dirA * s;
 		minPos2 = nextPosB + dirB * t;
 
-		// なんか完ぺきではないけどこれでいいや
+		// 最近接点が端になった時の挙動がおかしかったので修正
+		if (s <= -0.9999f || s >= 0.9999f)
+		{
+			// 計算しなおす
+			minPos2 = Geometry::PointSegmentNearestPos(minPos1, nextStartB, nextEndB);
+		}
+		if (t <= -0.9999f || t >= 0.9999f)
+		{
+			minPos1 = Geometry::PointSegmentNearestPos(minPos2, nextStartA, nextEndA);
+		}
 	}
 
 	DrawSphere3D(minPos1, 10,10, 0xffffff,0xffffff, true);
