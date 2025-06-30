@@ -4,6 +4,8 @@
 #include "SphereCollider.h"
 #include "CapsuleCollider.h"
 #include "AnimationModel.h"
+#include <DxLib.h>
+#include "Geometry.h"
 
 namespace
 {
@@ -11,6 +13,15 @@ namespace
 	{
 		0.1f, 0.05f, 0.1f
 	};
+
+	// モデル
+	const std::string kModelName = "Data/Model/bug.mv1";
+	constexpr float kAnimSpeed = 30.0f;
+	const std::string kInitAnimName = "Armature|Idle";
+
+	// コライダー
+	constexpr float kSphereRadius = 60;
+	constexpr float kWeight = 10;
 }
 
 EnemyTest::EnemyTest() :
@@ -20,12 +31,10 @@ EnemyTest::EnemyTest() :
 
 void EnemyTest::Init()
 {
-	printf("ああああ");
-
 	m_pos = { 200, 100, 0 };
 
-	auto col = std::make_shared<CapsuleCollider>();
-	col->Init(m_pos, m_pos + Vector3{0, 100, 100}, 10, false, true, 30);
+	auto col = std::make_shared<SphereCollider>();
+	col->Init(m_pos, kWeight, false, false, kSphereRadius);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kPhysiMat);
 
@@ -33,7 +42,8 @@ void EnemyTest::Init()
 	m_collidable->Init(col, rigid);
 
 	m_model = std::make_shared<AnimationModel>();
-	m_model->Init(-1, 1);
+	m_model->Init(kModelName, kAnimSpeed);
+	m_model->ChangeAnimation(kInitAnimName);
 }
 
 void EnemyTest::Update()
@@ -42,6 +52,10 @@ void EnemyTest::Update()
 	{
 		m_pos.y = 0;
 	}
+
+	m_model->Update();
+
+	m_model->SetPos(m_pos);
 }
 
 void EnemyTest::Draw() const
@@ -49,6 +63,8 @@ void EnemyTest::Draw() const
 	m_collidable->GetCol().Draw();
 
 	m_model->Draw();
+
+	DrawSphere3D(m_pos, 10, 10, 0xffffff, 0xffffff, true);
 }
 
 void EnemyTest::CommitMove()
@@ -57,4 +73,13 @@ void EnemyTest::CommitMove()
 	m_pos += vel;
 
 	m_collidable->SetPos(m_pos);
+}
+
+void EnemyTest::OnCollision(std::shared_ptr<Actor> other)
+{
+	if (other->GetKind() == ActorKind::kPlayerAttack)
+	{
+		// ダメージ
+		printf("ダメージ！n");
+	}
 }

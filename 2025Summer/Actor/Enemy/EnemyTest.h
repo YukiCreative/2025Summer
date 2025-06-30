@@ -15,8 +15,12 @@ public:
 
 	void CommitMove() override;
 
+	void OnCollision(std::shared_ptr<Actor> other) override;
+
 private:
 
 	std::shared_ptr<AnimationModel> m_model;
+
+private:
 };
 

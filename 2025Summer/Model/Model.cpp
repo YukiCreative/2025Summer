@@ -1,6 +1,7 @@
 #include "Model.h"
 #include <DxLib.h>
 #include "Geometry.h"
+#include <cassert>
 
 Model::Model() :
 	m_isLoadModel(false)
@@ -25,6 +26,7 @@ void Model::Init(const std::string& path)
 {
 	m_isLoadModel = true;
 	m_handle = MV1LoadModel(path.c_str());
+	assert(m_handle != -1 && "指定のパスにモデルがなかったよ");
 }
 
 void Model::SetPos(const Vector3& pos) const

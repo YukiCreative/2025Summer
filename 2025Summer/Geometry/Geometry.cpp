@@ -70,3 +70,12 @@ Vector3 Geometry::PointSegmentNearestPos(const Vector3& point, const Vector3& li
 
 	return lineStart + lineDirN * projection;
 }
+
+MATRIX Geometry::GetMatXYZ(const float x, const float y, const float z)
+{
+	auto xRot = MGetRotX(x);
+	auto yRot = MGetRotX(y);
+	auto zRot = MGetRotX(z);
+
+	return MMult(MMult(xRot,yRot),zRot);
+}
