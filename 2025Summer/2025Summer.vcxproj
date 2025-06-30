@@ -22,6 +22,7 @@
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyTest.cpp" />
+    <ClCompile Include="Actor\PlayerSword.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOn.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnIdle.cpp" />
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
@@ -82,6 +83,7 @@
     <ClInclude Include="Actor\ActorKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyTest.h" />
     <ClInclude Include="Actor\LockOnState.h" />
+    <ClInclude Include="Actor\PlayerSword.h" />
     <ClInclude Include="Actor\Player\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnIdle.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />

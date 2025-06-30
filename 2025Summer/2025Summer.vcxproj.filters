@@ -66,6 +66,7 @@
     <ClCompile Include="Actor\Player\PlayerLockOnMoveBack.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOn.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
+    <ClCompile Include="Actor\PlayerSword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -130,5 +131,6 @@
     <ClInclude Include="Actor\Player\PlayerLockOnMoveBack.h" />
     <ClInclude Include="Actor\Player\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
+    <ClInclude Include="Actor\PlayerSword.h" />
   </ItemGroup>
 </Project>
