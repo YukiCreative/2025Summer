@@ -66,6 +66,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 
 	m_sword = std::make_shared<PlayerSword>();
 	m_sword->Init(weak_from_this());
+	m_cont.lock()->AddActor(m_sword);
 
 	m_state = std::make_shared<PlayerNormal>(weak_from_this());
 }
@@ -180,7 +181,14 @@ void Player::Draw() const
 
 void Player::OnCollision(std::shared_ptr<Actor> other)
 {
-	printf("Ç»ÇÒÇ©ìñÇΩÇ¡ÇƒÇÈ");
+	switch (other->GetKind())
+	{
+	case ActorKind::kEnemyAttack:
+		printf("çUåÇÇ…ìñÇΩÇ¡ÇΩ\n");
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::CommitMove()

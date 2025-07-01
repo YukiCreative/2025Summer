@@ -146,6 +146,9 @@ void Physics::Gravity(std::list<std::shared_ptr<Actor>> actorList)
 		// static‚Ì‚â‚Â‚Í“®‚©‚³‚È‚¢
 		if (actor->GetCol().IsStatic()) continue;
 
+		// ƒEƒ`d—Í‚¢‚ç‚È‚¢‚ñ‚Å
+		if (!actor->GetCollidable().GetRigid().IsUseGravity()) continue;
+
 		auto& rigid = actor->GetRigid();
 		rigid.AddVel(kGravity);
 	}

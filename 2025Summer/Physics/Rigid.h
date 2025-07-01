@@ -59,12 +59,16 @@ public:
 	void StopY();
 	void SetGroundDrag(const float drag);
 	void SetAirDrag(const float drag);
+	void SetUseGravity(const bool useOrNot) { m_useGravity = useOrNot; }
+	bool IsUseGravity() const { return m_useGravity; }
 private:
 	// 今フレームの地上移動量
 	Vector3 m_vel;
 	// 物理挙動に使うデータをまとめた
 	// これで関数の引数がいちいち変わらないで済む
 	PhysicalMaterial m_material;
+
+	bool m_useGravity;
 
 	using UpdateFunc_t = const Vector3 (Rigid::*)();
 	UpdateFunc_t m_update;

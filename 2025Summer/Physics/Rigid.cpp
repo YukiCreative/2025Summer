@@ -9,7 +9,8 @@ namespace
 Rigid::Rigid() :
 	m_vel(),
 	m_material(),
-	m_update(&Rigid::GroundUpdate)
+	m_update(&Rigid::GroundUpdate),
+	m_useGravity(true)
 {
 }
 

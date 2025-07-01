@@ -65,6 +65,11 @@ DxLib::tagMATRIX Model::GetMatrix() const
 	return MV1GetMatrix(m_handle);
 }
 
+DxLib::tagMATRIX Model::GetFrameMatrix(const std::string frameName) const
+{
+	return MV1GetFrameLocalWorldMatrix(m_handle, MV1SearchFrame(m_handle, frameName.c_str()));
+}
+
 Vector3 Model::GetFramePosition(const std::string& frameName) const
 {
 	return MV1GetFramePosition(m_handle, MV1SearchFrame(m_handle, frameName.c_str()));

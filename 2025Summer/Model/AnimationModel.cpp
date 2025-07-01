@@ -86,6 +86,11 @@ Vector3 AnimationModel::GetFramePosition(const std::string& frameName) const
 	return m_model->GetFramePosition(frameName);
 }
 
+DxLib::tagMATRIX AnimationModel::GetFrameMatrix(const std::string& frameName) const
+{
+	return m_model->GetFrameMatrix(frameName);
+}
+
 AnimationModel::AnimationModel() :
 	m_beforeAnimHandle(-1),
 	m_nowAnimHandle(-1),
