@@ -9,7 +9,7 @@ namespace
 {
 	constexpr float kMoveThreshold = 0.001f;
 	const Vector3 kCameraTargetOffset = { 0,200,0 };
-	constexpr float kLockOnWalkSpeed = 0.0005f;
+	constexpr float kLockOnWalkSpeed = 0.001f;
 }
 
 // プレイヤーの状態をクラスに分ける
