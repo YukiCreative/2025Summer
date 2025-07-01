@@ -67,6 +67,7 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneController.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Shader\ShaderDraw.cpp" />
     <ClCompile Include="Shape\Sphere.cpp" />
     <ClCompile Include="Sound\Music.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
@@ -129,6 +130,8 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneController.h" />
     <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Shader\ConstantBufferIndex.h" />
+    <ClInclude Include="Shader\ShaderDraw.h" />
     <ClInclude Include="Shape\Sphere.h" />
     <ClInclude Include="Sound\Music.h" />
     <ClInclude Include="Sound\Sound.h" />
@@ -141,6 +144,14 @@
     <ClInclude Include="UI\ImageStore.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />
     <ClInclude Include="Utility\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\SwordDissolve.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

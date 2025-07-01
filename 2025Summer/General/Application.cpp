@@ -21,8 +21,44 @@ namespace
 
 
 Application::Application() :
-	m_isRunning(true)
+	m_isRunning(true),
+	m_isPause(false)
 {
+}
+
+bool Application::DebugPause()
+{
+	// ポーズなら、ポーズボタンを押したら解除
+	// また、コマ送りボタンで一回だけUpdateを実行
+
+	// ポーズでなければ、ポーズボタンを押したら実行が止まる
+
+	auto& input = Input::GetInstance();
+
+	if (m_isPause)
+	{
+		if (input.IsTrigger("Pause"))
+		{
+			m_isPause = false;
+			return false;
+		}
+		if (input.IsTrigger("FrameForward"))
+		{
+			return false;
+		}
+
+		return true;
+	}
+	else
+	{
+		if (input.IsTrigger("Pause"))
+		{
+			m_isPause = true;
+			return true;
+		}
+
+		return false;
+	}
 }
 
 Application& Application::GetInstance()
@@ -57,7 +93,7 @@ bool Application::Init()
 	return true;
 }
 
-void Application::Run() const
+void Application::Run()
 {
 	SceneController& scenes = SceneController::GetInstance();
 	Input& input = Input::GetInstance();
@@ -74,10 +110,21 @@ void Application::Run() const
 		// 開始時のコンピュータの時間を取得
 		long long beforFrameTime = GetNowHiPerformanceCount();
 
+		input.Update();
+
+#if _DEBUG
+		// デバッグの一時停止処理
+		if (DebugPause())
+		{	
+			// 60fpsになるように調整してる
+			while (GetNowHiPerformanceCount() - beforFrameTime < 16667);
+
+			continue;
+		}
+#endif
+
 		// 画面をきれいに
 		ClearDrawScreen();
-
-		input.Update();
 
 		// ここにゲームの処理を書く
 		scenes.Update();

@@ -107,6 +107,16 @@ void Input::SetKeyDefault()
 		{PeripheralType::kKeyboard, KEY_INPUT_LSHIFT},
 		{PeripheralType::kPad, kPadR},
 	};
+	m_inputEvent["Pause"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_P},
+		{PeripheralType::kPad, kPadStart},
+	};
+	m_inputEvent["FrameForward"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_AT},
+		{PeripheralType::kPad, kPadSelect},
+	};
 }
 
 void Input::Init()

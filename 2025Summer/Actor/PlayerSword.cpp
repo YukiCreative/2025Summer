@@ -5,6 +5,8 @@
 #include "Rigid.h"
 #include <DxLib.h>
 #include "AnimationModel.h"
+#include "ConstantBufferIndex.h"
+#include "ShaderDraw.h"
 
 namespace
 {
@@ -24,7 +26,11 @@ namespace
 }
 
 PlayerSword::PlayerSword() :
-	Actor(false)
+	Actor(false),
+	m_isExisting(false),
+	m_attackPower(0),
+	m_isAttacking(false),
+	m_cBuffH(-1)
 {
 }
 
@@ -44,24 +50,30 @@ void PlayerSword::Init(std::weak_ptr<Player> player)
 	m_model->Init(kModelName);
 
 	m_player = player;
+
+	m_kind = ActorKind::kPlayerAttack;
+
+	m_cBuffH = CreateShaderConstantBuffer(sizeof(SwordCBuff));
+	m_cBuff = (SwordCBuff*)GetBufferShaderConstantBuffer(m_cBuffH);
+	m_cBuff->time = 0.0f;
+	UpdateShaderConstantBuffer(m_cBuffH);
+	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
 }
 
 void PlayerSword::Update()
 {
-	// 剣の位置、向き、回転をとりたい
-	auto weaponMat = m_player.lock()->m_model->GetFrameMatrix(kRightWeaponFrame);
-	
-	// 先に位置補正
-	weaponMat = MMult(kHandPosOffset, weaponMat);
-
-	m_model->SetMatrix(weaponMat);
 }
 
 void PlayerSword::Draw() const
 {
-	m_model->Draw();
+	if (m_isExisting)
+	{
+		ShaderDraw::DrawModel(m_model);
+	}
 
+#if _DEBUG
 	m_collidable->GetCol().Draw();
+#endif
 }
 
 void PlayerSword::OnCollision(const std::shared_ptr<Actor> other)
@@ -70,9 +82,39 @@ void PlayerSword::OnCollision(const std::shared_ptr<Actor> other)
 
 void PlayerSword::CommitMove()
 {
-	auto vel = m_collidable->UpdateRigid();
-	m_pos += vel;
-	
-	m_collidable->SetPos(m_pos);
-	//m_model->SetPos(m_pos);
+	// 剣の位置、向き、回転をとりたい
+	auto weaponMat = m_player.lock()->m_model->GetFrameMatrix(kRightWeaponFrame);
+
+	// 先に位置補正
+	weaponMat = MMult(kHandPosOffset, weaponMat);
+
+	m_model->SetMatrix(weaponMat);
+
+	m_pos = MGetTranslateElem(weaponMat);
+
+	const Vector3 rigDir = Vector3{ weaponMat.m[1][0],weaponMat.m[1][1],weaponMat.m[1][2] }.GetNormalize();
+
+	auto& cCol = static_cast<CapsuleCollider&>(m_collidable->GetCol());
+
+	cCol.SetPos(m_pos, m_pos + rigDir * kSwordLength);
+
+	DrawSphere3D(m_pos, 10, 10, 0xffffff, 0xffffff, true);
+}
+
+void PlayerSword::Enable()
+{
+	m_isExisting = true;
+}
+
+void PlayerSword::Disable()
+{
+	m_isExisting = false;
+}
+
+void PlayerSword::AppearUpdate()
+{
+}
+
+void PlayerSword::DisappearUpdate()
+{
 }

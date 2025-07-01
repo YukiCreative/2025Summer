@@ -67,6 +67,7 @@
     <ClCompile Include="Actor\Player\PlayerLockOn.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
     <ClCompile Include="Actor\PlayerSword.cpp" />
+    <ClCompile Include="Shader\ShaderDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -132,5 +133,10 @@
     <ClInclude Include="Actor\Player\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
     <ClInclude Include="Actor\PlayerSword.h" />
+    <ClInclude Include="Shader\ConstantBufferIndex.h" />
+    <ClInclude Include="Shader\ShaderDraw.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\SwordDissolve.hlsl" />
   </ItemGroup>
 </Project>
