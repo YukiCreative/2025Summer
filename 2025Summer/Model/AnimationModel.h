@@ -51,6 +51,7 @@ public:
 	const Vector3 GetDirection();
 	// 0Å`1
 	void SetAnimBlendSpeed(const float speed) { m_animBlendSpeed = speed; }
+	Vector3 GetFramePosition(const std::string& frameName) const;
 
 private:
 	std::shared_ptr<Model> m_model;

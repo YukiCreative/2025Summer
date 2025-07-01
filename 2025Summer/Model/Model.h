@@ -32,8 +32,8 @@ public:
 	void SetMatrix(DxLib::tagMATRIX mat);
 	void SetScale(const Vector3& scale);
 	DxLib::tagMATRIX GetMatrix() const;
+	Vector3 GetFramePosition(const std::string& frameName) const;
+
 private:
 	int m_handle;
-	// ©•ª‚Åƒ[ƒh‚µ‚½ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
-	bool m_isLoadModel;
 };

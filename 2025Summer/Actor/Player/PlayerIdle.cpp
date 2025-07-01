@@ -33,10 +33,10 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	{
 		return std::make_shared<PlayerMove>(m_player);
 	}
-	if (input.IsTrigger("Jump"))
-	{
-		return std::make_shared<PlayerJump>(m_player);
-	}
+	//if (input.IsTrigger("Jump"))
+	//{
+	//	return std::make_shared<PlayerJump>(m_player);
+	//}
 	if (!m_player.lock()->m_lockOnActor.expired())
 	{
 		// ƒƒbƒNƒIƒ“

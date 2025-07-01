@@ -11,12 +11,13 @@
 #include "ActorController.h"
 #include "Game.h"
 #include "Image.h"
+#include "PlayerSword.h"
 
 namespace
 {
 	const PhysicalMaterial kPhysiMat =
 	{
-		0.1f, 0.05f, 0.1f
+		0.2f, 0.05f, 0.1f
 	};
 
 	constexpr int kWeight = 10;
@@ -29,11 +30,18 @@ namespace
 	constexpr float kAnimPlaySpeed = 30.0f;
 
 	const std::string kLockOnCursorFile = "LockOnCursor.png";
+
+	const std::string kRightIndexFrame = "mixamorig:RightHandIndex1";
+	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
 }
 
 Player::Player() :
 	m_targetPos(),
 	Actor(false)
+{
+}
+
+Player::~Player()
 {
 }
 
@@ -55,6 +63,9 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 
 	m_lockOnGraph = std::make_shared<Image>();
 	m_lockOnGraph->Init(kLockOnCursorFile);
+
+	m_sword = std::make_shared<PlayerSword>();
+	m_sword->Init(weak_from_this());
 
 	m_state = std::make_shared<PlayerNormal>(weak_from_this());
 }
@@ -195,4 +206,17 @@ DxLib::tagMATRIX Player::GetModelMatrix() const
 	mat.m[0][2] *= -1;
 
 	return mat;
+}
+
+Vector3 Player::GetRightInexPos() const
+{
+	return m_model->GetFramePosition(kRightIndexFrame);
+}
+
+Vector3 Player::GetRightHandVec() const
+{
+	const Vector3 rightIndex = m_model->GetFramePosition(kRightIndexFrame);
+	const Vector3 rightPinky = m_model->GetFramePosition(kRightPinkyFrame);
+
+	return rightIndex - rightPinky;
 }

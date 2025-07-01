@@ -8,10 +8,10 @@
 
 namespace
 {
-	constexpr float kRunSpeed = 0.001f;
+	constexpr float kRunSpeed = 0.0018f;
 	constexpr int   kDashFrame = 120;
 
-	const std::string kMoveAnimName = "Armature|Jog";
+	const std::string kMoveAnimName = "Armature|RunDash";
 }
 
 PlayerMove::PlayerMove(std::weak_ptr<Player> parent) :
@@ -41,14 +41,14 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 		return std::make_shared<PlayerIdle>(m_player);
 	}
 	// 動き続けて一定時間経過したらダッシュ
-	if (m_moveFrame > kDashFrame)
-	{
-		return std::make_shared<PlayerDash>(m_player);
-	}
-	if (input.IsTrigger("Jump"))
-	{
-		return std::make_shared<PlayerJump>(m_player);
-	}
+	//if (m_moveFrame > kDashFrame)
+	//{
+	//	return std::make_shared<PlayerDash>(m_player);
+	//}
+	//if (input.IsTrigger("Jump"))
+	//{
+	//	return std::make_shared<PlayerJump>(m_player);
+	//}
 
 	++m_moveFrame;
 

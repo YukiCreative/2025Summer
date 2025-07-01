@@ -81,6 +81,11 @@ const Vector3 AnimationModel::GetDirection()
 	};
 }
 
+Vector3 AnimationModel::GetFramePosition(const std::string& frameName) const
+{
+	return m_model->GetFramePosition(frameName);
+}
+
 AnimationModel::AnimationModel() :
 	m_beforeAnimHandle(-1),
 	m_nowAnimHandle(-1),

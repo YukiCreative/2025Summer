@@ -4,17 +4,13 @@
 #include <cassert>
 
 Model::Model() :
-	m_isLoadModel(false)
+	m_handle(-1)
 {
 }
 
 Model::~Model()
 {
-	// もし自分でロードしたものなら消す
-	if (m_isLoadModel)
-	{
-		MV1DeleteModel(m_handle);
-	}
+	MV1DeleteModel(m_handle);
 }
 
 void Model::Init(const int duplicateHandle)
@@ -24,7 +20,6 @@ void Model::Init(const int duplicateHandle)
 
 void Model::Init(const std::string& path)
 {
-	m_isLoadModel = true;
 	m_handle = MV1LoadModel(path.c_str());
 	assert(m_handle != -1 && "指定のパスにモデルがなかったよ");
 }
@@ -68,4 +63,9 @@ void Model::SetScale(const Vector3& scale)
 DxLib::tagMATRIX Model::GetMatrix() const
 {
 	return MV1GetMatrix(m_handle);
+}
+
+Vector3 Model::GetFramePosition(const std::string& frameName) const
+{
+	return MV1GetFramePosition(m_handle, MV1SearchFrame(m_handle, frameName.c_str()));
 }

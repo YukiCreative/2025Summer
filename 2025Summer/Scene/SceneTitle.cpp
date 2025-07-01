@@ -20,6 +20,7 @@ void SceneTitle::Update()
 	if (input.IsTrigger("GoDebug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
+		return;
 	}
 
 	m_buttons->Update();

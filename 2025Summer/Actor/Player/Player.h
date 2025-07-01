@@ -6,6 +6,7 @@ class Camera;
 class PlayerState;
 class ActorController;
 class Image;
+class PlayerSword;
 
 namespace DxLib
 {
@@ -21,6 +22,7 @@ public:
 	// 外部から見てもいい関数
 
 	Player();
+	~Player();
 
 	void Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont);
 
@@ -34,6 +36,10 @@ public:
 	// 使ってるモデルの向きが特殊なのでそれ用に修正した行列を返す
 	DxLib::tagMATRIX GetModelMatrix() const;
 
+	Vector3 GetRightInexPos() const;
+	// 自分の右手の小指のフレーム→人差し指のフレームのベクトル(単位)
+	Vector3 GetRightHandVec() const;
+
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;
@@ -44,6 +50,7 @@ public:
 	std::weak_ptr<ActorController> m_cont;
 	Vector3 m_lockOnCursorPos;
 	std::shared_ptr<Image> m_lockOnGraph;
+	std::shared_ptr<PlayerSword> m_sword;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
