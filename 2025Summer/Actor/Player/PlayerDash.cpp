@@ -32,8 +32,6 @@ std::shared_ptr<PlayerState> PlayerDash::Update()
 {
 	Input& input = Input::GetInstance();
 
-	MoveCameraTarget();
-
 	m_player.lock()->Move(kDashSpeed);
 
 	if (input.GetLeftInputAxis().SqrMagnitude() < kMoveThreshold)

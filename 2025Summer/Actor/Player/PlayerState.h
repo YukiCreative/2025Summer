@@ -30,5 +30,10 @@ public:
 
 protected:
 	std::weak_ptr<Player> m_player;
+
+protected:
+
+	// UŒ‚‚É“G‚É‹z‚¢‚Â‚­‹““®‚ğÀŒ»‚µ‚Ü‚·
+	Vector3 TrackingVec(const float strength);
 };
 

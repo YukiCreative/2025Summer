@@ -31,6 +31,8 @@ std::shared_ptr<PlayerState> PlayerNormal::Update()
 
 	m_childState = m_childState->Update();
 
+	MoveCameraTarget();
+
 	// ロックオンボタンを押したら近くの敵をロックオン
 	if (Input::GetInstance().IsTrigger("LockOn"))
 	{

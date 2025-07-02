@@ -68,6 +68,10 @@
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
     <ClCompile Include="Actor\PlayerSword.cpp" />
     <ClCompile Include="Shader\ShaderDraw.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashDown.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashUp.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashSide.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashLeftSide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -135,6 +139,10 @@
     <ClInclude Include="Actor\PlayerSword.h" />
     <ClInclude Include="Shader\ConstantBufferIndex.h" />
     <ClInclude Include="Shader\ShaderDraw.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashDown.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashUp.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashSide.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashLeftSide.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

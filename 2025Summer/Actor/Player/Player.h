@@ -40,6 +40,14 @@ public:
 	// 自分の右手の小指のフレーム→人差し指のフレームのベクトル(単位)
 	Vector3 GetRightHandVec() const;
 
+	// 剣自体の見た目を表示する
+	void EnableSword();
+	// 剣の当たり判定を有効化する
+	void EnableSwordCol(const float attackPower);
+
+	void DiaableSword();
+	void DisableSwordCol();
+
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;

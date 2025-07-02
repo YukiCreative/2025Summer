@@ -5,6 +5,9 @@
 #include "PlayerMove.h"
 #include "PlayerJump.h"
 #include "AnimationModel.h"
+#include "PlayerSlashDown.h"
+#include "Collidable.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -29,26 +32,21 @@ PlayerMove::~PlayerMove()
 std::shared_ptr<PlayerState> PlayerMove::Update()
 {
 	Input& input = Input::GetInstance();
+	auto p = m_player.lock();
 
 	// 移動
-	m_player.lock()->Move(kRunSpeed);
-
-	MoveCameraTarget();
+	p->Move(kRunSpeed);
 
 	// 入力が切れたら待機状態へ
 	if (input.GetLeftInputAxis().SqrMagnitude() < kMoveThreshold)
 	{
 		return std::make_shared<PlayerIdle>(m_player);
 	}
-	// 動き続けて一定時間経過したらダッシュ
-	//if (m_moveFrame > kDashFrame)
-	//{
-	//	return std::make_shared<PlayerDash>(m_player);
-	//}
-	//if (input.IsTrigger("Jump"))
-	//{
-	//	return std::make_shared<PlayerJump>(m_player);
-	//}
+	if (input.IsTrigger("Attack"))
+	{
+		p->GetCollidable().AddVel(VTransformSR({0,0,-30}, p->GetModelMatrix()));
+		return std::make_shared<PlayerSlashDown>(m_player);
+	}
 
 	++m_moveFrame;
 

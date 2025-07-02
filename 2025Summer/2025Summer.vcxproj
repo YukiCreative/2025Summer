@@ -34,6 +34,10 @@
     <ClCompile Include="Actor\Player\PlayerLockOnMoveFoward.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnMoveLeft.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashDown.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashLeftSide.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashSide.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSlashUp.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
@@ -95,6 +99,10 @@
     <ClInclude Include="Actor\Player\PlayerLockOnMoveFoward.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnMoveLeft.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashDown.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashLeftSide.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashSide.h" />
+    <ClInclude Include="Actor\Player\PlayerSlashUp.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />

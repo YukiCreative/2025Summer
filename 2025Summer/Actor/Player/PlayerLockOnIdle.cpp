@@ -10,6 +10,7 @@
 #include "PlayerLockOnMoveFoward.h"
 #include "PlayerLockOnMoveLeft.h"
 #include "PlayerLockOnMoveRight.h"
+#include "PlayerSlashDown.h"
 #include <DxLib.h>
 
 namespace
@@ -34,28 +35,9 @@ PlayerLockOnIdle::~PlayerLockOnIdle()
 std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 {
 	auto p = m_player.lock();
-
-	// ƒvƒŒƒCƒ„[‚ğ“G•ûŒü‚É‰ñ“]
-	auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
-	auto posXZ = p->GetPos().XZ();
-
-	auto lockOnToPlayerXZ = (posXZ - lockOnPosXZ).GetNormalize();
-
-	auto playerDir = p->m_model->GetDirection();
-
-	auto dot = lockOnToPlayerXZ.Dot(playerDir);
-
-	float rot = playerDir.Cross(lockOnToPlayerXZ).y * 0.2f;
-
-	// ‚¿‚å‚¤‚Ç^”½‘Î‚ÉŒü‚¢‚Ä‚¢‚½ê‡‚Ìˆ—
-	if (dot < -0.9999f && rot < 0.0001f)
-	{
-		rot += 0.1f;
-	}
-
-	p->m_model->RotateUpVecY(rot);
+	auto& input = Input::GetInstance();
 		
-	Vector3 inputAxis = Vector3{ Input::GetInstance().GetLeftInputAxis().x, 0, Input::GetInstance().GetLeftInputAxis().y };
+	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
@@ -98,6 +80,13 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
 	}
+
+	// UŒ‚
+	if (input.IsTrigger("Attack"))
+	{
+		return std::make_shared<PlayerSlashDown>(m_player);
+	}
+
 
 	return shared_from_this();
 }

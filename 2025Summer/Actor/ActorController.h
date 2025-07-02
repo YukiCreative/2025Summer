@@ -20,9 +20,9 @@ public:
 	void Draw() const;
 	// 指定されたオブジェクトが自身の中に存在するか確かめる
 	bool CheckIsAlive(std::shared_ptr<Actor> checkAct);
-	// これはこのゲーム独自のものだけど、ここ(使いまわしたいクラス)に書いてしまう
-	// だって継承して新しいクラス作るのめんどくさいし
 	ActorList_t SearchCanLockOnActor() const;
+	// ロックオン可能な中で、指定された位置に最も近い位置を持つActorを返します
+	std::shared_ptr<Actor> GetNearestLockOnActor(const Vector3& pos) const;
 
 private:
 	ActorList_t m_actors;

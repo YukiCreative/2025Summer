@@ -56,7 +56,7 @@ void ActorController::Draw() const
 
 #if _DEBUG
 	// “–‚½‚è”»’è‚Ì‰ÂŽ‹‰»
-	m_physics->DrawColRange(m_actors);
+	//m_physics->DrawColRange(m_actors);
 #endif
 }
 
@@ -84,4 +84,19 @@ ActorList_t ActorController::SearchCanLockOnActor() const
 	}
 
 	return result;
+}
+
+std::shared_ptr<Actor> ActorController::GetNearestLockOnActor(const Vector3& pos) const
+{
+	auto actors = SearchCanLockOnActor();
+
+	std::shared_ptr<Actor> result;
+	float nearestLength = ;
+
+	for (auto& lockOnActor : actors)
+	{
+		
+	}
+
+	return std::shared_ptr<Actor>();
 }

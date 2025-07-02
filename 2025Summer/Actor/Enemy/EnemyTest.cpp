@@ -6,6 +6,7 @@
 #include "AnimationModel.h"
 #include <DxLib.h>
 #include "Geometry.h"
+#include "PlayerSword.h"
 
 namespace
 {
@@ -21,7 +22,9 @@ namespace
 
 	// コライダー
 	constexpr float kSphereRadius = 60;
-	constexpr float kWeight = 10;
+	constexpr float kWeight = 100;
+
+	const Vector3 kColOffset = {0,50,0};
 }
 
 EnemyTest::EnemyTest() :
@@ -72,14 +75,20 @@ void EnemyTest::CommitMove()
 	const Vector3 vel = m_collidable->UpdateRigid();
 	m_pos += vel;
 
-	m_collidable->SetPos(m_pos);
+	m_collidable->SetPos(m_pos + kColOffset);
 }
 
 void EnemyTest::OnCollision(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
+		auto sword = std::static_pointer_cast<PlayerSword>(other);
+
+		if (!sword->IsAttacking()) return;
+
 		// ダメージ
-		printf("ダメージ！n");
+		printf("食らった！%fダメージ！\n", sword->GetAttackPower());
+
+		return;
 	}
 }

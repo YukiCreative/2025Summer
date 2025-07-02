@@ -228,3 +228,24 @@ Vector3 Player::GetRightHandVec() const
 
 	return rightIndex - rightPinky;
 }
+
+void Player::EnableSword()
+{
+	m_sword->Enable();
+}
+
+void Player::EnableSwordCol(const float attackPower)
+{
+	m_sword->ColEnable();
+	m_sword->SetAttackPower(attackPower);
+}
+
+void Player::DiaableSword()
+{
+	m_sword->Disable();
+}
+
+void Player::DisableSwordCol()
+{
+	m_sword->ColDisable();
+}

@@ -37,26 +37,6 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
 
-	// プレイヤーを敵方向に回転
-	auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
-	auto posXZ = p->GetPos().XZ();
-
-	auto lockOnToPlayerXZ = (posXZ - lockOnPosXZ).GetNormalize();
-
-	auto playerDir = p->m_model->GetDirection();
-
-	auto dot = lockOnToPlayerXZ.Dot(playerDir);
-
-	float rot = playerDir.Cross(lockOnToPlayerXZ).y * 0.2f;
-
-	// ちょうど真反対に向いていた場合の処理
-	if (dot < -0.9999f && rot < 0.0001f)
-	{
-		rot += 0.1f;
-	}
-
-	p->m_model->RotateUpVecY(rot);
-
 	Vector3 inputAxis = Vector3{ Input::GetInstance().GetLeftInputAxis().x, 0, Input::GetInstance().GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());

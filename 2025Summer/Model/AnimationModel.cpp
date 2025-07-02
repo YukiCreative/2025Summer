@@ -150,7 +150,8 @@ void AnimationModel::Update()
 	MV1SetAttachAnimBlendRate(m_model->m_handle, m_beforeAnimHandle, 1 - m_blendRate.Value());
 	MV1SetAttachAnimBlendRate(m_model->m_handle, m_nowAnimHandle, m_blendRate.Value());
 
-	MV1SetAttachAnimTime(m_model->m_handle, m_beforeAnimHandle, m_playTime);
+	// 元のアニメーションは進めなくていいことに気付いた
+	//MV1SetAttachAnimTime(m_model->m_handle, m_beforeAnimHandle, m_playTime);
 	MV1SetAttachAnimTime(m_model->m_handle, m_nowAnimHandle, m_playTime);
 }
 

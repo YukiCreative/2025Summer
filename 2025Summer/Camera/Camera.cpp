@@ -47,6 +47,9 @@ void Camera::Update()
 	(this->*m_state)();
 
 	Rotate();
+
+	// ƒ‰ƒCƒg‚ğƒJƒƒ‰‚ÌŒü‚«‚©‚çÆ‚ç‚·
+	SetLightDirection(GetCameraDir());
 }
 
 void Camera::Draw_Debug() const

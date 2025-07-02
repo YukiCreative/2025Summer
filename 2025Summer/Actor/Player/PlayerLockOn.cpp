@@ -1,3 +1,4 @@
+#include "AnimationModel.h"
 #include "Camera.h"
 #include "Game.h"
 #include "Input.h"
@@ -31,6 +32,9 @@ PlayerLockOn::~PlayerLockOn()
 
 std::shared_ptr<PlayerState> PlayerLockOn::Update()
 {
+    auto& input = Input::GetInstance();
+    auto p = m_player.lock();
+
     // ロックオンが外れたら、通常状態へ
     if (m_player.lock()->m_lockOnActor.expired())
     {
@@ -38,6 +42,30 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     }
 
     CameraMove();
+
+    // プレイヤーを敵方向に回転
+    auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
+    auto posXZ = p->GetPos().XZ();
+
+    auto lockOnToPlayerXZ = (posXZ - lockOnPosXZ).GetNormalize();
+
+    auto playerDir = p->m_model->GetDirection();
+
+    auto dot = lockOnToPlayerXZ.Dot(playerDir);
+
+    float rot = playerDir.Cross(lockOnToPlayerXZ).y * 0.2f;
+
+    // ちょうど真反対に向いていた場合の処理
+    if (dot < -0.9999f && rot < 0.0001f)
+    {
+        rot += 0.1f;
+    }
+
+    p->m_model->RotateUpVecY(rot);
+
+    Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
+    inputAxis.z *= -1;
+    Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
     // 状態をUpdate
     m_childState = m_childState->Update();

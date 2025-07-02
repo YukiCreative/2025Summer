@@ -68,11 +68,17 @@ void PlayerSword::Draw() const
 {
 	if (m_isExisting)
 	{
-		ShaderDraw::DrawModel(m_model);
+		m_model->Draw();
+		//ShaderDraw::DrawModel(m_model);
 	}
 
 #if _DEBUG
-	m_collidable->GetCol().Draw();
+	//m_collidable->GetCol().Draw();
+	auto& cCol = static_cast<CapsuleCollider&>(m_collidable->GetCol());
+
+	auto color = m_isAttacking ? 0xff0000 : 0x00ff00;
+
+	DrawCapsule3D(cCol.StartPos(), cCol.EndPos(), kSowrdRadius, 10, color,0xffffff, false);
 #endif
 }
 
@@ -97,8 +103,6 @@ void PlayerSword::CommitMove()
 	auto& cCol = static_cast<CapsuleCollider&>(m_collidable->GetCol());
 
 	cCol.SetPos(m_pos, m_pos + rigDir * kSwordLength);
-
-	DrawSphere3D(m_pos, 10, 10, 0xffffff, 0xffffff, true);
 }
 
 void PlayerSword::Enable()
@@ -109,6 +113,16 @@ void PlayerSword::Enable()
 void PlayerSword::Disable()
 {
 	m_isExisting = false;
+}
+
+void PlayerSword::ColEnable()
+{
+	m_isAttacking = true;
+}
+
+void PlayerSword::ColDisable()
+{
+	m_isAttacking = false;
 }
 
 void PlayerSword::AppearUpdate()

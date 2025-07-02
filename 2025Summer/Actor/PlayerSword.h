@@ -24,6 +24,9 @@ public:
 	void Enable();
 	// Á‹
 	void Disable();
+
+	void ColEnable();
+	void ColDisable();
 	void SetAttackPower(const float atk) { m_attackPower = atk; }
 
 	// “G‚ªŒ©‚é
