@@ -40,14 +40,20 @@ Vector3 PlayerState::TrackingVec(const float strength)
 	{
 		vel = VTransformSR({0,0,strength}, MGetRotVec2(m_player.lock()->m_model->GetDirection(), {inputAxis.x, 0, inputAxis.y,}));
 	}
-	// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
 	else
 	{
-	}
-	else
-	{
-		// ‚³‚ç‚Éˆê’è”ÍˆÍ“à‚É“G‚à‚¢‚È‚©‚Á‚½‚çŒ»Ý‚Ìƒ‚ƒfƒ‹‚ÌŒü‚«‚É‘Oi
-		vel = VTransformSR({0,0,strength}, m_player.lock()->GetModelMatrix());
+		// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
+		auto nearestActor = m_player.lock()->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
+		auto posToNearest = nearestActor->GetPos() - m_player.lock()->GetPos();
+		if (posToNearest.SqrMagnitude() < 100000)
+		{
+			vel = posToNearest.GetNormalize() * strength;
+		}
+		else
+		{
+			// ‚³‚ç‚Éˆê’è”ÍˆÍ“à‚É“G‚à‚¢‚È‚©‚Á‚½‚çŒ»Ý‚Ìƒ‚ƒfƒ‹‚ÌŒü‚«‚É‘Oi
+			vel = VTransformSR({ 0,0,strength }, m_player.lock()->GetModelMatrix());
+		}
 	}
 
 	// ‘¬“x‚Ì•ûŒü‚Éƒ‚ƒfƒ‹‚ð‰ñ“]‚³‚¹‚é

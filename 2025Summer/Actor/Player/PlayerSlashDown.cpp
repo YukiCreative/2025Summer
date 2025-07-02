@@ -9,6 +9,7 @@
 //#include "PlayerSlashSide.h"
 #include "PlayerSlashLeftSide.h"
 #include "Actorcontroller.h"
+#include "Rigid.h"
 
 namespace
 {
@@ -18,7 +19,7 @@ namespace
 	// 前進するタイミング
 	constexpr int kForwardFrame = 10;
 	// 前進する力
-	const Vector3 kForwardVel = {0, 0, -20.0f};
+	const float kForwardForce = -20.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング
@@ -62,8 +63,7 @@ std::shared_ptr<PlayerState> PlayerSlashDown::Update()
 	// 攻撃した瞬間移動
 	if (m_frame == kForwardFrame)
 	{
-
-		p->GetCollidable().AddVel(vel);
+		p->GetRigid().AddVel(TrackingVec(kForwardForce));
 	}
 
 	// 先行して入力をとっておく

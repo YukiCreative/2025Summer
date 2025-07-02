@@ -5,6 +5,7 @@
 #include "Collidable.h"
 #include <DxLib.h>
 #include "Input.h"
+#include "Rigid.h"
 
 namespace	
 {
@@ -14,7 +15,7 @@ namespace
 	// 前進するタイミング
 	constexpr int kForwardFrame = 15;
 	// 前進する力
-	const Vector3 kForwardVel = { 0, 0, -30.0f };
+	const float kForwardForce = 30.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング
@@ -53,10 +54,10 @@ std::shared_ptr<PlayerState> PlayerSlashUp::Update()
 		p->DisableSwordCol();
 	}
 
-	// 前進
+	// 攻撃した瞬間移動
 	if (m_frame == kForwardFrame)
 	{
-		p->GetCollidable().AddVel(VTransformSR(kForwardVel, p->GetModelMatrix()));
+		p->GetRigid().AddVel(TrackingVec(kForwardForce));
 	}
 
 	// 待機状態へ遷移

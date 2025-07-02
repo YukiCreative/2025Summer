@@ -7,6 +7,7 @@
 #include <DxLib.h>
 #include "Input.h"
 #include "PlayerSlashUp.h"
+#include "Rigid.h"
 
 namespace
 {
@@ -16,7 +17,7 @@ namespace
 	// 前進するタイミング
 	constexpr int kForwardFrame = 12;
 	// 前進する力
-	const Vector3 kForwardVel = { 0, 0, -20.0f };
+	const float kForwardForce = 20.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング
@@ -57,21 +58,7 @@ std::shared_ptr<PlayerState> PlayerSlashLeftSide::Update()
 	// 攻撃した瞬間移動
 	if (m_frame == kForwardFrame)
 	{
-		// 入力があったら、その方向に動く
-		// そうでなければ近くの敵の方向
-		// さらに一定範囲内に敵もいなかったら現在のモデルの向きに前進
-
-				// 入力があったら、その方向に動く
-		const auto& inputAxis = input.GetLeftInputAxis();
-
-		Vector3 vel;
-
-		if (inputAxis.SqrMagnitude() > kMoveThreshold)
-		{
-			vel = VTransformSR(kForwardVel, MGetRotVec2(kForwardVel, { inputAxis.x, 0, inputAxis.y, }));
-		}
-
-		p->GetCollidable().AddVel(VTransformSR(kForwardVel, p->GetModelMatrix()));
+		p->GetRigid().AddVel(TrackingVec(kForwardForce));
 	}
 
 	// 先行して入力をとっておく
