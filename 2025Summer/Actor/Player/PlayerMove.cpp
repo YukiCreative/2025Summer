@@ -47,7 +47,9 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	}
 	if (input.IsTrigger("Attack"))
 	{
+		// “Ëi
 		p->GetCollidable().AddVel(VTransformSR({0,0,kSashAttackForce}, p->GetModelMatrix()));
+
 		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 

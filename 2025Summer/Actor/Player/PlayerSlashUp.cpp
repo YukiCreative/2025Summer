@@ -13,9 +13,9 @@ namespace
 	constexpr int kDisableAttackFrame = 20;
 	constexpr int kStateWholeFrame = 78;
 	// 前進するタイミング
-	constexpr int kForwardFrame = 15;
+	constexpr int kTrackFrame = 15;
 	// 前進する力
-	const float kForwardForce = 30.0f;
+	const float kTrackForce = 30.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング
@@ -24,51 +24,28 @@ namespace
 	constexpr float kAttackPower = 130.0f;
 
 	const std::string kAnimName = "Armature|SlashUp";
+	constexpr bool kIsLoopAnim = false;
 }
 
 PlayerSlashUp::PlayerSlashUp(std::weak_ptr<Player> parent) :
-	PlayerState(parent),
-	m_frame(0),
-	m_isEnterAttack(false)
+	PlayerAttackState(parent)
 {
-	// アニメーション
-	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
 }
 
 PlayerSlashUp::~PlayerSlashUp()
 {
 }
 
-std::shared_ptr<PlayerState> PlayerSlashUp::Update()
+void PlayerSlashUp::Init()
 {
-	auto p = m_player.lock();
-	auto& input = Input::GetInstance();
-
-	// 剣の攻撃判定を有効化
-	if (m_frame == kEnableAttackFrame)
-	{
-		p->EnableSwordCol(kAttackPower);
-	}
-	if (m_frame == kDisableAttackFrame)
-	{
-		p->DisableSwordCol();
-	}
-
-	// 攻撃した瞬間移動
-	if (m_frame == kForwardFrame)
-	{
-		p->GetRigid().AddVel(TrackingVec(kForwardForce));
-	}
-
-	// 待機状態へ遷移
-	if (m_frame >= kStateWholeFrame)
-	{
-		p->DiaableSword();
-
-		return std::make_shared<PlayerIdle>(m_player);
-	}
-
-	++m_frame;
-
-	return shared_from_this();
+	m_animName = kAnimName;
+	m_isLoopAnim = kIsLoopAnim;
+	m_enableAttackColFrame = kEnableAttackFrame;
+	m_disableAttackColFrame = kDisableAttackFrame;
+	m_stateTotalFrame = kStateWholeFrame;
+	m_trackFrame = kTrackFrame;
+	m_trackForce = kTrackForce;
+	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
+	m_enableComboFrame = kEnableComboFrame;
+	m_attackPower = kAttackPower;
 }

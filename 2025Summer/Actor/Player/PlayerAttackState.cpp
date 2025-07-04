@@ -3,14 +3,26 @@
 #include "Player.h"
 #include "PlayerIdle.h"
 #include "Rigid.h"
+#include "ActorController.h"
+#include "Geometry.h"
+#include "Camera.h"
+#include "AnimationModel.h"
 
 PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
-	PlayerState(parent)
+	PlayerState(parent),
+	m_isEnterAttack(false),
+	m_frame(0),
+	m_comboAttack(nullptr)
 {
 }
 
 PlayerAttackState::~PlayerAttackState()
 {
+}
+
+void PlayerAttackState::PlayAnim()
+{
+	m_player.lock()->m_model->ChangeAnimation(m_animName, m_isLoopAnim);
 }
 
 std::shared_ptr<PlayerState> PlayerAttackState::Update()
@@ -43,9 +55,14 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	// éüÇÃçUåÇÇ÷
 	if (m_frame >= m_enableComboFrame && m_isEnterAttack)
 	{
-		// èâä˙âªÇµÇƒï‘Ç∑
-		m_comboAttack->Init();
-		return m_comboAttack;
+		// îhê∂êÊÇ™ê›íËÇ≥ÇÍÇƒÇ¢ÇÍÇŒ
+		if (m_comboAttack)
+		{
+			// èâä˙âªÇµÇƒï‘Ç∑
+			m_comboAttack->Init();
+			m_comboAttack->PlayAnim();
+			return m_comboAttack;
+		}
 	}
 
 	// ë“ã@èÛë‘Ç÷ëJà⁄
@@ -62,4 +79,48 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	++m_frame;
 
 	return shared_from_this();
+}
+
+Vector3 PlayerAttackState::TrackingVec(const float strength)
+{
+	Vector3 vel;
+	// ì¸óÕÇ™Ç†Ç¡ÇΩÇÁÅAÇªÇÃï˚å¸Ç…ìÆÇ≠
+	const auto& inputAxis = Input::GetInstance().GetLeftInputAxis();
+	auto p = m_player.lock();
+
+	if (inputAxis.SqrMagnitude() > kMoveThreshold)
+	{
+		// ì¸óÕÇÉJÉÅÉâÇ…âÒì]
+		Vector3 inputV = p->m_camera.lock()->RotateVecToCameraDirXZ({ -inputAxis.x, 0, inputAxis.y, }, Vector3::Back());
+
+		vel = inputV.GetNormalize() * strength;
+	}
+	else
+	{
+		// ÇªÇ§Ç≈Ç»ÇØÇÍÇŒãﬂÇ≠ÇÃìGÇÃï˚å¸
+		auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
+		auto posToNearest = nearestActor->GetPos() - p->GetPos();
+		if (posToNearest.SqrMagnitude() < 100000)
+		{
+			vel = posToNearest.GetNormalize() * strength;
+		}
+		else
+		{
+			// Ç≥ÇÁÇ…àÍíËîÕàÕì‡Ç…ìGÇ‡Ç¢Ç»Ç©Ç¡ÇΩÇÁåªç›ÇÃÉÇÉfÉãÇÃå¸Ç´Ç…ëOêi
+			vel = VTransformSR({ 0,0,strength }, m_player.lock()->GetModelMatrix());
+		}
+	}
+
+	auto c = Geometry::Corner(p->m_model->GetDirection(), vel.XZ());
+
+	// ïÑçÜÇÇ¬ÇØÇÈ
+	if (p->m_model->GetDirection().Cross(vel.XZ()).y < 0)
+	{
+		c *= -1;
+	}
+
+	// ÉÇÉfÉãÇâÒì]Ç≥ÇπÇÈ
+	p->m_model->RotateUpVecY(c);
+
+	return vel;
 }

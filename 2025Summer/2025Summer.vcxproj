@@ -34,6 +34,7 @@
     <ClCompile Include="Actor\Player\PlayerLockOnMoveBack.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnMoveFoward.cpp" />
     <ClCompile Include="Actor\Player\PlayerLockOnMoveLeft.cpp" />
+    <ClCompile Include="Actor\Player\PlayerMiddleDamage.cpp" />
     <ClCompile Include="Actor\Player\PlayerNormal.cpp" />
     <ClCompile Include="Actor\Player\PlayerSlashDown.cpp" />
     <ClCompile Include="Actor\Player\PlayerSlashLeftSide.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Actor\Player\PlayerLockOnMoveBack.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnMoveFoward.h" />
     <ClInclude Include="Actor\Player\PlayerLockOnMoveLeft.h" />
+    <ClInclude Include="Actor\Player\PlayerMiddleDamage.h" />
     <ClInclude Include="Actor\Player\PlayerNormal.h" />
     <ClInclude Include="Actor\Player\PlayerSlashDown.h" />
     <ClInclude Include="Actor\Player\PlayerSlashLeftSide.h" />

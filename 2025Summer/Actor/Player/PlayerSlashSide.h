@@ -1,17 +1,15 @@
 #pragma once
-#include "PlayerState.h"
+#include "PlayerAttackState.h"
 
-class PlayerSlashSide : public PlayerState
+class PlayerSlashSide : public PlayerAttackState
 {
 public:
 	PlayerSlashSide(std::weak_ptr<Player> parent);
 	~PlayerSlashSide();
 
-	std::shared_ptr<PlayerState> Update() override;
+	void Init() override;
 
 private:
 
-	bool m_isEnterAttack;
-	int m_frame;
 };
 
