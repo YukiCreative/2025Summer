@@ -75,9 +75,9 @@ const Vector3 AnimationModel::GetDirection()
 	auto mat = m_model->GetMatrix();
 	return
 	{
-		mat.m[2][0],
-		mat.m[2][1],
-		mat.m[2][2],
+		-mat.m[2][0],
+		-mat.m[2][1],
+		-mat.m[2][2],
 	};
 }
 

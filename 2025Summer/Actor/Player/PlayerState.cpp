@@ -5,6 +5,8 @@
 #include "Input.h"
 #include "AnimationModel.h"
 #include "ActorController.h"
+#include "Geometry.h"
+#include "Camera.h"
 
 PlayerState::PlayerState(std::weak_ptr<Player> parent)
 {
@@ -35,16 +37,20 @@ Vector3 PlayerState::TrackingVec(const float strength)
 	Vector3 vel;
 	// “ü—Í‚ª‚ ‚Á‚½‚çA‚»‚Ì•ûŒü‚É“®‚­
 	const auto& inputAxis = Input::GetInstance().GetLeftInputAxis();
+	auto p = m_player.lock();
 
 	if (inputAxis.SqrMagnitude() > kMoveThreshold)
 	{
-		vel = VTransformSR({0,0,strength}, MGetRotVec2(m_player.lock()->m_model->GetDirection(), {inputAxis.x, 0, inputAxis.y,}));
+		// “ü—Í‚ðƒJƒƒ‰‚É‰ñ“]
+		Vector3 inputV = p->m_camera.lock()->RotateVecToCameraDirXZ({ -inputAxis.x, 0, inputAxis.y, }, Vector3::Back());
+
+		vel = inputV.GetNormalize() * strength;
 	}
 	else
 	{
 		// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
-		auto nearestActor = m_player.lock()->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
-		auto posToNearest = nearestActor->GetPos() - m_player.lock()->GetPos();
+		auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
+		auto posToNearest = nearestActor->GetPos() - p->GetPos();
 		if (posToNearest.SqrMagnitude() < 100000)
 		{
 			vel = posToNearest.GetNormalize() * strength;
@@ -56,8 +62,16 @@ Vector3 PlayerState::TrackingVec(const float strength)
 		}
 	}
 
-	// ‘¬“x‚Ì•ûŒü‚Éƒ‚ƒfƒ‹‚ð‰ñ“]‚³‚¹‚é
+	auto c = Geometry::Corner(p->m_model->GetDirection(), vel.XZ());
 
+	// •„†‚ð‚Â‚¯‚é
+	if (p->m_model->GetDirection().Cross(vel.XZ()).y < 0)
+	{
+		c *= -1;
+	}
+
+	// ƒ‚ƒfƒ‹‚ð‰ñ“]‚³‚¹‚é
+	p->m_model->RotateUpVecY(c);
 
 	return vel;
 }

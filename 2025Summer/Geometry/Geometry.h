@@ -19,7 +19,8 @@ namespace Geometry
 	// GetRotatedPosUpVecYの任意回転軸Ver
 	Vector3 GetRotatedPosAnyUpVec(const Vector3& movePos, const Vector3& basePos, const Vector3& axis, const float rad);
 
-	// 二つの3次元ベクトルのなす角(度数)
+	// 二つの3次元ベクトルのなす角(ラジアン)
+	// 正負は分かりません
 	float Corner(const Vector3& a, const Vector3& b);
 
 	// 点と線分との、線分上で一番近い点を出します

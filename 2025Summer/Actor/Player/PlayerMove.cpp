@@ -15,6 +15,9 @@ namespace
 	constexpr int   kDashFrame = 120;
 
 	const std::string kMoveAnimName = "Armature|RunDash";
+
+	// ˆÚ“®Ø‚è‚Ì—Í
+	constexpr float kSashAttackForce = 30.0f;
 }
 
 PlayerMove::PlayerMove(std::weak_ptr<Player> parent) :
@@ -44,7 +47,7 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	}
 	if (input.IsTrigger("Attack"))
 	{
-		p->GetCollidable().AddVel(VTransformSR({0,0,-30}, p->GetModelMatrix()));
+		p->GetCollidable().AddVel(VTransformSR({0,0,kSashAttackForce}, p->GetModelMatrix()));
 		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 

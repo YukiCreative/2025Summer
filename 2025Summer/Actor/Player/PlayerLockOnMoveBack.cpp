@@ -44,7 +44,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 		return std::make_shared<PlayerLockOnIdle>(m_player);
 	}
 
-	const Vector3 modelDir = -p->m_model->GetDirection();
+	const Vector3 modelDir = p->m_model->GetDirection();
 
 	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
 

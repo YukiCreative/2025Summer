@@ -19,7 +19,7 @@ namespace
 	// 前進するタイミング
 	constexpr int kForwardFrame = 10;
 	// 前進する力
-	const float kForwardForce = -20.0f;
+	const float kForwardForce = 20.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング

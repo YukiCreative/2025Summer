@@ -50,10 +50,13 @@ float Geometry::Corner(const Vector3& a, const Vector3& b)
 		return 0;
 	}
 
-	// Œö®’Ê‚è‚É‚â‚é‚Æ‚¾‚¢‚Ôd‚½‚»‚¤‚ÉŒ©‚¦‚éˆ—‚É‚È‚Á‚½‚È
-	float deg = acosf(a.Dot(b) / (aMag * bMag));
+	// float‚ÌŒë·‚ğû‚ß‚é
+	auto cosign = a.Dot(b) / (aMag * bMag);
+	cosign = std::clamp(cosign, -1.0f, 1.0f);
 
-	return deg;
+	float rad = acosf(cosign);
+
+	return rad;
 }
 
 Vector3 Geometry::PointSegmentNearestPos(const Vector3& point, const Vector3& lineStart, const Vector3& lineEnd)

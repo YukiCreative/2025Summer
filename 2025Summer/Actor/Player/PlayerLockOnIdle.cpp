@@ -45,7 +45,7 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 
 	DrawLine3D(p->GetPos(), p->GetPos() + cameraRotatedAxis * 100, 0xffff00);
 
-	const Vector3 modelDir = -p->m_model->GetDirection();
+	const Vector3 modelDir = p->m_model->GetDirection();
 
 	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
 

@@ -39,6 +39,9 @@ void EffectManager::Init()
 	SetChangeScreenModeGraphicsSystemResetFlag(false);
 	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
+	// 歪みON
+	Effekseer_InitDistortion();
+
 	// Zバッファの設定が必要なのだが、それはほかの場所で実行しているのでよし
 
 	// エフェクトの読み込み

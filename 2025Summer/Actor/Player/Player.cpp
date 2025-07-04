@@ -120,7 +120,7 @@ void Player::Move(const float moveSpeed)
 	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
 
 	// プレイヤーの現在の向きを取得
-	const Vector3 dir = m_model->GetDirection() * -1; // 逆なので反転
+	const Vector3 dir = m_model->GetDirection();
 
 	// 速度と向きとの外積をとって、出た値で回転
 	Vector3 cross = dir.Cross(vel);
@@ -176,6 +176,24 @@ void Player::Draw() const
 	{
 		DrawLine3D(m_pos + kCapsuleEndPosOffset, m_lockOnActor.lock()->GetPos(), 0xfffffff);
 	}
+
+	auto m = GetModelMatrix();
+
+	Vector3 x = Vector3{ m.m[0][0],m.m[0][1], m.m[0][2] };
+	Vector3 y = Vector3{ m.m[1][0],m.m[1][1], m.m[1][2] };
+	Vector3 z = Vector3{ m.m[2][0],m.m[2][1], m.m[2][2] };
+
+	DrawLine3D(m_pos, m_pos + x * 100, 0xff0000);
+	DrawLine3D(m_pos, m_pos + y * 100, 0x00ff00);
+	DrawLine3D(m_pos, m_pos + z * 100, 0x0000ff);
+
+	Vector2 iA = Input::GetInstance().GetLeftInputAxis();
+	Vector3 inputAxis = {-iA.x, 0, iA.y};
+
+	// 入力をカメラに回転
+	Vector3 inputV = m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Back());
+
+
 #endif
 }
 
@@ -212,6 +230,10 @@ DxLib::tagMATRIX Player::GetModelMatrix() const
 	mat.m[0][0] *= -1;
 	mat.m[0][1] *= -1;
 	mat.m[0][2] *= -1;
+
+	mat.m[2][0] *= -1;
+	mat.m[2][1] *= -1;
+	mat.m[2][2] *= -1;
 
 	return mat;
 }

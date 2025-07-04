@@ -14,6 +14,8 @@ namespace
     const Vector3 kLockOnCameraPosOffsetRight = { 100, 200, -200 };
 
     const Vector3 kLockOnLineStartOffset = { 0, 200, 0 };
+
+    constexpr float kRotateSpeed = 0.2f;
 }
 
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
@@ -47,13 +49,13 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
     auto posXZ = p->GetPos().XZ();
 
-    auto lockOnToPlayerXZ = (posXZ - lockOnPosXZ).GetNormalize();
+    auto playerToLockOnXZ = (lockOnPosXZ - posXZ).GetNormalize();
 
     auto playerDir = p->m_model->GetDirection();
 
-    auto dot = lockOnToPlayerXZ.Dot(playerDir);
+    auto dot = playerToLockOnXZ.Dot(playerDir);
 
-    float rot = playerDir.Cross(lockOnToPlayerXZ).y * 0.2f;
+    float rot = playerDir.Cross(playerToLockOnXZ).y * kRotateSpeed;
 
     // ‚¿‚å‚¤‚Ç^”½‘Î‚ÉŒü‚¢‚Ä‚¢‚½ê‡‚Ìˆ—
     if (dot < -0.9999f && rot < 0.0001f)
