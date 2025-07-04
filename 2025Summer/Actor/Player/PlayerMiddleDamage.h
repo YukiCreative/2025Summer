@@ -13,5 +13,7 @@ public:
 
 private:
 
+	int m_frame;
+
 };
 
