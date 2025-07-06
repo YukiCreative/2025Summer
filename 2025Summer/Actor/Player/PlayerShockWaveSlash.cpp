@@ -1,5 +1,8 @@
 #include "PlayerShockWaveSlash.h"
 #include "Player.h"
+#include "Collidable.h"
+#include <DxLib.h>
+#include "Geometry.h"
 
 namespace
 {
@@ -12,11 +15,12 @@ namespace
 
 	// 衝撃波タイミング
 	constexpr int kShockWaveFrame1 = 58;
-	constexpr int kShockWaveFrame2 = 88;
+	constexpr int kShockWaveFrame2 = 84;
 
 	constexpr int kStateWholeFrame = 140;
 	// 前進するタイミング
-	constexpr int kTrackFrame = 20;
+	constexpr int kTrackFrame = 54;
+	constexpr int kTrackFrame2 = 84;
 	// 前進する力
 	const float kTrackForce = 20.0f;
 	// 次の攻撃入力の受付開始時間
@@ -27,16 +31,21 @@ namespace
 	constexpr float kAttackPower = 50.0f;
 	constexpr float kAttackPower2 = 60.0f;
 
-	constexpr float kShockWavePower = 100.0f;
-	constexpr float kShockWavePower2 = 120.0f;
-
 	const std::string kAnimName = "Armature|Drive";
 	constexpr bool kIsLoopAnim = false;
+
+	constexpr float kShockWaveRot1 = 80.0f;
+	constexpr float kShockWaveRot2 = -80.0f;
+	constexpr float kShockWaveAtk1 = 130.0f;
+	constexpr float kShockWaveAtk2 = 150.0f;
 }
 
 PlayerShockWaveSlash::PlayerShockWaveSlash(std::weak_ptr<Player> parent) :
 	PlayerAttackState(parent)
 {
+	// 一段目なので自分で初期化する
+	Init();
+	PlayAnim();
 }
 
 PlayerShockWaveSlash::~PlayerShockWaveSlash()
@@ -45,6 +54,10 @@ PlayerShockWaveSlash::~PlayerShockWaveSlash()
 
 void PlayerShockWaveSlash::Init()
 {
+	// 剣出す
+	auto p = m_player.lock();
+	p->EnableSword();
+
 	// この代入操作は共通化できないだろうか
 	// 外部データ化して取得すれば解決する
 	m_animName = kAnimName;
@@ -73,13 +86,21 @@ void PlayerShockWaveSlash::OptionalProcess()
 		p->DisableSwordCol();
 	}
 
+	// 二回目の前進
+	if (m_frame == kTrackFrame2)
+	{
+		p->GetCollidable().AddVel(TrackingVec(kTrackForce));
+	}
+
 	// 特定のフレームで、衝撃波を放つ
 	if (m_frame == kShockWaveFrame1)
 	{
-		
+		auto rot = MMult(MGetRotZ(kShockWaveRot1 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
+		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk1);
 	}
 	if (m_frame == kShockWaveFrame2)
 	{
-
+		auto rot = MMult(MGetRotZ(kShockWaveRot2 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
+		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk2);
 	}
 }

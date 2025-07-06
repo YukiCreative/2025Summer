@@ -9,6 +9,7 @@
 #include <DxLib.h>
 #include "Camera.h"
 #include "PlayerChargeAttack.h"
+#include "PlayerShockWaveSlash.h"
 
 namespace
 {
@@ -16,6 +17,9 @@ namespace
 
 	// 内積の1～-1の四等分
 	constexpr float kMoveDirThreshold = 0.5f;
+
+	// ドライブ発生のための後ろ入力猶予
+	constexpr int kBackInputRespite = 8;
 }
 
 PlayerLockOnMoveFoward::PlayerLockOnMoveFoward(std::weak_ptr<Player> parent) :
@@ -76,9 +80,34 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 	/// 攻撃
 	if (input.IsTrigger("Attack"))
 	{
-		// 突進攻撃
-		return std::make_shared<PlayerChargeAttack>(m_player);
+		// 一定フレームの間に後ろに入力していたらドライブに派生
+
+		bool isInputBack = false;
+		int  searchDepth = 0;
+		const int  searchMax = min(p->m_inputList.size(), kBackInputRespite);
+
+		for (auto it = p->m_inputList.rbegin(); ; ++it)
+		{
+			if (searchDepth >= searchMax) break;
+			// 指定の回数遡って合致する要素があるか調べる
+			isInputBack |= (*it == PlayerInputDir::kBack);
+			++searchDepth;
+		}
+
+		if (isInputBack)
+		{
+			// ドライブ
+			return std::make_shared<PlayerShockWaveSlash>(m_player);
+		}
+		else
+		{
+			// 突進攻撃
+			return std::make_shared<PlayerChargeAttack>(m_player);
+		}
 	}
+
+	// 状態を記録
+	p->SetInputDir(PlayerInputDir::kFront);
 
 	return shared_from_this();
 }

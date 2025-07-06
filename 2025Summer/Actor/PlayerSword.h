@@ -1,11 +1,11 @@
 #pragma once
-#include "Actor.h"
+#include "AttackCol.h"
 #include "Model.h"
 
 class Player;
 
 // モデルと当たり判定のセット
-class PlayerSword : public Actor
+class PlayerSword : public AttackCol
 {
 public:
 	PlayerSword();
@@ -27,21 +27,12 @@ public:
 
 	void ColEnable();
 	void ColDisable();
-	void SetAttackPower(const float atk) { m_attackPower = atk; }
-
-	// 敵が見る
-	bool IsAttacking() const { return m_isAttacking; }
-	float GetAttackPower() const { return m_attackPower; }
 
 private:
 
 	std::shared_ptr<Model> m_model;
 	std::weak_ptr<Player> m_player;
 
-	// プレイヤークラスが攻撃時にこの値を書き換える
-	float m_attackPower;
-	// 攻撃判定を出すか
-	bool m_isAttacking;
 	// モデルが出現しているかどうか
 	bool m_isExisting;
 

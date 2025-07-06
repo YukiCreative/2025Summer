@@ -81,5 +81,8 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 
+	// ó‘Ô‚ð‹L˜^
+	p->SetInputDir(PlayerInputDir::kBack);
+
 	return shared_from_this();
 }

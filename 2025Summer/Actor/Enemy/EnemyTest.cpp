@@ -7,6 +7,7 @@
 #include <DxLib.h>
 #include "Geometry.h"
 #include "PlayerSword.h"
+#include "AttackCol.h"
 
 namespace
 {
@@ -82,12 +83,10 @@ void EnemyTest::OnCollision(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
-		auto sword = std::static_pointer_cast<PlayerSword>(other);
-
-		if (!sword->IsAttacking()) return;
+		auto attack = std::static_pointer_cast<AttackCol>(other);
 
 		// ダメージ
-		printf("食らった！%fダメージ！\n", sword->GetAttackPower());
+		printf("食らった！%fダメージ！\n", attack->GetAttackPower());
 
 		return;
 	}

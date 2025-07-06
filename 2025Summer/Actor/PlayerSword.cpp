@@ -26,11 +26,9 @@ namespace
 }
 
 PlayerSword::PlayerSword() :
-	Actor(false),
 	m_isExisting(false),
-	m_attackPower(0),
-	m_isAttacking(false),
-	m_cBuffH(-1)
+	m_cBuffH(-1),
+	m_cBuff(nullptr)
 {
 }
 
@@ -76,7 +74,7 @@ void PlayerSword::Draw() const
 	//m_collidable->GetCol().Draw();
 	auto& cCol = static_cast<CapsuleCollider&>(m_collidable->GetCol());
 
-	auto color = m_isAttacking ? 0xff0000 : 0x00ff00;
+	auto color = m_collidable->GetCol().IsValid() ? 0xff0000 : 0x00ff00;
 
 	DrawCapsule3D(cCol.StartPos(), cCol.EndPos(), kSowrdRadius, 10, color,0xffffff, false);
 #endif
@@ -117,12 +115,12 @@ void PlayerSword::Disable()
 
 void PlayerSword::ColEnable()
 {
-	m_isAttacking = true;
+	m_collidable->GetCol().ValidCol();
 }
 
 void PlayerSword::ColDisable()
 {
-	m_isAttacking = false;
+	m_collidable->GetCol().InvalidCol();
 }
 
 void PlayerSword::AppearUpdate()

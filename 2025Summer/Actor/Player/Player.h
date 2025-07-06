@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include <list>
 
 class AnimationModel;
 class Camera;
@@ -13,6 +14,13 @@ namespace DxLib
 	struct tagMATRIX;
 }
 
+enum class PlayerInputDir
+{
+	kFront,
+	kRight,
+	kLeft,
+	kBack
+};
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
@@ -59,8 +67,10 @@ public:
 	Vector3 m_lockOnCursorPos;
 	std::shared_ptr<Image> m_lockOnGraph;
 	std::shared_ptr<PlayerSword> m_sword;
-	// このフレームにロックオン対象と触れたらtrueになる
 	bool m_isContactLockOnActor;
+	// プレイヤーの移動方向の履歴
+	// コマンドに使用
+	std::list<PlayerInputDir> m_inputList;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
@@ -69,5 +79,7 @@ public:
 	void CameraMove();
 	float DefaultGroundDrag();
 	float DefaultAirDrag();
+	void SetInputDir(const PlayerInputDir& dir);
+	// PlayerShockWaveSlash用
+	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk);
 };
-

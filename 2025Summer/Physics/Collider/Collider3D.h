@@ -34,6 +34,10 @@ public:
 	void SetIsThrough(const bool isThrough) { m_isThrough = isThrough; }
 	void SetIsStatic(const bool isStatic) { m_isStatic = isStatic; }
 
+	bool IsValid() const { return m_isValid; }
+	void ValidCol() { m_isValid = true; }
+	void InvalidCol() { m_isValid = false; }
+
 protected:
 	ColKind3D m_colKind;
 	Vector3 m_pos;
@@ -47,4 +51,6 @@ protected:
 	// 重さ
 	// 当たった対象との押し戻しの配分に使う
 	int m_weight;
+	// 有効かどうか
+	bool m_isValid;
 };

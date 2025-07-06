@@ -21,15 +21,20 @@ namespace
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
     PlayerState(parent)
 {
+    auto p = m_player.lock();
+
     // 初期状態
     m_childState = std::make_shared<PlayerLockOnIdle>(m_player);
 
     // カメラ
-    m_player.lock()->m_camera.lock()->ChangeStateDP();
+    p->m_camera.lock()->ChangeStateDP();
 
     // 攻撃判定を消しておく
-    m_player.lock()->DisableSwordCol();
-    m_player.lock()->DisableSword();
+    p->DisableSwordCol();
+    p->DisableSword();
+
+    // コマンドリストを初期化
+    p->m_inputList.clear();
 }
 
 PlayerLockOn::~PlayerLockOn()

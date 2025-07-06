@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "Image.h"
 #include "PlayerSword.h"
+#include "PlayerShockWave.h"
 
 namespace
 {
@@ -35,11 +36,15 @@ namespace
 	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
 
 	constexpr float kFieldRadius = 2000.0f;
+
+	// ‚Æ‚è‚ ‚¦‚¸‰ß‹Ž1•b‚Ì“ü—Í—š—ð‚ðŽc‚·
+	constexpr int kInputHistoryMax = 60;
 }
 
 Player::Player() :
 	m_targetPos(),
-	Actor(false)
+	Actor(false),
+	m_isContactLockOnActor(false)
 {
 }
 
@@ -92,9 +97,10 @@ void Player::Update()
 	{
 		// ‚»‚ê‚ð‘jŽ~‚·‚é‚æ‚¤‚ÉˆÚ“®‘¬“x‚ð•Ï‚¦‚½‚¢
 
-		// •â³Œã‚ÌˆÊ’u‚ª•ª‚©‚è‚»‚¤‚È‚Ì‚Å•ª‚©‚ç‚¹‚é
+		// •â³Œã‚ÌˆÊ’u
 		const Vector3 radiusDir = nextPos.GetNormalize() * kFieldRadius;
 
+		// ‘¬“x‚É‚µ‚ÄÝ’è
 		m_collidable->SetVel(radiusDir - m_pos);
 	}
 
@@ -122,6 +128,24 @@ float Player::DefaultGroundDrag()
 float Player::DefaultAirDrag()
 {
 	return kPhysiMat.airDrag.Value();
+}
+
+void Player::SetInputDir(const PlayerInputDir& dir)
+{
+	// —š—ð‚ªãŒÀ‚È‚çAíœ
+	if (m_inputList.size() >= kInputHistoryMax)
+	{
+		m_inputList.pop_front();
+	}
+
+	m_inputList.emplace_back(dir);
+}
+
+void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk)
+{
+	auto shockWave = std::make_shared<PlayerShockWave>();
+	shockWave->Init(rot, initPos, atk);
+	SpawnActor(shockWave);
 }
 
 void Player::Move(const float moveSpeed)

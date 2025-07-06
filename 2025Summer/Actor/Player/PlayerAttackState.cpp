@@ -72,6 +72,8 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 		// 移動していたら
 		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
 		{
+			p->DisableSword();
+
 			// 移動状態へ移行
 			// ロックオン状態でも正常に動作するようになっているので心配なく
 			return std::make_shared<PlayerMove>(m_player);

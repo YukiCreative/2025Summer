@@ -78,5 +78,8 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 
+	// ó‘Ô‚ð‹L˜^
+	p->SetInputDir(PlayerInputDir::kRight);
+
 	return shared_from_this();
 }

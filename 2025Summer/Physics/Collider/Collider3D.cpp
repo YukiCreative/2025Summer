@@ -6,7 +6,8 @@ Collider3D::Collider3D() :
 	m_isMove(false),
 	m_isStatic(false),
 	m_weight(1),
-	m_isThrough(false)
+	m_isThrough(false),
+	m_isValid(true)
 {
 }
 

@@ -36,6 +36,9 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 
 		for (auto& actA : actorList)
 		{
+			// 有効でないコライダーは無視
+			if (!actA->GetCol().IsValid()) continue;
+			
 			for (auto& actB : actorList)
 			{
 				if (!actA->CanCollide() || !actB->CanCollide()) continue;
