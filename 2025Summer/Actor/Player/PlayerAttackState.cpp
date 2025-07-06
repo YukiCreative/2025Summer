@@ -19,10 +19,6 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
 
 PlayerAttackState::~PlayerAttackState()
 {
-	if(m_player.expired()) return;
-
-	// ”O‚Ì‚½‚ßUŒ‚”»’è‚ðÁ‚µ‚Ä‚¨‚­
-	m_player.lock()->DisableSwordCol();
 }
 
 void PlayerAttackState::PlayAnim()
@@ -85,7 +81,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	// ‘Ò‹@ó‘Ô‚Ö‘JˆÚ
 	if (m_frame >= m_stateTotalFrame)
 	{
-		p->DiaableSword();
+		p->DisableSword();
 
 		return std::make_shared<PlayerIdle>(m_player);
 	}

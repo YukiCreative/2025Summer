@@ -12,6 +12,10 @@ PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent) :
 {
 	// ‰Šúó‘Ô‚ğİ’è
 	m_childState = std::make_shared<PlayerIdle>(m_player);
+
+	// UŒ‚”»’è‚ğÁ‚µ‚Ä‚¨‚­
+	m_player.lock()->DisableSwordCol();
+	m_player.lock()->DisableSword();
 }
 
 PlayerNormal::~PlayerNormal()

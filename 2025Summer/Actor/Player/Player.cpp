@@ -33,6 +33,8 @@ namespace
 
 	const std::string kRightIndexFrame = "mixamorig:RightHandIndex1";
 	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
+
+	constexpr float kFieldRadius = 2000.0f;
 }
 
 Player::Player() :
@@ -77,15 +79,26 @@ void Player::Update()
 	// 切り替わったら違うインスタンスが入ってくる
 	m_state = m_state->Update();
 
+	// 移動を制限
 	if (m_pos.y < 0)
 	{
 		m_pos.y = 0;
 	}
 
-	m_model->Update();
+	const Vector3 nextPos = m_pos + m_collidable->GetVel();
 
-	m_camera.lock()->SetTargetPos(m_targetPos);
-	m_model->SetPos(m_pos);
+	// 移動後一定のエリアから出ていたら
+	if (nextPos.SqrMagnitude() > kFieldRadius * kFieldRadius)
+	{
+		// それを阻止するように移動速度を変えたい
+
+		// 補正後の位置が分かりそうなので分からせる
+		const Vector3 radiusDir = nextPos.GetNormalize() * kFieldRadius;
+
+		m_collidable->SetVel(radiusDir - m_pos);
+	}
+
+	m_model->Update();
 
 	// フラグをリセット
 	m_isContactLockOnActor = false;
@@ -226,6 +239,9 @@ void Player::CommitMove()
 	{
 		m_lockOnCursorPos = ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
 	}
+
+	m_camera.lock()->SetTargetPos(m_targetPos);
+	m_model->SetPos(m_pos);
 }
 
 DxLib::tagMATRIX Player::GetModelMatrix() const
@@ -267,7 +283,7 @@ void Player::EnableSwordCol(const float attackPower)
 	m_sword->SetAttackPower(attackPower);
 }
 
-void Player::DiaableSword()
+void Player::DisableSword()
 {
 	m_sword->Disable();
 }

@@ -5,11 +5,13 @@
 
 class Camera;
 class ActorController;
+class Model;
 
 class SceneTest : public Scene
 {
 public:
 	SceneTest();
+	~SceneTest();
 
 	virtual void Init();
 	virtual void Update();
@@ -21,6 +23,9 @@ public:
 private:
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ActorController> m_actors;
+
+	std::shared_ptr<Model> m_field;
+	int m_dirH;
 
 private:
 	void DrawGrid(const int xNum, const int zNum) const;

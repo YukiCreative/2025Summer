@@ -26,6 +26,10 @@ PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
 
     // ƒJƒƒ‰
     m_player.lock()->m_camera.lock()->ChangeStateDP();
+
+    // UŒ‚”»’è‚ðÁ‚µ‚Ä‚¨‚­
+    m_player.lock()->DisableSwordCol();
+    m_player.lock()->DisableSword();
 }
 
 PlayerLockOn::~PlayerLockOn()

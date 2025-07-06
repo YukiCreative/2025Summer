@@ -3,6 +3,7 @@
 #include "Collidable.h"
 #include <DxLib.h>
 #include "AnimationModel.h"
+#include "Input.h"
 
 namespace
 {
@@ -86,7 +87,7 @@ void PlayerChargeAttack::OptionalProcess()
 	// 向きの変更は上位のステートですでに行っているのでやらない
 
 	// もし突進中にロックオン対象に接触したら突進を止めたい
-	if (p->m_isContactLockOnActor)
+	if (p->m_isContactLockOnActor || Input::GetInstance().IsTrigger("Attack"))
 	{
 		// 突進が終わる直前のフレームだということにする
 		// すでにそのラインを超えていれば何もしない

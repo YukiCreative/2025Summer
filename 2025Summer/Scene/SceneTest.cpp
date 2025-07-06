@@ -8,20 +8,35 @@
 #include "SceneController.h"
 #include "EnemyTest.h"
 
+#include "Model.h"
 #include "Geometry.h"
 
 namespace
 {
 	constexpr float kLineOffset = 100;
 	constexpr float kLineLength = 500;
+
+	const std::string kFieldModel = "Data/Model/Field.mv1";
 }
 
-SceneTest::SceneTest()
+SceneTest::SceneTest() :
+	m_dirH(-1)
 {
+}
+
+SceneTest::~SceneTest()
+{
+	DeleteLightHandle(m_dirH);
 }
 
 void SceneTest::Init()
 {
+	m_field = std::make_shared<Model>();
+	m_field->Init(kFieldModel);
+	m_field->SetPos({0,-100, 0});
+
+	m_dirH = CreateDirLightHandle(Vector3::Up());
+
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
 
@@ -53,19 +68,11 @@ void SceneTest::Draw() const
 
 	//m_camera->Draw_Debug();
 
+	m_field->Draw();
+
 	m_actors->Draw();
 
-	const Vector2 left = input.GetLeftInputAxis();
-	const Vector2 right = input.GetRightInputAxis();
-	DrawFormatString(0,0,0xffffff, "左スティック x:%f,y:%f",left.x, left.y);
-	DrawFormatString(0,15,0xffffff, "右スティック x:%f,y:%f",right.x, right.y);
-
-	if (input.IsPressed("Right"))
-	{
-		DrawString(0,30,"右押されてます", 0xffffff);
-	}
-
-	DrawGrid(10,10);
+	//DrawGrid(10,10);
 }
 
 void SceneTest::Entry()
