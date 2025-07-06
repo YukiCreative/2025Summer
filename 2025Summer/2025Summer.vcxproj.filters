@@ -78,6 +78,7 @@
     <ClCompile Include="Actor\Player\PlayerJumpSlash.cpp" />
     <ClCompile Include="Actor\Player\PlayerChargeAttack.cpp" />
     <ClCompile Include="Actor\PlayerShockWave.cpp" />
+    <ClCompile Include="Actor\Player\PlayerDeath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Actor\Player\PlayerChargeAttack.h" />
     <ClInclude Include="Actor\PlayerShockWave.h" />
     <ClInclude Include="Actor\AttackCol.h" />
+    <ClInclude Include="Actor\Player\PlayerDeath.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

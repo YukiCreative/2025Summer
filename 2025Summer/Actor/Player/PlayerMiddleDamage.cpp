@@ -13,7 +13,7 @@ namespace
 	constexpr int kEnableMoveFrame = 20;
 }
 
-PlayerMiddleDamage::PlayerMiddleDamage(std::shared_ptr<Player> parent) :
+PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_frame(0)
 {

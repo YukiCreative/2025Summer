@@ -1,6 +1,8 @@
 #pragma once
 #include "Actor.h"
 #include <list>
+#include "PlayerState.h"
+#include "RangeLimitedValue.h"
 
 class AnimationModel;
 class Camera;
@@ -21,6 +23,14 @@ enum class PlayerInputDir
 	kLeft,
 	kBack
 };
+
+namespace
+{
+	constexpr float kMinHP = 0.0f;
+	constexpr float kMaxHP = 99990.0f;
+}
+
+using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
@@ -71,6 +81,7 @@ public:
 	// プレイヤーの移動方向の履歴
 	// コマンドに使用
 	std::list<PlayerInputDir> m_inputList;
+	PlayerHP m_hp;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
@@ -82,4 +93,5 @@ public:
 	void SetInputDir(const PlayerInputDir& dir);
 	// PlayerShockWaveSlash用
 	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk);
+	void OnDamage(const float damage);
 };

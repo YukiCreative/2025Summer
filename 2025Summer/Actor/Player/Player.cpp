@@ -13,6 +13,8 @@
 #include "Image.h"
 #include "PlayerSword.h"
 #include "PlayerShockWave.h"
+#include "PlayerDeath.h"
+#include "PlayerMiddleDamage.h"
 
 namespace
 {
@@ -76,6 +78,8 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_cont.lock()->AddActor(m_sword);
 
 	m_state = std::make_shared<PlayerNormal>(weak_from_this());
+
+	m_hp.SetMax();
 }
 
 void Player::Update()
@@ -146,6 +150,22 @@ void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos,
 	auto shockWave = std::make_shared<PlayerShockWave>();
 	shockWave->Init(rot, initPos, atk);
 	SpawnActor(shockWave);
+}
+
+void Player::OnDamage(const float damage)
+{
+	// HPå∏ÇÁÇ∑
+	m_hp -= damage;
+
+	if (m_hp.IsMin())
+	{
+		// óéñΩÅI
+		m_state = std::make_shared<PlayerDeath>(weak_from_this());
+	}
+	else
+	{
+		m_state = std::make_shared<PlayerMiddleDamage>(weak_from_this());
+	}
 }
 
 void Player::Move(const float moveSpeed)
@@ -245,6 +265,7 @@ void Player::OnCollision(std::shared_ptr<Actor> other)
 	{
 	case ActorKind::kEnemyAttack:
 		printf("çUåÇÇ…ìñÇΩÇ¡ÇΩ\n");
+		OnDamage(1.0f);
 		break;
 	default:
 		break;

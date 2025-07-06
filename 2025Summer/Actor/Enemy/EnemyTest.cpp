@@ -35,6 +35,8 @@ EnemyTest::EnemyTest() :
 
 void EnemyTest::Init()
 {
+	m_kind = ActorKind::kEnemyAttack;
+
 	m_pos = { 200, 100, 0 };
 
 	auto col = std::make_shared<SphereCollider>();

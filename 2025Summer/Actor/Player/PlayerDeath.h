@@ -1,13 +1,13 @@
 #pragma once
 #include "PlayerState.h"
 
-// ”í’e
-class PlayerMiddleDamage : public PlayerState
+// “|‚ê‚éA‚»‚µ‚Ä€‚ÊI
+class PlayerDeath : public PlayerState
 {
 public:
 
-	PlayerMiddleDamage(std::weak_ptr<Player> parent);
-	~PlayerMiddleDamage();
+	PlayerDeath(std::weak_ptr<Player> parent);
+	~PlayerDeath();
 
 	std::shared_ptr<PlayerState> Update() override;
 

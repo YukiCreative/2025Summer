@@ -8,6 +8,8 @@ public:
 
 	void Init() override;
 
+	void OptionalProcess() override;
+
 private:
 
 };
