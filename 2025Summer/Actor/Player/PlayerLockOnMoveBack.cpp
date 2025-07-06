@@ -7,6 +7,7 @@
 #include "PlayerLockOnMoveFoward.h"
 #include "PlayerLockOnMoveLeft.h"
 #include "PlayerLockOnMoveRight.h"
+#include "PlayerSlashDown.h"
 #include <DxLib.h>
 
 namespace
@@ -31,10 +32,11 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 {
 	// 移動
 	auto p = m_player.lock();
+	auto& input = Input::GetInstance();
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
 
-	Vector3 inputAxis = Vector3{ Input::GetInstance().GetLeftInputAxis().x, 0, Input::GetInstance().GetLeftInputAxis().y };
+	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
@@ -69,6 +71,14 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 	if (modelAxisDot > 1 - kMoveDirThreshold)
 	{
 		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
+	}
+
+	// 攻撃モーション
+	if (input.IsTrigger("Attack"))
+	{
+		// 通常のコンボ
+
+		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 
 	return shared_from_this();

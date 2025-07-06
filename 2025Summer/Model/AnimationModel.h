@@ -47,7 +47,7 @@ public:
 	// 今のアニメーションを確かめるときに使う
 	const bool CheckAnimName(const std::string name);
 	// モデルの行列のZ基底ベクトルだったものを返す
-	// (つまりモデルの向きよ)
+	// プレイヤーのモデルが反転していたので、それに合わせて符号を反転してしまっているので注意(今更全部変更できない…)
 	const Vector3 GetDirection();
 	// 0～1
 	void SetAnimBlendSpeed(const float speed) { m_animBlendSpeed = speed; }

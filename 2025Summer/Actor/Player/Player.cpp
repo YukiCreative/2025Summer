@@ -86,6 +86,9 @@ void Player::Update()
 
 	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
+
+	// フラグをリセット
+	m_isContactLockOnActor = false;
 }
 
 void Player::CameraMove()
@@ -199,6 +202,8 @@ void Player::Draw() const
 
 void Player::OnCollision(std::shared_ptr<Actor> other)
 {
+	m_isContactLockOnActor = (other == m_lockOnActor.lock());
+
 	switch (other->GetKind())
 	{
 	case ActorKind::kEnemyAttack:

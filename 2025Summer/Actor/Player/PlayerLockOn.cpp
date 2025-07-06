@@ -10,8 +10,8 @@
 
 namespace
 {
-    const Vector3 kLockOnCameraPosOffsetLeft = { -100, 200, -200 };
-    const Vector3 kLockOnCameraPosOffsetRight = { 100, 200, -200 };
+    const Vector3 kLockOnCameraPosOffsetLeft = { -100, 200, -300 };
+    const Vector3 kLockOnCameraPosOffsetRight = { 100, 200, -300 };
 
     const Vector3 kLockOnLineStartOffset = { 0, 200, 0 };
 

@@ -7,6 +7,7 @@
 #include "Geometry.h"
 #include "Camera.h"
 #include "AnimationModel.h"
+#include "PlayerMove.h"
 
 PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
@@ -18,6 +19,10 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
 
 PlayerAttackState::~PlayerAttackState()
 {
+	if(m_player.expired()) return;
+
+	// 念のため攻撃判定を消しておく
+	m_player.lock()->DisableSwordCol();
 }
 
 void PlayerAttackState::PlayAnim()
@@ -53,15 +58,27 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	}
 
 	// 次の攻撃へ
-	if (m_frame >= m_enableComboFrame && m_isEnterAttack)
+	// ネスト深いな
+	if (m_frame >= m_enableComboFrame)
 	{
-		// 派生先が設定されていれば
-		if (m_comboAttack)
+		if (m_isEnterAttack)
 		{
-			// 初期化して返す
-			m_comboAttack->Init();
-			m_comboAttack->PlayAnim();
-			return m_comboAttack;
+			// 派生先が設定されていれば
+			if (m_comboAttack)
+			{
+				// 初期化して返す
+				m_comboAttack->Init();
+				m_comboAttack->PlayAnim();
+				return m_comboAttack;
+			}
+		}
+
+		// 移動していたら
+		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+		{
+			// 移動状態へ移行
+			// ロックオン状態でも正常に動作するようになっているので心配なく
+			return std::make_shared<PlayerMove>(m_player);
 		}
 	}
 
@@ -88,7 +105,8 @@ Vector3 PlayerAttackState::TrackingVec(const float strength)
 	const auto& inputAxis = Input::GetInstance().GetLeftInputAxis();
 	auto p = m_player.lock();
 
-	if (inputAxis.SqrMagnitude() > kMoveThreshold)
+	// ロックオンされておらず、入力があれば
+	if (inputAxis.SqrMagnitude() > kMoveThreshold && p->m_lockOnActor.expired())
 	{
 		// 入力をカメラに回転
 		Vector3 inputV = p->m_camera.lock()->RotateVecToCameraDirXZ({ -inputAxis.x, 0, inputAxis.y, }, Vector3::Back());

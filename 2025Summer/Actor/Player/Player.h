@@ -59,6 +59,8 @@ public:
 	Vector3 m_lockOnCursorPos;
 	std::shared_ptr<Image> m_lockOnGraph;
 	std::shared_ptr<PlayerSword> m_sword;
+	// このフレームにロックオン対象と触れたらtrueになる
+	bool m_isContactLockOnActor;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
@@ -67,6 +69,5 @@ public:
 	void CameraMove();
 	float DefaultGroundDrag();
 	float DefaultAirDrag();
-	void LockOn();
 };
 

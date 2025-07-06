@@ -8,6 +8,7 @@
 #include "PlayerSlashDown.h"
 #include "Collidable.h"
 #include <DxLib.h>
+#include "PlayerLockOnIdle.h"
 
 namespace
 {
@@ -24,6 +25,9 @@ PlayerMove::PlayerMove(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_moveFrame(0)
 {
+	// ロックオン状態ならアニメーションを切り替えない
+	if (!m_player.lock()->m_lockOnActor.expired()) return;
+
 	// アニメーションを遷移
 	m_player.lock()->m_model->ChangeAnimation(kMoveAnimName);
 }
@@ -36,6 +40,18 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 {
 	Input& input = Input::GetInstance();
 	auto p = m_player.lock();
+
+	// この状態に遷移した時、もしロックオンされていたら
+	if (!m_player.lock()->m_lockOnActor.expired())
+	{
+		// ロックオンの方に遷移してあげる
+		// 結局条件分岐に頼ることになるな
+		// まあ攻撃状態を両方に使い回してるのが悪いか
+
+		// ここに四方向の移動状態への遷移条件を書きたくないので、いったんLockOnIdle状態に移行する
+		// すると攻撃→Idle→Moveと二回アニメーションが切り替わるので、アニメーション補完が死ぬ。
+		return std::make_shared<PlayerLockOnIdle>(m_player);
+	}
 
 	// 移動
 	p->Move(kRunSpeed);

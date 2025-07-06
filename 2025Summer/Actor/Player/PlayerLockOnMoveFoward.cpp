@@ -8,6 +8,7 @@
 #include "Player.h"
 #include <DxLib.h>
 #include "Camera.h"
+#include "PlayerChargeAttack.h"
 
 namespace
 {
@@ -31,10 +32,11 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 {
 	// ˆÚ“®
 	auto p = m_player.lock();
+	auto& input = Input::GetInstance();
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
 
-	Vector3 inputAxis = Vector3{ Input::GetInstance().GetLeftInputAxis().x, 0, Input::GetInstance().GetLeftInputAxis().y };
+	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
@@ -69,6 +71,13 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 	if (modelAxisDot < -1 + kMoveDirThreshold)
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
+	}
+
+	/// UŒ‚
+	if (input.IsTrigger("Attack"))
+	{
+		// “ËiUŒ‚
+		return std::make_shared<PlayerChargeAttack>(m_player);
 	}
 
 	return shared_from_this();

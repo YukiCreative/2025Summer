@@ -1,14 +1,13 @@
-#include "PlayerLockOnMoveRight.h"
-#include "Player.h"
 #include "AnimationModel.h"
-#include "PlayerIdle.h"
-#include "Input.h"
-#include <DxLib.h>
-#include "PlayerLockOnIdle.h"
-#include "PlayerLockOnMoveLeft.h"
-#include "PlayerLockOnMoveFoward.h"
-#include "PlayerLockOnMoveBack.h"
 #include "Camera.h"
+#include "Input.h"
+#include "Player.h"
+#include "PlayerLockOnIdle.h"
+#include "PlayerLockOnMoveBack.h"
+#include "PlayerLockOnMoveFoward.h"
+#include "PlayerLockOnMoveLeft.h"
+#include "PlayerLockOnMoveRight.h"
+#include "PlayerSlashDown.h"
 
 namespace
 {
@@ -34,10 +33,11 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 {
 	// ˆÚ“®
 	auto p = m_player.lock();
+	auto& input = Input::GetInstance();
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
 
-	Vector3 inputAxis = Vector3{ Input::GetInstance().GetLeftInputAxis().x, 0, Input::GetInstance().GetLeftInputAxis().y };
+	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
@@ -71,6 +71,11 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 	if (modelAxisDot <= -1 + kMoveDirThreshold)
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
+	}
+
+	if (input.IsTrigger("Attack"))
+	{
+		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 
 	return shared_from_this();
