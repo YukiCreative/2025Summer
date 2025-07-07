@@ -84,7 +84,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 
 		bool isInputBack = false;
 		int  searchDepth = 0;
-		const int  searchMax = min(p->m_inputList.size(), kBackInputRespite);
+		const int  searchMax = min(static_cast<int>(p->m_inputList.size()), kBackInputRespite);
 
 		for (auto it = p->m_inputList.rbegin(); ; ++it)
 		{

@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "SceneDebug.h"
 #include "SceneController.h"
-#include "EnemyTest.h"
 
 #include "Model.h"
 #include "Geometry.h"
@@ -47,11 +46,9 @@ void SceneTest::Init()
 	auto player = std::make_shared<Player>();
 	player->Init(m_camera, m_actors);
 	auto enemyGenerator = std::make_shared<EnemyGenerator>();
-	enemyGenerator->Init();
-	auto enemy = std::make_shared<EnemyTest>();
-	enemy->Init({0,0,0});
+	enemyGenerator->Init(player);
+	enemyGenerator->SpawnWave(0);
 	m_actors->AddActor(player);
-	m_actors->AddActor(enemy);
 	m_actors->AddActor(enemyGenerator);
 }
 

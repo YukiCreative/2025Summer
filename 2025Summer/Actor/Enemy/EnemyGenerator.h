@@ -1,9 +1,10 @@
 #pragma once
-#include <list>
 #include <vector>
 #include "Vector3.h"
 #include "EnemyKind.h"
 #include "Actor.h"
+
+class Player;
 
 // “G‚Ì”­¶‚ğŠÇ—‚·‚é
 // Scene‚ª‚Â
@@ -13,12 +14,14 @@ class EnemyGenerator : public Actor
 	{
 		Vector3 pos;
 		EnemyKind enemyKind;
+
+		SpawnData(const Vector3& _pos, const EnemyKind& kind) : pos(_pos), enemyKind(kind) {}
 	};
 
 public:
 	EnemyGenerator();
 
-	void Init();
+	void Init(std::weak_ptr<Player> player);
 
 	void Update() override {}
 
@@ -31,7 +34,9 @@ public:
 
 private:
 
-	using WaveData_t = std::vector<std::list<SpawnData>>;
+	using WaveData_t = std::vector<std::vector<SpawnData>>;
 	WaveData_t m_waveData;
+
+	std::weak_ptr<Player> m_player;
 };
 

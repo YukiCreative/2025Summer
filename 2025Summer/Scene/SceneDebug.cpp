@@ -26,13 +26,15 @@ void SceneDebug::Init()
 void SceneDebug::Update()
 {
 	Input& input = Input::GetInstance();
+	const int menuSize = static_cast<int>(m_menuList.size());
+
 	if (input.IsTrigger("Up"))
 	{
-		m_selectNum = (m_selectNum - 1 + m_menuList.size()) % m_menuList.size();
+		m_selectNum = (m_selectNum - 1 + menuSize) % menuSize;
 	}
 	if (input.IsTrigger("Down"))
 	{
-		m_selectNum = (m_selectNum + 1 + m_menuList.size()) % m_menuList.size();
+		m_selectNum = (m_selectNum + 1 + menuSize) % menuSize;
 	}
 
 	if (input.IsTrigger("Submit"))

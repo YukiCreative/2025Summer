@@ -409,7 +409,7 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 	const float weightRate = WeightRate(colA, colB);
 
 	colA.AddVel(-overlap * weightRate);
-	colB.AddVel(overlap * (1.0 - weightRate));
+	colB.AddVel(overlap * (1.0f - weightRate));
 }
 
 // ===============================================
