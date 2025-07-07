@@ -23,6 +23,7 @@
     <ClCompile Include="Actor\ActorController.cpp" />
     <ClCompile Include="Actor\Enemy\Enemy.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugRotate.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="Actor\AttackCol.h" />
     <ClInclude Include="Actor\Enemy\Enemy.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugRotate.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
