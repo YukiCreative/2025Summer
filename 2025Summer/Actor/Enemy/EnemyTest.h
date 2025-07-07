@@ -8,7 +8,7 @@ class EnemyTest : public Actor
 public:
 	EnemyTest();
 
-	void Init();
+	void Init(const Vector3& initPos);
 
 	void Update() override;
 	void Draw() const override;

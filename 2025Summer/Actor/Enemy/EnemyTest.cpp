@@ -33,11 +33,11 @@ EnemyTest::EnemyTest() :
 {
 }
 
-void EnemyTest::Init()
+void EnemyTest::Init(const Vector3& initPos)
 {
-	m_kind = ActorKind::kEnemyAttack;
+	m_kind = ActorKind::kEnemy;
 
-	m_pos = { 200, 100, 0 };
+	m_pos = initPos;
 
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(m_pos, kWeight, false, false, kSphereRadius);

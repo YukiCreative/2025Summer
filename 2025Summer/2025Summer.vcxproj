@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyTest.cpp" />
     <ClCompile Include="Actor\PlayerShockWave.cpp" />
     <ClCompile Include="Actor\PlayerSword.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
     <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
     <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Physics\NoCollidable.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Physics\Rigid.cpp" />
     <ClCompile Include="Actor\Player\Player.cpp" />
@@ -94,6 +96,8 @@
     <ClInclude Include="Actor\ActorController.h" />
     <ClInclude Include="Actor\ActorKind.h" />
     <ClInclude Include="Actor\AttackCol.h" />
+    <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
+    <ClInclude Include="Actor\Enemy\EnemyKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyTest.h" />
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\PlayerShockWave.h" />
@@ -137,6 +141,7 @@
     <ClInclude Include="Physics\Collider\CollisionChecker.h" />
     <ClInclude Include="Physics\Collider\PolygonCollider.h" />
     <ClInclude Include="Physics\Collider\SphereCollider.h" />
+    <ClInclude Include="Physics\NoCollidable.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Physics\Rigid.h" />
     <ClInclude Include="Actor\Player\Player.h" />
