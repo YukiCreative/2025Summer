@@ -63,15 +63,18 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     // プレイヤーが画面外に出たら
     // その向きにカメラ回転
     auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);
-    if (playerScreenPos.x > 1280-100)
+    if (playerScreenPos.x > Game::kScreenWidth * 0.9f)
     {
         p->m_camera.lock()->RotateCameraUpVecY(-kCameraRotSpeed);
     }
-    if (playerScreenPos.x < 100)
+    if (playerScreenPos.x < Game::kScreenWidth * 0.1f)
     {
         p->m_camera.lock()->RotateCameraUpVecY(kCameraRotSpeed);
     }
-    if (playerScreenPos.y > 600)
+    auto cameraToPlayer = p->GetPos(); GetCameraPosition();
+
+    // プレイヤーが
+    if (playerScreenPos.y > Game::kScreenHeight * 0.9f)
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
     }
