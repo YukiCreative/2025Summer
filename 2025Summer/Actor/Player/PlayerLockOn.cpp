@@ -73,8 +73,11 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     }
     auto cameraToPlayer = p->GetPos(); GetCameraPosition();
 
-    // ƒvƒŒƒCƒ„[‚ª
-    if (playerScreenPos.y > Game::kScreenHeight * 0.9f)
+    // ƒJƒƒ‰‚Ì‰ñ“]‰~‚ÌŠO‘¤‚ÉƒvƒŒƒCƒ„[‚â“G‚ªo‚½‚ç
+    // ƒJƒƒ‰‚Ì‰ñ“]”¼Œa‚ðL‚Î‚·
+    auto targetToPlayerXZ = camera->GetTargetPos().XZ() - p->GetPos().XZ();
+
+    if (targetToPlayerXZ.SqrMagnitude() > camera->GetTargetDistance() * camera->GetTargetDistance() + 100)
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
     }
