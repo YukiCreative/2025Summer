@@ -9,6 +9,11 @@
 #include "AnimationModel.h"
 #include "PlayerMove.h"
 
+namespace
+{
+	constexpr float kTrackEnemyDistance = 500.0f;
+}
+
 PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_isEnterAttack(false),
@@ -116,7 +121,7 @@ Vector3 PlayerAttackState::TrackingVec(const float strength)
 		// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
 		auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
 		auto posToNearest = nearestActor->GetPos() - p->GetPos();
-		if (posToNearest.SqrMagnitude() < 100000)
+		if (posToNearest.SqrMagnitude() < kTrackEnemyDistance* kTrackEnemyDistance)
 		{
 			vel = posToNearest.GetNormalize() * strength;
 		}

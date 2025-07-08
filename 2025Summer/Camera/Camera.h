@@ -39,6 +39,8 @@ public:
 	// —áFvec2={0,0,1} ¨ z+•ûŒü‚ªƒJƒƒ‰‚Ì‰œs‚É‚È‚é
 	Vector3 RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2);
 	void SetTargetFoV(const float deg);
+	void SetTargetDistance(const float dist);
+	float GetTargetDistance() const;
 
 	// Direction&Distance
 	void ChangeStateDD(const Vector3& targetPos);

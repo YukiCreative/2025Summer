@@ -93,3 +93,23 @@ void EnemyBug::OnCollision(std::shared_ptr<Actor> other)
 		return;
 	}
 }
+
+MATRIX EnemyBug::GetModelMatrix() const
+{
+	auto mat = m_model->GetMatrix();
+
+	mat.m[1][0] *= -1;
+	mat.m[1][1] *= -1;
+	mat.m[1][2] *= -1;
+
+	mat.m[2][0] *= -1;
+	mat.m[2][1] *= -1;
+	mat.m[2][2] *= -1;
+
+	return mat;
+}
+
+void EnemyBug::AddVel(const Vector3& vel)
+{
+	m_collidable->AddVel(vel);
+}

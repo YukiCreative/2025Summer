@@ -108,6 +108,16 @@ void Camera::SetTargetFoV(const float deg)
 	m_targetFoV = deg * Geometry::kDegToRad;
 }
 
+void Camera::SetTargetDistance(const float dist)
+{
+	m_targetDistance = dist;
+}
+
+float Camera::GetTargetDistance() const
+{
+	return m_targetDistance;
+}
+
 void Camera::ChangeStateDD(const Vector3& targetPos)
 {
 	m_state = &Camera::UpdateUseDirectionAndDistance;

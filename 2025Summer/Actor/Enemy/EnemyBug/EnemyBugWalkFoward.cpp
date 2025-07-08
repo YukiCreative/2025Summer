@@ -1,9 +1,11 @@
 #include "EnemyBugWalkFoward.h"
 #include "EnemyBug.h"
+#include <DxLib.h>
 
 namespace
 {
 	const std::string kAnimName = "Armature|Walk";
+	constexpr float kWalkSpeed = 1.0f;
 }
 
 EnemyBugWalkFoward::EnemyBugWalkFoward(std::weak_ptr<EnemyBug> parent) :
@@ -19,5 +21,15 @@ EnemyBugWalkFoward::~EnemyBugWalkFoward()
 
 std::shared_ptr<EnemyBugState> EnemyBugWalkFoward::Update()
 {
+	// Ú‹ß
+	auto parent = m_parent.lock();
+
+	parent->LookAtPlayer();
+
+	// Ž©•ª‚ÌŒü‚«‚É‘Oi
+	//parent->AddVel(VTransformSR({0,0,kWalkSpeed}, parent->GetModelMatrix()));
+
+	// ‚¢‚Á‚Ä‚¢
+
 	return shared_from_this();
 }

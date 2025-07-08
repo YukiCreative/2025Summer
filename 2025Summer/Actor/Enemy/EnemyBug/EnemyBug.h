@@ -4,6 +4,11 @@
 class AnimationModel;
 class EnemyBugState;
 
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
 class EnemyBug : public Enemy, public std::enable_shared_from_this<EnemyBug>
 {
 public:
@@ -20,6 +25,8 @@ public:
 
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
+	DxLib::tagMATRIX GetModelMatrix() const;
+	void AddVel(const Vector3& vel);
 
 private:
 

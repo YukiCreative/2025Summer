@@ -15,7 +15,11 @@ namespace
 
     const Vector3 kLockOnLineStartOffset = { 0, 200, 0 };
 
+    const Vector3 kPlayerMiddlePointOffset = { 0, 100, 0 };
+
     constexpr float kRotateSpeed = 0.2f;
+    constexpr float kCameraRotSpeed = 0.005f;
+    constexpr float kChangeDistanceSpeed = 10.0f;
 }
 
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
@@ -25,9 +29,6 @@ PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
 
     // 初期状態
     m_childState = std::make_shared<PlayerLockOnIdle>(m_player);
-
-    // カメラ
-    p->m_camera.lock()->ChangeStateDP();
 
     // 攻撃判定を消しておく
     p->DisableSwordCol();
@@ -45,6 +46,7 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
 {
     auto& input = Input::GetInstance();
     auto p = m_player.lock();
+    auto camera = p->m_camera.lock();
 
     // ロックオンが外れたら、通常状態へ
     if (m_player.lock()->m_lockOnActor.expired())
@@ -52,7 +54,31 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
         return std::make_shared<PlayerNormal>(m_player);
     }
 
-    CameraMove();
+    // 通常のカメラ回転
+    p->CameraMove();
+
+    // targetPosを更新
+    p->m_targetPos = (p->GetPos() + kLockOnLineStartOffset + p->m_lockOnActor.lock()->GetPos()) * 0.5f;
+
+    // プレイヤーが画面外に出たら
+    // その向きにカメラ回転
+    auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);
+    if (playerScreenPos.x > 1280-100)
+    {
+        p->m_camera.lock()->RotateCameraUpVecY(-kCameraRotSpeed);
+    }
+    if (playerScreenPos.x < 100)
+    {
+        p->m_camera.lock()->RotateCameraUpVecY(kCameraRotSpeed);
+    }
+    if (playerScreenPos.y > 600)
+    {
+        camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
+    }
+    else if (playerScreenPos.y < 500 && camera->GetTargetDistance() > 400.0f)
+    {
+        camera->SetTargetDistance(camera->GetTargetDistance() + -kChangeDistanceSpeed);
+    }
 
     // プレイヤーを敵方向に回転
     auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();

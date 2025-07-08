@@ -1,10 +1,11 @@
 #include "EnemyBugIdle.h"
 #include "EnemyBug.h"
+#include "EnemyBugWalkFoward.h"
 
 namespace
 {
 	const std::string kAnimName = "Armature|Idle";
-	//constexpr float kApproachDistance = 
+	constexpr float kApproachDistance = 1000.0f;
 }
 
 EnemyBugIdle::EnemyBugIdle(std::weak_ptr<EnemyBug> parent) :
@@ -24,10 +25,11 @@ std::shared_ptr<EnemyBugState> EnemyBugIdle::Update()
 	// 接近はしない 様子見みたいな
 	auto parent = m_parent.lock();
 
-	parent->LookAtPlayer();
-
-	// 一定以上離れていたら接近
-	//if (parent->EnemyToPlayer().SqrMagnitude() > k)
+	// 一定距離離れていたら、もしくはランダム時間経ったら
+	if (parent->EnemyToPlayer().SqrMagnitude() > kApproachDistance * kApproachDistance);
+	{
+		return std::make_shared<EnemyBugWalkFoward>(m_parent);
+	}
 
 	return shared_from_this();
 }
