@@ -6,12 +6,20 @@
 #include "ActorController.h"
 #include <DxLib.h>
 #include "Game.h"
+#include "Camera.h"
+
+namespace
+{
+	constexpr float kDefaultCameraDistance = 400.0f;
+}
 
 PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
 	// ‰Šúó‘Ô‚ğİ’è
 	m_childState = std::make_shared<PlayerIdle>(m_player);
+
+	m_player.lock()->m_camera.lock()->SetTargetDistance(kDefaultCameraDistance);
 
 	// UŒ‚”»’è‚ğÁ‚µ‚Ä‚¨‚­
 	m_player.lock()->DisableSwordCol();

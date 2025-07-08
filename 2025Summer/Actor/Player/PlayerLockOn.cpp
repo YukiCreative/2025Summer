@@ -63,25 +63,28 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     // プレイヤーが画面外に出たら
     // その向きにカメラ回転
     auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);
-    if (playerScreenPos.x > Game::kScreenWidth * 0.9f)
+    auto targetScreenPos = ConvWorldPosToScreenPos(camera->GetTargetPos());
+
+    // 条件複雑だな
+    if (playerScreenPos.x > Game::kScreenWidth * 0.7f && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z)
     {
         p->m_camera.lock()->RotateCameraUpVecY(-kCameraRotSpeed);
     }
-    if (playerScreenPos.x < Game::kScreenWidth * 0.1f)
+    if (playerScreenPos.x < Game::kScreenWidth * 0.3f && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z)
     {
         p->m_camera.lock()->RotateCameraUpVecY(kCameraRotSpeed);
     }
     auto cameraToPlayer = p->GetPos(); GetCameraPosition();
 
-    // カメラの回転円の外側にプレイヤーや敵が出たら
+    // カメラの回転円の外側にプレイヤーや敵が出そうなら
     // カメラの回転半径を伸ばす
     auto targetToPlayerXZ = camera->GetTargetPos().XZ() - p->GetPos().XZ();
 
-    if (targetToPlayerXZ.SqrMagnitude() > camera->GetTargetDistance() * camera->GetTargetDistance() + 100)
+    if (targetToPlayerXZ.SqrMagnitude() > (camera->GetTargetDistance() - 300) * (camera->GetTargetDistance() - 300))
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
     }
-    else if (playerScreenPos.y < 500 && camera->GetTargetDistance() > 400.0f)
+    else if (camera->GetTargetDistance() > 400.0f)
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + -kChangeDistanceSpeed);
     }
@@ -113,9 +116,8 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     // 状態をUpdate
     m_childState = m_childState->Update();
 
-    // ここにロックオン関連の処理を入れる
-    // ロックオンボタンを押したら近くの敵をロックオン
-    if (Input::GetInstance().IsTrigger("LockOn"))
+    // ロックオンボタンを離したら
+    if (Input::GetInstance().IsReleased("LockOn"))
     {
         ReleaseLockOn();
 
@@ -129,9 +131,6 @@ void PlayerLockOn::ReleaseLockOn()
 {
     // 解除
     m_player.lock()->m_lockOnActor.reset();
-
-    // いじったカメラを元に戻す
-    m_player.lock()->m_camera.lock()->ChangeStateDD(m_player.lock()->GetPos() + kLockOnLineStartOffset);
 }
 
 void PlayerLockOn::CameraMove()

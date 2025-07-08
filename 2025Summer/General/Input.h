@@ -20,6 +20,8 @@ public:
 	bool IsPressed(const std::string& key) const;
 	// 今まさに押された
 	bool IsTrigger(const std::string& key) const;
+	// 今まさに離された
+	bool IsReleased(const std::string& key) const;
 
 	// アナログコントローラ＆十字キーの入力
 	const Vector2& GetLeftInputAxis() const;

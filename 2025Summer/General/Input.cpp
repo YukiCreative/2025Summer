@@ -234,6 +234,31 @@ bool Input::IsTrigger(const std::string& key) const
 	return isTrigger;
 }
 
+bool Input::IsReleased(const std::string& key) const
+{
+	bool isReleased = false;
+	// 与えられたキーに対応する全ての周辺機器の入力コードを調べる
+	for (const auto& inputEvent : m_inputEvent.at(key))
+	{
+		// 今押されていなくて、前のフレームに押されていた場合にtrue
+		switch (inputEvent.type)
+		{
+		case PeripheralType::kKeyboard:
+			// キーボードのやり方で入力を取得
+			isReleased = isReleased || !m_keyInput[inputEvent.inputCode] && m_beforeKeyInput[inputEvent.inputCode];
+			break;
+		case PeripheralType::kPad:
+			// パッド
+			isReleased = isReleased || !(m_padInput & inputEvent.inputCode) && (m_beforePadInput & inputEvent.inputCode);
+			break;
+		default:
+			assert(false && "列挙体の要素に対して処理が実装されていない");
+			break;
+		}
+	}
+	return isReleased;
+}
+
 const Vector2& Input::GetLeftInputAxis() const
 {
 	return m_leftInputAxis;
