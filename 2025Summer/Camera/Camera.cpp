@@ -10,7 +10,7 @@ namespace
 	constexpr float kCameraRotateSensitivity = 1.0f;
 	constexpr float kLerpStrength = 0.1f;
 	constexpr float kDistanceLerpStrength = 0.07f;
-	constexpr float kInitFovDegrees = 80.0f * Geometry::kDegToRad;
+	constexpr float kInitFovDegrees = 70.0f * Geometry::kDegToRad;
 	constexpr float kChangeFoVSpeed = 0.1f;
 	// å©â∫ÇÎÇπÇÈç≈ëÂíl
 	constexpr float kCameraVRotPlusThreshold = 0.3f;
@@ -116,6 +116,20 @@ void Camera::SetTargetDistance(const float dist)
 float Camera::GetTargetDistance() const
 {
 	return m_targetDistance;
+}
+
+float Camera::GetTargetDistanceXZ() const
+{
+	// targetPosÇí ÇÈXZïΩñ è„Ç…ìäâeÇ∑ÇÈ
+
+	auto targetToCamera = m_targetToCamera * m_targetDistance;
+
+	return targetToCamera.XZ().Magnitude();
+}
+
+float Camera::GetCameraNearFarLength() const
+{
+	return  GetCameraFar() - GetCameraNear();
 }
 
 void Camera::ChangeStateDD(const Vector3& targetPos)

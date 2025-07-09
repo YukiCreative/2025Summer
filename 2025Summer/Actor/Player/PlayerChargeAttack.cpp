@@ -50,6 +50,7 @@ void PlayerChargeAttack::Init()
 	m_stateTotalFrame = kStateWholeFrame;
 	m_trackFrame = kTrackFrame;
 	m_trackForce = kTrackForce;
+	m_enemyTrackForce = kTrackForce;
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
@@ -91,6 +92,6 @@ void PlayerChargeAttack::OptionalProcess()
 	{
 		// 突進が終わる直前のフレームだということにする
 		// すでにそのラインを超えていれば何もしない
-		m_frame = max(kChargeFrame-1, m_frame);
+		m_frame = std::max(kChargeFrame-1, m_frame);
 	}
 }

@@ -84,6 +84,6 @@ void PlayerJumpSlash::OptionalProcess()
 	{
 		// 突進が終わる直前のフレームだということにする
 		// すでにそのラインを超えていれば何もしない
-		m_frame = max(kChargeFrame - 1, m_frame);
+		m_frame = std::max(kChargeFrame - 1, m_frame);
 	}
 }

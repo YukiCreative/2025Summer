@@ -39,6 +39,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 	auto& input = Input::GetInstance();
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
+	p->LockOnRotate();
 
 	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
@@ -84,7 +85,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 
 		bool isInputBack = false;
 		int  searchDepth = 0;
-		const int  searchMax = min(static_cast<int>(p->m_inputList.size()), kBackInputRespite);
+		const int  searchMax = std::min(static_cast<int>(p->m_inputList.size()), kBackInputRespite);
 
 		for (auto it = p->m_inputList.rbegin(); ; ++it)
 		{

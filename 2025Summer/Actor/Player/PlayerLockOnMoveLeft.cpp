@@ -37,6 +37,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveLeft::Update()
 	auto& input = Input::GetInstance();
 
 	p->MoveWithoutRotate(kLockOnWalkSpeed);
+	p->LockOnRotate();
 
 	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;

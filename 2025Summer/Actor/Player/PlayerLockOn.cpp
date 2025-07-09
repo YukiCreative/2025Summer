@@ -7,6 +7,7 @@
 #include "PlayerLockOnIdle.h"
 #include "PlayerNormal.h"
 #include <DxLib.h>
+#include <algorithm>
 
 namespace
 {
@@ -17,13 +18,18 @@ namespace
 
     const Vector3 kPlayerMiddlePointOffset = { 0, 100, 0 };
 
-    constexpr float kRotateSpeed = 0.2f;
-    constexpr float kCameraRotSpeed = 0.005f;
+    constexpr float kCameraRotSpeed = 0.0001f;
+    constexpr float kCameraRotSpeedMax = 30.0f;
     constexpr float kChangeDistanceSpeed = 10.0f;
+    // プレイヤーがカメラに収まるためのXZ平面上の距離
+    // カメラはこの距離分回転半径を伸ばす
+    constexpr float kPlayerIntoCameraXZOffset = 300.0f;
+    constexpr float kMoveTargetPosSpeed = 0.01f;
 }
 
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
-    PlayerState(parent)
+    PlayerState(parent),
+    m_targetPosLerpParam(0.5f)
 {
     auto p = m_player.lock();
 
@@ -36,6 +42,12 @@ PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
 
     // コマンドリストを初期化
     p->m_inputList.clear();
+
+    // カメラが急に移動しないようにする
+    Vector3 nextTargetPos = (p->GetPos() + p->m_lockOnActor.lock()->GetPos()) * 0.5f + kLockOnLineStartOffset;
+    Vector3 cPos = GetCameraPosition();
+    auto nextTargetDistance = (nextTargetPos - cPos).Magnitude();
+    p->m_camera.lock()->SetTargetDistance(nextTargetDistance);
 }
 
 PlayerLockOn::~PlayerLockOn()
@@ -57,57 +69,10 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     // 通常のカメラ回転
     p->CameraMove();
 
-    // targetPosを更新
-    p->m_targetPos = (p->GetPos() + kLockOnLineStartOffset + p->m_lockOnActor.lock()->GetPos()) * 0.5f;
+    // ロックオンの特殊処理
+    CameraMove();
 
-    // プレイヤーが画面外に出たら
-    // その向きにカメラ回転
-    auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);
-    auto targetScreenPos = ConvWorldPosToScreenPos(camera->GetTargetPos());
-
-    // 条件複雑だな
-    if (playerScreenPos.x > Game::kScreenWidth * 0.7f && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z)
-    {
-        p->m_camera.lock()->RotateCameraUpVecY(-kCameraRotSpeed);
-    }
-    if (playerScreenPos.x < Game::kScreenWidth * 0.3f && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z)
-    {
-        p->m_camera.lock()->RotateCameraUpVecY(kCameraRotSpeed);
-    }
-    auto cameraToPlayer = p->GetPos(); GetCameraPosition();
-
-    // カメラの回転円の外側にプレイヤーや敵が出そうなら
-    // カメラの回転半径を伸ばす
-    auto targetToPlayerXZ = camera->GetTargetPos().XZ() - p->GetPos().XZ();
-
-    if (targetToPlayerXZ.SqrMagnitude() > (camera->GetTargetDistance() - 300) * (camera->GetTargetDistance() - 300))
-    {
-        camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
-    }
-    else if (camera->GetTargetDistance() > 400.0f)
-    {
-        camera->SetTargetDistance(camera->GetTargetDistance() + -kChangeDistanceSpeed);
-    }
-
-    // プレイヤーを敵方向に回転
-    auto lockOnPosXZ = p->m_lockOnActor.lock()->GetPos().XZ();
-    auto posXZ = p->GetPos().XZ();
-
-    auto playerToLockOnXZ = (lockOnPosXZ - posXZ).GetNormalize();
-
-    auto playerDir = p->m_model->GetDirection();
-
-    auto dot = playerToLockOnXZ.Dot(playerDir);
-
-    float rot = playerDir.Cross(playerToLockOnXZ).y * kRotateSpeed;
-
-    // ちょうど真反対に向いていた場合の処理
-    if (dot < -0.9999f && rot < 0.0001f)
-    {
-        rot += 0.1f;
-    }
-
-    p->m_model->RotateUpVecY(rot);
+    SetTargetPos();
 
     Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
     inputAxis.z *= -1;
@@ -127,6 +92,20 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
     return shared_from_this();
 }
 
+void PlayerLockOn::SetTargetPos()
+{
+    auto p = m_player.lock();
+
+    // 脳天から線を出す
+    auto pTargetStart = p->GetPos() + kLockOnLineStartOffset;
+    auto playerToEnemy = p->m_lockOnActor.lock()->GetPos() - pTargetStart;
+    auto pToELength = playerToEnemy.Magnitude();
+    auto pToEN = playerToEnemy.GetNormalize();
+
+    // targetPosを更新
+    p->m_targetPos = pTargetStart + pToEN * (pToELength * m_targetPosLerpParam.Value());
+}
+
 void PlayerLockOn::ReleaseLockOn()
 {
     // 解除
@@ -135,31 +114,81 @@ void PlayerLockOn::ReleaseLockOn()
 
 void PlayerLockOn::CameraMove()
 {
-    // プレイヤーとロックオン対象が画面外に出ないようにしたい
+    // ここでやってること
+    // 1.プレイヤーがスクリーンX方向に出ようとしたら収めるように回転する
+    // 2.プレイヤーがカメラの後ろに回りそうならカメラの距離を離す
+    // 3.プレイヤーや敵がスクリーンのY方向に出そうなら注視点を寄せて画面に収める
+
+    auto& input = Input::GetInstance();
     auto p = m_player.lock();
-    auto cam = p->m_camera.lock();
+    auto camera = p->m_camera.lock();
 
-    // カメラの位置を決めてしまう
+    // プレイヤーが画面外に出たら
+    // その向きにカメラ回転
+    auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);
+    auto targetScreenPos = ConvWorldPosToScreenPos(camera->GetTargetPos());
 
-    // 常にロックオン対象→プレイヤー→カメラ　にする
+    const float nearFarLength = camera->GetCameraNearFarLength();
+    const float cameraRotatableOffset = 200.0f / nearFarLength;
 
-    const Vector3 playerPos = p->GetPos();
+    float rightOutOfX = std::min(playerScreenPos.x - Game::kScreenWidth * 0.7f, kCameraRotSpeedMax);
+    float leftOutOfX = std::min(Game::kScreenWidth * 0.3f - playerScreenPos.x, kCameraRotSpeedMax);
 
-    const Vector3 playerToLock = p->m_lockOnActor.lock()->GetPos().XZ() - playerPos.XZ();
-    auto mat = MGetRotVec2(Vector3::Foward(), playerToLock);
-
-    // プレイヤーが画面右側か左側か
-    if (ConvWorldPosToScreenPos(playerPos).x < Game::kScreenHalfWidth)
+    // 条件複雑だな
+    if (rightOutOfX > 0 && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z - cameraRotatableOffset)
     {
-        // 左側にプレイヤー→カメラは右側に
-        cam->SetLerpPos(playerPos + VTransformSR(kLockOnCameraPosOffsetRight, mat));
+        p->m_camera.lock()->RotateCameraUpVecY(-rightOutOfX * kCameraRotSpeed);
+    }
+    if (leftOutOfX > 0 && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z - cameraRotatableOffset)
+    {
+        p->m_camera.lock()->RotateCameraUpVecY(leftOutOfX * kCameraRotSpeed);
+    }
+
+    // カメラの回転円の外側にプレイヤーや敵が出そうなら
+    // カメラの回転半径を伸ばす
+    auto middlePos = (p->GetPos() + p->m_lockOnActor.lock()->GetPos()) * 0.5f;
+    auto targetDist = (middlePos - p->GetPos()).SqrMagnitude();
+    // カメラがプレイヤーを収めるために必要なカメラ距離の補正
+    auto cameraGetAwayThireshold = camera->GetTargetDistance() - kPlayerIntoCameraXZOffset;
+
+    if (targetDist > cameraGetAwayThireshold * cameraGetAwayThireshold)
+    {
+        camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
+    }
+    else if (camera->GetTargetDistance() > 400.0f)
+    {
+        camera->SetTargetDistance(camera->GetTargetDistance() + -kChangeDistanceSpeed);
+    }
+
+    auto playerFootScrrenPos = ConvWorldPosToScreenPos(p->GetPos());
+    auto enemyScreenPos = ConvWorldPosToScreenPos(p->m_lockOnActor.lock()->GetPos());
+
+    // 手前にいるやつが画面外に出るときがあるので注視点ずらす
+    float beforeParam = m_targetPosLerpParam.Value();
+
+    // プレイヤーが手前の場合
+    if (playerFootScrrenPos.z < enemyScreenPos.z)
+    {
+        if (playerFootScrrenPos.y > Game::kScreenHeight * 0.9f)
+        {
+            m_targetPosLerpParam -= kMoveTargetPosSpeed;
+        }
+        else if (playerFootScrrenPos.y > Game::kScreenHeight * 0.7f && playerFootScrrenPos.y < Game::kScreenHeight * 0.8f)
+        {
+            m_targetPosLerpParam += kMoveTargetPosSpeed;
+            m_targetPosLerpParam = std::min(m_targetPosLerpParam.Value(), 0.6f);
+        }
     }
     else
     {
-        // 逆もまた然り
-        cam->SetLerpPos(playerPos + VTransformSR(kLockOnCameraPosOffsetLeft, mat));
+        if (enemyScreenPos.y > Game::kScreenHeight * 0.9f)
+        {
+            m_targetPosLerpParam += kMoveTargetPosSpeed;
+        }
+        else if (enemyScreenPos.y > Game::kScreenHeight * 0.7f && enemyScreenPos.y < Game::kScreenHeight * 0.8f)
+        {
+            m_targetPosLerpParam -= kMoveTargetPosSpeed;
+            m_targetPosLerpParam = std::max(m_targetPosLerpParam.Value(), 0.6f);
+        }
     }
-
-    // targetPosを更新
-    p->m_targetPos = (playerPos + kLockOnLineStartOffset + p->m_lockOnActor.lock()->GetPos()) * 0.5f;
 }

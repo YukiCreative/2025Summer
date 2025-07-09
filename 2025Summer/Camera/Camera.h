@@ -41,7 +41,9 @@ public:
 	void SetTargetFoV(const float deg);
 	void SetTargetDistance(const float dist);
 	float GetTargetDistance() const;
+	float GetTargetDistanceXZ() const;
 	Vector3 GetTargetPos() const { return m_targetPos; }
+	float GetCameraNearFarLength() const;
 
 	// Direction&Distance
 	void ChangeStateDD(const Vector3& targetPos);

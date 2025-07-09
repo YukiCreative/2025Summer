@@ -47,6 +47,7 @@ void PlayerSlashSide::Init()
 	m_stateTotalFrame = kStateWholeFrame;
 	m_trackFrame = kTrackFrame;
 	m_trackForce = kTrackForce;
+	m_enemyTrackForce = kTrackForce * 3.0f;
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;

@@ -49,7 +49,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	// 敵に吸いつく挙動or前進
 	if (m_frame == m_trackFrame)
 	{
-		p->GetRigid().AddVel(TrackingVec(m_trackForce));
+		p->GetRigid().AddVel(TrackingVec(m_trackForce, m_enemyTrackForce));
 	}
 
 	// 先行して入力をとっておく
@@ -101,7 +101,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	return shared_from_this();
 }
 
-Vector3 PlayerAttackState::TrackingVec(const float strength)
+Vector3 PlayerAttackState::TrackingVec(const float strength, const float trackEnemyStrength)
 {
 	Vector3 vel;
 	// 入力があったら、その方向に動く
@@ -123,7 +123,7 @@ Vector3 PlayerAttackState::TrackingVec(const float strength)
 		auto posToNearest = nearestActor->GetPos() - p->GetPos();
 		if (posToNearest.SqrMagnitude() < kTrackEnemyDistance* kTrackEnemyDistance)
 		{
-			vel = posToNearest.GetNormalize() * strength;
+			vel = posToNearest.GetNormalize() * trackEnemyStrength;
 		}
 		else
 		{

@@ -41,6 +41,8 @@ namespace
 
 	// ‚Æ‚è‚ ‚¦‚¸‰ß‹1•b‚Ì“ü—Í—š—ğ‚ğc‚·
 	constexpr int kInputHistoryMax = 60;
+
+	constexpr float kLockOnRotateSpeed = 0.2f;
 }
 
 Player::Player() :
@@ -168,6 +170,29 @@ void Player::OnDamage(const float damage)
 	}
 }
 
+void Player::LockOnRotate()
+{
+	// ƒvƒŒƒCƒ„[‚ğ“G•ûŒü‚É‰ñ“]
+	auto lockOnPosXZ = m_lockOnActor.lock()->GetPos().XZ();
+	auto posXZ = GetPos().XZ();
+
+	auto playerToLockOnXZ = (lockOnPosXZ - posXZ).GetNormalize();
+
+	auto playerDir = m_model->GetDirection();
+
+	auto dot = playerToLockOnXZ.Dot(playerDir);
+
+	float rot = playerDir.Cross(playerToLockOnXZ).y * kLockOnRotateSpeed;
+
+	// ‚¿‚å‚¤‚Ç^”½‘Î‚ÉŒü‚¢‚Ä‚¢‚½ê‡‚Ìˆ—
+	if (dot < -0.9999f && rot < 0.0001f)
+	{
+		rot += 0.1f;
+	}
+
+	m_model->RotateUpVecY(rot);
+}
+
 void Player::Move(const float moveSpeed)
 {
 	// “ü—Í‚ÅˆÚ“®
@@ -195,7 +220,7 @@ void Player::Move(const float moveSpeed)
 
 	m_model->RotateUpVecY(cross.y * 0.3f);
 
-	const float clampDot = max(dot, -0.1f);
+	const float clampDot = std::max(dot, -0.1f);
 
 	// ©•ª‚ÌŒü‚«‚ÆˆÚ“®•ûŒü‚ª˜¨—£‚µ‚Ä‚¢‚é‚ÆAˆÚ“®—Ê‚ª”½“]‚·‚é
 	// U‚èŒü‚­Û‚Éˆêu”½‘Î•ûŒü‚ÉˆÚ“®‚·‚é‚İ‚½‚¢‚È
@@ -236,6 +261,8 @@ void Player::Draw() const
 	{
 		DrawLine3D(m_pos + kCapsuleEndPosOffset, m_lockOnActor.lock()->GetPos(), 0xfffffff);
 	}
+
+	DrawSphere3D(m_targetPos, 10, 10, 0xffffff, 0xffffff, true);
 #endif
 }
 

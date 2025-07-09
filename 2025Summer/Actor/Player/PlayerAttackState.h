@@ -29,6 +29,7 @@ protected:
 	// “G‚Ö‚Ì‹z‚¢‚Â‚«
 	int m_trackFrame;
 	float m_trackForce;
+	float m_enemyTrackForce;
 	int m_acceptNextAttackInputFrame;
 	int m_enableComboFrame;
 	float m_attackPower;
@@ -41,6 +42,7 @@ protected:
 	virtual void OptionalProcess() {}
 
 	// “G‚É‹z‚¢‚Â‚­‹““®‚ğÀŒ»‚µ‚Ü‚·
-	Vector3 TrackingVec(const float strength);
+	// ‹z‚¢‚Â‚­‚Æ‚«‚Æ‚»‚¤‚Å‚È‚¢(”CˆÓ“ü—ÍA‘ÎÛ‚È‚µ)‚Å‰Á‚¦‚é—Í‚ğ•Ï‚¦‚ç‚ê‚é
+	Vector3 TrackingVec(const float strength, const float trackEnemyStrength);
 };
 

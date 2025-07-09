@@ -94,4 +94,6 @@ public:
 	// PlayerShockWaveSlash用
 	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk);
 	void OnDamage(const float damage);
+	// プレイヤーをロックオン対象へ向ける
+	void LockOnRotate();
 };

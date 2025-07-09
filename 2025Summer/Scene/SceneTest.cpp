@@ -35,7 +35,7 @@ void SceneTest::Init()
 	m_field->Init(kFieldModel);
 	m_field->SetPos({0,-100, 0});
 
-	m_dirH = CreateDirLightHandle(Vector3::Up());
+	//m_dirH = CreateDirLightHandle(Vector3::Up());
 
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();

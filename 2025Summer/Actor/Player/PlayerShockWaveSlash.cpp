@@ -67,6 +67,7 @@ void PlayerShockWaveSlash::Init()
 	m_stateTotalFrame = kStateWholeFrame;
 	m_trackFrame = kTrackFrame;
 	m_trackForce = kTrackForce;
+	m_enemyTrackForce = kTrackForce;
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
@@ -89,7 +90,7 @@ void PlayerShockWaveSlash::OptionalProcess()
 	// 二回目の前進
 	if (m_frame == kTrackFrame2)
 	{
-		p->GetCollidable().AddVel(TrackingVec(kTrackForce));
+		p->GetCollidable().AddVel(TrackingVec(kTrackForce, kTrackForce));
 	}
 
 	// 特定のフレームで、衝撃波を放つ

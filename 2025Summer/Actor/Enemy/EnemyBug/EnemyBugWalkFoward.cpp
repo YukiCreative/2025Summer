@@ -5,7 +5,7 @@
 namespace
 {
 	const std::string kAnimName = "Armature|Walk";
-	constexpr float kWalkSpeed = 1.0f;
+	constexpr float kWalkSpeed = 0.5f;
 }
 
 EnemyBugWalkFoward::EnemyBugWalkFoward(std::weak_ptr<EnemyBug> parent) :
