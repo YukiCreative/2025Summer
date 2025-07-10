@@ -30,10 +30,16 @@ private:
 	{
 		std::shared_ptr<Actor> hitActor;
 		std::shared_ptr<Actor> other;
+
+		bool operator ==(const OnCollisionMessage& right) const
+		{
+			return (hitActor == right.hitActor && other == right.other);
+		}
 	};
 
-	std::list<OnCollisionMessage> m_enterMessageList;
+
 	std::list<OnCollisionMessage> m_beforeCollisionMessageList;
+	std::list<OnCollisionMessage> m_enterMessageList;
 	std::list<OnCollisionMessage> m_stayMessageList;
 
 	// d•¡‚ğ‚Í‚¶‚­

@@ -146,9 +146,27 @@ void Physics::SendOnCollision()
 	}
 
 	// ‘O‚É“–‚½‚Á‚Ä‚¢‚ÄA¡“–‚½‚Á‚Ä‚¢‚È‚¢¨exit
+	for (auto& beforeMessage : )
+	{
+		bool isExit = false;
+		for (auto& enterMessage : m_enterMessageList)
+		{
+			isExit |= (beforeMessage == enterMessage);
+		}
+		for (auto& stayMessage : m_stayMessageList)
+		{
+			isExit |= (beforeMessage == stayMessage);
+		}
+		if (isExit)
+		{
+			beforeMessage.hitActor->OnCollisionExit(beforeMessage.other);
+		}
+	}
 
-
-	m_beforeCollisionMessageList = m_enterMessageList;
+	std::sort(m_enterMessageList.begin(), m_enterMessageList.end());
+	std::sort(m_stayMessageList.begin(), m_stayMessageList.end());
+	m_beforeCollisionMessageList = std::merge(m_enterMessageList.begin(), m_enterMessageList.end(),
+		m_stayMessageList.begin(), m_stayMessageList.end());
 
 	m_enterMessageList.clear();
 	m_stayMessageList.clear();
