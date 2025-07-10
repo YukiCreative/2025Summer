@@ -80,7 +80,7 @@ void PlayerSword::Draw() const
 #endif
 }
 
-void PlayerSword::OnCollision(const std::shared_ptr<Actor> other)
+void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 {
 }
 

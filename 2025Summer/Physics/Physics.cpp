@@ -135,23 +135,27 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 
 void Physics::SendOnCollision()
 {
-	for (auto& message : m_messageList)
+	for (auto& enterMessage : m_enterMessageList)
 	{
-		message.hitActor->OnCollision(message.other);
+		enterMessage.hitActor->OnCollisionEnter(enterMessage.other);
 	}
 
-	m_messageList.clear();
+	for (auto& stayMessage : m_stayMessageList)
+	{
+		stayMessage.hitActor->OnCollisionStay(stayMessage.other);
+	}
+
+	// ‘O‚É“–‚½‚Á‚Ä‚¢‚ÄA¡“–‚½‚Á‚Ä‚¢‚È‚¢¨exit
+
+
+	m_beforeCollisionMessageList = m_enterMessageList;
+
+	m_enterMessageList.clear();
+	m_stayMessageList.clear();
 }
 
 void Physics::AddOnCollisionMessage(const OnCollisionMessage& message)
 {
-	for (auto& _message : m_messageList)
-	{
-		// “¯ˆê‚Ì‚à‚Ì‚ª‚·‚Å‚É‘¶İ‚µ‚Ä‚¢‚é‚©‚ğ’²‚×‚é
-		if (_message.hitActor == message.hitActor && _message.other == message.other) return;
-	}
-
-	m_messageList.emplace_back(message);
 }
 
 void Physics::DrawColRange(std::list<std::shared_ptr<Actor>> actorList) const

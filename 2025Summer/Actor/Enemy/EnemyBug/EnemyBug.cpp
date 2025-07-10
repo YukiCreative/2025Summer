@@ -83,7 +83,7 @@ void EnemyBug::CommitMove()
 	m_collidable->SetPos(m_pos + kColOffset);
 }
 
-void EnemyBug::OnCollision(std::shared_ptr<Actor> other)
+void EnemyBug::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
@@ -93,6 +93,16 @@ void EnemyBug::OnCollision(std::shared_ptr<Actor> other)
 		OnDamage(attack);
 		return;
 	}
+}
+
+void EnemyBug::OnCollisionStay(std::shared_ptr<Actor> other)
+{
+	printf("Stay\n");
+}
+
+void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
+{
+	printf("Exit\n");
 }
 
 MATRIX EnemyBug::GetModelMatrix() const
@@ -122,6 +132,8 @@ bool EnemyBug::IsAnimEnd() const
 
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 {
+	// 無敵なら食らわない
+
 	printf("食らった！%fダメージ！\n", attack->GetAttackPower());
 
 	m_state = std::make_shared<EnemyBugDamage>(weak_from_this());

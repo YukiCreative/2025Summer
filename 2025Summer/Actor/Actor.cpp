@@ -59,7 +59,7 @@ const bool Actor::IsAlive() const
 	return m_isAlive;
 }
 
-void Actor::OnCollision(std::shared_ptr<Actor> other)
+void Actor::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 }
 

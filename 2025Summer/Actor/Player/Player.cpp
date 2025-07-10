@@ -266,7 +266,7 @@ void Player::Draw() const
 #endif
 }
 
-void Player::OnCollision(std::shared_ptr<Actor> other)
+void Player::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 	m_isContactLockOnActor = (other == m_lockOnActor.lock());
 

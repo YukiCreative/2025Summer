@@ -71,7 +71,7 @@ void PlayerShockWave::CommitMove()
 	m_collidable->SetPos(m_pos);
 }
 
-void PlayerShockWave::OnCollision(std::shared_ptr<Actor> other)
+void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 	// “G‚É“–‚½‚Á‚½‚çÁ–Å
 	if (other->GetKind() == ActorKind::kEnemy)

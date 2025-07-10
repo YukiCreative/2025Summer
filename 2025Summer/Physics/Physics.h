@@ -22,7 +22,7 @@ private:
 	void Gravity(std::list<std::shared_ptr<Actor>> actorList);
 	// “–‚½‚è”»’è
 	void CheckHit(std::list<std::shared_ptr<Actor>>& actorList);
-
+	// Exit‚Ì”»’è‚às‚Á‚Ä‚¢‚é
 	void SendOnCollision();
 private:
 
@@ -32,8 +32,11 @@ private:
 		std::shared_ptr<Actor> other;
 	};
 
-	std::list<OnCollisionMessage> m_messageList;
+	std::list<OnCollisionMessage> m_enterMessageList;
+	std::list<OnCollisionMessage> m_beforeCollisionMessageList;
+	std::list<OnCollisionMessage> m_stayMessageList;
 
 	// d•¡‚ğ‚Í‚¶‚­
+	// ‚±‚ÌÕ“Ë‚ªEnter,Stay‚È‚Ì‚©‚à”»’è
 	void AddOnCollisionMessage(const OnCollisionMessage& message);
 };

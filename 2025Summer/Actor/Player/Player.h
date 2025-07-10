@@ -47,7 +47,7 @@ public:
 	void Update() override;
 	void Draw() const override;
 
-	void OnCollision(std::shared_ptr<Actor> other) override;
+	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
 
 	void CommitMove() override;
 
