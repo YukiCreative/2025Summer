@@ -6,6 +6,8 @@
 #include "CollisionChecker.h"
 #include "Collidable.h"
 #include "Rigid.h"
+#include <algorithm>
+#include <iostream>
 
 namespace
 {
@@ -146,7 +148,7 @@ void Physics::SendOnCollision()
 	}
 
 	// ‘O‚É“–‚½‚Á‚Ä‚¢‚ÄA¡“–‚½‚Á‚Ä‚¢‚È‚¢¨exit
-	for (auto& beforeMessage : )
+	for (auto& beforeMessage : m_beforeCollisionMessageList)
 	{
 		bool isExit = false;
 		for (auto& enterMessage : m_enterMessageList)
@@ -163,10 +165,16 @@ void Physics::SendOnCollision()
 		}
 	}
 
-	std::sort(m_enterMessageList.begin(), m_enterMessageList.end());
-	std::sort(m_stayMessageList.begin(), m_stayMessageList.end());
-	m_beforeCollisionMessageList = std::merge(m_enterMessageList.begin(), m_enterMessageList.end(),
-		m_stayMessageList.begin(), m_stayMessageList.end());
+	auto enterBegin = m_enterMessageList.begin();
+	auto enterEnd = m_enterMessageList.begin();
+	auto stayBegin = m_enterMessageList.begin();
+	auto stayEnd = m_enterMessageList.begin();
+
+	std::sort(enterBegin, enterEnd);
+	std::sort(stayBegin, stayEnd);
+	// enter‚Æstay‚ğ‚Ü‚Æ‚ß‚Äbefore‚É“ü‚ê‚é
+	// ‚»‚Ì•û‚ªˆµ‚¢‚â‚·‚¢
+	std::merge(enterBegin, enterEnd, stayBegin, stayEnd, std::back_inserter(m_beforeCollisionMessageList));
 
 	m_enterMessageList.clear();
 	m_stayMessageList.clear();

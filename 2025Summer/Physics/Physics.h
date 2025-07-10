@@ -37,7 +37,6 @@ private:
 		}
 	};
 
-
 	std::list<OnCollisionMessage> m_beforeCollisionMessageList;
 	std::list<OnCollisionMessage> m_enterMessageList;
 	std::list<OnCollisionMessage> m_stayMessageList;
