@@ -22,6 +22,8 @@ void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
 	Gravity(actorList);
 
 	CheckHit(actorList);
+
+	SendOnCollision();
 }
 
 void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
@@ -41,6 +43,8 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 			
 			for (auto& actB : actorList)
 			{
+				if (!actB->GetCol().IsValid()) continue;
+
 				if (!actA->CanCollide() || !actB->CanCollide()) continue;
 
 				// “¯ˆêl•¨‚È‚çŒvZ‚µ‚È‚¢
@@ -118,8 +122,8 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 
 				if (hitResult)
 				{
-					actA->OnCollision(actB);
-					actB->OnCollision(actA);
+					AddOnCollisionMessage({actA, actB});
+					AddOnCollisionMessage({actB, actA});
 				}
 
 				isHit |= hitResult;
@@ -127,6 +131,27 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 		}
 		++loopCount;
 	}
+}
+
+void Physics::SendOnCollision()
+{
+	for (auto& message : m_messageList)
+	{
+		message.hitActor->OnCollision(message.other);
+	}
+
+	m_messageList.clear();
+}
+
+void Physics::AddOnCollisionMessage(const OnCollisionMessage& message)
+{
+	for (auto& _message : m_messageList)
+	{
+		// “¯ˆê‚Ì‚à‚Ì‚ª‚·‚Å‚É‘¶İ‚µ‚Ä‚¢‚é‚©‚ğ’²‚×‚é
+		if (_message.hitActor == message.hitActor && _message.other == message.other) return;
+	}
+
+	m_messageList.emplace_back(message);
 }
 
 void Physics::DrawColRange(std::list<std::shared_ptr<Actor>> actorList) const

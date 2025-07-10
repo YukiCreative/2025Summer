@@ -22,5 +22,18 @@ private:
 	void Gravity(std::list<std::shared_ptr<Actor>> actorList);
 	// “–‚½‚è”»’è
 	void CheckHit(std::list<std::shared_ptr<Actor>>& actorList);
-};
 
+	void SendOnCollision();
+private:
+
+	struct OnCollisionMessage
+	{
+		std::shared_ptr<Actor> hitActor;
+		std::shared_ptr<Actor> other;
+	};
+
+	std::list<OnCollisionMessage> m_messageList;
+
+	// d•¡‚ğ‚Í‚¶‚­
+	void AddOnCollisionMessage(const OnCollisionMessage& message);
+};

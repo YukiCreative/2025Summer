@@ -9,6 +9,7 @@
 #include "EnemyBugState.h"
 #include "EnemyBugIdle.h"
 #include "EnemyBugDamage.h"
+#include "Player.h"
 
 namespace
 {
@@ -125,6 +126,7 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
 
-	// 吹っ飛ぶ
-	m_collidable->AddVel({0,0, attack->GetKnockbackPower() });
+	// プレイヤーの位置を見て吹っ飛ぶ
+	auto pToEN = (m_pos - m_player.lock()->GetPos()).GetNormalize();
+	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), pToEN)));
 }
