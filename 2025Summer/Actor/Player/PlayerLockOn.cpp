@@ -25,6 +25,12 @@ namespace
     // カメラはこの距離分回転半径を伸ばす
     constexpr float kPlayerIntoCameraXZOffset = 300.0f;
     constexpr float kMoveTargetPosSpeed = 0.01f;
+
+    constexpr float kDefaultCameraDistance = 400.0f;
+
+    // スクリーン横方向のプレイヤーを収めようとする範囲
+    constexpr float kScreenFitThresholdX = 0.2f;
+    constexpr float kScreenFitThresholdY = 0.1f;
 }
 
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
@@ -131,8 +137,8 @@ void PlayerLockOn::CameraMove()
     const float nearFarLength = camera->GetCameraNearFarLength();
     const float cameraRotatableOffset = 200.0f / nearFarLength;
 
-    float rightOutOfX = std::min(playerScreenPos.x - Game::kScreenWidth * 0.7f, kCameraRotSpeedMax);
-    float leftOutOfX = std::min(Game::kScreenWidth * 0.3f - playerScreenPos.x, kCameraRotSpeedMax);
+    float rightOutOfX = std::min(playerScreenPos.x - Game::kScreenWidth * (1.0f - kScreenFitThresholdX), kCameraRotSpeedMax);
+    float leftOutOfX = std::min(Game::kScreenWidth * kScreenFitThresholdX - playerScreenPos.x, kCameraRotSpeedMax);
 
     // 条件複雑だな
     if (rightOutOfX > 0 && playerScreenPos.z > 0 && playerScreenPos.z < targetScreenPos.z - cameraRotatableOffset)
@@ -155,16 +161,13 @@ void PlayerLockOn::CameraMove()
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + kChangeDistanceSpeed);
     }
-    else if (camera->GetTargetDistance() > 400.0f)
+    else if (camera->GetTargetDistance() > kDefaultCameraDistance)
     {
         camera->SetTargetDistance(camera->GetTargetDistance() + -kChangeDistanceSpeed);
     }
 
     auto playerFootScrrenPos = ConvWorldPosToScreenPos(p->GetPos());
     auto enemyScreenPos = ConvWorldPosToScreenPos(p->m_lockOnActor.lock()->GetPos());
-
-    // 手前にいるやつが画面外に出るときがあるので注視点ずらす
-    float beforeParam = m_targetPosLerpParam.Value();
 
     // プレイヤーが手前の場合
     if (playerFootScrrenPos.z < enemyScreenPos.z)
