@@ -17,7 +17,7 @@ public:
 
 	// ‚±‚±‚Å‚Íƒˆ‰¼‘zŠÖ”‚ÍŒp³‚µ‚È‚¢
 
-	void ChangeAnim(const std::string& animName);
+	void ChangeAnim(const std::string& animName, const bool isLoop = true);
 
 	void LookAtPlayer();
 	Vector3 EnemyToPlayer() const;

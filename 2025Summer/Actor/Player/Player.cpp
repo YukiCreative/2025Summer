@@ -331,10 +331,11 @@ void Player::EnableSword()
 	m_sword->Enable();
 }
 
-void Player::EnableSwordCol(const float attackPower)
+void Player::EnableSwordCol(const float attackPower, const float knockbackPower)
 {
 	m_sword->ColEnable();
 	m_sword->SetAttackPower(attackPower);
+	m_sword->SetKnockbackPower(knockbackPower);
 }
 
 void Player::DisableSword()

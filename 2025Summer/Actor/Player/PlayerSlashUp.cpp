@@ -50,5 +50,6 @@ void PlayerSlashUp::Init()
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
+	m_knockbackPower = 110.0f;
 	m_comboAttack = std::make_shared<PlayerSlashDown>(m_player);
 }

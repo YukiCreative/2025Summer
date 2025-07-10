@@ -8,6 +8,7 @@
 #include "AttackCol.h"
 #include "EnemyBugState.h"
 #include "EnemyBugIdle.h"
+#include "EnemyBugDamage.h"
 
 namespace
 {
@@ -88,8 +89,7 @@ void EnemyBug::OnCollision(std::shared_ptr<Actor> other)
 		auto attack = std::static_pointer_cast<AttackCol>(other);
 
 		// ダメージ
-		printf("食らった！%fダメージ！\n", attack->GetAttackPower());
-
+		OnDamage(attack);
 		return;
 	}
 }
@@ -112,4 +112,19 @@ MATRIX EnemyBug::GetModelMatrix() const
 void EnemyBug::AddVel(const Vector3& vel)
 {
 	m_collidable->AddVel(vel);
+}
+
+bool EnemyBug::IsAnimEnd() const
+{
+	return m_model->IsEnd();
+}
+
+void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
+{
+	printf("食らった！%fダメージ！\n", attack->GetAttackPower());
+
+	m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
+
+	// 吹っ飛ぶ
+	m_collidable->AddVel({0,0, attack->GetKnockbackPower() });
 }

@@ -22,9 +22,9 @@ void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos)
 	m_pos = initPos;
 }
 
-void Enemy::ChangeAnim(const std::string& animName)
+void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)
 {
-	m_model->ChangeAnimation(animName);
+	m_model->ChangeAnimation(animName, isLoop);
 }
 
 void Enemy::LookAtPlayer()

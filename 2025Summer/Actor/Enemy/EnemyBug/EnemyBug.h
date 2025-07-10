@@ -3,6 +3,7 @@
 
 class AnimationModel;
 class EnemyBugState;
+class AttackCol;
 
 namespace DxLib
 {
@@ -27,11 +28,14 @@ public:
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
 	DxLib::tagMATRIX GetModelMatrix() const;
 	void AddVel(const Vector3& vel);
+	bool IsAnimEnd() const;
 
 private:
 
 	std::shared_ptr<EnemyBugState> m_state;
 
 private:
+
+	void OnDamage(std::shared_ptr<AttackCol> other);
 };
 

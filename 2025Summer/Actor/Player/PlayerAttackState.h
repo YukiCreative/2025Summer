@@ -33,6 +33,7 @@ protected:
 	int m_acceptNextAttackInputFrame;
 	int m_enableComboFrame;
 	float m_attackPower;
+	float m_knockbackPower;
 	// îhê∂Ç∑ÇÈçUåÇ
 	std::shared_ptr<PlayerAttackState> m_comboAttack;
 

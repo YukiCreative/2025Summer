@@ -14,12 +14,23 @@ namespace
 	constexpr float kTrackEnemyDistance = 500.0f;
 }
 
-PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
-	PlayerState(parent),
-	m_isEnterAttack(false),
-	m_frame(0),
-	m_comboAttack(nullptr)
-{
+PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :  
+    PlayerState(parent),  
+    m_isEnterAttack(false),  
+    m_frame(0),  
+    m_comboAttack(nullptr),  
+    m_acceptNextAttackInputFrame(0),  
+    m_attackPower(0.0f),  
+    m_disableAttackColFrame(0),  
+    m_enableAttackColFrame(0),  
+    m_enableComboFrame(0),  
+    m_enemyTrackForce(0.0f),  
+    m_isLoopAnim(false),  
+    m_knockbackPower(0.0f),  
+    m_stateTotalFrame(0),  
+    m_trackForce(0.0f),  
+    m_trackFrame(0)  
+{  
 }
 
 PlayerAttackState::~PlayerAttackState()
@@ -39,7 +50,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	// Œ•‚ÌUŒ‚”»’è‚ð—LŒø‰»
 	if (m_frame == m_enableAttackColFrame)
 	{
-		p->EnableSwordCol(m_attackPower);
+		p->EnableSwordCol(m_attackPower, m_knockbackPower);
 	}
 	if (m_frame == m_disableAttackColFrame)
 	{

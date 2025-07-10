@@ -61,7 +61,7 @@ public:
 	// Œ•Ž©‘Ì‚ÌŒ©‚½–Ú‚ð•\Ž¦‚·‚é
 	void EnableSword();
 	// Œ•‚Ì“–‚½‚è”»’è‚ð—LŒø‰»‚·‚é
-	void EnableSwordCol(const float attackPower);
+	void EnableSwordCol(const float attackPower, const float knockbackPower = 0.0f);
 
 	void DisableSword();
 	void DisableSwordCol();
