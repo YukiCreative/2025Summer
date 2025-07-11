@@ -22,6 +22,8 @@
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorController.cpp" />
     <ClCompile Include="Actor\Enemy\Enemy.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttack.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDamage.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
@@ -103,6 +105,8 @@
     <ClInclude Include="Actor\ActorKind.h" />
     <ClInclude Include="Actor\AttackCol.h" />
     <ClInclude Include="Actor\Enemy\Enemy.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttack.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDamage.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />

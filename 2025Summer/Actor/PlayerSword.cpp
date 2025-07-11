@@ -7,6 +7,8 @@
 #include "AnimationModel.h"
 #include "ConstantBufferIndex.h"
 #include "ShaderDraw.h"
+#include "EffectManager.h"
+#include "EffekseerEffect.h"
 
 namespace
 {
@@ -23,6 +25,8 @@ namespace
 	};
 
 	const MATRIX kHandPosOffset = MGetTranslate({0, -20, 0});
+
+	const std::string kEffectName = "SwordTrajectory.efkefc";
 }
 
 PlayerSword::PlayerSword() :
@@ -100,7 +104,15 @@ void PlayerSword::CommitMove()
 
 	auto& cCol = static_cast<CapsuleCollider&>(m_collidable->GetCol());
 
-	cCol.SetPos(m_pos, m_pos + rigDir * kSwordLength);
+	auto capsuleEnd = m_pos + rigDir * kSwordLength;
+
+	cCol.SetPos(m_pos, capsuleEnd);
+
+	// エフェクトの位置を設定
+	if (!m_effect.expired())
+	{
+		m_effect.lock()->SetPos(capsuleEnd);
+	}
 }
 
 void PlayerSword::Enable()
@@ -116,11 +128,17 @@ void PlayerSword::Disable()
 void PlayerSword::ColEnable()
 {
 	m_collidable->GetCol().ValidCol();
+	// ここでエフェクトを生成
+	m_effect = EffectManager::GetInstance().GenerateEffect(kEffectName, {0,0,0});
 }
 
 void PlayerSword::ColDisable()
 {
 	m_collidable->GetCol().InvalidCol();
+
+	if (m_effect.expired()) return;
+
+	m_effect.reset();
 }
 
 void PlayerSword::AppearUpdate()

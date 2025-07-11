@@ -9,5 +9,10 @@ public:
 	~EnemyBugIdle();
 
 	std::shared_ptr<EnemyBugState> Update() override;
+
+private:
+
+	int m_attackFrame;
+	int m_frame;
 };
 

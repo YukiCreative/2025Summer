@@ -62,7 +62,9 @@ void PlayerShockWave::Update()
 
 void PlayerShockWave::Draw() const
 {
+#if _DEBUG
 	m_collidable->GetCol().Draw();
+#endif
 }
 
 void PlayerShockWave::CommitMove()

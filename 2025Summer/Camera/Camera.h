@@ -45,11 +45,6 @@ public:
 	Vector3 GetTargetPos() const { return m_targetPos; }
 	float GetCameraNearFarLength() const;
 
-	// Direction&Distance
-	void ChangeStateDD(const Vector3& targetPos);
-	// DirectlyPosition
-	void ChangeStateDP();
-
 private:
 	// どこに向くか
 	Vector3 m_targetPos;
@@ -65,24 +60,10 @@ private:
 	float m_targetFoV;
 	Vector2 m_cameraVel;
 
-
 	// カメラが目指す座標
 	Vector3 m_targetCameraPos;
 	Vector3 m_lerpedCameraPos;
 
-	using CameraState_t = void (Camera::*)();
-
-	CameraState_t m_state;
-
 private:
-
-	// カメラの位置を、向きと距離で表す
-	// カメラの距離を変えやすい
-	void UpdateUseDirectionAndDistance();
-
-	// カメラの位置を直接座標で表す
-	// カメラを特定の位置に固定したいときに分かりやすい
-	void UpdateUseDirectlyPosition();
-
 	void Rotate();
 };

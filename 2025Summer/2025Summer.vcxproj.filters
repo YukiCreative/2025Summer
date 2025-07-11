@@ -87,6 +87,8 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDamage.cpp" />
     <ClCompile Include="Shader\ShadowMap.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttack.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -175,6 +177,8 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDamage.h" />
     <ClInclude Include="Shader\ShadowMap.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttack.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

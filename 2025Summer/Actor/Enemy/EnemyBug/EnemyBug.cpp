@@ -10,6 +10,7 @@
 #include "EnemyBugIdle.h"
 #include "EnemyBugDamage.h"
 #include "Player.h"
+#include "EnemyBugAttackCol.h"
 
 namespace
 {
@@ -27,6 +28,10 @@ namespace
 	constexpr int kWeight = 100;
 
 	const Vector3 kColOffset = {0,60,0};
+
+	// UŒ‚”»’è‚ðoŒ»‚³‚¹‚éŽž‚ÉŠî€‚É‚·‚éƒŠƒO
+	const std::string kCollisionFrameName1 = "bug_mandible_R";
+	const std::string kCollisionFrameName2 = "bug_mandible_L";
 }
 
 EnemyBug::EnemyBug() :
@@ -67,11 +72,13 @@ void EnemyBug::Update()
 
 void EnemyBug::Draw() const
 {
-	m_collidable->GetCol().Draw();
-
 	m_model->Draw();
 
-	DrawSphere3D(m_pos, 10, 10, 0xffffff, 0xffffff, true);
+#if _DEBUG
+	m_collidable->GetCol().Draw();
+#endif
+
+
 }
 
 void EnemyBug::CommitMove()
@@ -134,6 +141,22 @@ void EnemyBug::AddVel(const Vector3& vel)
 bool EnemyBug::IsAnimEnd() const
 {
 	return m_model->IsEnd();
+}
+
+void EnemyBug::GenerateAttackCol()
+{
+	auto col = std::make_shared<EnemyBugAttackCol>();
+	col->Init(weak_from_this());
+
+	m_spawnActorList.emplace_back(col);
+}
+
+Vector3 EnemyBug::GetAttackRigPos() const
+{
+	auto ago1 = m_model->GetFramePosition(kCollisionFrameName1);
+	auto ago2 = m_model->GetFramePosition(kCollisionFrameName2);
+
+	return (ago1 + ago2) * 0.5f;
 }
 
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)

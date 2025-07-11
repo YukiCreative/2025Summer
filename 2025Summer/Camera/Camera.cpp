@@ -27,8 +27,7 @@ Camera::Camera() :
 	m_targetDistance(kInitCameraDistance),
 	m_lerpedTargetDistance(kInitCameraDistance),
 	m_targetFoV(kInitFovDegrees),
-	m_FoV(kInitFovDegrees),
-	m_state(&Camera::UpdateUseDirectionAndDistance)
+	m_FoV(kInitFovDegrees)
 {
 }
 
@@ -44,9 +43,20 @@ void Camera::Init()
 
 void Camera::Update()
 {
-	(this->*m_state)();
+	// Effekseerのカメラと同期？する
+	Effekseer_Sync3DSetting();
 
 	Rotate();
+
+	m_lerpedTargetDistance = std::lerp(m_lerpedTargetDistance, m_targetDistance, kDistanceLerpStrength);
+
+	// 注視点をlerp
+	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
+	// DxLibのカメラに反映
+	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_lerpedTargetDistance, m_lerpedTargetPos);
+
+	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
+	SetupCamera_Perspective(m_FoV);
 
 	// ライトをカメラの向きから照らす
 	SetLightDirection(GetCameraDir());
@@ -130,66 +140,6 @@ float Camera::GetTargetDistanceXZ() const
 float Camera::GetCameraNearFarLength() const
 {
 	return  GetCameraFar() - GetCameraNear();
-}
-
-void Camera::ChangeStateDD(const Vector3& targetPos)
-{
-	m_state = &Camera::UpdateUseDirectionAndDistance;
-
-	// Distanceをデフォルトに
-	m_targetDistance = kInitCameraDistance;
-
-	// 今の位置からだんだん戻っていく感じに
-	m_lerpedTargetDistance = (m_targetCameraPos - m_targetPos).Magnitude();
-
-	m_targetPos = targetPos;
-}
-
-void Camera::ChangeStateDP()
-{
-	m_state = &Camera::UpdateUseDirectlyPosition;
-
-	// lerpedCameraPosを今の位置に
-	m_lerpedCameraPos = m_lerpedTargetPos + m_targetToCamera * m_targetDistance;
-}
-
-void Camera::UpdateUseDirectionAndDistance()
-{
-	// Effekseerのカメラと同期？する
-	Effekseer_Sync3DSetting();
-
-	m_lerpedTargetDistance = std::lerp(m_lerpedTargetDistance, m_targetDistance, kDistanceLerpStrength);
-
-	// 注視点をlerp
-	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
-	// DxLibのカメラに反映
-	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_lerpedTargetDistance, m_lerpedTargetPos);
-
-	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
-	SetupCamera_Perspective(m_FoV);
-}
-
-void Camera::UpdateUseDirectlyPosition()
-{
-	// Effekseerのカメラと同期？する
-	Effekseer_Sync3DSetting();
-
-	// カメラの位置をlerp
-	m_lerpedCameraPos.LerpMyself(m_targetCameraPos, kLerpStrength);
-	// 注視点もlerp
-	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
-	// DxLibのカメラに反映(位置を直接)
-	SetCameraPositionAndTarget_UpVecY(m_lerpedCameraPos, m_lerpedTargetPos);
-
-	const Vector3 targetToPos = m_lerpedCameraPos - m_targetPos;
-
-	// DDで使う奴も書き換えちゃう
-	// じゃあ状態分けた意味ないじゃん
-	m_targetDistance = targetToPos.Magnitude();
-	m_targetToCamera = targetToPos.GetNormalize();
-
-	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
-	SetupCamera_Perspective(m_FoV);
 }
 
 void Camera::Rotate()

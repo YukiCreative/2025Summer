@@ -31,6 +31,9 @@ public:
 	DxLib::tagMATRIX GetModelMatrix() const;
 	void AddVel(const Vector3& vel);
 	bool IsAnimEnd() const;
+	void GenerateAttackCol();
+
+	Vector3 GetAttackRigPos() const;
 
 private:
 

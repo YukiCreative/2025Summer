@@ -2,8 +2,6 @@
 #include "Vector3.h"
 
 // エフェクトクラス
-// そんなにやらせることないな
-// ハンドルをそれなりに格式高く扱ってるだけ
 class EffekseerEffect
 {
 public:

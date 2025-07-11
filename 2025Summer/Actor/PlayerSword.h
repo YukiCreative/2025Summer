@@ -3,6 +3,7 @@
 #include "Model.h"
 
 class Player;
+class EffekseerEffect;
 
 // モデルと当たり判定のセット
 class PlayerSword : public AttackCol
@@ -32,6 +33,8 @@ private:
 
 	std::shared_ptr<Model> m_model;
 	std::weak_ptr<Player> m_player;
+
+	std::weak_ptr<EffekseerEffect> m_effect;
 
 	// モデルが出現しているかどうか
 	bool m_isExisting;
