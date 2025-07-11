@@ -150,14 +150,22 @@ void Physics::SendOnCollision()
 	// 前に当たっていて、今当たっていない→exit
 	for (auto& beforeMessage : m_beforeCollisionMessageList)
 	{
-		bool isExit = false;
+		bool isExit = true;
 		for (auto& enterMessage : m_enterMessageList)
 		{
-			isExit |= (beforeMessage == enterMessage);
+			if (beforeMessage == enterMessage)
+			{
+				isExit = false;
+				break;
+			}
 		}
 		for (auto& stayMessage : m_stayMessageList)
 		{
-			isExit |= (beforeMessage == stayMessage);
+			if (beforeMessage == stayMessage)
+			{
+				isExit = false;
+				break;
+			}
 		}
 		if (isExit)
 		{
@@ -165,16 +173,12 @@ void Physics::SendOnCollision()
 		}
 	}
 
-	auto enterBegin = m_enterMessageList.begin();
-	auto enterEnd = m_enterMessageList.begin();
-	auto stayBegin = m_enterMessageList.begin();
-	auto stayEnd = m_enterMessageList.begin();
+	m_beforeCollisionMessageList.clear();
 
-	std::sort(enterBegin, enterEnd);
-	std::sort(stayBegin, stayEnd);
 	// enterとstayをまとめてbeforeに入れる
 	// その方が扱いやすい
-	std::merge(enterBegin, enterEnd, stayBegin, stayEnd, std::back_inserter(m_beforeCollisionMessageList));
+	std::copy(m_enterMessageList.begin(), m_enterMessageList.end(), std::back_inserter(m_stayMessageList));
+	std::copy(m_stayMessageList.begin(), m_stayMessageList.end(), std::back_inserter(m_beforeCollisionMessageList));
 
 	m_enterMessageList.clear();
 	m_stayMessageList.clear();
@@ -182,6 +186,34 @@ void Physics::SendOnCollision()
 
 void Physics::AddOnCollisionMessage(const OnCollisionMessage& message)
 {
+	bool isBeforeSend = false;
+
+	// 前のフレームに送られていたらstay
+	for (auto& beforeMessage : m_beforeCollisionMessageList)
+	{
+		isBeforeSend |= (beforeMessage == message);
+	}
+
+	if (isBeforeSend)
+	{
+		// の前にすでに送られているかチェック
+		for (auto& stay : m_stayMessageList)
+		{
+			if (stay == message) return;
+		}
+
+		m_stayMessageList.emplace_back(message);
+	}
+	else
+	{
+		// すでに送られているかチェック
+		for (auto& enter : m_enterMessageList)
+		{
+			if (enter == message) return;
+		}
+
+		m_enterMessageList.emplace_back(message);
+	}
 }
 
 void Physics::DrawColRange(std::list<std::shared_ptr<Actor>> actorList) const

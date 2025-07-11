@@ -33,9 +33,9 @@ public:
 	Rigid&      GetRigid() const;
 	const ActorKind GetKind() const;
 	const bool      IsAlive() const;
-	virtual void    OnCollisionEnter(std::shared_ptr<Actor> other);
-	virtual void    OnCollisionStay(std::shared_ptr<Actor> other);
-	virtual void    OnCollisionExit(std::shared_ptr<Actor> other);
+	virtual void    OnCollisionEnter(std::shared_ptr<Actor> other) {}
+	virtual void    OnCollisionStay(std::shared_ptr<Actor> other) {}
+	virtual void    OnCollisionExit(std::shared_ptr<Actor> other) {}
 	// ‰Ÿ‚µ–ß‚µŒã‚ÌˆÚ“®—Ê‚ð”½‰f‚³‚¹‚éŽžŠÔ
 	virtual void    CommitMove() abstract;
 

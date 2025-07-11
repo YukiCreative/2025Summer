@@ -59,10 +59,6 @@ const bool Actor::IsAlive() const
 	return m_isAlive;
 }
 
-void Actor::OnCollisionEnter(std::shared_ptr<Actor> other)
-{
-}
-
 const bool Actor::IsSpawnedActor() const
 {
 	// ‹ó‚¶‚á‚È‚©‚Á‚½‚ç¶¬‚µ‚Ä‚é

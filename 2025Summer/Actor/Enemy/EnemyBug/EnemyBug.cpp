@@ -97,12 +97,18 @@ void EnemyBug::OnCollisionEnter(std::shared_ptr<Actor> other)
 
 void EnemyBug::OnCollisionStay(std::shared_ptr<Actor> other)
 {
-	printf("Stay\n");
+	if (other->GetKind() == ActorKind::kPlayerAttack)
+	{
+		printf("UŒ‚ŠÑ’Ê’†\n");
+	}
 }
 
 void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
 {
-	printf("Exit\n");
+	if (other->GetKind() == ActorKind::kPlayerAttack)
+	{
+		printf("UŒ‚‚ª”²‚¯‚½\n");
+	}
 }
 
 MATRIX EnemyBug::GetModelMatrix() const

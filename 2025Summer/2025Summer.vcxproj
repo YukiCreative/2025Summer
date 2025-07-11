@@ -256,6 +256,7 @@
       <AdditionalIncludeDirectories>Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -278,6 +279,7 @@
       <AdditionalIncludeDirectories>Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -300,6 +302,7 @@
       <AdditionalIncludeDirectories>Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -322,6 +325,7 @@
       <AdditionalIncludeDirectories>Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
