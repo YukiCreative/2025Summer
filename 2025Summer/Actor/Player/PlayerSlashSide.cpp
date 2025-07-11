@@ -24,6 +24,7 @@ namespace
 	constexpr int kEnableComboFrame = 26;
 
 	constexpr float kAttackPower = 100.0f;
+	constexpr float kKnockbackPower = 20.0f;
 
 	const std::string kAnimName = "Armature|SlashSide";
 	constexpr bool kIsLoopAnim = false;
@@ -51,5 +52,6 @@ void PlayerSlashSide::Init()
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
+	m_knockbackPower = kKnockbackPower;
 	m_comboAttack = std::make_shared<PlayerSlashLeftSide>(m_player);
 }

@@ -38,6 +38,8 @@ namespace
 	constexpr float kShockWaveRot2 = -80.0f;
 	constexpr float kShockWaveAtk1 = 130.0f;
 	constexpr float kShockWaveAtk2 = 150.0f;
+	constexpr float kKnockbackPower1 = 10.0f;
+	constexpr float kKnockbackPower2 = 30.0f;
 }
 
 PlayerShockWaveSlash::PlayerShockWaveSlash(std::weak_ptr<Player> parent) :
@@ -97,11 +99,11 @@ void PlayerShockWaveSlash::OptionalProcess()
 	if (m_frame == kShockWaveFrame1)
 	{
 		auto rot = MMult(MGetRotZ(kShockWaveRot1 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
-		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk1);
+		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk1, kKnockbackPower1);
 	}
 	if (m_frame == kShockWaveFrame2)
 	{
 		auto rot = MMult(MGetRotZ(kShockWaveRot2 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
-		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk2);
+		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk2, kKnockbackPower2);
 	}
 }

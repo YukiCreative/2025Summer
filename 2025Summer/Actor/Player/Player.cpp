@@ -147,10 +147,10 @@ void Player::SetInputDir(const PlayerInputDir& dir)
 	m_inputList.emplace_back(dir);
 }
 
-void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk)
+void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback)
 {
 	auto shockWave = std::make_shared<PlayerShockWave>();
-	shockWave->Init(rot, initPos, atk);
+	shockWave->Init(rot, initPos, atk, knockback);
 	SpawnActor(shockWave);
 }
 

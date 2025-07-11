@@ -92,7 +92,7 @@ public:
 	float DefaultAirDrag();
 	void SetInputDir(const PlayerInputDir& dir);
 	// PlayerShockWaveSlash用
-	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk);
+	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback);
 	void OnDamage(const float damage);
 	// プレイヤーをロックオン対象へ向ける
 	void LockOnRotate();

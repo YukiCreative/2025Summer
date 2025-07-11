@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SceneDebug.h"
 #include "SceneController.h"
+#include "ShadowMap.h"
 
 #include "Model.h"
 #include "Geometry.h"
@@ -17,6 +18,9 @@ namespace
 	constexpr float kLineLength = 500;
 
 	const std::string kFieldModel = "Data/Model/Field.mv1";
+
+	const Vector3& kShadowAreaMin = { -1500, -300, -1500 };
+	const Vector3& kShadowAreaMax = {  1500,  300,  1500 };
 }
 
 SceneTest::SceneTest() :
@@ -35,8 +39,6 @@ void SceneTest::Init()
 	m_field->Init(kFieldModel);
 	m_field->SetPos({0,-100, 0});
 
-	//m_dirH = CreateDirLightHandle(Vector3::Up());
-
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
 
@@ -50,6 +52,9 @@ void SceneTest::Init()
 	enemyGenerator->SpawnWave(0);
 	m_actors->AddActor(player);
 	m_actors->AddActor(enemyGenerator);
+
+	m_shadow = std::make_shared<ShadowMap>();
+	m_shadow->Init(kShadowAreaMin, kShadowAreaMax);
 }
 
 void SceneTest::Update()
@@ -67,13 +72,17 @@ void SceneTest::Draw() const
 		return;
 	}
 
-	//m_camera->Draw_Debug();
+	m_shadow->StartShadowMapDraw(GetLightDirection());
 
 	m_field->Draw();
-
 	m_actors->Draw();
 
-	//DrawGrid(10,10);
+	m_shadow->EndShadowMapDraw();
+
+	m_field->Draw();
+	m_actors->Draw();
+
+	m_shadow->UnsetShadowMap();
 }
 
 void SceneTest::Entry()

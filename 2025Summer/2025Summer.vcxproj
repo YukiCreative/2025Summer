@@ -86,6 +86,7 @@
     <ClCompile Include="Scene\SceneController.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="Shader\ShaderDraw.cpp" />
+    <ClCompile Include="Shader\ShadowMap.cpp" />
     <ClCompile Include="Shape\Sphere.cpp" />
     <ClCompile Include="Sound\Music.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Shader\ConstantBufferIndex.h" />
     <ClInclude Include="Shader\ShaderDraw.h" />
+    <ClInclude Include="Shader\ShadowMap.h" />
     <ClInclude Include="Shape\Sphere.h" />
     <ClInclude Include="Sound\Music.h" />
     <ClInclude Include="Sound\Sound.h" />

@@ -24,7 +24,7 @@ PlayerShockWave::~PlayerShockWave()
 {
 }
 
-void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk)
+void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback)
 {
 	m_kind = ActorKind::kPlayerAttack;
 
@@ -41,6 +41,7 @@ void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, 
 	m_collidable->Init(col, rigid);
 
 	m_attackPower = atk;
+	m_knockbackPower = knockback;
 
 	// ‚±‚ê‚ÅƒRƒs[‚ªshared_ptr‚Æ‚µ‚Äì‚ç‚ê‚é
 	m_dir = std::make_shared<MATRIX>(rot);
