@@ -19,7 +19,7 @@ namespace
 
 	// ±何度で移動するか
 	// 45度分
-	constexpr float kMoveDirThreshold = DX_PI_F * 0.25f;
+	constexpr float kMoveDirThreshold = 0.5f;
 }
 
 PlayerLockOnIdle::PlayerLockOnIdle(std::weak_ptr<Player> parent) :
@@ -41,6 +41,8 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
+	printf("カメラに対しての入力X:%f,Y:%f\n", cameraRotatedAxis.x, cameraRotatedAxis.y);
+
 	// キャラクターの向きと移動方向によって遷移する状態が変わる
 
 	DrawLine3D(p->GetPos(), p->GetPos() + cameraRotatedAxis * 100, 0xffff00);
@@ -58,27 +60,21 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 
 	// 前後左右の歩きモーション
 
-	// 右
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y > 0)
-	{
-		return std::make_shared<PlayerLockOnMoveRight>(m_player);
-	}
-	// 左
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y < 0)
-	{
-		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
-	}
-	// 前
-	if (modelAxisDot > 1 - kMoveDirThreshold)
+	if (modelAxisDot > kMoveDirThreshold) // 前
 	{
 		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
 	}
-	// 後
-	if (modelAxisDot < -1 + kMoveDirThreshold)
+	else if (modelAxisDot < -kMoveDirThreshold) // 後
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
+	}
+	else if (cross.y > 0) // 右
+	{
+		return std::make_shared<PlayerLockOnMoveRight>(m_player);
+	}
+	else if (cross.y < 0) // 左
+	{
+		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
 	}
 
 	// 攻撃

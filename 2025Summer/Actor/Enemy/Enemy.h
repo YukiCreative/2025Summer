@@ -27,12 +27,11 @@ public:
 protected:
 
 	HitPoint_t m_hitPoint;
-
 	// モデルは共通で持っている
 	std::shared_ptr<AnimationModel> m_model;
-
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
+	bool m_isInvincible;
 
 private:
 };

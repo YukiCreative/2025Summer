@@ -16,7 +16,7 @@ namespace
 	const std::string kAnimName = "Armature|WalkFoward";
 
 	// 内積の1～-1の四等分
-	constexpr float kMoveDirThreshold = 0.5f;
+	constexpr float kMoveDirThreshold = 0.25f;
 
 	// ドライブ発生のための後ろ入力猶予
 	constexpr int kBackInputRespite = 8;
@@ -26,6 +26,7 @@ PlayerLockOnMoveFoward::PlayerLockOnMoveFoward(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
+	printf("Foward\n");
 }
 
 PlayerLockOnMoveFoward::~PlayerLockOnMoveFoward()
@@ -60,23 +61,19 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 
 	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
 
-	// 右
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y > 0)
-	{
-		return std::make_shared<PlayerLockOnMoveRight>(m_player);
-	}
-	// 左
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y < 0)
-	{
-		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
-	}
-	// 後
-	if (modelAxisDot < -1 + kMoveDirThreshold)
+	if (modelAxisDot < -kMoveDirThreshold) // 後
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
 	}
+	else if (modelAxisDot < kMoveDirThreshold && cross.y > 0) // 右
+	{
+		return std::make_shared<PlayerLockOnMoveRight>(m_player);
+	}
+	else if (modelAxisDot < kMoveDirThreshold && cross.y < 0) // 左
+	{
+		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
+	}
+
 
 	/// 攻撃
 	if (input.IsTrigger("Attack"))

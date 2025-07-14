@@ -90,6 +90,9 @@ std::shared_ptr<Actor> ActorController::GetNearestLockOnActor(const Vector3& pos
 {
 	auto actors = SearchCanLockOnActor();
 
+	// ‰½‚à‚¢‚È‚©‚Á‚½
+	if (actors.empty()) return nullptr;
+
 	std::shared_ptr<Actor> nearestActor = actors.front();
 	float nearestLength = (nearestActor->GetPos() - pos).SqrMagnitude();
 

@@ -131,10 +131,9 @@ Vector3 PlayerAttackState::TrackingVec(const float strength, const float trackEn
 	{
 		// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
 		auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
-		auto posToNearest = nearestActor->GetPos() - p->GetPos();
-		if (posToNearest.SqrMagnitude() < kTrackEnemyDistance* kTrackEnemyDistance)
+		if (nearestActor && (nearestActor->GetPos() - p->GetPos()).SqrMagnitude() < kTrackEnemyDistance * kTrackEnemyDistance)
 		{
-			vel = posToNearest.GetNormalize() * trackEnemyStrength;
+			vel = (nearestActor->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
 		}
 		else
 		{

@@ -88,9 +88,6 @@ void EnemyBug::Draw() const
 
 #if _DEBUG
 	m_collidable->GetCol().Draw();
-
-	printf("%d\n", m_model->GetAnimTotalTime());
-
 #endif
 
 
@@ -199,6 +196,8 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 {
 	// 無敵なら食らわない
 	auto attackPower = attack->GetAttackPower();
+
+	if (m_isInvincible) return;
 
 	printf("食らった！%fダメージ！\n", attackPower);
 

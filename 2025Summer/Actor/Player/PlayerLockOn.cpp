@@ -88,10 +88,6 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
 
     SetTargetPos();
 
-    Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
-    inputAxis.z *= -1;
-    Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
-
     // ó‘Ô‚ğUpdate
     m_childState = m_childState->Update();
 

@@ -9,7 +9,8 @@ namespace
 }
 
 Enemy::Enemy() :
-	Actor(true) // 敵はロックオン可能
+	Actor(true), // 敵はロックオン可能
+	m_isInvincible(false)
 {
 }
 

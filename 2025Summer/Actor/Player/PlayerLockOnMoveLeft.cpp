@@ -24,6 +24,7 @@ PlayerLockOnMoveLeft::PlayerLockOnMoveLeft(std::weak_ptr<Player> parent) :
 {
 	// アニメーション
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
+	printf("Left\n");
 }
 
 PlayerLockOnMoveLeft::~PlayerLockOnMoveLeft()
@@ -58,21 +59,17 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveLeft::Update()
 
 	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
 
-	// 右
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y > 0)
-	{
-		return std::make_shared<PlayerLockOnMoveRight>(m_player);
-	}
-	// 前
-	if (modelAxisDot > 1 - kMoveDirThreshold)
+	if (modelAxisDot > kMoveDirThreshold) // 前
 	{
 		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
 	}
-	// 後
-	if (modelAxisDot < -1 + kMoveDirThreshold)
+	else if (modelAxisDot < -kMoveDirThreshold) // 後
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
+	}
+	else if (cross.y > 0) // 右
+	{
+		return std::make_shared<PlayerLockOnMoveRight>(m_player);
 	}
 
 	// 攻撃モーション

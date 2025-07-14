@@ -22,6 +22,7 @@ public:
 	bool CheckIsAlive(std::shared_ptr<Actor> checkAct);
 	ActorList_t SearchCanLockOnActor() const;
 	// ロックオン可能な中で、指定された位置に最も近い位置を持つActorを返します
+	// そもそも世界に敵がいなかったらnullptrが返ってきます
 	std::shared_ptr<Actor> GetNearestLockOnActor(const Vector3& pos) const;
 
 private:

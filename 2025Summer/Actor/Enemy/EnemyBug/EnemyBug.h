@@ -37,6 +37,7 @@ public:
 	void GenerateAttackCol();
 	Vector3 GetDir() const;
 	int GetAinmTotalTime() const;
+	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }
 
 	Vector3 GetAttackRigPos() const;
 

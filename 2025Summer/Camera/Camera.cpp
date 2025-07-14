@@ -109,7 +109,15 @@ Vector3 Camera::GetCameraDirXZ() const
 
 Vector3 Camera::RotateVecToCameraDirXZ(const Vector3& vec, const Vector3& vec2)
 {
-	const MATRIX camMat = MGetRotVec2(vec2, GetCameraDirXZ());
+	auto cameraDir = GetCameraDirXZ().GetNormalize();
+	MATRIX camMat = MGetRotVec2(vec2, cameraDir);
+	// MGetRotVec2、真反対では正常に機能しないようなので手を加える
+	if (vec2.Dot(cameraDir) < -0.99f)
+	{
+		// XZ平面に限定しているのでこれでおｋ
+		auto axis = Vector3::Up();
+		camMat = MGetRotAxis(axis, DX_PI_F);
+	}
 	return VTransformSR(vec, camMat);
 }
 

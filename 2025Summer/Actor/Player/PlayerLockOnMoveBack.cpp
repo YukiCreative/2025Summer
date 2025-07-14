@@ -22,6 +22,7 @@ PlayerLockOnMoveBack::PlayerLockOnMoveBack(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
+	printf("Back\n");
 }
 
 PlayerLockOnMoveBack::~PlayerLockOnMoveBack()
@@ -56,22 +57,17 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 
 	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
 
-	// 右
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y > 0)
+	if (modelAxisDot > kMoveDirThreshold) // 前
+	{
+		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
+	}
+	else if (modelAxisDot > -kMoveDirThreshold && cross.y > 0) // 右
 	{
 		return std::make_shared<PlayerLockOnMoveRight>(m_player);
 	}
-	// 左
-	if (modelAxisDot > 0 - kMoveDirThreshold && modelAxisDot < 0 + kMoveDirThreshold
-		&& cross.y < 0)
+	else if (modelAxisDot > -kMoveDirThreshold && cross.y < 0) // 左
 	{
 		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
-	}
-	// 前
-	if (modelAxisDot > 1 - kMoveDirThreshold)
-	{
-		return std::make_shared<PlayerLockOnMoveFoward>(m_player);
 	}
 
 	// 攻撃モーション
