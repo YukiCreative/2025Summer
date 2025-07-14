@@ -33,9 +33,11 @@ public:
 	const bool IsPlaying() const { return m_isPlaying; }
 	// アニメーションが終わっているかどうか
 	const bool IsEnd() const { return !m_isPlaying; }
-	// アニメーションのブレンドはできない
+	// アニメーションのブレンドができます！
 	void ChangeAnimation(const int animId, bool isLoop = true);
 	void ChangeAnimation(const std::string& animName, bool isLoop = true);
+	// おそらくModelViewerの時間単位
+	int GetAnimTotalTime() const;
 
 	// この辺Modelクラスの中継
 	// Y軸を基準に回転

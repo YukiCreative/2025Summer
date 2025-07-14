@@ -91,6 +91,11 @@ DxLib::tagMATRIX AnimationModel::GetFrameMatrix(const std::string& frameName) co
 	return m_model->GetFrameMatrix(frameName);
 }
 
+int AnimationModel::GetAnimTotalTime() const
+{
+	return static_cast<int>(MV1GetAttachAnimTotalTime(m_model->m_handle, m_nowAnimHandle));
+}
+
 AnimationModel::AnimationModel() :
 	m_beforeAnimHandle(-1),
 	m_nowAnimHandle(-1),

@@ -1,11 +1,12 @@
 #include "Application.h"
+#include "EffectManager.h"
 #include "Game.h"
 #include "Input.h"
+#include "MyRandom.h"
 #include "SceneController.h"
-#include <DxLib.h>
-#include "EffectManager.h"
-#include <EffekseerForDXLib.h>
 #include "SoundManager.h"
+#include <DxLib.h>
+#include <EffekseerForDXLib.h>
 
 
 namespace
@@ -89,6 +90,9 @@ bool Application::Init()
 	SetUseZBuffer3D(true);
 	SetWriteZBuffer3D(true);
 	SetUseBackCulling(true);
+
+	// —”‚ğ‰Šú‰»
+	MyRandom::GetInstance().Init();
 
 	return true;
 }

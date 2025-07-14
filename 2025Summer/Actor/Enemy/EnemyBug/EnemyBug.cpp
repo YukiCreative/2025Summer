@@ -1,16 +1,19 @@
-#include "EnemyBug.h"
+#include "AnimationModel.h"
+#include "AttackCol.h"
+#include "CapsuleCollider.h"
 #include "Collidable.h"
+#include "EnemyBug.h"
+#include "EnemyBugAttack.h"
+#include "EnemyBugAttackCol.h"
+#include "EnemyBugDamage.h"
+#include "EnemyBugDeath.h"
+#include "EnemyBugIdle.h"
+#include "EnemyBugState.h"
+#include "MyRandom.h"
+#include "Player.h"
 #include "Rigid.h"
 #include "SphereCollider.h"
-#include "CapsuleCollider.h"
-#include "AnimationModel.h"
 #include <DxLib.h>
-#include "AttackCol.h"
-#include "EnemyBugState.h"
-#include "EnemyBugIdle.h"
-#include "EnemyBugDamage.h"
-#include "Player.h"
-#include "EnemyBugAttackCol.h"
 
 namespace
 {
@@ -32,16 +35,25 @@ namespace
 	// 攻撃判定を出現させる時に基準にするリグ
 	const std::string kCollisionFrameName1 = "bug_mandible_R";
 	const std::string kCollisionFrameName2 = "bug_mandible_L";
+
+	// 乱数
+	constexpr int kAttackFrame = 180;
+	constexpr int kRandomness = 60;
+
+	constexpr float kInitHP = 800.0f;
 }
 
+std::normal_distribution<> EnemyBug::s_normalDistribution(kAttackFrame, kRandomness);
+
 EnemyBug::EnemyBug() :
-	Enemy()
+	Enemy(),
+	m_attackFrame(0)
 {
 }
 
 void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos)
 {
-	Enemy::Init(player, initPos);
+	Enemy::Init(player, initPos, kInitHP);
 
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(m_pos, kWeight, false, false, kSphereRadius);
@@ -76,6 +88,9 @@ void EnemyBug::Draw() const
 
 #if _DEBUG
 	m_collidable->GetCol().Draw();
+
+	printf("%d\n", m_model->GetAnimTotalTime());
+
 #endif
 
 
@@ -118,6 +133,11 @@ void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
 	}
 }
 
+void EnemyBug::OnDeath()
+{
+	m_isAlive = false;
+}
+
 MATRIX EnemyBug::GetModelMatrix() const
 {
 	auto mat = m_model->GetMatrix();
@@ -151,6 +171,17 @@ void EnemyBug::GenerateAttackCol()
 	m_spawnActorList.emplace_back(col);
 }
 
+Vector3 EnemyBug::GetDir() const
+{
+	auto mat = GetModelMatrix();
+	return { mat.m[2][0],mat.m[2][2] ,mat.m[2][2] };
+}
+
+int EnemyBug::GetAinmTotalTime() const
+{
+	return m_model->GetAnimTotalTime();
+}
+
 Vector3 EnemyBug::GetAttackRigPos() const
 {
 	auto ago1 = m_model->GetFramePosition(kCollisionFrameName1);
@@ -159,13 +190,28 @@ Vector3 EnemyBug::GetAttackRigPos() const
 	return (ago1 + ago2) * 0.5f;
 }
 
+int EnemyBug::GetAttackInterval()
+{
+	return s_normalDistribution(MyRandom::GetInstance().GetRandomEngine());
+}
+
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 {
 	// 無敵なら食らわない
+	auto attackPower = attack->GetAttackPower();
 
-	printf("食らった！%fダメージ！\n", attack->GetAttackPower());
+	printf("食らった！%fダメージ！\n", attackPower);
 
-	m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
+	m_hitPoint -= attackPower;
+
+	if (m_hitPoint.IsMin())
+	{
+		m_state = std::make_shared<EnemyBugDeath>(weak_from_this());
+	}
+	else
+	{
+		m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
+	}
 
 	// プレイヤーの位置を見て吹っ飛ぶ
 	auto pToEN = (m_pos - m_player.lock()->GetPos()).GetNormalize();

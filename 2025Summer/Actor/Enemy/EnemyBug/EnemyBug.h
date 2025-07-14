@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include <random>
 
 class AnimationModel;
 class EnemyBugState;
@@ -26,18 +27,33 @@ public:
 	void OnCollisionStay(std::shared_ptr<Actor> other) override;
 	void OnCollisionExit(std::shared_ptr<Actor> other) override;
 
+	void OnDeath();
+
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
 	DxLib::tagMATRIX GetModelMatrix() const;
 	void AddVel(const Vector3& vel);
 	bool IsAnimEnd() const;
 	void GenerateAttackCol();
+	Vector3 GetDir() const;
+	int GetAinmTotalTime() const;
 
 	Vector3 GetAttackRigPos() const;
+
+	int GetAttackInterval();
+
+	int GetAttackFrame() const { return m_attackFrame; }
+	void SetAttackFrame(const int frame) { m_attackFrame = frame; }
+	void CountAttackFrame() { --m_attackFrame; }
 
 private:
 
 	std::shared_ptr<EnemyBugState> m_state;
+	// 正規分布の乱数発生器
+	static std::normal_distribution<> s_normalDistribution;
+	// 攻撃遷移は元のクラスでやる
+	// 複数のステートをまたいでも処理を継続したいので
+	int m_attackFrame;
 
 private:
 

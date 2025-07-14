@@ -13,12 +13,11 @@ Enemy::Enemy() :
 {
 }
 
-void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos)
+void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP)
 {
 	m_kind = ActorKind::kEnemy;
-
+	m_hitPoint = initHP;
 	m_player = player;
-
 	m_pos = initPos;
 }
 

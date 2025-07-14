@@ -25,6 +25,7 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttack.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDamage.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDeath.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="UI\ButtonSystem.cpp" />
     <ClCompile Include="UI\Image.cpp" />
     <ClCompile Include="UI\ImageStore.cpp" />
+    <ClCompile Include="Utility\MyRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -108,12 +110,14 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttack.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDamage.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDeath.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
     <ClInclude Include="Actor\Enemy\EnemyKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
+    <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\PlayerShockWave.h" />
     <ClInclude Include="Actor\PlayerSword.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="UI\ButtonSystem.h" />
     <ClInclude Include="UI\Image.h" />
     <ClInclude Include="UI\ImageStore.h" />
+    <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>

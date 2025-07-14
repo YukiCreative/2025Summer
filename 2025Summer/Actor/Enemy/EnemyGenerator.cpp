@@ -33,7 +33,7 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 	{
 		// スポーン
 		
-		std::shared_ptr<Actor> spawnEnemy;
+		std::shared_ptr<Enemy> spawnEnemy;
 
 		// ここは愚直に全敵を把握して分岐するか
 		switch (data.enemyKind)

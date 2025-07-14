@@ -12,7 +12,6 @@ public:
 
 private:
 
-	int m_attackFrame;
 	int m_frame;
 };
 

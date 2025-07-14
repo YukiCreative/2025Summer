@@ -3,30 +3,24 @@
 #include "EnemyBugWalkFoward.h"
 #include <random>
 #include "EnemyBugAttack.h"
+#include "Geometry.h"
 
 namespace
 {
 	const std::string kAnimName = "Armature|Idle";
 	constexpr float kApproachDistance = 500.0f;
 
-	constexpr int kAttackFrame = 50;
-	constexpr int kRandomness = 10;
+	constexpr float kRotateThreshold = DX_PI_F * 0.25f;
 }
 
 EnemyBugIdle::EnemyBugIdle(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent),
-	m_frame(0),
-	m_attackFrame(0)
+	m_frame(0)
 {
 	// アニメーション再生
 	m_parent.lock()->ChangeAnim(kAnimName, true);
 
-	std::random_device randomDevice;
-	std::default_random_engine randEngine(randomDevice());
-	auto dist = std::normal_distribution<>(kAttackFrame, kRandomness);
-
-	m_attackFrame = dist(randEngine);
-	printf("今回の攻撃猶予%d\n", m_attackFrame);
+	m_parent.lock()->GetAttackInterval();
 }
 
 EnemyBugIdle::~EnemyBugIdle()
@@ -39,13 +33,19 @@ std::shared_ptr<EnemyBugState> EnemyBugIdle::Update()
 	// 接近はしない 様子見みたいな
 	auto parent = m_parent.lock();
 
-	// 一定距離離れていたら、もしくはランダム時間経ったら
-	if (parent->EnemyToPlayer().SqrMagnitude() > kApproachDistance * kApproachDistance)
+	const bool isDistancePlayer = parent->EnemyToPlayer().SqrMagnitude() > kApproachDistance * kApproachDistance;
+	const bool isRotatePlayer = Geometry::Corner(parent->EnemyToPlayer().XZ(), parent->GetDir().XZ()) > kRotateThreshold;
+
+	// 一定距離離れていたら、もしくはプレイヤーが自分の後ろをとろうとしたら
+	if (isDistancePlayer || isRotatePlayer)
 	{
 		return std::make_shared<EnemyBugWalkFoward>(m_parent);
 	}
 
-	if (m_frame == m_attackFrame)
+	// この状態が続いているなら攻撃フレームを進める
+	parent->CountAttackFrame();
+
+	if (parent->GetAttackFrame() < 0)
 	{
 		return std::make_shared<EnemyBugAttack>(m_parent);
 	}

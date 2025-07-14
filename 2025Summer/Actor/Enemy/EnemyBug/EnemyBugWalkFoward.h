@@ -7,5 +7,9 @@ public:
 	~EnemyBugWalkFoward();
 
 	std::shared_ptr<EnemyBugState> Update() override;
+private:
+
+	int m_rotateFrame;
+	int m_rotateTimeLength;
 };
 
