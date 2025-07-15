@@ -22,7 +22,6 @@ PlayerLockOnMoveRight::PlayerLockOnMoveRight(std::weak_ptr<Player> parent) :
 {
 	// アニメーション
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
-	printf("Right\n");
 }
 
 PlayerLockOnMoveRight::~PlayerLockOnMoveRight()

@@ -83,6 +83,12 @@ void SceneTest::Draw() const
 	m_actors->Draw();
 
 	m_shadow->UnsetShadowMap();
+
+#if _DEBUG
+	DrawLine3D({0,100,0}, {100, 100, 0}, 0xff0000);
+	DrawLine3D({0,100,0}, {0, 200, 0}, 0x00ff00);
+	DrawLine3D({0,100,0}, {0, 100, 100}, 0x0000ff);
+#endif
 }
 
 void SceneTest::Entry()

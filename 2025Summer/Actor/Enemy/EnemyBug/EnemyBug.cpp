@@ -43,7 +43,7 @@ namespace
 	constexpr float kInitHP = 800.0f;
 }
 
-std::normal_distribution<> EnemyBug::s_normalDistribution(kAttackFrame, kRandomness);
+std::normal_distribution<> EnemyBug::s_attackTimeNormalDist(kAttackFrame, kRandomness);
 
 EnemyBug::EnemyBug() :
 	Enemy(),
@@ -189,7 +189,7 @@ Vector3 EnemyBug::GetAttackRigPos() const
 
 int EnemyBug::GetAttackInterval()
 {
-	return s_normalDistribution(MyRandom::GetInstance().GetRandomEngine());
+	return static_cast<int>(s_attackTimeNormalDist(MyRandom::GetInstance().GetRandomEngine()));
 }
 
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)

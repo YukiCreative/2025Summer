@@ -7,6 +7,7 @@
 class AnimationModel;
 class EnemyState;
 class Player;
+class AttackCol;
 
 // 敵の基底処理
 class Enemy abstract : public Actor
@@ -24,6 +25,8 @@ public:
 	void LookAtPlayer();
 	Vector3 EnemyToPlayer() const;
 
+	virtual void OnDeath() abstract;
+
 protected:
 
 	HitPoint_t m_hitPoint;
@@ -32,6 +35,10 @@ protected:
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
 	bool m_isInvincible;
+
+protected:
+
+	virtual void OnDamage(std::shared_ptr<AttackCol> other) abstract;
 
 private:
 };

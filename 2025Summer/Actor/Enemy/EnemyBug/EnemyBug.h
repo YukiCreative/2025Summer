@@ -27,7 +27,7 @@ public:
 	void OnCollisionStay(std::shared_ptr<Actor> other) override;
 	void OnCollisionExit(std::shared_ptr<Actor> other) override;
 
-	void OnDeath();
+	void OnDeath() override;
 
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
@@ -50,14 +50,15 @@ public:
 private:
 
 	std::shared_ptr<EnemyBugState> m_state;
-	// 正規分布の乱数発生器
-	static std::normal_distribution<> s_normalDistribution;
+	// 攻撃間隔の取得に使う正規分布の乱数発生器
+	// みんなで使いまわすのでstatic
+	static std::normal_distribution<> s_attackTimeNormalDist;
 	// 攻撃遷移は元のクラスでやる
 	// 複数のステートをまたいでも処理を継続したいので
 	int m_attackFrame;
 
 private:
 
-	void OnDamage(std::shared_ptr<AttackCol> other);
+	void OnDamage(std::shared_ptr<AttackCol> other) override;
 };
 

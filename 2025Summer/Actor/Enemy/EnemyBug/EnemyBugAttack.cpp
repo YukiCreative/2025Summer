@@ -7,7 +7,7 @@ namespace
 {
 	const std::string kAnimName = "Armature|Attack";
 
-	const int kAttackFrame = 10.0f;
+	const int kAttackFrame = 10;
 	const Vector3 kAttackForce = {0.0f, -20.0f, 30.0f};
 }
 

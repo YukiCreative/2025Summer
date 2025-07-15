@@ -91,6 +91,8 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.cpp" />
     <ClCompile Include="Utility\MyRandom.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDeath.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBullet\EnemyBullet.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBullet\EnemyBulletState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -184,6 +186,8 @@
     <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDeath.h" />
     <ClInclude Include="Actor\HitPoint.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBullet\EnemyBullet.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBullet\EnemyBulletState.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

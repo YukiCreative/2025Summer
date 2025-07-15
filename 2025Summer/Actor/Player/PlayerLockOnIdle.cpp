@@ -41,8 +41,6 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
 
-	printf("カメラに対しての入力X:%f,Y:%f\n", cameraRotatedAxis.x, cameraRotatedAxis.y);
-
 	// キャラクターの向きと移動方向によって遷移する状態が変わる
 
 	DrawLine3D(p->GetPos(), p->GetPos() + cameraRotatedAxis * 100, 0xffff00);

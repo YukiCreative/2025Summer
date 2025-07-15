@@ -2,7 +2,7 @@
 #include "EnemyBug.h"
 #include "Collidable.h"
 #include "EffectManager.h"
-#include "EffekseerEffect.h";
+#include "EffekseerEffect.h"
 //#include "SphereCollider.h"
 #include "CapsuleCollider.h"
 #include "Rigid.h"

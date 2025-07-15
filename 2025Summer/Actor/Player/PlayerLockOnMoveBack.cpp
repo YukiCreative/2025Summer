@@ -22,7 +22,6 @@ PlayerLockOnMoveBack::PlayerLockOnMoveBack(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
 	m_player.lock()->m_model->ChangeAnimation(kAnimName);
-	printf("Back\n");
 }
 
 PlayerLockOnMoveBack::~PlayerLockOnMoveBack()

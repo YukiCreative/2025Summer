@@ -29,6 +29,7 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBullet\EnemyBullet.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
     <ClCompile Include="Actor\PlayerShockWave.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBullet\EnemyBulletState.cpp" />
     <ClCompile Include="General\Application.cpp" />
     <ClCompile Include="General\Input.cpp" />
     <ClCompile Include="Geometry\Geometry.cpp" />
@@ -114,6 +116,8 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBullet\EnemyBullet.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBullet\EnemyBulletState.h" />
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
     <ClInclude Include="Actor\Enemy\EnemyKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
