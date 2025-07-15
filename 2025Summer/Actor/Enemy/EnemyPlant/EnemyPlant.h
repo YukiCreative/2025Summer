@@ -1,11 +1,13 @@
 #pragma once
 #include "Enemy.h"
 
+class EnemyPlantState;
+
 // ’e‚ğŒ‚‚Á‚Ä‚­‚é‚¼I
-class EnemyBullet : public Enemy
+class EnemyPlant : public Enemy
 {
 public:
-	EnemyBullet();
+	EnemyPlant();
 
 	void Init(const std::weak_ptr<Player> player, const Vector3& initPos);
 
@@ -16,6 +18,6 @@ public:
 
 private:
 
-
+	std::shared_ptr<EnemyPlantState> m_state;
 };
 

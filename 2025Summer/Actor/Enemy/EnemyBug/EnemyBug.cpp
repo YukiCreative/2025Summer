@@ -184,6 +184,7 @@ Vector3 EnemyBug::GetAttackRigPos() const
 	auto ago1 = m_model->GetFramePosition(kCollisionFrameName1);
 	auto ago2 = m_model->GetFramePosition(kCollisionFrameName2);
 
+
 	return (ago1 + ago2) * 0.5f;
 }
 
