@@ -25,6 +25,9 @@ EnemyBugAttackCol::EnemyBugAttackCol() :
 
 EnemyBugAttackCol::~EnemyBugAttackCol()
 {
+	if (m_effect.expired()) return;
+
+	m_effect.lock()->Kill();
 }
 
 void EnemyBugAttackCol::Init(std::weak_ptr<EnemyBug> parent)

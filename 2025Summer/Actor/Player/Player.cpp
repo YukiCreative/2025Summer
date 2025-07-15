@@ -58,6 +58,8 @@ Player::~Player()
 
 void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorController> cont)
 {
+	m_kind = ActorKind::kPlayer;
+
 	m_camera = camera;
 	m_cont = cont;
 
@@ -154,10 +156,15 @@ void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos,
 	SpawnActor(shockWave);
 }
 
-void Player::OnDamage(const float damage)
+void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 {
 	// HP減らす
-	m_hp -= damage;
+	m_hp -= attack->GetAttackPower();
+
+	printf("ダメージ%f", attack->GetAttackPower());
+
+	// ノックバック
+	m_collidable->AddVel((m_pos - attack->GetPos()).GetNormalize() * attack->GetKnockbackPower());
 
 	if (m_hp.IsMin())
 	{
@@ -215,15 +222,14 @@ void Player::Move(const float moveSpeed)
 	if (cross.y <= 0.01f && dot <= -0.9999f)
 	{
 		// 強制的に回す
-		cross.y += 0.1f;
+		cross.y += 0.5f;
 	}
 
 	m_model->RotateUpVecY(cross.y * 0.3f);
 
-	const float clampDot = std::max(dot, -0.1f);
+	const float clampDot = std::max(dot, 0.0f);
 
-	// 自分の向きと移動方向が乖離していると、移動量が反転する
-	// 振り向く際に一瞬反対方向に移動するみたいな
+	// 自分の向きと移動方向が乖離しているとき、その方向に移動しない
 	m_collidable->AddVel(vel * clampDot);
 }
 
@@ -270,14 +276,11 @@ void Player::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 	m_isContactLockOnActor = (other == m_lockOnActor.lock());
 
-	switch (other->GetKind())
+	if (other->GetKind() == ActorKind::kEnemyAttack)
 	{
-	case ActorKind::kEnemyAttack:
-		printf("攻撃に当たった\n");
-		OnDamage(1.0f);
-		break;
-	default:
-		break;
+		auto attack = std::static_pointer_cast<AttackCol>(other);
+
+		OnDamage(attack);
 	}
 }
 

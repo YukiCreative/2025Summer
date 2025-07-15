@@ -36,6 +36,13 @@ PlayerSword::PlayerSword() :
 {
 }
 
+PlayerSword::~PlayerSword()
+{
+	if (m_effect.expired()) return;
+
+	m_effect.lock()->Kill();
+}
+
 void PlayerSword::Init(std::weak_ptr<Player> player)
 {
 	auto cCol = std::make_shared<CapsuleCollider>();

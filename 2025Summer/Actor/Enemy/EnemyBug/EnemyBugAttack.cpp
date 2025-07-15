@@ -35,7 +35,7 @@ std::shared_ptr<EnemyBugState> EnemyBugAttack::Update()
 	}
 
 	// アニメーションが終わったらIdleに
-	if (m_parent.lock()->IsAnimEnd())
+	if (m_parent.lock()->IsEndAnim())
 	{
 		return std::make_shared<EnemyBugIdle>(m_parent);
 	}

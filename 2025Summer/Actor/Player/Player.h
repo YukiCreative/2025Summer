@@ -10,6 +10,7 @@ class PlayerState;
 class ActorController;
 class Image;
 class PlayerSword;
+class AttackCol;
 
 namespace DxLib
 {
@@ -93,7 +94,7 @@ public:
 	void SetInputDir(const PlayerInputDir& dir);
 	// PlayerShockWaveSlash用
 	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback);
-	void OnDamage(const float damage);
+	void OnDamage(std::shared_ptr<AttackCol> attack);
 	// プレイヤーをロックオン対象へ向ける
 	void LockOnRotate();
 };

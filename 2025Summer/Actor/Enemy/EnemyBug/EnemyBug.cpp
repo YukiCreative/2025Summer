@@ -135,43 +135,12 @@ void EnemyBug::OnDeath()
 	m_isAlive = false;
 }
 
-MATRIX EnemyBug::GetModelMatrix() const
-{
-	auto mat = m_model->GetMatrix();
-
-	mat.m[1][0] *= -1;
-	mat.m[1][1] *= -1;
-	mat.m[1][2] *= -1;
-
-	mat.m[2][0] *= -1;
-	mat.m[2][1] *= -1;
-	mat.m[2][2] *= -1;
-
-	return mat;
-}
-
-void EnemyBug::AddVel(const Vector3& vel)
-{
-	m_collidable->AddVel(vel);
-}
-
-bool EnemyBug::IsAnimEnd() const
-{
-	return m_model->IsEnd();
-}
-
 void EnemyBug::GenerateAttackCol()
 {
 	auto col = std::make_shared<EnemyBugAttackCol>();
 	col->Init(weak_from_this());
 
 	m_spawnActorList.emplace_back(col);
-}
-
-Vector3 EnemyBug::GetDir() const
-{
-	auto mat = GetModelMatrix();
-	return { mat.m[2][0],mat.m[2][2] ,mat.m[2][2] };
 }
 
 int EnemyBug::GetAinmTotalTime() const

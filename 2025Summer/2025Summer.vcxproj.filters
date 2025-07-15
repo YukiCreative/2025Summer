@@ -94,6 +94,10 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlant.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantDamage.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantDeath.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -190,6 +194,10 @@
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlant.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantState.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantDamage.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantDeath.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

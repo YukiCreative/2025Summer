@@ -27,17 +27,12 @@ public:
 	void OnCollisionStay(std::shared_ptr<Actor> other) override;
 	void OnCollisionExit(std::shared_ptr<Actor> other) override;
 
-	void OnDeath() override;
+	void OnDeath();
 
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
-	DxLib::tagMATRIX GetModelMatrix() const;
-	void AddVel(const Vector3& vel);
-	bool IsAnimEnd() const;
 	void GenerateAttackCol();
-	Vector3 GetDir() const;
 	int GetAinmTotalTime() const;
-	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }
 
 	Vector3 GetAttackRigPos() const;
 
@@ -59,6 +54,6 @@ private:
 
 private:
 
-	void OnDamage(std::shared_ptr<AttackCol> other) override;
+	void OnDamage(std::shared_ptr<AttackCol> other);
 };
 

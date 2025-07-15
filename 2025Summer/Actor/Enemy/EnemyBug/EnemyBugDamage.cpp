@@ -22,7 +22,7 @@ std::shared_ptr<EnemyBugState> EnemyBugDamage::Update()
 	auto parent = m_parent.lock();
 
 	// アニメーションが終わるまで待機
-	if (parent->IsAnimEnd())
+	if (parent->IsEndAnim())
 	{
 		return std::make_shared<EnemyBugIdle>(m_parent);
 	}

@@ -9,6 +9,11 @@ class EnemyState;
 class Player;
 class AttackCol;
 
+namespace DxLib
+{
+	struct tagMATRIX;
+}
+
 // “G‚ÌŠî’êˆ—
 class Enemy abstract : public Actor
 {
@@ -22,10 +27,14 @@ public:
 
 	void ChangeAnim(const std::string& animName, const bool isLoop = true);
 
-	void LookAtPlayer();
+	void LookAtPlayer(const float strength = 1.0f);
 	Vector3 EnemyToPlayer() const;
-
-	virtual void OnDeath() abstract;
+	// ‚±‚ê‚Íƒ‚ƒfƒ‹‚ª‰Šúó‘Ô‚ÅZ-•ûŒü‚ÉŒü‚¢‚Ä‚¢‚é‘O’ñ‚Å‚·
+	Vector3 GetDir() const;
+	DxLib::tagMATRIX GetModelMatrix() const;
+	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }
+	bool IsEndAnim() const;
+	void AddVel(const Vector3& vel);
 
 protected:
 
@@ -37,8 +46,6 @@ protected:
 	bool m_isInvincible;
 
 protected:
-
-	virtual void OnDamage(std::shared_ptr<AttackCol> other) abstract;
 
 private:
 };

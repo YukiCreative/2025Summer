@@ -9,5 +9,9 @@ public:
 	~EnemyPlantIdle();
 
 	std::shared_ptr<EnemyPlantState> Update() override;
+
+private:
+
+	int m_attackFrame;
 };
 

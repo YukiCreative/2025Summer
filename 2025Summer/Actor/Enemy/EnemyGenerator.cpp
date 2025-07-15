@@ -2,6 +2,7 @@
 #include "NoCollidable.h"
 
 #include "EnemyBug.h"
+#include "EnemyPlant.h"
 
 EnemyGenerator::EnemyGenerator() :
 	Actor(false)
@@ -18,7 +19,7 @@ void EnemyGenerator::Init(std::weak_ptr<Player> player)
 	// TODO:何らかの方法でウェーブの情報を取得する
 	// とりあえずベタ書きでもOK
 	std::vector<SpawnData> temp;
-	temp.emplace_back(SpawnData({150.0f,0,150.0f }, EnemyKind::kBug));
+	temp.emplace_back(SpawnData({150.0f,150.0f,150.0f }, EnemyKind::kBug));
 
 	m_waveData.emplace_back(temp);
 }
@@ -39,7 +40,7 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 		switch (data.enemyKind)
 		{
 		case EnemyKind::kBug:
-			auto a = std::make_shared<EnemyBug>();
+			auto a = std::make_shared<EnemyPlant>();
 			a->Init(m_player, data.pos);
 			spawnEnemy = a;
 			break;

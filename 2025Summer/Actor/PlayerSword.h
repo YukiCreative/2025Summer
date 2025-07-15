@@ -10,6 +10,7 @@ class PlayerSword : public AttackCol
 {
 public:
 	PlayerSword();
+	~PlayerSword();
 
 	void Init(std::weak_ptr<Player> player);
 

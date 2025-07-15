@@ -2,6 +2,7 @@
 #include "AnimationModel.h"
 #include "Collidable.h"
 #include "Player.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -27,7 +28,7 @@ void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)
 	m_model->ChangeAnimation(animName, isLoop);
 }
 
-void Enemy::LookAtPlayer()
+void Enemy::LookAtPlayer(const float strength)
 {
 	auto eToPXZN = (m_player.lock()->GetPos().XZ() - m_pos.XZ()).GetNormalize();
 	auto dir = m_model->GetDirection();
@@ -43,10 +44,44 @@ void Enemy::LookAtPlayer()
 		rot += 0.1f;
 	}
 
+	// ˆø”‚Å•â³
+	rot *= strength;
+
 	m_model->RotateUpVecY(rot);
 }
 
 Vector3 Enemy::EnemyToPlayer() const
 {
 	return m_player.lock()->GetPos() - m_pos;
+}
+
+Vector3 Enemy::GetDir() const
+{
+	auto mat = GetModelMatrix();
+	return { mat.m[2][0],mat.m[2][2] ,mat.m[2][2] };
+}
+
+MATRIX Enemy::GetModelMatrix() const
+{
+	auto mat = m_model->GetMatrix();
+
+	mat.m[1][0] *= -1;
+	mat.m[1][1] *= -1;
+	mat.m[1][2] *= -1;
+
+	mat.m[2][0] *= -1;
+	mat.m[2][1] *= -1;
+	mat.m[2][2] *= -1;
+
+	return mat;
+}
+
+bool Enemy::IsEndAnim() const
+{
+	return m_model->IsEnd();
+}
+
+void Enemy::AddVel(const Vector3& vel)
+{
+	m_collidable->AddVel(vel);
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "Enemy.h"
+#include <random>
 
 class EnemyPlantState;
 
 // ’e‚ğŒ‚‚Á‚Ä‚­‚é‚¼I
-class EnemyPlant : public Enemy
+class EnemyPlant : public Enemy , public std::enable_shared_from_this<EnemyPlant>
 {
 public:
 	EnemyPlant();
@@ -16,8 +17,20 @@ public:
 
 	void CommitMove() override;
 
+	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
+
+	void SpawnBullet();
+	void OnDeath();
+	int GetAttackInterval();
+
 private:
 
+	static std::normal_distribution<> s_attackIntervalNormalDist;
+
 	std::shared_ptr<EnemyPlantState> m_state;
+
+private:
+
+	void OnDamage(std::shared_ptr<AttackCol> other);
 };
 
