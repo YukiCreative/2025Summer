@@ -14,7 +14,7 @@ namespace
 }
 
 PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent) :
-	PlayerState(parent)
+	PlayerIntermediateState(parent)
 {
 	// 初期状態を設定
 	m_childState = std::make_shared<PlayerIdle>(m_player);
@@ -30,7 +30,7 @@ PlayerNormal::~PlayerNormal()
 {
 }
 
-std::shared_ptr<PlayerState> PlayerNormal::Update()
+std::shared_ptr<PlayerIntermediateState> PlayerNormal::Update()
 {
 	// ロックオンされたら
 	if (!m_player.lock()->m_lockOnActor.expired())
@@ -41,7 +41,7 @@ std::shared_ptr<PlayerState> PlayerNormal::Update()
 	// 通常のカメラ回転
 	m_player.lock()->CameraMove();
 
-	m_childState = m_childState->Update();
+	UpdateChildState();
 
 	MoveCameraTarget();
 
@@ -98,4 +98,9 @@ void PlayerNormal::LockOn()
 
 	// 定まったActorにロックオン
 	p->m_lockOnActor = centerActor;
+}
+
+void PlayerNormal::MoveCameraTarget()
+{
+	m_player.lock()->m_targetPos = m_player.lock()->GetPos() + kCameraTargetOffset;
 }

@@ -1,9 +1,7 @@
 #include "Input.h"
 #include "Player.h"
-#include "PlayerDash.h"
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
-#include "PlayerJump.h"
 #include "AnimationModel.h"
 #include "PlayerSlashDown.h"
 #include "Collidable.h"
@@ -63,7 +61,7 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	}
 	if (input.IsTrigger("Attack"))
 	{
-		// “Ëi
+		// ˆÚ“®Žž‚ÉUŒ‚‚ð“ü—Í‚·‚é‚Æ‚¿‚å‚Á‚Æ’Ç‰Á‚Å‘Oi‚·‚é
 		p->GetCollidable().AddVel(VTransformSR({0,0,kSashAttackForce}, p->GetModelMatrix()));
 
 		return std::make_shared<PlayerSlashDown>(m_player);

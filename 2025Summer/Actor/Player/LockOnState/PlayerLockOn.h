@@ -1,19 +1,17 @@
 #pragma once
-#include "PlayerState.h"
+#include "PlayerInterMediateState.h"
 #include "RangeLimitedValue.h"
 
 // ƒƒbƒNƒIƒ“’†‚Ìó‘Ô‚ğ§Œä
-class PlayerLockOn : public PlayerState
+class PlayerLockOn : public PlayerIntermediateState
 {
 public:
 	PlayerLockOn(std::weak_ptr<Player> parent);
 	~PlayerLockOn();
 
-	std::shared_ptr<PlayerState> Update() override;
+	std::shared_ptr<PlayerIntermediateState> Update() override;
 
 private:
-
-	std::shared_ptr<PlayerState> m_childState;
 
 	using TargetPosLerpParam = RangeLimitedValue<float, 0.0f, 1.0f>;
 

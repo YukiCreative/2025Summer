@@ -42,7 +42,7 @@ namespace
 }
 
 PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
-    PlayerState(parent),
+    PlayerIntermediateState(parent),
     m_targetPosLerpParam(0.5f)
 {
     auto p = m_player.lock();
@@ -68,7 +68,7 @@ PlayerLockOn::~PlayerLockOn()
 {
 }
 
-std::shared_ptr<PlayerState> PlayerLockOn::Update()
+std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
 {
     auto& input = Input::GetInstance();
     auto p = m_player.lock();
@@ -80,6 +80,9 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
         return std::make_shared<PlayerNormal>(m_player);
     }
 
+    // 状態をUpdate
+    UpdateChildState();
+
     // 通常のカメラ回転
     p->CameraMove();
 
@@ -88,11 +91,8 @@ std::shared_ptr<PlayerState> PlayerLockOn::Update()
 
     SetTargetPos();
 
-    // 状態をUpdate
-    m_childState = m_childState->Update();
-
     // ロックオンボタンを離したら
-    if (Input::GetInstance().IsReleased("LockOn"))
+    if (!input.IsPressed("LockOn"))
     {
         ReleaseLockOn();
 

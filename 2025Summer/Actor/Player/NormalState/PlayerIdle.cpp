@@ -1,7 +1,6 @@
 #include "Input.h"
 #include "Player.h"
 #include "PlayerIdle.h"
-#include "PlayerJump.h"
 #include "PlayerMove.h"
 #include "AnimationModel.h"
 #include "PlayerLockOnIdle.h"

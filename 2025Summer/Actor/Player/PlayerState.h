@@ -24,10 +24,6 @@ public:
 	// ‚»‚¤‚Å‚È‚¢‚Æ‚«‚Í©•ª‚ğ•Ô‚·
 	virtual std::shared_ptr<PlayerState> Update() abstract;
 
-	void MoveCameraTarget();
-	// ‚Ç‚ê‚­‚ç‚¢‚ÌŠ„‡ŠÜ‚Ş‚©‚ğİ’è‚Å‚«‚Ü‚·
-	void MoveCameraTargetIgnoreY(const float includeRatio = 0.0f);
-
 protected:
 	std::weak_ptr<Player> m_player;
 

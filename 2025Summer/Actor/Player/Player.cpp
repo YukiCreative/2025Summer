@@ -169,11 +169,11 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 	if (m_hp.IsMin())
 	{
 		// —–½I
-		m_state = std::make_shared<PlayerDeath>(weak_from_this());
+		m_state->SetStateDeath();
 	}
 	else
 	{
-		m_state = std::make_shared<PlayerMiddleDamage>(weak_from_this());
+		m_state->SetStateDamage();
 	}
 }
 

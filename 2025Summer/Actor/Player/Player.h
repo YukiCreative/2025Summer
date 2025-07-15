@@ -1,12 +1,11 @@
 #pragma once
 #include "Actor.h"
 #include <list>
-#include "PlayerState.h"
+#include "PlayerIntermediateState.h"
 #include "RangeLimitedValue.h"
 
 class AnimationModel;
 class Camera;
-class PlayerState;
 class ActorController;
 class Image;
 class PlayerSword;
@@ -28,7 +27,7 @@ enum class PlayerInputDir
 namespace
 {
 	constexpr float kMinHP = 0.0f;
-	constexpr float kMaxHP = 99990.0f;
+	constexpr float kMaxHP = 200.0f;
 }
 
 using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
@@ -71,7 +70,7 @@ public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚½‚¢ƒƒ“ƒo•Ï”
 	std::shared_ptr<AnimationModel> m_model;
 	std::weak_ptr<Camera> m_camera;
-	std::shared_ptr<PlayerState> m_state;
+	std::shared_ptr<PlayerIntermediateState> m_state;
 	Vector3 m_targetPos;
 	std::weak_ptr<Actor> m_lockOnActor;
 	std::weak_ptr<ActorController> m_cont;
