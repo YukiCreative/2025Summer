@@ -3,7 +3,6 @@
 #include "Collidable.h"
 #include "EffectManager.h"
 #include "EffekseerEffect.h"
-//#include "SphereCollider.h"
 #include "CapsuleCollider.h"
 #include "Rigid.h"
 #include <DxLib.h>
@@ -13,7 +12,7 @@ namespace
 	const std::string kEffectName = "SwordTrajectory.efkefc";
 	constexpr float kRadius = 50.0f;
 	constexpr float kLifeTime = 20.0f;
-	constexpr float kLength = 50.0f;
+	constexpr float kLength = 10.0f;
 	constexpr float kAttackPower = 100.0f;
 	constexpr float kKnockbackPower = 30.0f;
 	constexpr float kDrag = 0.0f;

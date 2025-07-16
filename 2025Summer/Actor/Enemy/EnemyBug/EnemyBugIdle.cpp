@@ -19,8 +19,6 @@ EnemyBugIdle::EnemyBugIdle(std::weak_ptr<EnemyBug> parent) :
 {
 	// アニメーション再生
 	m_parent.lock()->ChangeAnim(kAnimName, true);
-
-	m_parent.lock()->GetAttackInterval();
 }
 
 EnemyBugIdle::~EnemyBugIdle()

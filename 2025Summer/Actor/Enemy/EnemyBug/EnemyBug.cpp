@@ -64,6 +64,8 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos)
 	m_model->Init(kModelName, kAnimSpeed);
 
 	m_state = std::make_shared<EnemyBugIdle>(weak_from_this());
+
+	m_attackFrame = GetAttackInterval();
 }
 
 void EnemyBug::Update()
@@ -156,7 +158,9 @@ Vector3 EnemyBug::GetAttackRigPos() const
 
 int EnemyBug::GetAttackInterval()
 {
-	return static_cast<int>(s_attackTimeNormalDist(MyRandom::GetInstance().GetRandomEngine()));
+	auto interval = static_cast<int>(s_attackTimeNormalDist(MyRandom::GetInstance().GetRandomEngine()));
+	printf("%d\n", interval);
+	return interval;
 }
 
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
