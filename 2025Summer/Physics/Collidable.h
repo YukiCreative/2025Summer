@@ -26,7 +26,6 @@ public:
 	const bool      IsStop()     const;
 	const int       GetWeight()  const;
 	const Vector3   GetPos()     const;
-	const float     GetBounce()  const;
 
 	void AddVel(const Vector3& vel);
 	void SetVel(const Vector3& vel);

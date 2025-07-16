@@ -52,11 +52,6 @@ const Vector3 Collidable::GetPos() const
 	return m_col->GetPos();
 }
 
-const float Collidable::GetBounce() const
-{
-	return m_rigid->GetBounce();
-}
-
 void Collidable::AddVel(const Vector3& vel)
 {
 	m_rigid->AddVel(vel);

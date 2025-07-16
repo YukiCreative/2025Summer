@@ -8,30 +8,22 @@ namespace
 
 Rigid::Rigid() :
 	m_vel(),
-	m_material(),
-	m_update(&Rigid::GroundUpdate),
+	m_drag(),
 	m_useGravity(true)
 {
 }
 
-void Rigid::Init(const PhysicalMaterial& material)
+void Rigid::Init(const float drag)
 {
-	m_material = material;
+	m_drag = drag;
 }
 
 const Vector3 Rigid::Update()
 {
-	return (this->*m_update)();
-}
+	// 速度を減衰
+	m_vel -= m_vel * m_drag;
 
-void Rigid::ChangeStateGround()
-{
-	m_update = &Rigid::GroundUpdate;
-}
-
-void Rigid::ChangeStateAir()
-{
-	m_update = &Rigid::AirUpdate;
+	return m_vel;
 }
 
 void Rigid::AddVel(const Vector3& addVel)
@@ -47,11 +39,6 @@ void Rigid::Stop()
 const Vector3 Rigid::GetVel() const
 {
 	return m_vel;
-}
-
-const float Rigid::GetBounce() const
-{
-	return m_material.bounceFactor.Value();
 }
 
 const bool Rigid::IsStop() const
@@ -76,30 +63,4 @@ void Rigid::MultVel(const float t)
 void Rigid::StopY()
 {
 	m_vel.y = 0;
-}
-
-void Rigid::SetGroundDrag(const float drag)
-{
-	m_material.groundDrag = drag;
-}
-
-void Rigid::SetAirDrag(const float drag)
-{
-	m_material.airDrag = drag;
-}
-
-const Vector3 Rigid::GroundUpdate()
-{
-	// 速度を減衰
-	m_vel -= m_vel * m_material.groundDrag.Value();
-
-	return m_vel;
-}
-
-const Vector3 Rigid::AirUpdate()
-{
-	// 空気抵抗
-	m_vel -= m_vel * m_material.airDrag.Value();
-
-	return m_vel;
 }

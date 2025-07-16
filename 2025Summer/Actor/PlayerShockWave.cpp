@@ -12,6 +12,9 @@ namespace
 	constexpr float kColRadius = 50.0f;
 
 	constexpr int kLifeTime = 40;
+	constexpr int kResidueFrame = 1;
+
+	constexpr float kDrag = 0.0f;
 }
 
 PlayerShockWave::PlayerShockWave() :
@@ -36,7 +39,7 @@ void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, 
 	col->SetPos(initPos);
 	m_pos = col->GetPos();
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init({0,0,0});
+	rigid->Init(kDrag);
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
 
@@ -79,6 +82,8 @@ void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 	// “G‚É“–‚½‚Á‚½‚çÁ–Å
 	if (other->GetKind() == ActorKind::kEnemy)
 	{
-		m_isAlive = false;
+		// ‚¿‚å‚Á‚Æ‚¾‚¯—P—\‚ğ‚½‚¹‚ÄA•¡”‘Ì‚Ì“G‚É“–‚½‚é‚æ‚¤‚É‚·‚é
+
+		m_frame = kLifeTime - kResidueFrame;
 	}
 }

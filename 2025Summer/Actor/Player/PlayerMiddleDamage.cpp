@@ -10,7 +10,8 @@ namespace
 	const std::string kAnimName = "Armature|MiddleDamage";
 
 	// ˆÚ“®‰Â”\‚É‚È‚éƒtƒŒ[ƒ€
-	constexpr int kEnableMoveFrame = 20;
+	constexpr int kEnableMoveFrame = 30;
+	constexpr float kMoveSpeed = 0.001f;
 }
 
 PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
@@ -39,6 +40,11 @@ std::shared_ptr<PlayerState> PlayerMiddleDamage::Update()
 	{
 		return std::make_shared<PlayerMove>(m_player);
 	}
+
+	// ‚¿‚å‚Á‚Æ‚¾‚¯“®‚¯‚é
+	p->Move(kMoveSpeed);
+
+	++m_frame;
 
 	return shared_from_this();
 }

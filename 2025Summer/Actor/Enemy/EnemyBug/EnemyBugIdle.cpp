@@ -8,7 +8,7 @@
 namespace
 {
 	const std::string kAnimName = "Armature|Idle";
-	constexpr float kApproachDistance = 500.0f;
+	constexpr float kApproachDistance = 600.0f;
 
 	constexpr float kRotateThreshold = DX_PI_F * 0.25f;
 }

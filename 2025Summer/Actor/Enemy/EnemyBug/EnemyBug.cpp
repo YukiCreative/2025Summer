@@ -17,10 +17,7 @@
 
 namespace
 {
-	const PhysicalMaterial kPhysiMat =
-	{
-		0.1f, 0.05f, 0.1f
-	};
+	constexpr float kDrag = 0.1f;
 
 	// モデル
 	const std::string kModelName = "Data/Model/bug.mv1";
@@ -28,7 +25,7 @@ namespace
 
 	// コライダー
 	constexpr float kSphereRadius = 60.0f;
-	constexpr int kWeight = 100;
+	constexpr int kWeight = 10;
 
 	const Vector3 kColOffset = {0,60,0};
 
@@ -37,7 +34,7 @@ namespace
 	const std::string kCollisionFrameName2 = "bug_mandible_L";
 
 	// 乱数
-	constexpr int kAttackFrame = 180;
+	constexpr int kAttackFrame = 300;
 	constexpr int kRandomness = 60;
 
 	constexpr float kInitHP = 800.0f;
@@ -58,7 +55,7 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos)
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(m_pos, kWeight, false, false, kSphereRadius);
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init(kPhysiMat);
+	rigid->Init(kDrag);
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);

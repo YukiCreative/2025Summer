@@ -17,6 +17,8 @@ namespace
 
 	constexpr float kDamage = 100.0f;
 	constexpr float kKnockback = 10.0f;
+
+	constexpr float kDrag = 0.1f;
 }
 
 EnemyPlantBullet::EnemyPlantBullet() :
@@ -44,7 +46,7 @@ void EnemyPlantBullet::Init(const Vector3& initPos, const DxLib::tagMATRIX& dir)
 	col->Init(m_pos, 0, true, true, kRadius);
 
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init({0.1f,0.1f,0.0f});
+	rigid->Init(kDrag);
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);

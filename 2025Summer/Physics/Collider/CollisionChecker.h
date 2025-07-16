@@ -48,11 +48,11 @@ private:
 	/// <param name="colB">‹…‘Ì‚a</param>
 	/// <param name="time">Õ“ËŠÔ‚ğŠi”[‚·‚éƒ|ƒCƒ“ƒ^(•Ô‚·’l‚Ì”ÍˆÍ0~1)</param>
 	/// <returns>“–‚½‚Á‚½‚©‚Ç‚¤‚©</returns>
-	static bool CheckHitSS(const Collidable& colA, const Collidable& colB, float& time);
+	static bool CheckHitSS(const Collidable& colA, const Collidable& colB);
 	/// <param name="colA">‹…‘ÌA</param>
 	/// <param name="colB">‹…‘ÌB</param>
 	/// <param name="time">Õ“ËŠÔ</param>
-	static void FixMoveSS(Collidable& colA, Collidable& colB, const float time);
+	static void FixMoveSS(Collidable& colA, Collidable& colB);
 
 	// ‹…‘Ìxƒ|ƒŠƒSƒ“
 

@@ -69,7 +69,7 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 				if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kSphere)
 				{
 					float time;
-					hitResult = CollisionChecker::CheckHitSS(colA, colB, time);
+					hitResult = CollisionChecker::CheckHitSS(colA, colB);
 
 					if (hitResult)
 					{
@@ -78,7 +78,7 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 						if (!skipPushBack)
 						{
 							// ‰Ÿ‚µ–ß‚µ
-							CollisionChecker::FixMoveSS(colA, colB, time);
+							CollisionChecker::FixMoveSS(colA, colB);
 						}
 					}
 				}

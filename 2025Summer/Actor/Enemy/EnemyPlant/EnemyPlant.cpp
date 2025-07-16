@@ -24,12 +24,9 @@ namespace
 	constexpr float kRadius = 80.0f;
 	const Vector3 kModelExRate = { 1.5f,1.5f,1.5f };
 
-	const PhysicalMaterial kMat =
-	{
-		0.1f, 0.05f, 0.1f
-	};
+	constexpr float kDrag = 0.1f;
 
-	constexpr int kAttackFrame = 200;
+	constexpr int kAttackFrame = 280;
 	constexpr int kRandomness = 30;
 
 	const std::string kBulletSpawnFrame = "plant_tongue_05";
@@ -54,7 +51,7 @@ void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 	auto col = std::make_shared<CapsuleCollider>();
 	col->Init(m_pos, m_pos + kCapsuleEndOffset, kWeight, false, false, kRadius);
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init(kMat);
+	rigid->Init(kDrag);
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);

@@ -19,10 +19,7 @@ namespace
 
 	const std::string kRightWeaponFrame = "mixamorig:RightWeaponRig";
 
-	const PhysicalMaterial physiMat =
-	{
-		0,0,0
-	};
+	constexpr float kDrag = 0.0f;
 
 	const MATRIX kHandPosOffset = MGetTranslate({0, -20, 0});
 
@@ -49,7 +46,7 @@ void PlayerSword::Init(std::weak_ptr<Player> player)
 	cCol->Init(m_pos, m_pos + Vector3::Up() * kSwordLength, 10, true, false, kSowrdRadius);
 
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init(physiMat);
+	rigid->Init(kDrag);
 	rigid->SetUseGravity(false);
 
 	m_collidable = std::make_shared<Collidable>();

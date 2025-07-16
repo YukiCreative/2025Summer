@@ -4,6 +4,7 @@
 #include "Collidable.h"
 #include "Rigid.h"
 #include "CapsuleCollider.h"
+#include "SphereCollider.h"
 #include "Camera.h"
 #include <DxLib.h>
 #include "PlayerState.h"
@@ -18,10 +19,7 @@
 
 namespace
 {
-	const PhysicalMaterial kPhysiMat =
-	{
-		0.2f, 0.05f, 0.1f
-	};
+	constexpr float kDrag = 0.2f;
 
 	constexpr int kWeight = 10;
 
@@ -68,7 +66,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	auto col = std::make_shared<CapsuleCollider>();
 	col->Init(m_pos, m_pos + kCapsuleEndPosOffset, kWeight, false, false, kCapsuleRadius);
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init(kPhysiMat);
+	rigid->Init(kDrag);
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
@@ -122,16 +120,6 @@ void Player::CameraMove()
 
 	m_camera.lock()->RotateCameraUpVecY(rightAxis.x * kCameraHSpeed);
 	m_camera.lock()->RotateCameraV(rightAxis.y * kCameraVSpeed);
-}
-
-float Player::DefaultGroundDrag()
-{
-	return kPhysiMat.groundDrag.Value();
-}
-
-float Player::DefaultAirDrag()
-{
-	return kPhysiMat.airDrag.Value();
 }
 
 void Player::SetInputDir(const PlayerInputDir& dir)

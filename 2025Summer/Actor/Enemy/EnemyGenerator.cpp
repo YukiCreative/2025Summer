@@ -7,7 +7,7 @@
 
 namespace
 {
-	constexpr int kWaveNum = 1;
+	constexpr int kWaveNum = 2;
 	const std::string kWaveBasePath = "Data/WaveData/Wave";
 	constexpr float kPosMult = 100.0f;
 }

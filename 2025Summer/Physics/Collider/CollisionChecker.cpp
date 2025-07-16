@@ -32,104 +32,43 @@ float CollisionChecker::WeightRate(Collidable& colA, Collidable& colB)
 	return weightRate;
 }
 
-bool CollisionChecker::CheckHitSS(const Collidable& colA, const Collidable& colB, float& time)
+bool CollisionChecker::CheckHitSS(const Collidable& colA, const Collidable& colB)
 {
 	auto& sphereColA = static_cast<SphereCollider&>(colA.GetCol());
 	auto& sphereColB = static_cast<SphereCollider&>(colB.GetCol());
 
-	const Vector3 initColDist  = colB.GetPos() - colA.GetPos(); // 移動前相対距離
-	const Vector3 afterColA    = colA.GetPos() + colA.GetVel(); // 移動後A
-	const Vector3 afterColB    = colB.GetPos() + colB.GetVel(); // 移動後B
-	const Vector3 afterColDist = afterColB     - afterColA;     // 移動後相対距離
-	const Vector3 colDistDiff  = afterColDist  - initColDist;   // 相対距離の差分
-	const float sumRad = sphereColA.GetRadius() + sphereColB.GetRadius();
+	// 移動後の位置を調べる
+	const auto nextA = colA.GetPos() + colA.GetVel();
+	const auto nextB = colB.GetPos() + colB.GetVel();
 
-	// 最初から衝突しているかどうか
-	if (initColDist.SqrMagnitude() <= sumRad * sumRad)
-	{
-		time = 0;
-		return true;
-	}
+	const auto radiusSum = sphereColA.GetRadius() + sphereColB.GetRadius();
 
-	// 平行移動しているか
-	if (colDistDiff.SqrMagnitude() == 0)
-	{
-		// 実はすでに上で平行移動かつ衝突の場合をキャッチできているので、ここに来るということは当たっていない
-		return false;
-	}
-
-	const float dot = initColDist.Dot(colDistDiff);	// いい名前がつけられない
-	const float colDistLength = initColDist.SqrMagnitude(); // 移動前相対距離の長さ(平方根で割っていない)
-	const float colDistDiffLength = colDistDiff.SqrMagnitude();
-
-	// 衝突の判別式
-	const float discriminant = dot*dot-colDistDiffLength*(colDistLength-sumRad*sumRad);
-	// √の中が負の数なら解なし
-	if (discriminant < 0)
-	{
-		return false;
-	}
-
-	time = (-dot - sqrtf(discriminant)) / colDistDiffLength;
-	// このフレームでは当たらないパターン
-	if (time < 0 || time > 1)
-	{
-		return false;
-	}
-
-	// ここまで来たら当たっている　おめでとう
-	return true;
+	return (nextA - nextB).SqrMagnitude() < radiusSum * radiusSum;
 }
 
-void CollisionChecker::FixMoveSS(Collidable& colA, Collidable& colB, const float time)
+void CollisionChecker::FixMoveSS(Collidable& colA, Collidable& colB)
 {
-	const Vector3 velA = colA.GetVel();
-	const Vector3 velB = colB.GetVel();
+	// 移動後の位置
+	const auto nextA = colA.GetPos() + colA.GetVel();
+	const auto nextB = colB.GetPos() + colB.GetVel();
 
-	// 二つの球体が、最初に接触する位置を出す
-	const Vector3 fixedColAPos = colA.GetPos() + velA * time;
-	const Vector3 fixedColBPos = colB.GetPos() + velB * time;
-	// AからBのベクトル
-	// これが球体の衝突の法線
-	const Vector3 diffN = (fixedColBPos - fixedColAPos).GetNormalize();
-	// AとBのパラメータから、反発率を決める
-	const float reboundRate = 1 + colA.GetBounce() * colB.GetBounce();
-	// 重量たしたやつ
-	const float totalWeight = static_cast<float>(colA.GetWeight() + colB.GetWeight());
-	// 式を分割してるだけ
-	const float dot = (velA - velB).Dot(diffN);
-	float weightFactA = -colB.GetWeight() / totalWeight;
-	float weightFactB =  colA.GetWeight() / totalWeight;
-	const Vector3 constVec = diffN * (reboundRate * dot);
+	auto& sphereColA = static_cast<SphereCollider&>(colA.GetCol());
+	auto& sphereColB = static_cast<SphereCollider&>(colB.GetCol());
 
-	// もしAかBどちらかがstaticなら、そいつは動かずに
-	// 動く方にすべてを押し付ける
-	if (colA.IsStatic())
-	{
-		weightFactA = 0;
-		weightFactB = 1;
-	}
-	else if (colB.IsStatic())
-	{
-		weightFactA = 1;
-		weightFactB = 0;
-	}
-	// どっちもstaticならもう動くな
-	if (colA.IsStatic() && colB.IsStatic())
-	{
-		weightFactA = 0;
-		weightFactB = 0;
-	}
+	const auto radiusSum = sphereColA.GetRadius() + sphereColB.GetRadius();
 
-	// 衝突後ベクトルの算出
-	const Vector3 fixedVelA = constVec * weightFactA + velA;
-	const Vector3 fixedVelB = constVec * weightFactB + velB;
+	const auto atoBN = (nextB - nextA).GetNormalize();
+
+	// めり込んだ分離れる
+	const float overlapLength = radiusSum - (nextA - nextB).Magnitude();
+
+	const Vector3 overlap = atoBN * overlapLength;
+
+	const auto weightRate = WeightRate(colA, colB);
 
 	// 算出した値を反映
-	colA.SetVel(fixedVelA);
-	colB.SetVel(fixedVelB);
-	colA.SetPos(fixedColAPos);
-	colB.SetPos(fixedColBPos);
+	colA.AddVel(-overlap * weightRate);
+	colB.AddVel(overlap * (1 - weightRate));
 }
 
 void CollisionChecker::ComparePolyHit(PolyHitData& a, const PolyHitData& b)

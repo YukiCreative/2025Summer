@@ -9,7 +9,7 @@ namespace
 {
 	const std::string kAnimName = "Armature|Walk";
 	constexpr float kWalkSpeed = 0.5f;
-	constexpr float kStopWalkDistance = 200.0f;
+	constexpr float kStopWalkDistance = 500.0f;
 	constexpr float kRotateThreshold = DX_PI_F * 0.1f;
 }
 

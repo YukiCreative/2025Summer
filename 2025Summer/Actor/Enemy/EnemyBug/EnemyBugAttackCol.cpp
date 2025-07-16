@@ -16,6 +16,7 @@ namespace
 	constexpr float kLength = 50.0f;
 	constexpr float kAttackPower = 100.0f;
 	constexpr float kKnockbackPower = 30.0f;
+	constexpr float kDrag = 0.0f;
 }
 
 EnemyBugAttackCol::EnemyBugAttackCol() :
@@ -32,6 +33,8 @@ EnemyBugAttackCol::~EnemyBugAttackCol()
 
 void EnemyBugAttackCol::Init(std::weak_ptr<EnemyBug> parent)
 {
+	m_kind = ActorKind::kEnemyAttack;
+
 	m_parent = parent;
 
 	m_attackPower = kAttackPower;
@@ -45,7 +48,7 @@ void EnemyBugAttackCol::Init(std::weak_ptr<EnemyBug> parent)
 	col->Init(m_pos - capsuleOffset, m_pos + capsuleOffset, 0, true, true, kRadius);
 
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init({0,0,0});
+	rigid->Init(kDrag);
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);

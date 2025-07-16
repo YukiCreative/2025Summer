@@ -9,7 +9,7 @@ NoCollidable::NoCollidable()
 	col->Init(Vector3::Zero(), 0, true, true, 0);
 	col->InvalidCol();
 	auto rigid = std::make_shared<Rigid>();
-	rigid->Init({0,0,0});
+	rigid->Init(0.0f);
 
 	Collidable::Init(col, rigid);
 }

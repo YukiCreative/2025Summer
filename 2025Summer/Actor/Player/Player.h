@@ -27,7 +27,7 @@ enum class PlayerInputDir
 namespace
 {
 	constexpr float kMinHP = 0.0f;
-	constexpr float kMaxHP = 200.0f;
+	constexpr float kMaxHP = 3000.0f;
 }
 
 using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
