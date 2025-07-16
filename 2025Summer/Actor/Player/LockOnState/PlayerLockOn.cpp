@@ -94,7 +94,7 @@ std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
     // ロックオンボタンを離したら
     if (!input.IsPressed("LockOn"))
     {
-        ReleaseLockOn();
+        p->ReleaseLockOn();
 
         // 次のUpdateでNormal状態へ移行
     }
@@ -115,12 +115,6 @@ void PlayerLockOn::SetTargetPos()
 
     // targetPosを更新
     p->m_targetPos = pTargetStart + pToEN * (pToELength * m_targetPosLerpParam.Value());
-}
-
-void PlayerLockOn::ReleaseLockOn()
-{
-    // 解除
-    m_player.lock()->m_lockOnActor.reset();
 }
 
 void PlayerLockOn::CameraMove()

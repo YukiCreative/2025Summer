@@ -19,7 +19,6 @@ private:
 
 private:
 
-	void ReleaseLockOn();
 	void CameraMove();
 	void SetTargetPos();
 };

@@ -186,6 +186,13 @@ void Player::LockOnRotate()
 	m_model->RotateUpVecY(rot);
 }
 
+void Player::ReleaseLockOn()
+{
+	// ‰ğœ
+	m_lockOnActor.reset();
+}
+
+
 void Player::Move(const float moveSpeed)
 {
 	// “ü—Í‚ÅˆÚ“®
