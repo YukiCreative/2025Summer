@@ -33,7 +33,7 @@ public:
 		m_blendPal = pal;
 	}
 	void SetImageBlendMode(const int& blendMode) { m_blendMode = blendMode; }
-	void SetImageBlendPal (const float& pal)       { m_blendPal = pal; }
+	void SetImageBlendParam (const float& pal)       { m_blendPal = pal; }
 	void SetReverceFlagX  (const bool& value)	 { m_reverceX = value; }
 	void SetReverceFlagY  (const bool& value)	 { m_reverceY = value; }
 	void SetOffset		  (const Vector2& value) { m_offset = value; }
