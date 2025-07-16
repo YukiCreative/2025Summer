@@ -5,6 +5,7 @@
 #include "Rigid.h"
 #include "EffectManager.h"
 #include "EffekseerEffect.h"
+#include "Player.h"
 
 namespace
 {
@@ -89,6 +90,9 @@ void EnemyPlantBullet::OnCollisionEnter(std::shared_ptr<Actor> other)
 	// 障害物やプレイヤーに触れたら消える
 	if (other->GetKind() == ActorKind::kPlayer)
 	{
+		// プレイヤーが無敵なら消滅しない
+		if (std::static_pointer_cast<Player>(other)->IsInvincible()) return;
+
 		m_isAlive = false;
 	}
 }

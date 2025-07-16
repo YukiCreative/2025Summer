@@ -3,10 +3,12 @@
 #include "Camera.h"
 #include "Input.h"
 #include "ActorController.h"
+#include "UIController.h"
 #include "Player.h"
 #include "SceneDebug.h"
 #include "SceneController.h"
 #include "ShadowMap.h"
+#include "PlayerLockOnUI.h"
 
 #include "Model.h"
 #include "Geometry.h"
@@ -55,12 +57,21 @@ void SceneTest::Init()
 
 	m_shadow = std::make_shared<ShadowMap>();
 	m_shadow->Init(kShadowAreaMin, kShadowAreaMax);
+
+	m_UI = std::make_shared<UIController>();
+	m_UI->Init();
+
+	auto lockOn = std::make_shared<PlayerLockOnUI>();
+	lockOn->Init(player);
+
+	m_UI->AddUI(lockOn);
 }
 
 void SceneTest::Update()
 {
 	m_camera->Update();
 	m_actors->Update();
+	m_UI->Update();
 }
 
 void SceneTest::Draw() const
@@ -83,6 +94,9 @@ void SceneTest::Draw() const
 	m_actors->Draw();
 
 	m_shadow->UnsetShadowMap();
+
+	// 3D‚Ì•`‰æ‚ªI‚í‚Á‚½Œã‚ÉUI‚ð•`‰æ
+	m_UI->Draw();
 
 #if _DEBUG
 	DrawLine3D({0,100,0}, {100, 100, 0}, 0xff0000);

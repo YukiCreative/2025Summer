@@ -6,18 +6,8 @@
 
 using BlendParam = RangeLimitedValue<float, 0.0f, 255.0f>;
 
-// 画像を表示するコンポーネントっぽいやつ
 class Image
 {
-private:
-	int     m_sourceHandle;
-	float   m_expandRate;
-	float   m_angle;
-	int     m_blendMode;
-	BlendParam m_blendPal;
-	bool    m_reverceX;
-	bool    m_reverceY;
-	Vector2 m_offset;
 public:
 	Image();
 
@@ -51,5 +41,15 @@ public:
 	
 	const float& ExRate() const { return m_expandRate; }
 	const float GetBlendParam() const { return m_blendPal.Value(); }
+
+private:
+	int     m_sourceHandle;
+	float   m_expandRate;
+	float   m_angle;
+	int     m_blendMode;
+	BlendParam m_blendPal;
+	bool    m_reverceX;
+	bool    m_reverceY;
+	Vector2 m_offset;
 };
 

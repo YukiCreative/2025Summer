@@ -65,6 +65,11 @@ public:
 
 	void DisableSword();
 	void DisableSwordCol();
+	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }
+	bool IsInvincible() const { return m_isInvincible; }
+
+	Vector3 GetLockOnActorScreenPos() const;
+	bool IsLockOn() const { return !m_lockOnActor.expired(); }
 
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
@@ -74,14 +79,13 @@ public:
 	Vector3 m_targetPos;
 	std::weak_ptr<Actor> m_lockOnActor;
 	std::weak_ptr<ActorController> m_cont;
-	Vector3 m_lockOnCursorPos;
-	std::shared_ptr<Image> m_lockOnGraph;
 	std::shared_ptr<PlayerSword> m_sword;
 	bool m_isContactLockOnActor;
 	// プレイヤーの移動方向の履歴
 	// コマンドに使用
 	std::list<PlayerInputDir> m_inputList;
 	PlayerHP m_hp;
+	bool m_isInvincible;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数

@@ -32,8 +32,6 @@ namespace
 	constexpr float kCapsuleRadius = 30;
 	constexpr float kAnimPlaySpeed = 30.0f;
 
-	const std::string kLockOnCursorFile = "LockOnCursor.png";
-
 	const std::string kRightIndexFrame = "mixamorig:RightHandIndex1";
 	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
 
@@ -48,7 +46,8 @@ namespace
 Player::Player() :
 	m_targetPos(),
 	Actor(false),
-	m_isContactLockOnActor(false)
+	m_isContactLockOnActor(false),
+	m_isInvincible(false)
 {
 }
 
@@ -73,9 +72,6 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
-
-	m_lockOnGraph = std::make_shared<Image>();
-	m_lockOnGraph->Init(kLockOnCursorFile);
 
 	m_sword = std::make_shared<PlayerSword>();
 	m_sword->Init(weak_from_this());
@@ -158,6 +154,8 @@ void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos,
 
 void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 {
+	if (m_isInvincible) return;
+
 	// HP減らす
 	m_hp -= attack->GetAttackPower();
 
@@ -254,12 +252,6 @@ void Player::Draw() const
 {
 	m_model->Draw();
 
-	// ロックオン描画
-	if (!m_lockOnActor.expired())
-	{
-		m_lockOnGraph->Draw({ m_lockOnCursorPos.x, m_lockOnCursorPos.y });
-	}
-
 #if _DEBUG
 	m_collidable->GetCol().Draw();
 
@@ -290,12 +282,6 @@ void Player::CommitMove()
 	const Vector3 vel = m_collidable->UpdateRigid();
 	m_pos += vel;
 	m_collidable->SetPos(m_pos + kCapsuleEndPosOffset * 0.5f);
-
-	// ロックオンカーソルの挙動
-	if (!m_lockOnActor.expired())
-	{
-		m_lockOnCursorPos = ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
-	}
 
 	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
@@ -349,4 +335,11 @@ void Player::DisableSword()
 void Player::DisableSwordCol()
 {
 	m_sword->ColDisable();
+}
+
+Vector3 Player::GetLockOnActorScreenPos() const
+{
+	if (m_lockOnActor.expired()) return Vector3::Zero();
+
+	return ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
 }

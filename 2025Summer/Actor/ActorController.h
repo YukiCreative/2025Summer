@@ -5,6 +5,7 @@
 
 class Actor;
 class Physics;
+class UIBase;
 
 using ActorList_t = std::list<std::shared_ptr<Actor>>;
 

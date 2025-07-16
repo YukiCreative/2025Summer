@@ -16,6 +16,9 @@ PlayerDeath::PlayerDeath(std::weak_ptr<Player> parent) :
 	// UŒ‚”»’è‚ðÁ‚µ‚Ä‚¨‚­
 	m_player.lock()->DisableSwordCol();
 	m_player.lock()->DisableSword();
+
+	// UŒ‚‚ðH‚ç‚í‚È‚¢‚æ‚¤‚É‚·‚é
+	m_player.lock()->SetInvincibility(true);
 }
 
 PlayerDeath::~PlayerDeath()

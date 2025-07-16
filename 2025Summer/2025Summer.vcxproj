@@ -29,6 +29,7 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyElite.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlant.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.cpp" />
@@ -82,6 +83,9 @@
     <ClCompile Include="Actor\Player\NormalState\PlayerMove.cpp" />
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.cpp" />
     <ClCompile Include="Actor\Player\PlayerIntermediateState.cpp" />
+    <ClCompile Include="UI\PlayerLockOnUI.cpp" />
+    <ClCompile Include="UI\UIController.cpp" />
+    <ClCompile Include="UI\PlayerHPBar.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneMenu.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
@@ -101,6 +105,7 @@
     <ClCompile Include="UI\ButtonSystem.cpp" />
     <ClCompile Include="UI\Image.cpp" />
     <ClCompile Include="UI\ImageStore.cpp" />
+    <ClCompile Include="UI\UIBase.cpp" />
     <ClCompile Include="Utility\MyRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +121,7 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyElite.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlant.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.h" />
@@ -173,6 +179,9 @@
     <ClInclude Include="Actor\Player\NormalState\PlayerMove.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.h" />
     <ClInclude Include="Actor\Player\PlayerIntermediateState.h" />
+    <ClInclude Include="UI\PlayerLockOnUI.h" />
+    <ClInclude Include="UI\UIController.h" />
+    <ClInclude Include="UI\PlayerHPBar.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneMenu.h" />
     <ClInclude Include="Scene\SceneGame.h" />
@@ -194,6 +203,7 @@
     <ClInclude Include="UI\ButtonSystem.h" />
     <ClInclude Include="UI\Image.h" />
     <ClInclude Include="UI\ImageStore.h" />
+    <ClInclude Include="UI\UIBase.h" />
     <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />
     <ClInclude Include="Utility\Utility.h" />

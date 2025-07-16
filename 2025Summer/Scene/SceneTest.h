@@ -5,6 +5,7 @@
 
 class Camera;
 class ActorController;
+class UIController;
 class Model;
 class ShadowMap;
 
@@ -24,6 +25,7 @@ public:
 private:
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ActorController> m_actors;
+	std::shared_ptr<UIController> m_UI;
 	std::shared_ptr<ShadowMap> m_shadow;
 
 	std::shared_ptr<Model> m_field;
