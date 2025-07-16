@@ -1,10 +1,12 @@
 #pragma once
-#include <vector>
-#include "Vector3.h"
-#include "EnemyKind.h"
 #include "Actor.h"
+#include "EnemyKind.h"
+#include "Vector3.h"
+#include <unordered_map>
+#include <vector>
 
 class Player;
+class Enemy;
 
 // “G‚Ì”­¶‚ğŠÇ—‚·‚é
 // Scene‚ª‚Â
@@ -12,10 +14,11 @@ class EnemyGenerator : public Actor
 {
 	struct SpawnData
 	{
+		std::string enemyName;
 		Vector3 pos;
-		EnemyKind enemyKind;
 
-		SpawnData(const Vector3& _pos, const EnemyKind& kind) : pos(_pos), enemyKind(kind) {}
+
+		SpawnData(const std::string& name, const Vector3& _pos) : pos(_pos), enemyName(name) {}
 	};
 
 public:
@@ -37,6 +40,18 @@ private:
 	using WaveData_t = std::vector<std::vector<SpawnData>>;
 	WaveData_t m_waveData;
 
+	using EnemyFactoryFunction_t = std::shared_ptr<Actor> (*)(std::weak_ptr<Player>, const Vector3&);
+
+	// •¶š—ñ‚ğŒ©‚Ä“G‚ğ•Ô‚·
+	using EnemyFactory_t = std::unordered_map<std::string, EnemyFactoryFunction_t>;
+	EnemyFactory_t m_factory;
+
 	std::weak_ptr<Player> m_player;
+
+private:
+
+	// ’·‚¢‚Ì‚Å•ª‚¯‚é
+	void InitFactory();
+	void LoadWaveData();
 };
 

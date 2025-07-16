@@ -1,8 +1,16 @@
-#include "EnemyGenerator.h"
-#include "NoCollidable.h"
-
 #include "EnemyBug.h"
+#include "EnemyGenerator.h"
 #include "EnemyPlant.h"
+#include "NoCollidable.h"
+#include <DxLib.h>
+#include <cassert>
+
+namespace
+{
+	constexpr int kWaveNum = 1;
+	const std::string kWaveBasePath = "Data/WaveData/Wave";
+	constexpr float kPosMult = 100.0f;
+}
 
 EnemyGenerator::EnemyGenerator() :
 	Actor(false)
@@ -16,12 +24,9 @@ void EnemyGenerator::Init(std::weak_ptr<Player> player)
 	// 物理を設定しないといけないのは欠陥では？
 	m_collidable = std::make_shared<NoCollidable>();
 
-	// TODO:何らかの方法でウェーブの情報を取得する
-	// とりあえずベタ書きでもOK
-	std::vector<SpawnData> temp;
-	temp.emplace_back(SpawnData({150.0f,150.0f,150.0f }, EnemyKind::kBug));
+	InitFactory();
 
-	m_waveData.emplace_back(temp);
+	LoadWaveData();
 }
 
 void EnemyGenerator::SpawnWave(const int waveNum)
@@ -33,19 +38,72 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 	for (auto& data : wave)
 	{
 		// スポーン
-		
-		std::shared_ptr<Enemy> spawnEnemy;
 
-		// ここは愚直に全敵を把握して分岐するか
-		switch (data.enemyKind)
+		SpawnActor(m_factory[data.enemyName](m_player, data.pos * kPosMult));
+	}
+}
+
+void EnemyGenerator::InitFactory()
+{
+	m_factory["bug"] = [](std::weak_ptr<Player> player, const Vector3& initPos)->std::shared_ptr<Actor>
+	{
+		auto enemy = std::make_shared<EnemyBug>();
+		enemy->Init(player, initPos);
+		return enemy;
+	};
+	m_factory["Plant"] = [](std::weak_ptr<Player> player, const Vector3& initPos)->std::shared_ptr<Actor>
+	{
+		auto enemy = std::make_shared<EnemyPlant>();
+		enemy->Init(player, initPos);
+		return enemy;
+	};
+}
+
+void EnemyGenerator::LoadWaveData()
+{
+	for (int wave = 0; wave < kWaveNum; ++wave)
+	{
+		std::vector<SpawnData> waveData;
+
+		const std::string nowWavePath = kWaveBasePath + std::to_string(wave) + ".dat";
+
+		int waveH = FileRead_open(nowWavePath.c_str());
+
+		if (waveH == 0)
 		{
-		case EnemyKind::kBug:
-			auto a = std::make_shared<EnemyPlant>();
-			a->Init(m_player, data.pos);
-			spawnEnemy = a;
-			break;
+			assert(false && "Waveデータがない");
+			return;
 		}
 
-		SpawnActor(spawnEnemy);
+		int enemyNum;
+
+		// このウェーブの敵の数を取得
+		FileRead_read(&enemyNum, sizeof(enemyNum), waveH);
+
+		for (int enemy = 0; enemy < enemyNum; ++enemy)
+		{
+			// 名前を取得
+			char enemyNameLength;
+			FileRead_read(&enemyNameLength, sizeof(enemyNameLength), waveH);
+
+			std::string enemyName;
+			enemyName.resize(enemyNameLength);
+
+			FileRead_read(enemyName.data(), enemyName.size(), waveH);
+
+			// 名前から種類を特定
+
+			// 次に位置を取得
+			Vector3 enemyPos;
+
+			FileRead_read(&enemyPos, sizeof(enemyPos), waveH);
+
+			// 取得したデータをまとめる
+			waveData.emplace_back(SpawnData(enemyName, enemyPos));
+		}
+
+		FileRead_close(waveH);
+
+		m_waveData.emplace_back(waveData);
 	}
 }
