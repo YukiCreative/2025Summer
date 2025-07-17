@@ -47,6 +47,10 @@ public:
 	// ライブラリとして使いまわすときは削除してね
 	void LimitMovementRange();
 
+	void SetStopFrame(const int frame) { m_stopFrame = std::max(m_stopFrame, frame); }
+	bool IsStopUpdate() const;
+	void CountStopFrame();
+
 protected:
 	Vector3 m_pos;
 	bool m_isAlive;
@@ -55,6 +59,7 @@ protected:
 	// Controllerがこれを確認してオブジェクトリストに追加する
 	// Actorから何か申し出る必要はない
 	SpawnActorList_t m_spawnActorList;
+	int m_stopFrame;
 
 protected:
 	// Actorを生成する

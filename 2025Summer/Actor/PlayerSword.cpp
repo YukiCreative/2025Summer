@@ -24,6 +24,7 @@ namespace
 	const MATRIX kHandPosOffset = MGetTranslate({0, -20, 0});
 
 	const std::string kEffectName = "SwordTrajectory.efkefc";
+	constexpr int kStopFrame = 3;
 }
 
 PlayerSword::PlayerSword() :
@@ -90,6 +91,12 @@ void PlayerSword::Draw() const
 
 void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 {
+	// 敵に当たったら
+	if (other->GetKind() == ActorKind::kEnemy)
+	{
+		// プレイヤーにヒットストップをかける
+		m_player.lock()->SetStopFrame(kStopFrame);
+	}
 }
 
 void PlayerSword::CommitMove()

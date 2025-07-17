@@ -83,8 +83,6 @@ void EnemyBug::Draw() const
 #if _DEBUG
 	m_collidable->GetCol().Draw();
 #endif
-
-
 }
 
 void EnemyBug::CommitMove()
@@ -112,7 +110,6 @@ void EnemyBug::OnCollisionStay(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
-		printf("攻撃貫通中\n");
 	}
 }
 
@@ -120,7 +117,6 @@ void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
-		printf("攻撃が抜けた\n");
 	}
 }
 
@@ -154,18 +150,25 @@ Vector3 EnemyBug::GetAttackRigPos() const
 int EnemyBug::GetAttackInterval()
 {
 	auto interval = static_cast<int>(s_attackTimeNormalDist(MyRandom::GetInstance().GetRandomEngine()));
+#if _DEBUG
 	printf("%d\n", interval);
+#endif
 	return interval;
 }
 
 void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 {
 	// 無敵なら食らわない
-	auto attackPower = attack->GetAttackPower();
-
 	if (m_isInvincible) return;
 
+	auto attackPower = attack->GetAttackPower();
+
+	// ヒットストップをかける
+	m_stopFrame = 10;
+
+#if _DEBUG
 	printf("食らった！%fダメージ！\n", attackPower);
+#endif
 
 	m_hitPoint -= attackPower;
 

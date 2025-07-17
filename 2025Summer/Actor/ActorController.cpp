@@ -19,8 +19,14 @@ void ActorController::Update()
 	ActorList_t aliveActors;
 	for (auto& actor : m_actors)
 	{
-		actor->Update();
+		actor->CountStopFrame();
+		// ‚à‚µ’âŽ~’†‚È‚çUpdate‚µ‚È‚¢
+		if (!actor->IsStopUpdate())
+		{
+			actor->Update();
+		}
 		actor->LimitMovementRange();
+
 		// ¶‚«‚Ä‚é‚â‚ÂƒŠƒXƒg‚ðì‚é
 		if (actor->IsAlive())
 		{
@@ -104,6 +110,7 @@ std::shared_ptr<Actor> ActorController::GetNearestLockOnActor(const Vector3& pos
 		if (length < nearestLength)
 		{
 			nearestActor = lockOnActor;
+			nearestLength = length;
 		}
 	}
 

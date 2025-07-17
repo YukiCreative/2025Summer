@@ -11,7 +11,8 @@ Actor::Actor(const bool canLockOn) :
 	m_pos(),
 	m_collidable(nullptr),
 	m_kind(ActorKind::kNone),
-	LockOnState(canLockOn)
+	LockOnState(canLockOn),
+	m_stopFrame(0)
 {
 }
 
@@ -99,6 +100,17 @@ void Actor::LimitMovementRange()
 		// ‘¬“x‚É‚µ‚ÄÝ’è
 		m_collidable->SetVel(radiusDir - m_pos);
 	}
+}
+
+bool Actor::IsStopUpdate() const
+{
+	return m_stopFrame;
+}
+
+void Actor::CountStopFrame()
+{
+	--m_stopFrame;
+	if (m_stopFrame < 0) m_stopFrame = 0;
 }
 
 void Actor::SpawnActor(std::shared_ptr<Actor> spawnActor)

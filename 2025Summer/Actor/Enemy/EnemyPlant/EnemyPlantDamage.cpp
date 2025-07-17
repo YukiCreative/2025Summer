@@ -27,7 +27,6 @@ EnemyPlantDamage::EnemyPlantDamage(std::weak_ptr<EnemyPlant> parent) :
 	// せっかくだからランダムにリアクションさせよう
 	int num = GetRand(3);
 	m_parent.lock()->ChangeAnim(kAnimNames[num], false);
-	printf("%d\n", num);
 }
 
 EnemyPlantDamage::~EnemyPlantDamage()

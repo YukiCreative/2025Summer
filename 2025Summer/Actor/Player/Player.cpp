@@ -44,7 +44,8 @@ Player::Player() :
 	m_targetPos(),
 	Actor(false),
 	m_isContactLockOnActor(false),
-	m_isInvincible(false)
+	m_isInvincible(false),
+	m_canLockOn(true)
 {
 }
 
@@ -126,7 +127,9 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 	// HP減らす
 	m_hp -= attack->GetAttackPower();
 
+#if _DEBUG
 	printf("ダメージ%f", attack->GetAttackPower());
+#endif
 
 	// ノックバック
 	m_collidable->AddVel((m_pos - attack->GetPos()).GetNormalize() * attack->GetKnockbackPower());

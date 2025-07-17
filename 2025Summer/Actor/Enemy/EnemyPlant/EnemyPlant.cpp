@@ -117,7 +117,9 @@ void EnemyPlant::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	if (m_isInvincible) return;
 
+#if _DEBUG
 	printf("食らった！%fダメージ！\n", attackPower);
+#endif
 
 	m_hitPoint -= attackPower;
 
