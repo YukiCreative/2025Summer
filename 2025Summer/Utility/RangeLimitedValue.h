@@ -67,5 +67,12 @@ public:
 	// Å¬”‚©‚Ç‚¤‚©
 	bool IsMin() const { return m_value == kMinValue; }
 	void SetMax() { m_value = kMaxValue; }
-	void SetMin() { m_value = kMinValue; }
+	void SetMin() { m_value = kMinValue; }	
+	// ¡‚Ì’l‚ªÅ‘å’l‚É‚½‚¢‚µ‚Ä‚Ç‚ê‚­‚ç‚¢‚ÌŠ„‡‚È‚Ì‚©•Ô‚·
+	// 0`1
+	float GetRatio() const
+	{
+		float ratio = m_value / kMaxValue;
+		return std::clamp(ratio, 0.0f, 1.0f);
+	}
 };

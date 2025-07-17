@@ -3,5 +3,5 @@
 enum class EnemyKind
 {
 	kBug,
-
+	kPlant,
 };

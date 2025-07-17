@@ -20,6 +20,7 @@ void ActorController::Update()
 	for (auto& actor : m_actors)
 	{
 		actor->Update();
+		actor->LimitMovementRange();
 		// ¶‚«‚Ä‚é‚â‚ÂƒŠƒXƒg‚ðì‚é
 		if (actor->IsAlive())
 		{

@@ -42,6 +42,11 @@ public:
 	// 何かActorを生成したか
 	const bool IsSpawnedActor() const;
 	SpawnActorList_t GetSpawnActor();
+
+	// ※このゲーム限定の機能
+	// ライブラリとして使いまわすときは削除してね
+	void LimitMovementRange();
+
 protected:
 	Vector3 m_pos;
 	bool m_isAlive;

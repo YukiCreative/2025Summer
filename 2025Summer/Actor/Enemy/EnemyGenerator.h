@@ -42,7 +42,7 @@ private:
 
 	using EnemyFactoryFunction_t = std::shared_ptr<Actor> (*)(std::weak_ptr<Player>, const Vector3&);
 
-	// •¶š—ñ‚ğŒ©‚Ä“G‚ğ•Ô‚·
+	// •¶š—ñ‚ğŒ©‚Ä“G‚ğ¶¬‚·‚éŠÖ”‚ğ•Ô‚·
 	using EnemyFactory_t = std::unordered_map<std::string, EnemyFactoryFunction_t>;
 	EnemyFactory_t m_factory;
 

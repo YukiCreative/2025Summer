@@ -9,6 +9,7 @@
 #include "SceneController.h"
 #include "ShadowMap.h"
 #include "PlayerLockOnUI.h"
+#include "PlayerHPBar.h"
 
 #include "Model.h"
 #include "Geometry.h"
@@ -63,8 +64,10 @@ void SceneTest::Init()
 
 	auto lockOn = std::make_shared<PlayerLockOnUI>();
 	lockOn->Init(player);
-
 	m_UI->AddUI(lockOn);
+	auto hpBar = std::make_shared<PlayerHPBar>();
+	hpBar->Init(player);
+	m_UI->AddUI(hpBar);
 }
 
 void SceneTest::Update()

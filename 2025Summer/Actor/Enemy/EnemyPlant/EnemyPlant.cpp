@@ -64,11 +64,6 @@ void EnemyPlant::Update()
 {
 	m_state = m_state->Update();
 
-	if (m_pos.y < 0)
-	{
-		m_pos.y = 0;
-	}
-
 	m_model->Update();
 }
 

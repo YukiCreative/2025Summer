@@ -33,7 +33,6 @@ namespace
 	const std::string kRightIndexFrame = "mixamorig:RightHandIndex1";
 	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
 
-	constexpr float kFieldRadius = 2000.0f;
 
 	// とりあえず過去1秒の入力履歴を残す
 	constexpr int kInputHistoryMax = 60;
@@ -85,26 +84,6 @@ void Player::Update()
 	// 状態を更新
 	// 切り替わったら違うインスタンスが入ってくる
 	m_state = m_state->Update();
-
-	// 移動を制限
-	if (m_pos.y < 0)
-	{
-		m_pos.y = 0;
-	}
-
-	const Vector3 nextPos = m_pos + m_collidable->GetVel();
-
-	// 移動後一定のエリアから出ていたら
-	if (nextPos.SqrMagnitude() > kFieldRadius * kFieldRadius)
-	{
-		// それを阻止するように移動速度を変えたい
-
-		// 補正後の位置
-		const Vector3 radiusDir = nextPos.GetNormalize() * kFieldRadius;
-
-		// 速度にして設定
-		m_collidable->SetVel(radiusDir - m_pos);
-	}
 
 	m_model->Update();
 
@@ -337,4 +316,9 @@ Vector3 Player::GetLockOnActorScreenPos() const
 	if (m_lockOnActor.expired()) return Vector3::Zero();
 
 	return ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
+}
+
+float Player::GetHpRatio() const
+{
+	return m_hp.GetRatio();
 }

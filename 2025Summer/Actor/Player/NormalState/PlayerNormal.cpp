@@ -32,21 +32,23 @@ PlayerNormal::~PlayerNormal()
 
 std::shared_ptr<PlayerIntermediateState> PlayerNormal::Update()
 {
+	auto p = m_player.lock();
+
 	// ロックオンされたら
-	if (!m_player.lock()->m_lockOnActor.expired())
+	if (!p->m_lockOnActor.expired())
 	{
 		return std::make_shared<PlayerLockOn>(m_player);
 	}
 
 	// 通常のカメラ回転
-	m_player.lock()->CameraMove();
+	p->CameraMove();
 
 	UpdateChildState();
 
 	MoveCameraTarget();
 
 	// ロックオンボタンを押したら近くの敵をロックオン
-	if (Input::GetInstance().IsTrigger("LockOn"))
+	if (Input::GetInstance().IsTrigger("LockOn") && p->CanLockOn())
 	{
 		LockOn();
 

@@ -1,6 +1,11 @@
 #include "Actor.h"
 #include "Collidable.h"
 
+namespace
+{
+	constexpr float kFieldRadius = 2000.0f;
+}
+
 Actor::Actor(const bool canLockOn) :
 	m_isAlive(true),
 	m_pos(),
@@ -70,6 +75,30 @@ SpawnActorList_t Actor::GetSpawnActor()
 	// 返す前にsort
 	m_spawnActorList.sort();
 	return m_spawnActorList;
+}
+
+void Actor::LimitMovementRange()
+{
+	//地面にめり込まないようにする
+	if (m_pos.y < 0)
+	{
+		m_pos.y = 0;
+	}
+
+	// 円形のフィールドから出ないようにする
+	const Vector3 nextPos = m_pos + m_collidable->GetVel();
+
+	// 移動後一定のエリアから出ていたら
+	if (nextPos.SqrMagnitude() > kFieldRadius * kFieldRadius)
+	{
+		// それを阻止するように移動速度を変えたい
+
+		// 補正後の位置
+		const Vector3 radiusDir = nextPos.GetNormalize() * kFieldRadius;
+
+		// 速度にして設定
+		m_collidable->SetVel(radiusDir - m_pos);
+	}
 }
 
 void Actor::SpawnActor(std::shared_ptr<Actor> spawnActor)

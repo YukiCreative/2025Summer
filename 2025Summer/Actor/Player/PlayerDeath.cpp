@@ -11,14 +11,19 @@ PlayerDeath::PlayerDeath(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_frame(0)
 {
-	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
+	auto p = m_player.lock();
+
+	p->m_model->ChangeAnimation(kAnimName, false);
 
 	// UŒ‚”»’è‚ðÁ‚µ‚Ä‚¨‚­
-	m_player.lock()->DisableSwordCol();
-	m_player.lock()->DisableSword();
+	p->DisableSwordCol();
+	p->DisableSword();
 
 	// UŒ‚‚ðH‚ç‚í‚È‚¢‚æ‚¤‚É‚·‚é
-	m_player.lock()->SetInvincibility(true);
+	p->SetInvincibility(true);
+	// ƒƒbƒNƒIƒ“‚ð‰ðœ‚µ‚Ä‹ÖŽ~‚·‚é
+	p->ReleaseLockOn();
+	p->SetCanLockOn(false);
 }
 
 PlayerDeath::~PlayerDeath()

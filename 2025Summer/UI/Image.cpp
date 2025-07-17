@@ -36,6 +36,15 @@ void Image::Draw(const Vector2& pos) const
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
+void Image::RectDraw(const Vector2& pos, const Vector2& rectStart, const Vector2& rectEnd) const
+{
+	Vector2 correctedPos = pos + m_offset;
+	SetDrawBlendMode(m_blendMode, static_cast<int>(m_blendPal.Value()));
+	DrawRectGraphF(correctedPos.x, correctedPos.y, rectStart.x, rectStart.y, rectEnd.x, rectEnd.y,
+		m_sourceHandle, true, m_reverceX, m_reverceY);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
 void Image::SetGraph(const std::string& fileName)
 {
 	// ƒnƒ“ƒhƒ‹‚ð–á‚¤
@@ -45,4 +54,11 @@ void Image::SetGraph(const std::string& fileName)
 void Image::ExpandGraph(const float& exRate)
 {
 	m_expandRate *= exRate;
+}
+
+const Vector2 Image::GetImageSize() const
+{
+	int sX, sY;
+	GetGraphSize(m_sourceHandle, &sX, &sY);
+	return { static_cast<float>(sX), static_cast<float>(sY) };
 }

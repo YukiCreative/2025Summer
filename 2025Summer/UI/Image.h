@@ -15,6 +15,7 @@ public:
 	void Init(const std::string& fileName);
 
 	void Draw(const Vector2& pos) const;
+	void RectDraw(const Vector2& pos, const Vector2& rectStart, const Vector2& rectEnd) const;
 
 	void SetGraph(const std::string& fileName);
 
@@ -41,6 +42,7 @@ public:
 	
 	const float& ExRate() const { return m_expandRate; }
 	const float GetBlendParam() const { return m_blendPal.Value(); }
+	const Vector2 GetImageSize() const;
 
 private:
 	int     m_sourceHandle;

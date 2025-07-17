@@ -70,6 +70,8 @@ public:
 
 	Vector3 GetLockOnActorScreenPos() const;
 	bool IsLockOn() const { return !m_lockOnActor.expired(); }
+	bool CanLockOn() const { return m_canLockOn; }
+	float GetHpRatio() const;
 
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
@@ -86,6 +88,7 @@ public:
 	std::list<PlayerInputDir> m_inputList;
 	PlayerHP m_hp;
 	bool m_isInvincible;
+	bool m_canLockOn;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
@@ -99,4 +102,5 @@ public:
 	// プレイヤーをロックオン対象へ向ける
 	void LockOnRotate();
 	void ReleaseLockOn();
+	void SetCanLockOn(const bool canOrNot) { m_canLockOn = canOrNot; }
 };
