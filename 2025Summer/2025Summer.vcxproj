@@ -179,6 +179,13 @@
     <ClInclude Include="Actor\Player\NormalState\PlayerMove.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.h" />
     <ClInclude Include="Actor\Player\PlayerIntermediateState.h" />
+    <ClInclude Include="Shader\MV1Shader\DataType.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_Common_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_DataType_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_PS_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_VS_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\PixelShader.h" />
+    <ClInclude Include="Shader\MV1Shader\VertexShader.h" />
     <ClInclude Include="UI\PlayerLockOnUI.h" />
     <ClInclude Include="UI\UIController.h" />
     <ClInclude Include="UI\PlayerHPBar.h" />
@@ -209,11 +216,35 @@
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\MV1Shader\MV1PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Data/Shader/%(filename).pso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\MV1Shader\MV1VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Data/Shader/%(filename).vso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Data/Shader/%(filename).vso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Data/Shader/%(filename).vso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Data/Shader/%(filename).vso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Shader\SwordDissolve.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Data/Shader/%(filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Data/Shader/%(filename).pso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -287,6 +318,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+      <OutputFile>$(ProjectDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
@@ -333,6 +365,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../EffekseerForDxLib</AdditionalLibraryDirectories>
+      <OutputFile>$(ProjectDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>

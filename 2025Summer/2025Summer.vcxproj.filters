@@ -198,8 +198,17 @@
     <ClInclude Include="UI\UIBase.h" />
     <ClInclude Include="UI\UIController.h" />
     <ClInclude Include="UI\PlayerLockOnUI.h" />
+    <ClInclude Include="Shader\MV1Shader\DataType.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_Common_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_DataType_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_PS_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\DxShader_VS_D3D11.h" />
+    <ClInclude Include="Shader\MV1Shader\PixelShader.h" />
+    <ClInclude Include="Shader\MV1Shader\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
+    <FxCompile Include="Shader\MV1Shader\MV1PixelShader.hlsl" />
+    <FxCompile Include="Shader\MV1Shader\MV1VertexShader.hlsl" />
   </ItemGroup>
 </Project>

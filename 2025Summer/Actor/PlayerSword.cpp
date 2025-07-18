@@ -9,6 +9,8 @@
 #include "ShaderDraw.h"
 #include "EffectManager.h"
 #include "EffekseerEffect.h"
+#include <cassert>
+#include <cmath>
 
 namespace
 {
@@ -23,14 +25,23 @@ namespace
 
 	const MATRIX kHandPosOffset = MGetTranslate({0, -20, 0});
 
-	const std::string kEffectName = "SwordTrajectory.efkefc";
+	const std::string kTrajectoryEffectName = "SwordTrajectory.efkefc";
+	const std::string kAppearEffectName = "SwordAppear.efkefc";
 	constexpr int kStopFrame = 3;
+
+	constexpr float kSwordAppearSpeed = 0.1;
+	constexpr float kSwordDisAppearSpeed = -0.02f;
 }
 
 PlayerSword::PlayerSword() :
 	m_isExisting(false),
 	m_cBuffH(-1),
-	m_cBuff(nullptr)
+	m_cBuff(nullptr),
+	m_frame(0),
+	m_colTex(-1),
+	m_dissolveTex(-1),
+	m_psH(-1),
+	m_vsH(-1)
 {
 }
 
@@ -60,24 +71,40 @@ void PlayerSword::Init(std::weak_ptr<Player> player)
 
 	m_kind = ActorKind::kPlayerAttack;
 
+	m_psH = LoadPixelShader("Data/Shader/SwordDissolve.pso");
+	assert(m_psH != -1);
+	m_vsH = LoadVertexShader("Data/Shader/MV1VertexShader.vso");
+	assert(m_vsH != -1);
+	m_colTex = LoadGraph("Data/Image/dia.png");
+	assert(m_colTex != -1);
+	m_dissolveTex = LoadGraph("Data/Image/pattern.png");
+	assert(m_dissolveTex != -1);
+
 	m_cBuffH = CreateShaderConstantBuffer(sizeof(SwordCBuff));
 	m_cBuff = (SwordCBuff*)GetBufferShaderConstantBuffer(m_cBuffH);
-	m_cBuff->time = 0.0f;
-	UpdateShaderConstantBuffer(m_cBuffH);
-	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
+	SetCBuffStatus();
 }
 
 void PlayerSword::Update()
 {
+	auto before = m_dissolveParam;
+	m_dissolveParam += m_isExisting ? kSwordAppearSpeed : kSwordDisAppearSpeed;
+
+	// ディゾルブが0から変化した瞬間エフェクト
+	if (before.IsMin() && !m_dissolveParam.IsMin())
+	{
+		EffectManager::GetInstance().GenerateEffect(kAppearEffectName, m_pos);
+	}
+
+	// バウンディングボックスを更新
+	SetCBuffStatus();
+
+	++m_frame;
 }
 
 void PlayerSword::Draw() const
 {
-	if (m_isExisting)
-	{
-		m_model->Draw();
-		//ShaderDraw::DrawModel(m_model);
-	}
+	ShaderDraw::DrawModel(m_model, m_psH, m_vsH, m_colTex, m_dissolveTex);
 
 #if _DEBUG
 	//m_collidable->GetCol().Draw();
@@ -140,7 +167,7 @@ void PlayerSword::ColEnable()
 {
 	m_collidable->GetCol().ValidCol();
 	// ここでエフェクトを生成
-	m_effect = EffectManager::GetInstance().GenerateEffect(kEffectName, {0,0,0});
+	m_effect = EffectManager::GetInstance().GenerateEffect(kTrajectoryEffectName, {0,0,0});
 }
 
 void PlayerSword::ColDisable()
@@ -152,10 +179,11 @@ void PlayerSword::ColDisable()
 	m_effect.reset();
 }
 
-void PlayerSword::AppearUpdate()
+void PlayerSword::SetCBuffStatus()
 {
-}
-
-void PlayerSword::DisappearUpdate()
-{
+	m_cBuff->minPos = m_model->GetModelBBMin();
+	m_cBuff->maxPos = m_model->GetModelBBMax();
+	m_cBuff->time = m_dissolveParam.Value();
+	UpdateShaderConstantBuffer(m_cBuffH);
+	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
 }

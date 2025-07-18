@@ -13,7 +13,7 @@ namespace
 	const Vector3 kMoveSpeed = { 0,0, 1.0f };
 	constexpr int kLifeTime = 300;
 
-	const std::string kEffectName = "FireBall.efkefc";
+	const std::string kTrajectoryEffectName = "FireBall.efkefc";
 
 	constexpr float kDamage = 100.0f;
 	constexpr float kKnockback = 10.0f;
@@ -52,7 +52,7 @@ void EnemyPlantBullet::Init(const Vector3& initPos, const DxLib::tagMATRIX& dir)
 	m_collidable->Init(col, rigid);
 
 	// エフェクト出す
-	m_effect = EffectManager::GetInstance().GenerateEffect(kEffectName, m_pos);
+	m_effect = EffectManager::GetInstance().GenerateEffect(kTrajectoryEffectName, m_pos);
 	m_effect.lock()->SetScale({0.5f,0.5f,0.5f});
 }
 

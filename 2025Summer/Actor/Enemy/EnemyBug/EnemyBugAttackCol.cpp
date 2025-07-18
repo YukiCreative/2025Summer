@@ -9,7 +9,7 @@
 
 namespace
 {
-	const std::string kEffectName = "SwordTrajectory.efkefc";
+	const std::string kTrajectoryEffectName = "SwordTrajectory.efkefc";
 	constexpr float kRadius = 50.0f;
 	constexpr float kLifeTime = 20.0f;
 	constexpr float kLength = 10.0f;
@@ -53,7 +53,7 @@ void EnemyBugAttackCol::Init(std::weak_ptr<EnemyBug> parent)
 	m_collidable->Init(col, rigid);
 
 	// エフェクト生成
-	m_effect = EffectManager::GetInstance().GenerateEffect(kEffectName, m_pos);
+	m_effect = EffectManager::GetInstance().GenerateEffect(kTrajectoryEffectName, m_pos);
 }
 
 void EnemyBugAttackCol::Update()

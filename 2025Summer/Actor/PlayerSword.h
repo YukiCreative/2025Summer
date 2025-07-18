@@ -1,6 +1,7 @@
 #pragma once
 #include "AttackCol.h"
 #include "Model.h"
+#include "RangeLimitedValue.h"
 
 class Player;
 class EffekseerEffect;
@@ -43,17 +44,24 @@ private:
 	// モデルディゾルブ
 	struct SwordCBuff
 	{
+		Vector3 minPos;
+		float dammy;
+		Vector3 maxPos;
 		// 0～1
 		float time;
-		float dammy[3];
 	};
 
+	int m_psH;
+	int m_vsH;
+	int m_colTex;
+	int m_dissolveTex;
+	int m_frame;
+	RangeLimitedValue<float, 0.0f, 1.0f> m_dissolveParam;
 	SwordCBuff* m_cBuff;
 	int m_cBuffH;
 
 private:
 
-	void AppearUpdate();
-	void DisappearUpdate();
+	void SetCBuffStatus();
 };
 

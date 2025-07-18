@@ -19,6 +19,8 @@ PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
 	m_frame(0)
 {
 	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
+	// Œ•‚ðÁ‚·
+	m_player.lock()->DisableSword();
 }
 
 PlayerMiddleDamage::~PlayerMiddleDamage()
