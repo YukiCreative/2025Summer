@@ -1,6 +1,7 @@
 #include "EnemyBug.h"
 #include "EnemyGenerator.h"
 #include "EnemyPlant.h"
+#include "EnemyElite.h"
 #include "NoCollidable.h"
 #include <DxLib.h>
 #include "EnemyModelList.h"
@@ -8,12 +9,13 @@
 
 namespace
 {
-	constexpr int kWaveNum = 2;
+	constexpr int kWaveNum = 3;
 	const std::string kWaveBasePath = "Data/WaveData/Wave";
 	constexpr float kPosMult = 100.0f;
 
 	const std::string kBugModel = "Data/Model/bug.mv1";
 	const std::string kPlantModel = "Data/Model/Plant.mv1";
+	const std::string kEliteModel = "Data/Model/Elite.mv1";
 }
 
 EnemyGenerator::EnemyGenerator() :
@@ -61,6 +63,12 @@ void EnemyGenerator::InitFactory()
 	{
 		auto enemy = std::make_shared<EnemyPlant>();
 		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kPlant));
+		return enemy;
+	};
+	m_factory["Elite"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
+	{
+		auto enemy = std::make_shared<EnemyElite>();
+		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kElite));
 		return enemy;
 	};
 }
@@ -121,4 +129,5 @@ void EnemyGenerator::LoadModelData()
 
 	m_handles->AddEnemyHandle(EnemyKind::kBug, MV1LoadModel(kBugModel.c_str()));
 	m_handles->AddEnemyHandle(EnemyKind::kPlant, MV1LoadModel(kPlantModel.c_str()));
+	m_handles->AddEnemyHandle(EnemyKind::kElite, MV1LoadModel(kEliteModel.c_str()));
 }

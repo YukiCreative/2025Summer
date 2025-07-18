@@ -76,9 +76,15 @@ void SceneTest::Update()
 	m_actors->Update();
 	m_UI->Update();
 
-	// ‚Ð‚Æ‚Ü‚¸‚í‚ñ‚±‚»‚Î
+	m_wave = 2;
+	// 
 	if (m_actors->SearchEnemy().size() == 0)
 	{
+		//if (m_wave == 2)
+		//{
+		//	SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
+		//}
+
 		m_enemyGenerator->SpawnWave(m_wave);
 		++m_wave;
 	}

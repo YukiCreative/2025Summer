@@ -19,7 +19,7 @@ public:
 	void Init();
 	void Update();
 	void Draw() const;
-
+	// “à•”‚ÅInit‚µ‚Ä‚é
 	void ChangeScene(std::shared_ptr<Scene> nextScene);
 	void StackScene(std::shared_ptr<Scene> stackScene);
 	void RemoveScene();
