@@ -30,6 +30,7 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyElite.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyModelList.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlant.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyElite.h" />
+    <ClInclude Include="Actor\Enemy\EnemyModelList.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlant.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantAttack.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.h" />

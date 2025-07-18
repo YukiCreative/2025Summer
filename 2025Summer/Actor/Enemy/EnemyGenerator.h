@@ -7,6 +7,7 @@
 
 class Player;
 class Enemy;
+class EnemyModelList;
 
 // “G‚Ì”­¶‚ğŠÇ—‚·‚é
 // Scene‚ª‚Â
@@ -40,11 +41,12 @@ private:
 	using WaveData_t = std::vector<std::vector<SpawnData>>;
 	WaveData_t m_waveData;
 
-	using EnemyFactoryFunction_t = std::shared_ptr<Actor> (*)(std::weak_ptr<Player>, const Vector3&);
+	using EnemyFactoryFunction_t = std::shared_ptr<Actor> (*)(std::weak_ptr<Player>, const Vector3&, std::shared_ptr<EnemyModelList>);
 
 	// •¶š—ñ‚ğŒ©‚Ä“G‚ğ¶¬‚·‚éŠÖ”‚ğ•Ô‚·
 	using EnemyFactory_t = std::unordered_map<std::string, EnemyFactoryFunction_t>;
 	EnemyFactory_t m_factory;
+	std::shared_ptr<EnemyModelList> m_handles;
 
 	std::weak_ptr<Player> m_player;
 
@@ -53,5 +55,6 @@ private:
 	// ’·‚¢‚Ì‚Å•ª‚¯‚é
 	void InitFactory();
 	void LoadWaveData();
+	void LoadModelData();
 };
 

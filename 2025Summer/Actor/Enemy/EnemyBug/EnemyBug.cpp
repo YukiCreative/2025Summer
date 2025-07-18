@@ -19,10 +19,6 @@ namespace
 {
 	constexpr float kDrag = 0.1f;
 
-	// モデル
-	const std::string kModelName = "Data/Model/bug.mv1";
-	constexpr float kAnimSpeed = 30.0f;
-
 	// コライダー
 	constexpr float kSphereRadius = 60.0f;
 	constexpr int kWeight = 10;
@@ -48,9 +44,9 @@ EnemyBug::EnemyBug() :
 {
 }
 
-void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos)
+void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
-	Enemy::Init(player, initPos, kInitHP);
+	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(m_pos, kWeight, false, false, kSphereRadius);
@@ -59,9 +55,6 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos)
 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
-
-	m_model = std::make_shared<AnimationModel>();
-	m_model->Init(kModelName, kAnimSpeed);
 
 	m_state = std::make_shared<EnemyBugIdle>(weak_from_this());
 

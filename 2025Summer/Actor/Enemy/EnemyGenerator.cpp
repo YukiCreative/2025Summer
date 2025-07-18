@@ -3,6 +3,7 @@
 #include "EnemyPlant.h"
 #include "NoCollidable.h"
 #include <DxLib.h>
+#include "EnemyModelList.h"
 #include <cassert>
 
 namespace
@@ -10,6 +11,9 @@ namespace
 	constexpr int kWaveNum = 2;
 	const std::string kWaveBasePath = "Data/WaveData/Wave";
 	constexpr float kPosMult = 100.0f;
+
+	const std::string kBugModel = "Data/Model/bug.mv1";
+	const std::string kPlantModel = "Data/Model/Plant.mv1";
 }
 
 EnemyGenerator::EnemyGenerator() :
@@ -26,6 +30,8 @@ void EnemyGenerator::Init(std::weak_ptr<Player> player)
 
 	InitFactory();
 
+	LoadModelData();
+
 	LoadWaveData();
 }
 
@@ -39,22 +45,22 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 	{
 		// ÉXÉ|Å[Éì
 
-		SpawnActor(m_factory[data.enemyName](m_player, data.pos * kPosMult));
+		SpawnActor(m_factory[data.enemyName](m_player, data.pos * kPosMult, m_handles));
 	}
 }
 
 void EnemyGenerator::InitFactory()
 {
-	m_factory["bug"] = [](std::weak_ptr<Player> player, const Vector3& initPos)->std::shared_ptr<Actor>
+	m_factory["bug"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
 	{
 		auto enemy = std::make_shared<EnemyBug>();
-		enemy->Init(player, initPos);
+		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kBug));
 		return enemy;
 	};
-	m_factory["Plant"] = [](std::weak_ptr<Player> player, const Vector3& initPos)->std::shared_ptr<Actor>
+	m_factory["Plant"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
 	{
 		auto enemy = std::make_shared<EnemyPlant>();
-		enemy->Init(player, initPos);
+		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kPlant));
 		return enemy;
 	};
 }
@@ -106,4 +112,13 @@ void EnemyGenerator::LoadWaveData()
 
 		m_waveData.emplace_back(waveData);
 	}
+}
+
+void EnemyGenerator::LoadModelData()
+{
+	m_handles = std::make_shared<EnemyModelList>();
+	m_handles->Init();
+
+	m_handles->AddEnemyHandle(EnemyKind::kBug, MV1LoadModel(kBugModel.c_str()));
+	m_handles->AddEnemyHandle(EnemyKind::kPlant, MV1LoadModel(kPlantModel.c_str()));
 }

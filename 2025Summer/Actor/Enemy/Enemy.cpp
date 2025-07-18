@@ -7,6 +7,7 @@
 namespace
 {
 	constexpr float kRotateSpeed = 0.1f;
+	constexpr float kAnimSpeed = 30.0f;
 }
 
 Enemy::Enemy() :
@@ -15,12 +16,14 @@ Enemy::Enemy() :
 {
 }
 
-void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP)
+void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle)
 {
 	m_kind = ActorKind::kEnemy;
 	m_hitPoint = initHP;
 	m_player = player;
 	m_pos = initPos;
+	m_model = std::make_shared<AnimationModel>();
+	m_model->Init(dupulicatedHandle, kAnimSpeed);
 }
 
 void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)

@@ -98,6 +98,7 @@
     <ClCompile Include="UI\UIBase.cpp" />
     <ClCompile Include="UI\UIController.cpp" />
     <ClCompile Include="UI\PlayerLockOnUI.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyModelList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Shader\MV1Shader\DxShader_VS_D3D11.h" />
     <ClInclude Include="Shader\MV1Shader\PixelShader.h" />
     <ClInclude Include="Shader\MV1Shader\VertexShader.h" />
+    <ClInclude Include="Actor\Enemy\EnemyModelList.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

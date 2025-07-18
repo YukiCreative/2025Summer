@@ -27,7 +27,8 @@ namespace
 }
 
 SceneTest::SceneTest() :
-	m_dirH(-1)
+	m_dirH(-1),
+	m_wave(0)
 {
 }
 
@@ -50,11 +51,10 @@ void SceneTest::Init()
 
 	auto player = std::make_shared<Player>();
 	player->Init(m_camera, m_actors);
-	auto enemyGenerator = std::make_shared<EnemyGenerator>();
-	enemyGenerator->Init(player);
-	enemyGenerator->SpawnWave(0);
+	m_enemyGenerator = std::make_shared<EnemyGenerator>();
+	m_enemyGenerator->Init(player);
 	m_actors->AddActor(player);
-	m_actors->AddActor(enemyGenerator);
+	m_actors->AddActor(m_enemyGenerator);
 
 	m_shadow = std::make_shared<ShadowMap>();
 	m_shadow->Init(kShadowAreaMin, kShadowAreaMax);
@@ -75,6 +75,13 @@ void SceneTest::Update()
 	m_camera->Update();
 	m_actors->Update();
 	m_UI->Update();
+
+	// ‚Ð‚Æ‚Ü‚¸‚í‚ñ‚±‚»‚Î
+	if (m_actors->SearchEnemy().size() == 0)
+	{
+		m_enemyGenerator->SpawnWave(m_wave);
+		++m_wave;
+	}
 }
 
 void SceneTest::Draw() const

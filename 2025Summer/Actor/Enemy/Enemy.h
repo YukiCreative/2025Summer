@@ -21,7 +21,7 @@ public:
 	// ロックオンの設定
 	Enemy();
 
-	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP);
+	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle);
 
 	// ここでは純粋仮想関数は継承しない
 

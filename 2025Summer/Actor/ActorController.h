@@ -25,6 +25,8 @@ public:
 	// ロックオン可能な中で、指定された位置に最も近い位置を持つActorを返します
 	// そもそも世界に敵がいなかったらnullptrが返ってきます
 	std::shared_ptr<Actor> GetNearestLockOnActor(const Vector3& pos) const;
+	// Enemyのlistを返します
+	ActorList_t SearchEnemy() const;
 
 private:
 	ActorList_t m_actors;

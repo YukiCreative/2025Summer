@@ -16,7 +16,7 @@ class EnemyBug : public Enemy, public std::enable_shared_from_this<EnemyBug>
 public:
 	EnemyBug();
 
-	void Init(const std::weak_ptr<Player> player, const Vector3& initPos);
+	void Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle);
 
 	void Update() override;
 	void Draw() const override;

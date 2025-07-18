@@ -14,9 +14,6 @@
 namespace
 {
 	constexpr float kInitHP = 750.0f;
-	const std::string kModelName = "Data/Model/Plant.mv1";
-
-	constexpr float kAnimSpeed = 30.0f;
 
 	// コライダー
 	const Vector3 kCapsuleEndOffset = {0.0f, 100.0f, 0.0f};
@@ -38,13 +35,11 @@ EnemyPlant::EnemyPlant()
 {
 }
 
-void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos)
+void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
-	Enemy::Init(player, initPos, kInitHP);
+	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
 	// モデル
-	m_model = std::make_shared<AnimationModel>();
-	m_model->Init(kModelName, kAnimSpeed);
 	m_model->SetScale(kModelExRate);
 
 	// 当たり判定

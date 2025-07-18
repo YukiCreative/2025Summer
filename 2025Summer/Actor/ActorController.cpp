@@ -116,3 +116,14 @@ std::shared_ptr<Actor> ActorController::GetNearestLockOnActor(const Vector3& pos
 
 	return nearestActor;
 }
+
+ActorList_t ActorController::SearchEnemy() const
+{
+	ActorList_t result;
+	for (auto& actor : m_actors)
+	{
+		if (actor->GetKind() != ActorKind::kEnemy) continue;
+		result.emplace_back(actor);
+	}
+	return result;
+}
