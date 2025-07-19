@@ -89,7 +89,7 @@ void EnemyPlant::OnCollisionEnter(std::shared_ptr<Actor> other)
 
 void EnemyPlant::OnDeath()
 {
-	m_isAlive = false;
+	Destroy();
 }
 
 void EnemyPlant::SpawnBullet()

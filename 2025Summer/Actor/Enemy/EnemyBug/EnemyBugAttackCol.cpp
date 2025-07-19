@@ -70,7 +70,7 @@ void EnemyBugAttackCol::Update()
 
 	if (m_frame > kLifeTime)
 	{
-		m_isAlive = false;
+		Destroy();
 	}
 
 	++m_frame;

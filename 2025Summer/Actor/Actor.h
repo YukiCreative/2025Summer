@@ -50,10 +50,11 @@ public:
 	void SetStopFrame(const int frame) { m_stopFrame = std::max(m_stopFrame, frame); }
 	bool IsStopUpdate() const;
 	void CountStopFrame();
+	// このActorを削除
+	void Destroy();
 
 protected:
 	Vector3 m_pos;
-	bool m_isAlive;
 	std::shared_ptr<Collidable> m_collidable;
 	ActorKind m_kind;
 	// Controllerがこれを確認してオブジェクトリストに追加する
@@ -65,4 +66,8 @@ protected:
 	// Actorを生成する
 	// 生成したものはActorControllerに渡され、次のフレームから動き出す
 	void SpawnActor(std::shared_ptr<Actor> spawnActor);
+
+private:
+
+	bool m_isAlive;
 };

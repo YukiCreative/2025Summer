@@ -58,7 +58,7 @@ void PlayerShockWave::Update()
 	// ˆê’èŽžŠÔ‚ÅÁ‚¦‚é
 	if (m_frame >= kLifeTime)
 	{
-		m_isAlive = false;
+		Destroy();
 	}
 	++m_frame;
 }

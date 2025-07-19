@@ -115,7 +115,7 @@ void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
 
 void EnemyBug::OnDeath()
 {
-	m_isAlive = false;
+	Destroy();
 }
 
 void EnemyBug::GenerateAttackCol()

@@ -113,6 +113,11 @@ void Actor::CountStopFrame()
 	if (m_stopFrame < 0) m_stopFrame = 0;
 }
 
+void Actor::Destroy()
+{
+	m_isAlive = false;
+}
+
 void Actor::SpawnActor(std::shared_ptr<Actor> spawnActor)
 {
 	m_spawnActorList.emplace_back(spawnActor);

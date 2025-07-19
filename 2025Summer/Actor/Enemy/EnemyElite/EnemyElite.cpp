@@ -67,7 +67,7 @@ void EnemyElite::CommitMove()
 
 void EnemyElite::OnDeath()
 {
-	m_isAlive = false;
+	Destroy();
 }
 
 void EnemyElite::OnCollisionEnter(std::shared_ptr<Actor> other)

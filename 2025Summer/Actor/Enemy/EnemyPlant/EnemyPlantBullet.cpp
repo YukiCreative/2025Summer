@@ -64,7 +64,7 @@ void EnemyPlantBullet::Update()
 
 	if (m_frame > kLifeTime)
 	{
-		m_isAlive = false;
+		Destroy();
 	}
 
 	++m_frame;
@@ -95,6 +95,6 @@ void EnemyPlantBullet::OnCollisionEnter(std::shared_ptr<Actor> other)
 		// ƒvƒŒƒCƒ„[‚ª–³“G‚È‚çÁ–Å‚µ‚È‚¢
 		if (std::static_pointer_cast<Player>(other)->IsInvincible()) return;
 
-		m_isAlive = false;
+		Destroy();
 	}
 }
