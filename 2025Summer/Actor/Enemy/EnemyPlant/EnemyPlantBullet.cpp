@@ -9,7 +9,7 @@
 
 namespace
 {
-	constexpr int kRadius = 50.0f;
+	constexpr float kRadius = 50.0f;
 	const Vector3 kMoveSpeed = { 0,0, 1.0f };
 	constexpr int kLifeTime = 300;
 

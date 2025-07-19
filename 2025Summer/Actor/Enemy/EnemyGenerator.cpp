@@ -103,7 +103,7 @@ void EnemyGenerator::LoadWaveData()
 			std::string enemyName;
 			enemyName.resize(enemyNameLength);
 
-			FileRead_read(enemyName.data(), enemyName.size(), waveH);
+			FileRead_read(enemyName.data(), static_cast<int>(enemyName.size()), waveH);
 
 			// –¼‘O‚©‚çŽí—Þ‚ð“Á’è
 

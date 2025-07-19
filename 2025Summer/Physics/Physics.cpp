@@ -68,7 +68,6 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 				// “ñ‚Â‚ÌCollider‚Ìí—Ş‚É‰‚¶‚½“–‚½‚è”»’èŠÖ”‚ğŒÄ‚Ô
 				if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kSphere)
 				{
-					float time;
 					hitResult = CollisionChecker::CheckHitSS(colA, colB);
 
 					if (hitResult)

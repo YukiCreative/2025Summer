@@ -15,7 +15,16 @@ public:
 
 	void CommitMove() override;
 
+	void OnDeath() override;
+
 	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
+
+	bool CheckAnimName(const std::string& animName) const;
+
+	void BiteAttack();
+	void ArmSwingAttack();
+	Vector3 GetBiteRigPos() const;
+
 private:
 
 	std::shared_ptr<EnemyEliteState> m_state;

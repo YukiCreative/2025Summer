@@ -27,14 +27,14 @@ public:
 	void OnCollisionStay(std::shared_ptr<Actor> other) override;
 	void OnCollisionExit(std::shared_ptr<Actor> other) override;
 
-	void OnDeath();
-
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
 	void GenerateAttackCol();
 	int GetAinmTotalTime() const;
 
 	Vector3 GetAttackRigPos() const;
+
+	void OnDeath() override;
 
 	int GetAttackInterval();
 

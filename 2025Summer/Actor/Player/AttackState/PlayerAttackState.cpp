@@ -10,7 +10,7 @@
 #include "PlayerMove.h"
 
 namespace
-{
+{ 
 	constexpr float kTrackEnemyDistance = 500.0f;
 }
 

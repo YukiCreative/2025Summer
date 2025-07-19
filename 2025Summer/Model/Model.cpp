@@ -80,7 +80,7 @@ const int Model::GetFrameNum() const
 	return MV1GetFrameNum(m_handle);
 }
 
-const Vector3& Model::GetModelBBMin() const
+const Vector3 Model::GetModelBBMin() const
 {
 	const int frameNum = GetFrameNum();
 	Vector3 minPos = MV1GetFrameMinVertexLocalPosition(m_handle, 0);
@@ -94,7 +94,7 @@ const Vector3& Model::GetModelBBMin() const
 	return minPos;
 }
 
-const Vector3& Model::GetModelBBMax() const
+const Vector3 Model::GetModelBBMax() const
 {
 	const int frameNum = GetFrameNum();
 	Vector3 maxPos = MV1GetFrameMaxVertexLocalPosition(m_handle, 0);

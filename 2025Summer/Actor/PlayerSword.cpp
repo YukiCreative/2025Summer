@@ -29,7 +29,7 @@ namespace
 	const std::string kAppearEffectName = "SwordAppear.efkefc";
 	constexpr int kStopFrame = 3;
 
-	constexpr float kSwordAppearSpeed = 0.1;
+	constexpr float kSwordAppearSpeed = 0.1f;
 	constexpr float kSwordDisAppearSpeed = -0.02f;
 }
 

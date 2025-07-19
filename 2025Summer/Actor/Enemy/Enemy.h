@@ -36,6 +36,8 @@ public:
 	bool IsEndAnim() const;
 	void AddVel(const Vector3& vel);
 
+	virtual void OnDeath() {};
+
 protected:
 
 	HitPoint_t m_hitPoint;

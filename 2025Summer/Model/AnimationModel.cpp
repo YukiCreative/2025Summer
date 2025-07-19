@@ -66,7 +66,7 @@ void AnimationModel::SetMatrix(const DxLib::tagMATRIX& mat)
 const bool AnimationModel::CheckAnimName(const std::string name)
 {
 	int a = MV1GetAnimIndex(m_model->m_handle, name.c_str());
-	int b = MV1GetAttachAnim(m_model->m_handle, m_beforeAnimHandle);
+	int b = MV1GetAttachAnim(m_model->m_handle, m_nowAnimHandle);
 	return  a == b;
 }
 

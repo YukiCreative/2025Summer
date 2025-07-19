@@ -40,7 +40,8 @@ void Image::RectDraw(const Vector2& pos, const Vector2& rectStart, const Vector2
 {
 	Vector2 correctedPos = pos + m_offset;
 	SetDrawBlendMode(m_blendMode, static_cast<int>(m_blendPal.Value()));
-	DrawRectGraphF(correctedPos.x, correctedPos.y, rectStart.x, rectStart.y, rectEnd.x, rectEnd.y,
+	DrawRectGraphF(correctedPos.x, correctedPos.y, static_cast<int>(rectStart.x), static_cast<int>(rectStart.y),
+		static_cast<int>(rectEnd.x), static_cast<int>(rectEnd.y),
 		m_sourceHandle, true, m_reverceX, m_reverceY);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

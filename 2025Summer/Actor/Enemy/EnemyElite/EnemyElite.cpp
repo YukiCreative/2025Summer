@@ -14,6 +14,8 @@ namespace
 	constexpr int kWeight = 50;
 	constexpr float kRadius = 160.0f;
 	const Vector3 kModelScale = {2.0f, 2.0f, 2.0f};
+
+	const std::string kBiteFrame = "sloth_tongue04";
 }
 
 EnemyElite::EnemyElite()
@@ -63,6 +65,29 @@ void EnemyElite::CommitMove()
 	m_model->SetPos(m_pos);
 }
 
+void EnemyElite::OnDeath()
+{
+	m_isAlive = false;
+}
+
 void EnemyElite::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
+}
+
+bool EnemyElite::CheckAnimName(const std::string& animName) const
+{
+	return m_model->CheckAnimName(animName);
+}
+
+void EnemyElite::BiteAttack()
+{
+}
+
+void EnemyElite::ArmSwingAttack()
+{
+}
+
+Vector3 EnemyElite::GetBiteRigPos() const
+{
+	return m_model->GetFramePosition(kBiteFrame);
 }

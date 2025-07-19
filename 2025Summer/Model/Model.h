@@ -35,8 +35,8 @@ public:
 	DxLib::tagMATRIX GetFrameMatrix(const std::string frameName) const;
 	Vector3 GetFramePosition(const std::string& frameName) const;
 	const int GetFrameNum() const;
-	const Vector3& GetModelBBMin() const;
-	const Vector3& GetModelBBMax() const;
+	const Vector3 GetModelBBMin() const;
+	const Vector3 GetModelBBMax() const;
 
 private:
 	int m_handle;

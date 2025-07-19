@@ -20,7 +20,7 @@ public:
 	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
 
 	void SpawnBullet();
-	void OnDeath();
+	void OnDeath() override;
 	int GetAttackInterval();
 
 private:
