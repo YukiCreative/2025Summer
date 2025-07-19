@@ -6,10 +6,10 @@
 #include "EnemyPlantDamage.h"
 #include "EnemyPlantDeath.h"
 #include "EnemyPlantIdle.h"
-#include "MyRandom.h"
 #include "Player.h"
 #include "Rigid.h"
 #include <DxLib.h>
+#include "MyRandom.h"
 
 namespace
 {
@@ -108,9 +108,9 @@ int EnemyPlant::GetAttackInterval()
 void EnemyPlant::OnDamage(std::shared_ptr<AttackCol> attack)
 {
 	// 無敵なら食らわない
-	auto attackPower = attack->GetAttackPower();
-
 	if (m_isInvincible) return;
+
+	auto attackPower = attack->GetAttackPower();
 
 #if _DEBUG
 	printf("食らった！%fダメージ！\n", attackPower);

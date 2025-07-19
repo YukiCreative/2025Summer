@@ -36,7 +36,7 @@ public:
 	bool IsEndAnim() const;
 	void AddVel(const Vector3& vel);
 
-	virtual void OnDeath() {};
+	virtual void OnDeath() abstract;
 
 protected:
 
@@ -48,6 +48,8 @@ protected:
 	bool m_isInvincible;
 
 protected:
+
+	virtual void OnDamage(std::shared_ptr<AttackCol>) abstract;
 
 private:
 };

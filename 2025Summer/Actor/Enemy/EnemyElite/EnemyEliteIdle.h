@@ -7,5 +7,9 @@ public:
 	~EnemyEliteIdle();
 
 	std::shared_ptr<EnemyEliteState> Update() override;
+
+private:
+
+	int m_attackFrame;
 };
 

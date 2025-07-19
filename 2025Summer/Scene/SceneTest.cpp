@@ -76,7 +76,7 @@ void SceneTest::Update()
 	m_actors->Update();
 	m_UI->Update();
 
-	m_wave = 0;
+	m_wave = 2;
 	// 
 	if (m_actors->SearchEnemy().size() == 0)
 	{
@@ -98,6 +98,8 @@ void SceneTest::Draw() const
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
 		return;
 	}
+
+	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
 
 	m_shadow->StartShadowMapDraw(GetLightDirection());
 

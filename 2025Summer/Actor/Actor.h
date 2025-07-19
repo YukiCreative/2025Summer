@@ -47,7 +47,7 @@ public:
 	// ƒ‰ƒCƒuƒ‰ƒŠ‚Æ‚µ‚Äg‚¢‚Ü‚í‚·‚Æ‚«‚Ííœ‚µ‚Ä‚Ë
 	void LimitMovementRange();
 
-	void SetStopFrame(const int frame) { m_stopFrame = std::max(m_stopFrame, frame); }
+	void SetStopFrame(const int frame);
 	bool IsStopUpdate() const;
 	void CountStopFrame();
 	// ‚±‚ÌActor‚ğíœ

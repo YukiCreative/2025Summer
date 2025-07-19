@@ -104,6 +104,7 @@
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBite.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBite.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

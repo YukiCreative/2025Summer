@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include <random>
 
 class EnemyEliteState;
 
@@ -24,9 +25,19 @@ public:
 	void BiteAttack();
 	void ArmSwingAttack();
 	Vector3 GetBiteRigPos() const;
+	Vector3 GetArmRightPos() const;
+	Vector3 GetArmLeftPos() const;
+
+	int GetAttackInterval();
 
 private:
 
+	static std::normal_distribution<> s_attackIntervalNormalDist;
+
 	std::shared_ptr<EnemyEliteState> m_state;
+
+private:
+
+	void OnDamage(std::shared_ptr<AttackCol>) override;
 };
 

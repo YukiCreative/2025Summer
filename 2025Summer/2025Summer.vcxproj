@@ -32,6 +32,7 @@
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyElite.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBite.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteState.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyElite.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBite.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteState.h" />
