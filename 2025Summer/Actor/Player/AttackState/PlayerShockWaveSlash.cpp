@@ -6,18 +6,18 @@
 
 namespace
 {
-	constexpr int kEnableAttackFrame = 54;
-	constexpr int kDisableAttackFrame = 62;
+	constexpr int kEnableAttackFrame = 51;
+	constexpr int kDisableAttackFrame = 57;
 
 	// この攻撃は二回攻撃判定がある
-	constexpr int kEnableAttackFrame2 = 84;
-	constexpr int kDisableAttackFrame2 = 92;
+	constexpr int kEnableAttackFrame2 = 69;
+	constexpr int kDisableAttackFrame2 = 76;
 
 	// 衝撃波タイミング
-	constexpr int kShockWaveFrame1 = 58;
-	constexpr int kShockWaveFrame2 = 84;
+	constexpr int kShockWaveFrame1 = 53;
+	constexpr int kShockWaveFrame2 = 71; 
 
-	constexpr int kStateWholeFrame = 140;
+	constexpr int kStateWholeFrame = 132;
 	// 前進するタイミング
 	constexpr int kTrackFrame = 54;
 	constexpr int kTrackFrame2 = 84;

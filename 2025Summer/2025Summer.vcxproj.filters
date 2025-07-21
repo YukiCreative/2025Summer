@@ -108,6 +108,7 @@
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteArmSwing.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteArmSwing.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerSpecialAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

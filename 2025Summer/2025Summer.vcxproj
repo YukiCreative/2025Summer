@@ -93,6 +93,7 @@
     <ClCompile Include="Actor\Player\NormalState\PlayerMove.cpp" />
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.cpp" />
     <ClCompile Include="Actor\Player\PlayerIntermediateState.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
     <ClCompile Include="UI\PlayerLockOnUI.cpp" />
     <ClCompile Include="UI\UIController.cpp" />
     <ClCompile Include="UI\PlayerHPBar.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Actor\Player\NormalState\PlayerMove.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.h" />
     <ClInclude Include="Actor\Player\PlayerIntermediateState.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerSpecialAttack.h" />
     <ClInclude Include="Shader\MV1Shader\DataType.h" />
     <ClInclude Include="Shader\MV1Shader\DxShader_Common_D3D11.h" />
     <ClInclude Include="Shader\MV1Shader\DxShader_DataType_D3D11.h" />
