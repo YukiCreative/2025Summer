@@ -31,6 +31,8 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
     m_trackForce(0.0f),  
     m_trackFrame(0)  
 {  
+	// ƒƒbƒNƒIƒ“‚ğ‚Ü‚½‚®
+	m_canCrossState = true;
 }
 
 PlayerAttackState::~PlayerAttackState()

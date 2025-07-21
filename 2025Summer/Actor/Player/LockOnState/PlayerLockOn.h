@@ -6,7 +6,7 @@
 class PlayerLockOn : public PlayerIntermediateState
 {
 public:
-	PlayerLockOn(std::weak_ptr<Player> parent);
+	PlayerLockOn(std::weak_ptr<Player> parent, std::shared_ptr<PlayerState> initState);
 	~PlayerLockOn();
 
 	std::shared_ptr<PlayerIntermediateState> Update() override;

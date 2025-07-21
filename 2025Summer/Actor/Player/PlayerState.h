@@ -24,8 +24,12 @@ public:
 	// ‚»‚¤‚Å‚È‚¢‚Æ‚«‚ÍŽ©•ª‚ð•Ô‚·
 	virtual std::shared_ptr<PlayerState> Update() abstract;
 
+	bool CanCrossState() const { return m_canCrossState; }
+
 protected:
 	std::weak_ptr<Player> m_player;
+
+	bool m_canCrossState;
 
 protected:
 };

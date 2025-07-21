@@ -16,6 +16,7 @@
 #include "PlayerShockWave.h"
 #include "PlayerDeath.h"
 #include "PlayerMiddleDamage.h"
+#include "PlayerIdle.h"
 
 namespace
 {
@@ -75,7 +76,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_sword->Init(weak_from_this());
 	m_cont.lock()->AddActor(m_sword);
 
-	m_state = std::make_shared<PlayerNormal>(weak_from_this());
+	m_state = std::make_shared<PlayerNormal>(weak_from_this(), std::make_shared<PlayerIdle>(weak_from_this()));
 
 	m_hp.SetMax();
 }

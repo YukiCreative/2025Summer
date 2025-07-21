@@ -7,17 +7,25 @@
 #include <DxLib.h>
 #include "Game.h"
 #include "Camera.h"
+#include "PlayerAttackState.h"
 
 namespace
 {
 	constexpr float kDefaultCameraDistance = 400.0f;
 }
 
-PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent) :
+PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent, std::shared_ptr<PlayerState> initState) :
 	PlayerIntermediateState(parent)
 {
-	// 初期状態を設定
-	m_childState = std::make_shared<PlayerIdle>(m_player);
+	// ロックオン状態をまたがせたいステートなら続行
+	if (initState->CanCrossState())
+	{
+		m_childState = initState;
+	}
+	else
+	{
+		m_childState = std::make_shared<PlayerIdle>(parent);
+	}
 
 	m_player.lock()->m_camera.lock()->SetTargetDistance(kDefaultCameraDistance);
 
@@ -37,7 +45,7 @@ std::shared_ptr<PlayerIntermediateState> PlayerNormal::Update()
 	// ロックオンされたら
 	if (!p->m_lockOnActor.expired())
 	{
-		return std::make_shared<PlayerLockOn>(m_player);
+		return std::make_shared<PlayerLockOn>(m_player, m_childState);
 	}
 
 	// 通常のカメラ回転

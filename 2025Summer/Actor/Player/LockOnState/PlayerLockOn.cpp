@@ -41,14 +41,21 @@ namespace
     constexpr float kMiddleTargetPos = 0.6f;
 }
 
-PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent) :
+PlayerLockOn::PlayerLockOn(std::weak_ptr<Player> parent, std::shared_ptr<PlayerState> initState) :
     PlayerIntermediateState(parent),
     m_targetPosLerpParam(0.5f)
 {
     auto p = m_player.lock();
 
-    // 初期状態
-    m_childState = std::make_shared<PlayerLockOnIdle>(m_player);
+    // ロックオン状態をまたがせたいステートなら続行
+    if (initState->CanCrossState())
+    {
+        m_childState = initState;
+    }
+    else
+    {
+        m_childState = std::make_shared<PlayerLockOnIdle>(parent);
+    }
 
     // 攻撃判定を消しておく
     p->DisableSwordCol();
@@ -77,7 +84,7 @@ std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
     // ロックオンが外れたら、通常状態へ
     if (m_player.lock()->m_lockOnActor.expired())
     {
-        return std::make_shared<PlayerNormal>(m_player);
+        return std::make_shared<PlayerNormal>(m_player, m_childState);
     }
 
     // 状態をUpdate

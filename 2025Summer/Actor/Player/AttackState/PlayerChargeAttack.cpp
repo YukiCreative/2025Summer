@@ -73,13 +73,22 @@ void PlayerChargeAttack::OptionalProcess()
 
 	// 一定時間前進
 	// ロックオンしている物に向かう
+	// ロックオンしてなければそのまま前進
 	if (m_frame <= kChargeFrame)
 	{
-		// プレイヤーから敵へのXZ成分の単位ベクトル
-		const Vector3 pToEXZN = (p->m_lockOnActor.lock()->GetPos().XZ() - p->GetPos().XZ()).GetNormalize();
+		if (p->IsLockOn())
+		{
+			// プレイヤーから敵へのXZ成分の単位ベクトル
+			const Vector3 pToEXZN = (p->m_lockOnActor.lock()->GetPos().XZ() - p->GetPos().XZ()).GetNormalize();
 
-		// 突進
-		p->GetCollidable().AddVel(VTransformSR({0,0,kChargeForce}, MGetRotVec2(Vector3::Foward(), pToEXZN)));
+			// 突進
+			p->GetCollidable().AddVel(VTransformSR({ 0,0,kChargeForce }, MGetRotVec2(Vector3::Foward(), pToEXZN)));
+		}
+		else
+		{
+			// 前進
+			p->GetCollidable().AddVel(VTransformSR({ 0,0,kChargeForce }, p->GetModelMatrix()));
+		}
 	}
 
 	if (m_frame == kChargeFrame)
