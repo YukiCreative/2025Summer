@@ -178,8 +178,8 @@ void EnemyElite::OnDamage(std::shared_ptr<AttackCol> attack)
 		m_state = std::make_shared<EnemyEliteDamage>(weak_from_this());
 	}
 
-	// プレイヤーの位置を見て吹っ飛ぶ
-	// ボスなのでちょっと動きにくい
-	auto pToEN = (m_pos - m_player.lock()->GetPos()).GetNormalize();
-	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() * kKnockbackMult }, MGetRotVec2(Vector3::Foward(), pToEN)));
+	// 食らった当たり判定の位置を見て吹っ飛ぶ
+	// ボスなのでちょっとのけぞりにくい
+	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
+	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() * kKnockbackMult }, MGetRotVec2(Vector3::Foward(), colToEN)));
 }

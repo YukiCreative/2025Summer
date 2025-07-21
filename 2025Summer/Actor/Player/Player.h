@@ -72,6 +72,14 @@ public:
 	bool IsLockOn() const { return !m_lockOnActor.expired(); }
 	bool CanLockOn() const { return m_canLockOn; }
 	float GetHpRatio() const;
+	void ChangeAnim(const std::string animName, const bool loopOrNot);
+
+	// プレイヤーを見えなくする
+	void Disappear();
+	void Apeear();
+
+	// 必殺技の当たり判定を生成します
+	void SpecialAttack();
 
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
@@ -89,6 +97,7 @@ public:
 	PlayerHP m_hp;
 	bool m_isInvincible;
 	bool m_canLockOn;
+	bool m_isDraw;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数

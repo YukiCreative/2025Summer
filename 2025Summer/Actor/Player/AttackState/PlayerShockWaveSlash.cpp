@@ -19,8 +19,8 @@ namespace
 
 	constexpr int kStateWholeFrame = 132;
 	// 前進するタイミング
-	constexpr int kTrackFrame = 54;
-	constexpr int kTrackFrame2 = 84;
+	constexpr int kTrackFrame = 51;
+	constexpr int kTrackFrame2 = 69;
 	// 前進する力
 	const float kTrackForce = 20.0f;
 	// 次の攻撃入力の受付開始時間

@@ -24,6 +24,9 @@ PlayerDeath::PlayerDeath(std::weak_ptr<Player> parent) :
 	// ロックオンを解除して禁止する
 	p->ReleaseLockOn();
 	p->SetCanLockOn(false);
+
+	// 念のためロックオンをしても状態が変わらないようにする
+	m_canCrossState = true;
 }
 
 PlayerDeath::~PlayerDeath()

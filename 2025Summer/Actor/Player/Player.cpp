@@ -46,7 +46,8 @@ Player::Player() :
 	Actor(false),
 	m_isContactLockOnActor(false),
 	m_isInvincible(false),
-	m_canLockOn(true)
+	m_canLockOn(true),
+	m_isDraw(true)
 {
 }
 
@@ -228,7 +229,10 @@ void Player::MoveWithoutRotate(const float moveSpeed)
 
 void Player::Draw() const
 {
-	m_model->Draw();
+	if (m_isDraw)
+	{
+		m_model->Draw();
+	}
 
 #if _DEBUG
 	m_collidable->GetCol().Draw();
@@ -325,4 +329,23 @@ Vector3 Player::GetLockOnActorScreenPos() const
 float Player::GetHpRatio() const
 {
 	return m_hp.GetRatio();
+}
+
+void Player::ChangeAnim(const std::string animName, const bool loopOrNot)
+{
+	m_model->ChangeAnimation(animName, loopOrNot);
+}
+
+void Player::Disappear()
+{
+	m_isDraw = false;
+}
+
+void Player::Apeear()
+{
+	m_isDraw = true;
+}
+
+void Player::SpecialAttack()
+{
 }

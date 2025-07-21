@@ -48,8 +48,9 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
-    <ClCompile Include="Actor\PlayerShockWave.cpp" />
-    <ClCompile Include="Actor\PlayerSword.cpp" />
+    <ClCompile Include="Actor\Player\PlayerShockWave.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSword.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAttackState.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerChargeAttack.cpp" />
     <ClCompile Include="Actor\Player\PlayerDeath.cpp" />
@@ -155,8 +156,9 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
-    <ClInclude Include="Actor\PlayerShockWave.h" />
-    <ClInclude Include="Actor\PlayerSword.h" />
+    <ClInclude Include="Actor\Player\PlayerShockWave.h" />
+    <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
+    <ClInclude Include="Actor\Player\PlayerSword.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAttackState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerChargeAttack.h" />
     <ClInclude Include="Actor\Player\PlayerDeath.h" />

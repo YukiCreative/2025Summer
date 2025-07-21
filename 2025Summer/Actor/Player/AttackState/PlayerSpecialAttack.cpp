@@ -1,41 +1,84 @@
 #include "PlayerSpecialAttack.h"
+#include "Player.h"
+#include "AnimationModel.h"
+#include "Input.h"
+#include "PlayerMove.h"
+#include "PlayerIdle.h"
 
 namespace
 {
-	constexpr int kEnableAttackFrame = 9;
-	constexpr int kDisableAttackFrame = 20;
-	constexpr int kStateWholeFrame = 78;
-	// 前進するタイミング
-	constexpr int kTrackFrame = 12;
-	// 前進する力
-	const float kTrackForce = 10.0f;
-	// 次の攻撃入力の受付開始時間
-	constexpr int kAcceptAttackInputFrame = 30;
-	// 攻撃が派生するタイミング
-	constexpr int kEnableComboFrame = 50;
+	// 消えるフレーム
+	constexpr int kDisappearFrame = 40;
+	constexpr int kAttackFrame = 150;
+	constexpr int kAppearFrame = 200;
+	constexpr int kStateWholeFrame = 360;
+	// 移動などに派生できるフレーム
+	constexpr int kEnableTransitionFrame = 300;
 
-	constexpr float kAttackPower = 130.0f;
-	constexpr float kKnockbackPower = 30.0f;
-
-	const std::string kAnimName = "Armature|SlashUp";
+	const std::string kStartAnimName = "Armature|SpecialAttack";
+	const std::string kEndAnimName = "Armature|FrontStop";
 	constexpr bool kIsLoopAnim = false;
 }
 
 PlayerSpecialAttack::PlayerSpecialAttack(std::weak_ptr<Player> parent) :
-	PlayerAttackState(parent)
+	PlayerState(parent),
+	m_frame(0)
 {
+	auto p = m_player.lock();
+
+	// アニメーション
+	p->ChangeAnim(kStartAnimName, kIsLoopAnim);
+	// 無敵
+	p->SetInvincibility(true);
+
+	p->SetCanLockOn(false);
+	m_canCrossState = true;
 }
 
 PlayerSpecialAttack::~PlayerSpecialAttack()
 {
+	m_player.lock()->SetInvincibility(false);
 }
 
-void PlayerSpecialAttack::Init()
+std::shared_ptr<PlayerState> PlayerSpecialAttack::Update()
 {
-	// とりあえず特定の攻撃で剣に当たり判定を付けるのは賛成
-}
+	auto p = m_player.lock();
 
-void PlayerSpecialAttack::OptionalProcess()
-{
+	// 特定のフレームで消える
+	if (m_frame == kDisappearFrame)
+	{
+		p->Disappear();
+	}
 
+	// 特定のフレームで攻撃
+	if (m_frame == kAttackFrame)
+	{
+		p->SpecialAttack();
+	}
+
+	// 攻撃が終わったら戻ってくるアニメーションを流す
+	if (m_frame == kAppearFrame)
+	{
+		p->Apeear();
+		p->ChangeAnim(kEndAnimName, kIsLoopAnim);
+	}
+
+	// 入力があればMove
+	if (m_frame > kEnableTransitionFrame)
+	{
+		if (Input::GetInstance().GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+		{
+			return std::make_shared<PlayerMove>(m_player);
+		}
+	}
+
+	// アニメーションが終わればIdleに
+	if (m_frame > kStateWholeFrame)
+	{
+		return std::make_shared<PlayerIdle>(m_player);
+	}
+
+	++m_frame;
+
+	return shared_from_this();
 }

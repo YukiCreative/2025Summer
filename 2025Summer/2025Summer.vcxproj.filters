@@ -61,7 +61,7 @@
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOnMoveBack.cpp" />
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOn.cpp" />
     <ClCompile Include="Actor\Player\NormalState\PlayerNormal.cpp" />
-    <ClCompile Include="Actor\PlayerSword.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSword.cpp" />
     <ClCompile Include="Shader\ShaderDraw.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashDown.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
@@ -71,7 +71,7 @@
     <ClCompile Include="Actor\Player\PlayerMiddleDamage.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerShockWaveSlash.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerChargeAttack.cpp" />
-    <ClCompile Include="Actor\PlayerShockWave.cpp" />
+    <ClCompile Include="Actor\Player\PlayerShockWave.cpp" />
     <ClCompile Include="Actor\Player\PlayerDeath.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Physics\NoCollidable.cpp" />
@@ -109,6 +109,7 @@
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
+    <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -168,7 +169,7 @@
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveBack.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\NormalState\PlayerNormal.h" />
-    <ClInclude Include="Actor\PlayerSword.h" />
+    <ClInclude Include="Actor\Player\PlayerSword.h" />
     <ClInclude Include="Shader\ConstantBufferIndex.h" />
     <ClInclude Include="Shader\ShaderDraw.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashDown.h" />
@@ -179,7 +180,7 @@
     <ClInclude Include="Actor\Player\PlayerMiddleDamage.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerShockWaveSlash.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerChargeAttack.h" />
-    <ClInclude Include="Actor\PlayerShockWave.h" />
+    <ClInclude Include="Actor\Player\PlayerShockWave.h" />
     <ClInclude Include="Actor\AttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerDeath.h" />
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSpecialAttack.h" />
+    <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

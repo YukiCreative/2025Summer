@@ -174,7 +174,7 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 		m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
 	}
 
-	// プレイヤーの位置を見て吹っ飛ぶ
-	auto pToEN = (m_pos - m_player.lock()->GetPos()).GetNormalize();
-	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), pToEN)));
+	// 食らった当たり判定の位置を見て吹っ飛ぶ
+	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
+	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), colToEN)));
 }
