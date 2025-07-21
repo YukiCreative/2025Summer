@@ -45,5 +45,9 @@ protected:
 	// “G‚É‹z‚¢‚Â‚­‹““®‚ğÀŒ»‚µ‚Ü‚·
 	// ‹z‚¢‚Â‚­‚Æ‚«‚Æ‚»‚¤‚Å‚È‚¢(”CˆÓ“ü—ÍA‘ÎÛ‚È‚µ)‚Å‰Á‚¦‚é—Í‚ğ•Ï‚¦‚ç‚ê‚é
 	Vector3 TrackingVec(const float strength, const float trackEnemyStrength);
+	Vector3 TrackVec(const float strength, const float trackEnemyStrength);
+	// ƒ‚ƒfƒ‹‚ğˆÚ“®•ûŒü‚É‰ñ“]
+	// Track‚©‚ç•ª‚¯‚½
+	void RotatePlayer(const Vector3& vec);
 };
 

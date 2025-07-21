@@ -115,43 +115,56 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 Vector3 PlayerAttackState::TrackingVec(const float strength, const float trackEnemyStrength)
 {
 	Vector3 vel;
-	// 入力があったら、その方向に動く
+
+	vel = TrackVec(strength, trackEnemyStrength);
+
+	RotatePlayer(vel);
+
+	return vel;
+}
+
+Vector3 PlayerAttackState::TrackVec(const float strength, const float trackEnemyStrength)
+{
 	const auto& inputAxis = Input::GetInstance().GetLeftInputAxis();
 	auto p = m_player.lock();
 
-	// ロックオンされておらず、入力があれば
+	// 入力があれば
 	if (inputAxis.SqrMagnitude() > kMoveThreshold && p->m_lockOnActor.expired())
 	{
-		// 入力をカメラに回転
 		Vector3 inputV = p->m_camera.lock()->RotateVecToCameraDirXZ({ -inputAxis.x, 0, inputAxis.y, }, Vector3::Back());
-
-		vel = inputV.GetNormalize() * strength;
+		// 入力の向きに前進
+		return inputV.GetNormalize() * strength;
 	}
-	else
+		
+	// ロックオンしてるなら、その敵の方向
+	if (p->IsLockOn())
 	{
-		// そうでなければ近くの敵の方向
-		auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
-		if (nearestActor && (nearestActor->GetPos() - p->GetPos()).SqrMagnitude() < kTrackEnemyDistance * kTrackEnemyDistance)
-		{
-			vel = (nearestActor->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
-		}
-		else
-		{
-			// さらに一定範囲内に敵もいなかったら現在のモデルの向きに前進
-			vel = VTransformSR({ 0,0,strength }, m_player.lock()->GetModelMatrix());
-		}
+		return (p->m_lockOnActor.lock()->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
 	}
 
-	auto c = Geometry::Corner(p->m_model->GetDirection(), vel.XZ());
+	auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
+	// そうでなければ近くの敵の方向
+	if (nearestActor && (nearestActor->GetPos() - p->GetPos()).SqrMagnitude() < kTrackEnemyDistance * kTrackEnemyDistance)
+	{
+		return (nearestActor->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
+	}
+
+	// さらに一定範囲内に敵もいなかったら現在のモデルの向きに前進
+	return VTransformSR({ 0,0,strength }, m_player.lock()->GetModelMatrix());
+}
+
+void PlayerAttackState::RotatePlayer(const Vector3& vec)
+{
+	auto p = m_player.lock();
+
+	auto c = Geometry::Corner(p->m_model->GetDirection(), vec.XZ());
 
 	// 符号をつける
-	if (p->m_model->GetDirection().Cross(vel.XZ()).y < 0)
+	if (p->m_model->GetDirection().Cross(vec.XZ()).y < 0)
 	{
 		c *= -1;
 	}
 
 	// モデルを回転させる
 	p->m_model->RotateUpVecY(c);
-
-	return vel;
 }
