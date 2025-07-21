@@ -10,7 +10,7 @@ namespace
 {
 	const std::string kTrajectoryEffectName = ".efkefc";
 	constexpr float kRadius = 50.0f;
-	constexpr float kLifeTime = 20.0f;
+	constexpr float kLifeTime = 40.0f;
 	constexpr float kLength = 10.0f;
 	constexpr float kAttackPower = 100.0f;
 	constexpr float kKnockbackPower = 30.0f;
@@ -28,6 +28,8 @@ EnemyEliteBiteCol::~EnemyEliteBiteCol()
 
 void EnemyEliteBiteCol::Init(std::weak_ptr<EnemyElite> parent)
 {
+	m_kind = ActorKind::kEnemyAttack;
+
 	m_parent = parent;
 
 	m_attackPower = kAttackPower;
@@ -66,4 +68,5 @@ void EnemyEliteBiteCol::Draw() const
 
 void EnemyEliteBiteCol::CommitMove()
 {
+	m_collidable->SetPos(m_pos);
 }

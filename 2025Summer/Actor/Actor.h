@@ -57,9 +57,6 @@ protected:
 	Vector3 m_pos;
 	std::shared_ptr<Collidable> m_collidable;
 	ActorKind m_kind;
-	// Controllerがこれを確認してオブジェクトリストに追加する
-	// Actorから何か申し出る必要はない
-	SpawnActorList_t m_spawnActorList;
 	int m_stopFrame;
 
 protected:
@@ -69,5 +66,8 @@ protected:
 
 private:
 
+	// Controllerがこれを確認してオブジェクトリストに追加する
+	// Actorから何か申し出る必要はない
+	SpawnActorList_t m_spawnActorList;
 	bool m_isAlive;
 };

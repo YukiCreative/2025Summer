@@ -25,8 +25,10 @@ public:
 	void BiteAttack();
 	void ArmSwingAttack();
 	Vector3 GetBiteRigPos() const;
-	Vector3 GetArmRightPos() const;
-	Vector3 GetArmLeftPos() const;
+	Vector3 GetArmRightStartPos() const;
+	Vector3 GetArmRightEndPos() const;
+	Vector3 GetArmLeftStartPos() const;
+	Vector3 GetArmLeftEndPos() const;
 
 	int GetAttackInterval();
 

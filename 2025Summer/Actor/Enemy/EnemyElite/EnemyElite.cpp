@@ -10,6 +10,8 @@
 #include "AnimationModel.h"
 #include "MyRandom.h"
 #include "AttackCol.h"
+#include "EnemyEliteBiteCol.h"
+#include "EnemyEliteArmCol.h"
 #include <DxLib.h>
 
 namespace
@@ -22,8 +24,10 @@ namespace
 	const Vector3 kModelScale = {2.0f, 2.0f, 2.0f};
 
 	const std::string kBiteFrame = "sloth_tongue04";
-	const std::string kRightArmFrame = "sloth_RArmPalm";
-	const std::string kLeftArmFrame = "sloth_LArmPalm";
+	const std::string kRightArmStartFrame = "sloth_RArm2";
+	const std::string kRightArmEndFrame = "sloth_RArmDigit31";
+	const std::string kLeftArmStartFrame = "sloth_LArm2";
+	const std::string kLeftArmEndFrame = "sloth_LArmDigit31";
 
 	constexpr int kAttackFrame = 180;
 	constexpr int kRandomness = 10;
@@ -104,10 +108,22 @@ bool EnemyElite::CheckAnimName(const std::string& animName) const
 
 void EnemyElite::BiteAttack()
 {
+	auto col = std::make_shared<EnemyEliteBiteCol>();
+	col->Init(weak_from_this());
+
+	SpawnActor(col);
 }
 
 void EnemyElite::ArmSwingAttack()
 {
+	// ìÒÇ¬ê∂ê¨
+	auto rightCol = std::make_shared<EnemyEliteArmCol>();
+	rightCol->Init(weak_from_this(), LeftOrRight::kRight);
+	SpawnActor(rightCol);
+
+	auto leftCol = std::make_shared<EnemyEliteArmCol>();
+	leftCol->Init(weak_from_this(), LeftOrRight::kLeft);
+	SpawnActor(leftCol);
 }
 
 Vector3 EnemyElite::GetBiteRigPos() const
@@ -115,14 +131,24 @@ Vector3 EnemyElite::GetBiteRigPos() const
 	return m_model->GetFramePosition(kBiteFrame);
 }
 
-Vector3 EnemyElite::GetArmRightPos() const
+Vector3 EnemyElite::GetArmRightStartPos() const
 {
-	return m_model->GetFramePosition(kRightArmFrame);
+	return m_model->GetFramePosition(kRightArmStartFrame);
 }
 
-Vector3 EnemyElite::GetArmLeftPos() const
+Vector3 EnemyElite::GetArmRightEndPos() const
 {
-	return  m_model->GetFramePosition(kLeftArmFrame);
+	return m_model->GetFramePosition(kRightArmEndFrame);
+}
+
+Vector3 EnemyElite::GetArmLeftStartPos() const
+{
+	return m_model->GetFramePosition(kLeftArmStartFrame);
+}
+
+Vector3 EnemyElite::GetArmLeftEndPos() const
+{
+	return m_model->GetFramePosition(kLeftArmEndFrame);
 }
 
 int EnemyElite::GetAttackInterval()

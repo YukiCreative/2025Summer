@@ -9,7 +9,8 @@ namespace
 EnemyEliteDeath::EnemyEliteDeath(std::weak_ptr<EnemyElite> parent) :
 	EnemyEliteState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName);
+	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->SetInvincibility(true);
 }
 
 EnemyEliteDeath::~EnemyEliteDeath()

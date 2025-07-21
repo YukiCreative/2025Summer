@@ -32,6 +32,7 @@ public:
 	// ‚±‚ê‚Íƒ‚ƒfƒ‹‚ª‰Šúó‘Ô‚ÅZ-•ûŒü‚ÉŒü‚¢‚Ä‚¢‚é‘O’ñ‚Å‚·
 	Vector3 GetDir() const;
 	DxLib::tagMATRIX GetModelMatrix() const;
+	// true‚Å–³“G
 	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }
 	bool IsEndAnim() const;
 	void AddVel(const Vector3& vel);

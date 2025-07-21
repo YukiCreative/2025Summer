@@ -30,6 +30,9 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyElite.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteArmSwing.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBite.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.cpp" />
@@ -129,6 +132,9 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyElite.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteApproach.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteArmCol.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteArmSwing.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBite.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.h" />

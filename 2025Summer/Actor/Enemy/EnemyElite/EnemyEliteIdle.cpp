@@ -1,11 +1,15 @@
 #include "EnemyEliteIdle.h"
 #include "EnemyElite.h"
+#include "EnemyEliteApproach.h"
 #include "EnemyEliteBite.h"
+#include "EnemyEliteArmSwing.h"
+#include <DxLib.h>
 
 namespace
 {
 	const std::string kAnimName = "Armature|Idle";
 	constexpr float kRotateSpeed = 0.01f;
+	constexpr float kMoveDistance = 550.0f;
 }
 
 EnemyEliteIdle::EnemyEliteIdle(std::weak_ptr<EnemyElite> parent) :
@@ -26,7 +30,20 @@ std::shared_ptr<EnemyEliteState> EnemyEliteIdle::Update()
 	// ƒ‰ƒ“ƒ_ƒ€‚ÈŠÔŠu‚ÅUŒ‚
 	if (m_frame > m_attackFrame)
 	{
-		return std::make_shared<EnemyEliteBite>(m_parent);
+		// ˜rU‚è‰º‚ë‚µUŒ‚‚Í‚½‚Ü‚É‚µ‚©‚µ‚È‚¢
+		if (GetRand(3))
+		{
+			return std::make_shared<EnemyEliteBite>(m_parent);
+		}
+		else
+		{
+			return std::make_shared<EnemyEliteArmSwing>(m_parent);
+		}
+	}
+
+	if (parent->EnemyToPlayer().SqrMagnitude() > kMoveDistance * kMoveDistance)
+	{
+		return std::make_shared<EnemyEliteApproach>(m_parent);
 	}
 
 	// ƒvƒŒƒCƒ„[‚Ì‚Ù‚¤‚ğŒü‚­

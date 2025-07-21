@@ -123,7 +123,7 @@ void EnemyBug::GenerateAttackCol()
 	auto col = std::make_shared<EnemyBugAttackCol>();
 	col->Init(weak_from_this());
 
-	m_spawnActorList.emplace_back(col);
+	SpawnActor(col);
 }
 
 int EnemyBug::GetAinmTotalTime() const
