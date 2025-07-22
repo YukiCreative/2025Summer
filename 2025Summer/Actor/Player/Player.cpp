@@ -81,6 +81,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_state = std::make_shared<PlayerNormal>(weak_from_this(), std::make_shared<PlayerIdle>(weak_from_this()));
 
 	m_hp.SetMax();
+	m_gauge.SetMin();
 }
 
 void Player::Update()

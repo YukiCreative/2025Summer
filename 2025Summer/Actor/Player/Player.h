@@ -29,9 +29,13 @@ namespace
 {
 	constexpr float kMinHP = 0.0f;
 	constexpr float kMaxHP = 3000.0f;
+
+	constexpr float kMinSpecialGauge = 0.0f;
+	constexpr float kMaxSpecialGauge = 1.0f;
 }
 
 using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
+using PlayerSpecialGauge = RangeLimitedValue<float, kMinSpecialGauge, kMaxSpecialGauge>;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
@@ -82,6 +86,10 @@ public:
 	// 必殺技の当たり判定を生成します
 	void SpecialAttack();
 
+	// 1がmax
+	void ChargeSpecialGauge(const float chargeValue) { m_gauge += chargeValue; }
+	bool IsChargeMax() const { return m_gauge.IsMax(); }
+
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;
@@ -96,6 +104,7 @@ public:
 	// コマンドに使用
 	std::list<PlayerInputDir> m_inputList;
 	PlayerHP m_hp;
+	PlayerSpecialGauge m_gauge;
 	bool m_isInvincible;
 	bool m_canLockOn;
 	bool m_isDraw;
