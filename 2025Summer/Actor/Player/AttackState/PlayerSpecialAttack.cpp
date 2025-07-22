@@ -4,16 +4,19 @@
 #include "Input.h"
 #include "PlayerMove.h"
 #include "PlayerIdle.h"
+#include "Camera.h"
 
 namespace
 {
 	// 消えるフレーム
 	constexpr int kDisappearFrame = 40;
-	constexpr int kAttackFrame = 150;
+	constexpr int kAttackFrame = 120;
 	constexpr int kAppearFrame = 200;
-	constexpr int kStateWholeFrame = 360;
+	constexpr int kStateWholeFrame = 250;
 	// 移動などに派生できるフレーム
-	constexpr int kEnableTransitionFrame = 300;
+	constexpr int kEnableTransitionFrame = 230;
+
+	constexpr float kCameraDistance = 500.0f;
 
 	const std::string kStartAnimName = "Armature|SpecialAttack";
 	const std::string kEndAnimName = "Armature|FrontStop";
@@ -33,11 +36,21 @@ PlayerSpecialAttack::PlayerSpecialAttack(std::weak_ptr<Player> parent) :
 
 	p->SetCanLockOn(false);
 	m_canCrossState = true;
+
+	p->DisableSwordCol();
+
+	p->m_camera.lock()->SetTargetDistance(kCameraDistance);
 }
 
 PlayerSpecialAttack::~PlayerSpecialAttack()
 {
-	m_player.lock()->SetInvincibility(false);
+	if (m_player.expired()) return;
+
+ 	auto p =  m_player.lock();
+
+	p->m_camera.lock()->SetCameraDistanceDefault();
+	p->SetInvincibility(false);
+	p->SetCanLockOn(true);
 }
 
 std::shared_ptr<PlayerState> PlayerSpecialAttack::Update()

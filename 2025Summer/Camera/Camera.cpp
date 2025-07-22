@@ -150,6 +150,11 @@ float Camera::GetCameraNearFarLength() const
 	return  GetCameraFar() - GetCameraNear();
 }
 
+void Camera::SetCameraDistanceDefault()
+{
+	m_targetDistance = kInitCameraDistance;
+}
+
 void Camera::Rotate()
 {
 	// ƒJƒƒ‰‘¬“xŒ¸Š

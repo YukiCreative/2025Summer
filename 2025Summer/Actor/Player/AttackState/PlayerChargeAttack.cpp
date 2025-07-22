@@ -23,8 +23,8 @@ namespace
 	// 攻撃が派生するタイミング
 	constexpr int kEnableComboFrame = 50 + kChargeFrame;
 
-	constexpr float kAttackPower = 2000.0f;
-	constexpr float kKnockbackPower = 40.0f;
+	constexpr float kAttackPower = 200.0f;
+	constexpr float kKnockbackPower = 50.0f;
 
 	const std::string kAnimName = "Armature|LeftHorizontalSlash";
 	constexpr bool kIsLoopAnim = false;

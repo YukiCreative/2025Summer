@@ -49,6 +49,17 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveLeft::Update()
 		return std::make_shared<PlayerLockOnIdle>(m_player);
 	}
 
+	// 攻撃モーション
+	if (input.IsTrigger("Attack"))
+	{
+		// 通常のコンボ
+
+		return std::make_shared<PlayerSlashDown>(m_player);
+	}
+
+	// 状態を記録
+	p->SetInputDir(PlayerInputDir::kLeft);
+
 	const Vector3 modelDir = p->m_model->GetDirection();
 
 	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
@@ -70,17 +81,8 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveLeft::Update()
 	{
 		return std::make_shared<PlayerLockOnMoveRight>(m_player);
 	}
-
-	// 攻撃モーション
-	if (input.IsTrigger("Attack"))
+	else // 左
 	{
-		// 通常のコンボ
-
-		return std::make_shared<PlayerSlashDown>(m_player);
+		return shared_from_this();
 	}
-
-	// 状態を記録
-	p->SetInputDir(PlayerInputDir::kLeft);
-
-	return shared_from_this();
 }

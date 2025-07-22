@@ -30,7 +30,7 @@ public:
 	void Draw() const;
 
 	// ポインタを返して呼び出したクラスが操作できるようにする
-	std::weak_ptr<EffekseerEffect> GenerateEffect(const std::string fileName, const Vector3& initPos);
+	std::weak_ptr<EffekseerEffect> GenerateEffect(const std::string& fileName, const Vector3& initPos);
 	// 今出ているエフェクトをすべて削除
 	void ClearEffects();
 private:

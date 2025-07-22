@@ -21,7 +21,7 @@ void ActorController::Update()
 	{
 		actor->CountStopFrame();
 		// ‚à‚µ’âŽ~’†‚È‚çUpdate‚µ‚È‚¢
-		if (!actor->IsStopUpdate())
+		if (!actor->IsStop())
 		{
 			actor->Update();
 		}
@@ -50,6 +50,7 @@ void ActorController::Update()
 	// C³Œã‚ÌˆÚ“®—Ê”½‰f
 	for (auto& actor : m_actors)
 	{
+		if (actor->IsStop()) continue;
 		actor->CommitMove();
 	}
 }

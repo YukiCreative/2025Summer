@@ -129,5 +129,5 @@ void EnemyPlant::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	// H‚ç‚Á‚½“–‚½‚è”»’è‚ÌˆÊ’u‚ðŒ©‚Ä‚Á”ò‚Ô
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
-	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), colToEN)));
+	m_collidable->SetVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), colToEN)));
 }

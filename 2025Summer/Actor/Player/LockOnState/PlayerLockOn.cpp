@@ -6,6 +6,7 @@
 #include "PlayerLockOn.h"
 #include "PlayerLockOnIdle.h"
 #include "PlayerNormal.h"
+#include "PlayerSpecialAttack.h"
 #include <DxLib.h>
 #include <algorithm>
 
@@ -85,6 +86,13 @@ std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
     if (m_player.lock()->m_lockOnActor.expired())
     {
         return std::make_shared<PlayerNormal>(m_player, m_childState);
+    }
+
+    // 必殺技
+    // 大抵のモーションをキャンセルできる
+    if (input.IsTrigger("SpecialAttack"))
+    {
+        m_childState = std::make_shared<PlayerSpecialAttack>(m_player);
     }
 
     // 状態をUpdate

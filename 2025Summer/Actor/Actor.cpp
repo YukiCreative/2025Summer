@@ -107,7 +107,7 @@ void Actor::SetStopFrame(const int frame)
 	m_stopFrame = std::max(m_stopFrame, frame);
 }
 
-bool Actor::IsStopUpdate() const
+bool Actor::IsStop() const
 {
 	return m_stopFrame;
 }

@@ -47,6 +47,14 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 		return std::make_shared<PlayerLockOnIdle>(m_player);
 	}
 
+	if (input.IsTrigger("Attack"))
+	{
+		return std::make_shared<PlayerSlashDown>(m_player);
+	}
+
+	// èÛë‘ÇãLò^
+	p->SetInputDir(PlayerInputDir::kRight);
+
 	const Vector3 modelDir = p->m_model->GetDirection();
 
 	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
@@ -64,18 +72,12 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveRight::Update()
 	{
 		return std::make_shared<PlayerLockOnMoveBack>(m_player);
 	}
-	else if (cross.y < 0) // ç∂
+	else if (cross.y > 0) // âE
+	{
+		return shared_from_this();
+	}
+	else // ç∂
 	{
 		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
 	}
-
-	if (input.IsTrigger("Attack"))
-	{
-		return std::make_shared<PlayerSlashDown>(m_player);
-	}
-
-	// èÛë‘ÇãLò^
-	p->SetInputDir(PlayerInputDir::kRight);
-
-	return shared_from_this();
 }

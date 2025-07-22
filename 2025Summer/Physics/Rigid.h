@@ -15,9 +15,6 @@ public:
 	// 速度減衰とか
 	const Vector3 Update();
 
-	void ChangeStateGround();
-	void ChangeStateAir();
-
 	// 速度に加算
 	void AddVel(const Vector3& addVel);
 	void Stop();

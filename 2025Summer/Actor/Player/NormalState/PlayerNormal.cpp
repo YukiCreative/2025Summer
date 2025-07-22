@@ -8,11 +8,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "PlayerAttackState.h"
-
-namespace
-{
-	constexpr float kDefaultCameraDistance = 400.0f;
-}
+#include "PlayerSpecialAttack.h"
 
 PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent, std::shared_ptr<PlayerState> initState) :
 	PlayerIntermediateState(parent)
@@ -27,7 +23,7 @@ PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent, std::shared_ptr<PlayerS
 		m_childState = std::make_shared<PlayerIdle>(parent);
 	}
 
-	m_player.lock()->m_camera.lock()->SetTargetDistance(kDefaultCameraDistance);
+	m_player.lock()->m_camera.lock()->SetCameraDistanceDefault();
 
 	// 攻撃判定を消しておく
 	m_player.lock()->DisableSwordCol();
@@ -41,11 +37,19 @@ PlayerNormal::~PlayerNormal()
 std::shared_ptr<PlayerIntermediateState> PlayerNormal::Update()
 {
 	auto p = m_player.lock();
+	auto& input = Input::GetInstance();
 
 	// ロックオンされたら
 	if (!p->m_lockOnActor.expired())
 	{
 		return std::make_shared<PlayerLockOn>(m_player, m_childState);
+	}
+
+	// 必殺技
+	// 大抵のモーションをキャンセルできる
+	if (input.IsTrigger("SpecialAttack"))
+	{
+		m_childState = std::make_shared<PlayerSpecialAttack>(m_player);
 	}
 
 	// 通常のカメラ回転

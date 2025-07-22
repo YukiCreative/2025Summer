@@ -1,22 +1,23 @@
 #include "Player.h"
-#include "AnimationModel.h"
-#include "Input.h"
-#include "Collidable.h"
-#include "Rigid.h"
-#include "CapsuleCollider.h"
-#include "SphereCollider.h"
-#include "Camera.h"
-#include <DxLib.h>
-#include "PlayerState.h"
-#include "PlayerNormal.h"
 #include "ActorController.h"
+#include "AnimationModel.h"
+#include "Camera.h"
+#include "CapsuleCollider.h"
+#include "Collidable.h"
 #include "Game.h"
 #include "Image.h"
-#include "PlayerSword.h"
-#include "PlayerShockWave.h"
+#include "Input.h"
 #include "PlayerDeath.h"
-#include "PlayerMiddleDamage.h"
 #include "PlayerIdle.h"
+#include "PlayerMiddleDamage.h"
+#include "PlayerNormal.h"
+#include "PlayerShockWave.h"
+#include "PlayerState.h"
+#include "PlayerSword.h"
+#include "Rigid.h"
+#include "SphereCollider.h"
+#include "PlayerSpecialAttackCol.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -331,7 +332,7 @@ float Player::GetHpRatio() const
 	return m_hp.GetRatio();
 }
 
-void Player::ChangeAnim(const std::string animName, const bool loopOrNot)
+void Player::ChangeAnim(const std::string& animName, const bool loopOrNot)
 {
 	m_model->ChangeAnimation(animName, loopOrNot);
 }
@@ -348,4 +349,7 @@ void Player::Apeear()
 
 void Player::SpecialAttack()
 {
+	auto special = std::make_shared<PlayerSpecialAttackCol>();
+	special->Init(weak_from_this(), m_pos);
+	SpawnActor(special);
 }

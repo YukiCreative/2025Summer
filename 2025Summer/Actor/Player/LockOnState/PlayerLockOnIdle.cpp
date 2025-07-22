@@ -81,6 +81,5 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 		return std::make_shared<PlayerSlashDown>(m_player);
 	}
 
-
 	return shared_from_this();
 }

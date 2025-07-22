@@ -4,6 +4,7 @@
 #include "PlayerIdle.h"
 #include "PlayerMiddleDamage.h"
 #include "PlayerMove.h"
+#include "PlayerSlashDown.h"
 
 namespace
 {
@@ -40,9 +41,17 @@ std::shared_ptr<PlayerState> PlayerMiddleDamage::Update()
 		return std::make_shared<PlayerIdle>(m_player);
 	}
 
-	if (m_frame >= kEnableMoveFrame && input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+	if (m_frame >= kEnableMoveFrame)
 	{
-		return std::make_shared<PlayerMove>(m_player);
+		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+		{
+			return std::make_shared<PlayerMove>(m_player);
+		}
+		if (input.IsTrigger("Attack"))
+		{
+			return std::make_shared<PlayerSlashDown>(m_player);
+		}
+
 	}
 
 	// ‚¿‚å‚Á‚Æ‚¾‚¯“®‚¯‚é

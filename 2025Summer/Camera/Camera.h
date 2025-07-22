@@ -44,6 +44,7 @@ public:
 	float GetTargetDistanceXZ() const;
 	Vector3 GetTargetPos() const { return m_targetPos; }
 	float GetCameraNearFarLength() const;
+	void SetCameraDistanceDefault();
 
 private:
 	// ‚Ç‚±‚ÉŒü‚­‚©

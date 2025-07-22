@@ -3,6 +3,7 @@
 #include <list>
 #include "PlayerIntermediateState.h"
 #include "RangeLimitedValue.h"
+#include <string>
 
 class AnimationModel;
 class Camera;
@@ -72,7 +73,7 @@ public:
 	bool IsLockOn() const { return !m_lockOnActor.expired(); }
 	bool CanLockOn() const { return m_canLockOn; }
 	float GetHpRatio() const;
-	void ChangeAnim(const std::string animName, const bool loopOrNot);
+	void ChangeAnim(const std::string& animName, const bool loopOrNot);
 
 	// ÉvÉåÉCÉÑÅ[Çå©Ç¶Ç»Ç≠Ç∑ÇÈ
 	void Disappear();

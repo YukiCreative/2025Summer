@@ -13,6 +13,7 @@
 #include "EnemyEliteBiteCol.h"
 #include "EnemyEliteArmCol.h"
 #include <DxLib.h>
+#include "Geometry.h"
 
 namespace
 {
@@ -46,6 +47,8 @@ void EnemyElite::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 	Enemy::Init(player, initPos, kMaxHp, dupulicatedHandle);
 
 	m_model->SetScale(kModelScale);
+	// 回転
+	m_model->RotateUpVecY(Geometry::kPi);
 
 	// 当たり判定
 	auto col = std::make_shared<CapsuleCollider>();
@@ -181,5 +184,5 @@ void EnemyElite::OnDamage(std::shared_ptr<AttackCol> attack)
 	// 食らった当たり判定の位置を見て吹っ飛ぶ
 	// ボスなのでちょっとのけぞりにくい
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
-	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() * kKnockbackMult }, MGetRotVec2(Vector3::Foward(), colToEN)));
+	m_collidable->SetVel(VTransformSR({ 0,0, attack->GetKnockbackPower() * kKnockbackMult }, MGetRotVec2(Vector3::Foward(), colToEN)));
 }

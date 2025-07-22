@@ -60,20 +60,6 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 
 	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
 
-	if (modelAxisDot < -kMoveDirThreshold) // 後
-	{
-		return std::make_shared<PlayerLockOnMoveBack>(m_player);
-	}
-	else if (modelAxisDot < kMoveDirThreshold && cross.y > 0) // 右
-	{
-		return std::make_shared<PlayerLockOnMoveRight>(m_player);
-	}
-	else if (modelAxisDot < kMoveDirThreshold && cross.y < 0) // 左
-	{
-		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
-	}
-
-
 	/// 攻撃
 	if (input.IsTrigger("Attack"))
 	{
@@ -106,5 +92,20 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
 	// 状態を記録
 	p->SetInputDir(PlayerInputDir::kFront);
 
-	return shared_from_this();
+	if (modelAxisDot > kMoveDirThreshold) // 前
+	{
+		return shared_from_this();
+	}
+	else if (modelAxisDot < -kMoveDirThreshold) // 後
+	{
+		return std::make_shared<PlayerLockOnMoveBack>(m_player);
+	}
+	else if (cross.y > 0) // 右
+	{
+		return std::make_shared<PlayerLockOnMoveRight>(m_player);
+	}
+	else // 左
+	{
+		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
+	}
 }

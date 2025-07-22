@@ -74,7 +74,7 @@ void EffectManager::Draw() const
 	DrawEffekseer3D();
 }
 
-std::weak_ptr<EffekseerEffect> EffectManager::GenerateEffect(const std::string fileName, const Vector3& initPos)
+std::weak_ptr<EffekseerEffect> EffectManager::GenerateEffect(const std::string& fileName, const Vector3& initPos)
 {
 	// ソースからエフェクト生成
 	const int sourceHandle = m_effectSources[fileName];

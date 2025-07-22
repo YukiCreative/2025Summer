@@ -25,6 +25,7 @@ public:
 	virtual void Draw() const abstract;
 
 	const Vector3&  GetPos()  const { return m_pos; }
+	void  SetPos (const Vector3& pos) { m_pos = pos; }
 	bool        CanCollide() const;
 	Collidable& GetCollidable() const;
 	bool        HasCol() const;
@@ -48,7 +49,7 @@ public:
 	void LimitMovementRange();
 
 	void SetStopFrame(const int frame);
-	bool IsStopUpdate() const;
+	bool IsStop() const;
 	void CountStopFrame();
 	// Ç±ÇÃActorÇçÌèú
 	void Destroy();

@@ -122,6 +122,11 @@ void Input::SetKeyDefault()
 		{PeripheralType::kKeyboard, KEY_INPUT_Z},
 		{PeripheralType::kPad, kPadX},
 	};
+	m_inputEvent["SpecialAttack"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_X},
+		{PeripheralType::kPad, kPadY},
+	};
 }
 
 void Input::Init()

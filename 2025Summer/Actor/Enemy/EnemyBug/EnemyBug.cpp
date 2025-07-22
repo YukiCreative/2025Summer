@@ -48,8 +48,8 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const 
 {
 	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
-	auto col = std::make_shared<SphereCollider>();
-	col->Init(m_pos, kWeight, false, false, kSphereRadius);
+	auto col = std::make_shared<CapsuleCollider>();
+	col->Init(m_pos, m_pos + Vector3{0, 100, 0}, kWeight, false, false, kSphereRadius);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kDrag);
 
@@ -176,5 +176,5 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	// H‚ç‚Á‚½“–‚½‚è”»’è‚ÌˆÊ’u‚ðŒ©‚Ä‚Á”ò‚Ô
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
-	m_collidable->AddVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), colToEN)));
+	m_collidable->SetVel(VTransformSR({ 0,0, attack->GetKnockbackPower() }, MGetRotVec2(Vector3::Foward(), colToEN)));
 }
