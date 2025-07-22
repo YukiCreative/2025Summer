@@ -62,8 +62,8 @@ PS_OUTPUT main(PS_INPUT PSInput)
     PSOutput.Depth.gb = 0.0;
     PSOutput.Depth.a = 1.0; //a=0.0にすると、αテストではじかれるので、1.0を入れておく
 	
-    float bright = max(saturate(dot(normalize(-g_Common.Light[0].Direction), PSOutput.Normal.xyz)),
-				g_Common.Material.Ambient_Emissive + g_Common.Light[0].Ambient);
+    const float amb = 0.2;
+    float bright = max(saturate(dot(normalize(-g_Common.Light[0].Direction), PSOutput.Normal.xyz)), amb);
 	
     float3 eyeRay = normalize(-PSInput.VPosition);
     float3 ref = reflect(g_Common.Light[0].Direction, PSOutput.Normal.xyz);

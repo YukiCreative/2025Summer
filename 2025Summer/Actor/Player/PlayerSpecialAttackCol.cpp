@@ -14,7 +14,7 @@ namespace
 	constexpr float kRadius = 1500.0f;
 	constexpr float kKnockbackPower = 100.0f;
 	constexpr float kAttackPower = 2000.0f;
-	constexpr float kHitStopFrame = 100;
+	constexpr int kHitStopFrame = 100;
 	constexpr float kDrag = 0.0f;
 	const std::string kEffectName = "SpecialAttack.efkefc";
 	constexpr float kCameraDistance = 800.0f;

@@ -30,12 +30,12 @@ namespace
 	constexpr float kMinHP = 0.0f;
 	constexpr float kMaxHP = 3000.0f;
 
-	constexpr float kMinSpecialGauge = 0.0f;
-	constexpr float kMaxSpecialGauge = 1.0f;
+	constexpr int kMinSpecialGauge = 0;
+	constexpr int kMaxSpecialGauge = 100;
 }
 
 using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
-using PlayerSpecialGauge = RangeLimitedValue<float, kMinSpecialGauge, kMaxSpecialGauge>;
+using PlayerSpecialGaugePoint = RangeLimitedValue<int, kMinSpecialGauge, kMaxSpecialGauge>;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
 // 悪用厳禁！
@@ -77,6 +77,7 @@ public:
 	bool IsLockOn() const { return !m_lockOnActor.expired(); }
 	bool CanLockOn() const { return m_canLockOn; }
 	float GetHpRatio() const;
+	float GetSpecialRatio() const;
 	void ChangeAnim(const std::string& animName, const bool loopOrNot);
 
 	// プレイヤーを見えなくする
@@ -86,9 +87,11 @@ public:
 	// 必殺技の当たり判定を生成します
 	void SpecialAttack();
 
-	// 1がmax
-	void ChargeSpecialGauge(const float chargeValue) { m_gauge += chargeValue; }
-	bool IsChargeMax() const { return m_gauge.IsMax(); }
+	// 100がmax
+	void ChargeSpecialGauge(const int chargeValue) { m_specialGauge += chargeValue; }
+	void ResetSpecialGauge() { m_specialGauge.SetMin(); }
+	bool IsChargeMax() const { return m_specialGauge.IsMax(); }
+	bool IsInputSpecialAttack() const;
 
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
@@ -104,7 +107,7 @@ public:
 	// コマンドに使用
 	std::list<PlayerInputDir> m_inputList;
 	PlayerHP m_hp;
-	PlayerSpecialGauge m_gauge;
+	PlayerSpecialGaugePoint m_specialGauge;
 	bool m_isInvincible;
 	bool m_canLockOn;
 	bool m_isDraw;

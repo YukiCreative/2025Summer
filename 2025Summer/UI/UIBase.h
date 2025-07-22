@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "Vector3.h"
+#include "Vector2.h"
 
 class Image;
 

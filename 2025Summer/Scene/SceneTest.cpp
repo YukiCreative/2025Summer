@@ -10,6 +10,7 @@
 #include "ShadowMap.h"
 #include "PlayerLockOnUI.h"
 #include "PlayerHPBar.h"
+#include "PlayerSpecialGauge.h"
 
 #include "Model.h"
 #include "Geometry.h"
@@ -61,13 +62,17 @@ void SceneTest::Init()
 
 	m_UI = std::make_shared<UIController>();
 	m_UI->Init();
-
+	
+	// UI‚Æ‚©
 	auto lockOn = std::make_shared<PlayerLockOnUI>();
 	lockOn->Init(player);
 	m_UI->AddUI(lockOn);
 	auto hpBar = std::make_shared<PlayerHPBar>();
 	hpBar->Init(player);
 	m_UI->AddUI(hpBar);
+	auto specialBar = std::make_shared<PlayerSpecialGauge>();
+	specialBar->Init(player);
+	m_UI->AddUI(specialBar);
 }
 
 void SceneTest::Update()

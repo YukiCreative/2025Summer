@@ -13,7 +13,8 @@ namespace
 }
 
 PlayerLockOnUI::PlayerLockOnUI() :
-	m_stateParam(0)
+	m_stateParam(0),
+	m_state(&PlayerLockOnUI::NoLockOn)
 {
 }
 
@@ -28,8 +29,6 @@ void PlayerLockOnUI::Init(std::weak_ptr<Player> player)
 
 	m_stateParam.SetMax();
 	m_image->SetExRate(kStartExRate);
-
-	m_state = &PlayerLockOnUI::NoLockOn;
 }
 
 void PlayerLockOnUI::Update()

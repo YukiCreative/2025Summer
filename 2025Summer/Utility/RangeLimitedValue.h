@@ -41,7 +41,7 @@ public:
 	{
 		return m_value + other.Value();
 	}
-	RangeLimitedValue<T, Min, Max> operator+(const float other)
+	RangeLimitedValue<T, Min, Max> operator+(const T other)
 	{
 		return m_value + other;
 	}
@@ -70,9 +70,10 @@ public:
 	void SetMin() { m_value = kMinValue; }	
 	// 今の値が最大値にたいしてどれくらいの割合なのか返す
 	// 0～1
+	// floatにキャストできる型であること。
 	float GetRatio() const
 	{
-		float ratio = m_value / kMaxValue;
+		float ratio = static_cast<float>(m_value) / static_cast<float>(kMaxValue);
 		return std::clamp(ratio, 0.0f, 1.0f);
 	}
 };

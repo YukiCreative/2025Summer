@@ -37,9 +37,14 @@ PlayerSpecialAttack::PlayerSpecialAttack(std::weak_ptr<Player> parent) :
 	p->SetCanLockOn(false);
 	m_canCrossState = true;
 
+	// Œ•‚ð”ñ•\Ž¦•“–‚½‚è”»’è‚ðÁ‚·
+	p->DisableSword();
 	p->DisableSwordCol();
 
 	p->m_camera.lock()->SetTargetDistance(kCameraDistance);
+
+	// ƒQ[ƒW‚ð‹ó‚É
+	p->ResetSpecialGauge();
 }
 
 PlayerSpecialAttack::~PlayerSpecialAttack()

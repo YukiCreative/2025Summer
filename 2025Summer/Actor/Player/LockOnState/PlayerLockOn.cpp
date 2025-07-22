@@ -90,7 +90,7 @@ std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
 
     // 必殺技
     // 大抵のモーションをキャンセルできる
-    if (input.IsTrigger("SpecialAttack"))
+    if (p->IsInputSpecialAttack())
     {
         m_childState = std::make_shared<PlayerSpecialAttack>(m_player);
     }

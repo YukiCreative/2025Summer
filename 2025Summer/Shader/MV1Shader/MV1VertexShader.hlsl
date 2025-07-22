@@ -153,11 +153,11 @@ VS_OUTPUT main( VS_INPUT VSInput )
 	}
 
 	// テクスチャ座標のセット
-    VSOutput.TexCoords0_1.x = VSInput.TexCoords0.x; //dot( VSInput.TexCoords0, g_OtherMatrix.TextureMatrix[ 0 ][ 0 ] ) ;
-    VSOutput.TexCoords0_1.y = VSInput.TexCoords0.y; //dot(VSInput.TexCoords0, g_OtherMatrix.TextureMatrix[0][1]);
+    VSOutput.TexCoords0_1.x = VSInput.TexCoords0.x;
+    VSOutput.TexCoords0_1.y = VSInput.TexCoords0.y;
 
-    VSOutput.TexCoords0_1.z = VSInput.TexCoords1; // dot(VSInput.TexCoords1, g_OtherMatrix.TextureMatrix[0][0]);
-	VSOutput.TexCoords0_1.w = dot( VSInput.TexCoords1, g_OtherMatrix.TextureMatrix[ 0 ][ 1 ] ) ;
+    VSOutput.TexCoords0_1.z = VSInput.TexCoords1.z;
+    VSOutput.TexCoords0_1.w = VSInput.TexCoords1.w;
 
 	return VSOutput ;
 }

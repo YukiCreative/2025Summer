@@ -48,7 +48,8 @@ Player::Player() :
 	m_isContactLockOnActor(false),
 	m_isInvincible(false),
 	m_canLockOn(true),
-	m_isDraw(true)
+	m_isDraw(true),
+	m_specialGauge(0)
 {
 }
 
@@ -81,7 +82,7 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_state = std::make_shared<PlayerNormal>(weak_from_this(), std::make_shared<PlayerIdle>(weak_from_this()));
 
 	m_hp.SetMax();
-	m_gauge.SetMin();
+	m_specialGauge.SetMin();
 }
 
 void Player::Update()
@@ -333,6 +334,11 @@ float Player::GetHpRatio() const
 	return m_hp.GetRatio();
 }
 
+float Player::GetSpecialRatio() const
+{
+	return m_specialGauge.GetRatio();
+}
+
 void Player::ChangeAnim(const std::string& animName, const bool loopOrNot)
 {
 	m_model->ChangeAnimation(animName, loopOrNot);
@@ -353,4 +359,9 @@ void Player::SpecialAttack()
 	auto special = std::make_shared<PlayerSpecialAttackCol>();
 	special->Init(weak_from_this(), m_pos);
 	SpawnActor(special);
+}
+
+bool Player::IsInputSpecialAttack() const
+{
+	return m_specialGauge.IsMax() && Input::GetInstance().IsTrigger("SpecialAttack");
 }
