@@ -96,6 +96,7 @@
     <ClCompile Include="Actor\Player\PlayerIntermediateState.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
     <ClCompile Include="UI\PlayerLockOnUI.cpp" />
+    <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
     <ClCompile Include="UI\UIController.cpp" />
     <ClCompile Include="UI\PlayerHPBar.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Shader\MV1Shader\PixelShader.h" />
     <ClInclude Include="Shader\MV1Shader\VertexShader.h" />
     <ClInclude Include="UI\PlayerLockOnUI.h" />
+    <ClInclude Include="UI\PlayerSpecialGauge.h" />
     <ClInclude Include="UI\UIController.h" />
     <ClInclude Include="UI\PlayerHPBar.h" />
     <ClInclude Include="Scene\SceneResult.h" />
