@@ -3,6 +3,14 @@
 #include <list>
 
 class Scene;
+class ScreenFade;
+
+enum class FadeState
+{
+	kNormal,
+	kFadeIn,
+	kFadeOut
+};
 
 class SceneController
 {
@@ -25,4 +33,10 @@ public:
 	void RemoveScene();
 	// 今あるシーンを全て消して、新しいシーン一つだけにする
 	void SingleScene(std::shared_ptr<Scene> nextScene);
+
+private:
+
+	std::shared_ptr<ScreenFade> m_fade;
+	std::shared_ptr<Scene> m_nextScene;
+	FadeState m_fadeState;
 };

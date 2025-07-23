@@ -63,3 +63,8 @@ const Vector2 Image::GetImageSize() const
 	GetGraphSize(m_sourceHandle, &sX, &sY);
 	return { static_cast<float>(sX), static_cast<float>(sY) };
 }
+
+void Image::DeleteImage()
+{
+	DeleteGraph(m_sourceHandle);
+}

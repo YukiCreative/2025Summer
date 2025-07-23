@@ -3,8 +3,10 @@
 //#include "SceneTest.h"
 #include "SceneDebug.h"
 #include <cassert>
+#include "ScreenFade.h"
 
-SceneController::SceneController()
+SceneController::SceneController() :
+	m_fadeState(FadeState::kFadeIn)
 {
 }
 
@@ -16,11 +18,33 @@ SceneController& SceneController::GetInstance()
 
 void SceneController::Init()
 {
+	m_fade = std::make_shared<ScreenFade>();
+	m_fade->Init();
 	StackScene(std::make_shared<SceneDebug>());
 }
 
 void SceneController::Update()
 {
+	m_fade->Update();
+
+	switch (m_fadeState)
+	{
+	case FadeState::kNormal:
+		break;
+	case FadeState::kFadeIn:
+		// フェードインしきったらnextSceneを遷移してNormalへ
+		if (m_fade->IsEndFadeIn())
+		{
+
+		}
+		break;
+	case FadeState::kFadeOut:
+		break;
+	default:
+		assert(false && "FadeStateの値が不正です");
+		break;
+	}
+
 	m_scenes.back()->Update();
 }
 

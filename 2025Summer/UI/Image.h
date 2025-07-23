@@ -44,6 +44,9 @@ public:
 	const float GetBlendParam() const { return m_blendPal.Value(); }
 	const Vector2 GetImageSize() const;
 
+	// Žè“®‰ð•ú
+	void DeleteImage();
+
 private:
 	int     m_sourceHandle;
 	float   m_expandRate;
