@@ -9,6 +9,8 @@ namespace Geometry
 	constexpr float kPi = 3.14159265f;
 	constexpr float kRadToDeg = 180 / kPi;
 	constexpr float kDegToRad = kPi / 180;
+	// float‚ÌŒë·‚ğl—¶‚µ‚½‚¢‚Æ‚«‚É
+	constexpr float kEpsilon = 0.0001f;
 
 	// movePos‚ªbasePos‚ğ‰ñ“]‚Ì’†S‚ÉY²•ûŒü‚Érad‰ñ“]‚µ‚½ˆÊ’u‚ğ•Ô‚·
 	Vector3 GetRotatedPosUpVecY(const Vector3& movePos, const Vector3& basePos, const float rad);

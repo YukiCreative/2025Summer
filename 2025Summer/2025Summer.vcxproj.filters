@@ -111,6 +111,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
     <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
     <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -231,10 +232,12 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSpecialAttack.h" />
     <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
     <ClInclude Include="UI\PlayerSpecialGauge.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
     <FxCompile Include="Shader\MV1Shader\MV1PixelShader.hlsl" />
     <FxCompile Include="Shader\MV1Shader\MV1VertexShader.hlsl" />
+    <FxCompile Include="Shader\EnemyWhiteFade.hlsl" />
   </ItemGroup>
 </Project>

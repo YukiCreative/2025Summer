@@ -76,4 +76,11 @@ public:
 		float ratio = static_cast<float>(m_value) / static_cast<float>(kMaxValue);
 		return std::clamp(ratio, 0.0f, 1.0f);
 	}
+
+	// —^‚¦‚ç‚ê‚½’l‚ªÅ‘å’l‚Ì‚Ç‚ê‚®‚ç‚¢‚ÌŠ„‡‚©•Ô‚µ‚Ü‚·
+	float GetRatio(const T value)
+	{
+		float ratio = static_cast<float>(value) / static_cast<float>(kMaxValue);
+		return std::clamp(ratio, 0.0f, 1.0f);
+	}
 };

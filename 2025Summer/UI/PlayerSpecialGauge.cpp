@@ -6,8 +6,8 @@
 
 namespace
 {
-	const std::string kBaseImageName = "BaseImage.png";
-	const std::string kFillImageName = "FillImage.png";
+	const std::string kBaseImageName = "SpecialGaugeBase.png";
+	const std::string kFillImageName = "SpecialGaugeFill.png";
 	constexpr float kLerpSpeed = 0.1f;
 	const Vector3 kInitPos = { 50, 110, 0 };
 }

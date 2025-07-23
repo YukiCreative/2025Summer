@@ -35,11 +35,12 @@ namespace
 	const std::string kRightIndexFrame = "mixamorig:RightHandIndex1";
 	const std::string kRightPinkyFrame = "mixamorig:RightHandPinky1";
 
-
 	// とりあえず過去1秒の入力履歴を残す
 	constexpr int kInputHistoryMax = 60;
 
 	constexpr float kLockOnRotateSpeed = 0.2f;
+
+	constexpr int kDamageChargeRatio = 150;
 }
 
 Player::Player() :
@@ -121,7 +122,7 @@ void Player::SetInputDir(const PlayerInputDir& dir)
 void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback)
 {
 	auto shockWave = std::make_shared<PlayerShockWave>();
-	shockWave->Init(rot, initPos, atk, knockback);
+	shockWave->Init(rot, initPos, atk, knockback, weak_from_this());
 	SpawnActor(shockWave);
 }
 
@@ -131,6 +132,10 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	// HP減らす
 	m_hp -= attack->GetAttackPower();
+
+	// 食らったダメージの割合に応じて必殺技ゲージをチャージ
+	// HP100%分で50%貯まるようにしよう
+	m_specialGauge += static_cast<int>(kDamageChargeRatio * m_hp.GetRatio(attack->GetAttackPower()));
 
 #if _DEBUG
 	printf("ダメージ%f", attack->GetAttackPower());

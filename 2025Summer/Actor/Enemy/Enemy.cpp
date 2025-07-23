@@ -2,6 +2,8 @@
 #include "AnimationModel.h"
 #include "Collidable.h"
 #include "Player.h"
+#include "AttackCol.h"
+#include "Geometry.h"
 #include <DxLib.h>
 
 namespace
@@ -42,7 +44,7 @@ void Enemy::LookAtPlayer(const float strength)
 	float rot = cross.y * kRotateSpeed;
 
 	// ê≥îΩëŒ
-	if (cross.y < 0.001f && dot < -0.9999f)
+	if (cross.y < Geometry::kEpsilon && dot < -1.0f + Geometry::kEpsilon)
 	{
 		rot += 0.1f;
 	}

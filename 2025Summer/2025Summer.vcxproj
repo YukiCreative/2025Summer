@@ -48,6 +48,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Actor\Player\PlayerShockWave.cpp" />
     <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
     <ClCompile Include="Actor\Player\PlayerSword.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
     <ClInclude Include="Actor\Player\PlayerShockWave.h" />
     <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerSword.h" />
@@ -242,6 +244,12 @@
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\EnemyWhiteFade.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shader\MV1Shader\MV1PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

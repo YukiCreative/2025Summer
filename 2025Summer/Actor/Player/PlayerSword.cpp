@@ -32,7 +32,9 @@ namespace
 	constexpr float kSwordAppearSpeed = 0.1f;
 	constexpr float kSwordDisAppearSpeed = -0.02f;
 
-	constexpr int kChargeGaugePoint = 1;
+	constexpr int kChargeGaugeBasePoint = 1;
+	// 与ダメージのこの分だけ必殺技を増加
+	constexpr float kSpecialAttackAttackPowerMult = 0.01f;
 }
 
 PlayerSword::PlayerSword() :
@@ -127,7 +129,7 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 		m_player.lock()->SetStopFrame(kStopFrame);
 
 		// プレイヤーの必殺技ゲージを増加
-		m_player.lock()->ChargeSpecialGauge(kChargeGaugePoint);
+		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));
 	}
 }
 

@@ -6,7 +6,7 @@
 #include <DxLib.h>
 #include "Input.h"
 #include "Rigid.h"
-#include "PlayerSlashDown.h"
+#include "PlayerFinishAttack.h"
 
 namespace	
 {
@@ -18,9 +18,9 @@ namespace
 	// 前進する力
 	const float kTrackForce = 10.0f;
 	// 次の攻撃入力の受付開始時間
-	constexpr int kAcceptAttackInputFrame = 30;
+	constexpr int kAcceptAttackInputFrame = 20;
 	// 攻撃が派生するタイミング
-	constexpr int kEnableComboFrame = 50;
+	constexpr int kEnableComboFrame = 40;
 
 	constexpr float kAttackPower = 130.0f;
 	constexpr float kKnockbackPower = 30.0f;
@@ -52,5 +52,5 @@ void PlayerSlashUp::Init()
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
-	m_comboAttack = std::make_shared<PlayerSlashDown>(m_player);
+	m_comboAttack = std::make_shared<PlayerFinishAttack>(m_player);
 }

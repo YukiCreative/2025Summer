@@ -2,6 +2,7 @@
 #include "CapsuleCollider.h"
 #include "Collidable.h"
 #include "Rigid.h"
+#include "Player.h"
 #include <DxLib.h>
 
 namespace
@@ -15,6 +16,10 @@ namespace
 	constexpr int kResidueFrame = 1;
 
 	constexpr float kDrag = 0.0f;
+
+	constexpr int kChargeGaugeBasePoint = 1;
+	// —^ƒ_ƒ[ƒW‚Ì‚±‚Ì•ª‚¾‚¯•KE‹Z‚ğ‘‰Á
+	constexpr float kSpecialAttackAttackPowerMult = 0.01f;
 }
 
 PlayerShockWave::PlayerShockWave() :
@@ -27,9 +32,12 @@ PlayerShockWave::~PlayerShockWave()
 {
 }
 
-void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback)
+void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback,
+	std::weak_ptr<Player> player)
 {
 	m_kind = ActorKind::kPlayerAttack;
+
+	m_player = player;
 
 	// ƒRƒ‰ƒCƒ_[‰Šú‰»
 	auto col = std::make_shared<CapsuleCollider>();
@@ -85,5 +93,8 @@ void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 		// ‚¿‚å‚Á‚Æ‚¾‚¯—P—\‚ğ‚½‚¹‚ÄA•¡”‘Ì‚Ì“G‚É“–‚½‚é‚æ‚¤‚É‚·‚é
 
 		m_frame = kLifeTime - kResidueFrame;
+
+		// ƒQ[ƒW‘‰Á
+		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));
 	}
 }
