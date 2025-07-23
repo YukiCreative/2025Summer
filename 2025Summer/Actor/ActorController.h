@@ -19,12 +19,10 @@ public:
 	void AddActor(std::shared_ptr<Actor> addActor);
 	void Update();
 	void Draw() const;
-	// 指定されたオブジェクトが自身の中に存在するか確かめる
-	bool CheckIsAlive(std::shared_ptr<Actor> checkAct);
 	ActorList_t SearchCanLockOnActor() const;
 	// ロックオン可能な中で、指定された位置に最も近い位置を持つActorを返します
 	// そもそも世界に敵がいなかったらnullptrが返ってきます
-	std::shared_ptr<Actor> GetNearestLockOnActor(const Vector3& pos) const;
+	std::shared_ptr<Actor> SearchNearestLockOnActor(const Vector3& pos) const;
 	// Enemyのlistを返します
 	ActorList_t SearchEnemy() const;
 

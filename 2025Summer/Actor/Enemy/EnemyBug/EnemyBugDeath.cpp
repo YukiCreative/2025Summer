@@ -47,6 +47,7 @@ EnemyBugDeath::EnemyBugDeath(std::weak_ptr<EnemyBug> parent) :
 	m_animTotalFrame = m_parent.lock()->GetAinmTotalTime();
 	// –³“G‰»
 	m_parent.lock()->SetInvincibility(true);
+	m_parent.lock()->StartDissolve();
 }
 
 EnemyBugDeath::~EnemyBugDeath()

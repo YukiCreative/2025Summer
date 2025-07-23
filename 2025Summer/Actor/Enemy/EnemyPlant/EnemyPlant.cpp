@@ -55,20 +55,9 @@ void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 	m_state = std::make_shared<EnemyPlantIdle>(weak_from_this());
 }
 
-void EnemyPlant::Update()
+void EnemyPlant::UpdateState()
 {
 	m_state = m_state->Update();
-
-	m_model->Update();
-}
-
-void EnemyPlant::Draw() const
-{
-	m_model->Draw();
-
-#if _DEBUG
-	m_collidable->GetCol().Draw();
-#endif
 }
 
 void EnemyPlant::CommitMove()

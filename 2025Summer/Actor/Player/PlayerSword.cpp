@@ -51,6 +51,8 @@ PlayerSword::PlayerSword() :
 
 PlayerSword::~PlayerSword()
 {
+	DeleteShaderConstantBuffer(m_cBuffH);
+
 	if (m_effect.expired()) return;
 
 	m_effect.lock()->Kill();
@@ -108,6 +110,7 @@ void PlayerSword::Update()
 
 void PlayerSword::Draw() const
 {
+	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
 	ShaderDraw::DrawModel(m_model, m_psH, m_vsH, m_colTex, m_dissolveTex);
 
 #if _DEBUG
@@ -192,5 +195,4 @@ void PlayerSword::SetCBuffStatus()
 	m_cBuff->maxPos = m_model->GetModelBBMax();
 	m_cBuff->time = m_dissolveParam.Value();
 	UpdateShaderConstantBuffer(m_cBuffH);
-	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
 }

@@ -20,10 +20,14 @@ class Enemy abstract : public Actor
 public:
 	// ロックオンの設定
 	Enemy();
+	~Enemy();
 
 	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle);
 
-	// ここでは純粋仮想関数は継承しない
+	void Update() override final;
+	virtual void UpdateState() abstract;
+
+	void Draw() const override final;
 
 	void ChangeAnim(const std::string& animName, const bool isLoop = true);
 
@@ -38,8 +42,18 @@ public:
 	void AddVel(const Vector3& vel);
 
 	virtual void OnDeath() abstract;
+	// 一時的false
+	void StartDissolve() { m_isDissolving = false; }
 
 protected:
+
+	// モデルディゾルブ
+	struct EnemyCBuff
+	{
+		// 0～1
+		float time;
+		float dammy[7];
+	};
 
 	HitPoint_t m_hitPoint;
 	// モデルは共通で持っている
@@ -47,11 +61,24 @@ protected:
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
 	bool m_isInvincible;
+	int m_cBuffH;
+	EnemyCBuff* m_cBuff;
+	// 甘んじてすべてのEnemyでロードしよう
+	int m_dissolvePsH;
+	int m_dissolveVsH;
+	int m_dissolveTex;
+
+	bool m_isDissolving;
 
 protected:
 
 	virtual void OnDamage(std::shared_ptr<AttackCol>) abstract;
 
 private:
-};
 
+	void InitDissolve();
+	// 死亡演出Draw
+	void UpdateDissolve();
+	void DissolveDraw() const;
+
+};

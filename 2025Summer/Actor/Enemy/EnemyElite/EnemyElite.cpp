@@ -65,20 +65,9 @@ void EnemyElite::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 	m_hitPoint = kMaxHP;
 }
 
-void EnemyElite::Update()
+void EnemyElite::UpdateState()
 {
 	m_state = m_state->Update();
-
-	m_model->Update();
-}
-
-void EnemyElite::Draw() const
-{
-	m_model->Draw();
-
-#if _DEBUG
-	m_collidable->GetCol().Draw();
-#endif
 }
 
 void EnemyElite::CommitMove()

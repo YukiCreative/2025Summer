@@ -68,18 +68,6 @@ void ActorController::Draw() const
 #endif
 }
 
-bool ActorController::CheckIsAlive(std::shared_ptr<Actor> checkAct)
-{
-	for (const auto& actor : m_actors)
-	{
-		if (actor.get() == checkAct.get())
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 ActorList_t ActorController::SearchCanLockOnActor() const
 {
 	ActorList_t result;
@@ -94,7 +82,7 @@ ActorList_t ActorController::SearchCanLockOnActor() const
 	return result;
 }
 
-std::shared_ptr<Actor> ActorController::GetNearestLockOnActor(const Vector3& pos) const
+std::shared_ptr<Actor> ActorController::SearchNearestLockOnActor(const Vector3& pos) const
 {
 	auto actors = SearchCanLockOnActor();
 

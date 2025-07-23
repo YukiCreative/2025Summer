@@ -238,6 +238,7 @@
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
     <FxCompile Include="Shader\MV1Shader\MV1PixelShader.hlsl" />
     <FxCompile Include="Shader\MV1Shader\MV1VertexShader.hlsl" />
+    <FxCompile Include="Shader\EnemyDissolveVS.hlsl" />
     <FxCompile Include="Shader\EnemyWhiteFade.hlsl" />
   </ItemGroup>
 </Project>

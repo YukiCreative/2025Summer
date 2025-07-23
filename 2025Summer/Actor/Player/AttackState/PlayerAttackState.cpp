@@ -144,7 +144,7 @@ Vector3 PlayerAttackState::TrackVec(const float strength, const float trackEnemy
 		return (p->m_lockOnActor.lock()->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
 	}
 
-	auto nearestActor = p->m_cont.lock()->GetNearestLockOnActor(m_player.lock()->GetPos());
+	auto nearestActor = p->m_cont.lock()->SearchNearestLockOnActor(m_player.lock()->GetPos());
 	// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
 	if (nearestActor && (nearestActor->GetPos() - p->GetPos()).SqrMagnitude() < kTrackEnemyDistance * kTrackEnemyDistance)
 	{

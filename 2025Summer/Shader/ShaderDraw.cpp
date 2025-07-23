@@ -29,13 +29,13 @@ void ShaderDraw::DrawModel(std::shared_ptr<AnimationModel> model, int psH, int v
 
 	if (psH != -1) SetUsePixelShader(psH);
 	if (vsH != -1) SetUseVertexShader(vsH);
-	if (texH != -1) SetUseTextureToShader(0, texH);
+	if (texH != -1) SetUseTextureToShader(4, texH);
 
 	model->Draw();
 
 	SetUsePixelShader(-1);
 	SetUseVertexShader(-1);
-	SetUseTextureToShader(0, -1);
+	SetUseTextureToShader(4, -1);
 
 	MV1SetUseOrigShader(false);
 }

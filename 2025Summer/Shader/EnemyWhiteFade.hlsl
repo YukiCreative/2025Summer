@@ -28,12 +28,11 @@ struct PS_OUTPUT
     float4 Distance : SV_TARGET3; // 距離
 };
 
-cbuffer BoundingBox : register(b4)
+cbuffer TimeBuff : register(b4)
 {
-    float3 vmin;
-    float dammy;
-    float3 vmax;
     float time;
+    float3 dammy;
+    float4 dammy2;
 };
 
 Texture2D tex : register(t0);
@@ -65,30 +64,33 @@ PS_OUTPUT main(PS_INPUT PSInput)
     PSOutput.Depth.gb = 0.0;
     PSOutput.Depth.a = 1.0; //a=0.0にすると、αテストではじかれるので、1.0を入れておく
     
-    float3 bbUVW0_1 = (PSInput.WorldPosition - vmin.xyz) / (vmax.xyz - vmin.xyz);
+    PSOutput.Color0 = float4(1,0,1,1);
+    
+    return PSOutput;
 	
     float dissolve = dissolveTex.Sample(smp, PSInput.TexCoords0_1.xy).r;
     
     float threshold = dissolve - time;
-    
-    if (threshold > 0)
-    {
-        discard;
-    }
 	
     const float amb = 0.2;
     
-    float bright = max(saturate(dot(normalize(-g_Common.Light[0].Direction), PSOutput.Normal.xyz)), amb);
+    float bright = max(saturate(dot(normalize(-g_Common.Light[0].Direction), PSInput.VNormal.xyz)), amb);
 	
     float3 eyeRay = normalize(-PSInput.VPosition);
-    float3 ref = reflect(g_Common.Light[0].Direction, PSOutput.Normal.xyz);
+    float3 ref = reflect(g_Common.Light[0].Direction, PSInput.VNormal.xyz);
     float spec = pow(saturate(dot(eyeRay, ref)), g_Common.Material.Power);
 	
     float4 texCol = tex.Sample(smp, PSInput.TexCoords0_1.xy);
     float4 color = g_Common.Material.Diffuse * texCol * bright + spec;
 	
+    if (threshold > 0)
+    {
+        // 白を乗算
+        texCol = lerp(texCol, float4(1, 1, 1, 1), 0.8);
+    }
+    
     float edge = pow(1.0 - saturate(abs(threshold)), 20);
-    float4 edgeColor = float4(1, 0, 1, 1); // 紫
+    float4 edgeColor = float4(0, 0, 0, 1); // 端黒
     PSOutput.Color0 = lerp(texCol, edgeColor, edge);
     return PSOutput;
 }

@@ -81,7 +81,7 @@ void SceneTest::Update()
 	m_actors->Update();
 	m_UI->Update();
 
-	m_wave = 1;
+	m_wave = 0;
 	// 
 	if (m_actors->SearchEnemy().size() == 0)
 	{

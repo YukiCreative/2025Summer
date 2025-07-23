@@ -12,8 +12,7 @@ public:
 
 	void Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle);
 
-	void Update() override;
-	void Draw() const override;
+	void UpdateState() override;
 
 	void CommitMove() override;
 

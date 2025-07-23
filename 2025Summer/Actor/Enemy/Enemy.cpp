@@ -5,17 +5,34 @@
 #include "AttackCol.h"
 #include "Geometry.h"
 #include <DxLib.h>
+#include "ShaderDraw.h"
+#include "Collider3D.h"
 
 namespace
 {
 	constexpr float kRotateSpeed = 0.1f;
 	constexpr float kAnimSpeed = 30.0f;
+	constexpr float kDissolveSpeed = 0.02f;
+	const std::string kVS = "Data/Shader/EnemyDissolveVS.vso";
+	const std::string kPS = "Data/Shader/EnemyWhiteFade.pso";
+	const std::string kTex = "Data/Image/pattern.png";
 }
 
 Enemy::Enemy() :
 	Actor(true), // 敵はロックオン可能
-	m_isInvincible(false)
+	m_isInvincible(false),
+	m_isDissolving(false),
+	m_cBuffH(-1),
+	m_cBuff(nullptr),
+	m_dissolveTex(-1),
+	m_dissolvePsH(-1),
+	m_dissolveVsH(-1)
 {
+}
+
+Enemy::~Enemy()
+{
+	DeleteShaderConstantBuffer(m_cBuffH);
 }
 
 void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle)
@@ -26,6 +43,36 @@ void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const flo
 	m_pos = initPos;
 	m_model = std::make_shared<AnimationModel>();
 	m_model->Init(dupulicatedHandle, kAnimSpeed);
+
+	InitDissolve();
+}
+
+void Enemy::Update()
+{
+	UpdateState();
+
+	m_model->Update();
+
+	if (m_isDissolving)
+	{
+		UpdateDissolve();
+	}
+}
+
+void Enemy::Draw() const
+{
+	if (m_isDissolving)
+	{
+		DissolveDraw();
+	}
+	else
+	{
+		m_model->Draw();
+	}
+
+#if _DEBUG
+	m_collidable->GetCol().Draw();
+#endif
 }
 
 void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)
@@ -89,4 +136,29 @@ bool Enemy::IsEndAnim() const
 void Enemy::AddVel(const Vector3& vel)
 {
 	m_collidable->AddVel(vel);
+}
+
+void Enemy::UpdateDissolve()
+{
+	m_cBuff->time += kDissolveSpeed;
+	if (m_cBuff->time >= 1.0f) m_cBuff->time = 1.0f;
+	UpdateShaderConstantBuffer(m_cBuffH);
+}
+
+void Enemy::DissolveDraw() const
+{
+	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, 4);
+	ShaderDraw::DrawModel(m_model, m_dissolvePsH, m_dissolveVsH, m_dissolveTex);
+}
+
+void Enemy::InitDissolve()
+{
+	m_cBuffH = CreateShaderConstantBuffer(sizeof(EnemyCBuff));
+	m_cBuff = (EnemyCBuff*)GetBufferShaderConstantBuffer(m_cBuffH);
+	m_cBuff->time = 0.0f;
+	UpdateShaderConstantBuffer(m_cBuffH);
+
+	m_dissolvePsH = LoadPixelShader(kPS.c_str());
+	m_dissolveVsH = LoadVertexShader(kVS.c_str());
+	m_dissolveTex = LoadGraph(kTex.c_str());
 }

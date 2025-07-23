@@ -61,21 +61,9 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const 
 	m_attackFrame = GetAttackInterval();
 }
 
-void EnemyBug::Update()
+void EnemyBug::UpdateState()
 {
 	m_state = m_state->Update();
-
-	// アニメーション進める
-	m_model->Update();
-}
-
-void EnemyBug::Draw() const
-{
-	m_model->Draw();
-
-#if _DEBUG
-	m_collidable->GetCol().Draw();
-#endif
 }
 
 void EnemyBug::CommitMove()
