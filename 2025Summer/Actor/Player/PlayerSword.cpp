@@ -52,6 +52,9 @@ PlayerSword::PlayerSword() :
 PlayerSword::~PlayerSword()
 {
 	DeleteShaderConstantBuffer(m_cBuffH);
+	DeleteShader(m_psH);
+	DeleteShader(m_vsH);
+	DeleteGraph(m_dissolveTex);
 
 	if (m_effect.expired()) return;
 

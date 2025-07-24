@@ -29,10 +29,6 @@ void Model::SetPos(const Vector3& pos) const
 	MV1SetPosition(m_handle, pos);
 }
 
-void Model::CommitMove(const Vector3& moveValue)
-{
-}
-
 void Model::Draw() const
 {
 	MV1DrawModel(m_handle);

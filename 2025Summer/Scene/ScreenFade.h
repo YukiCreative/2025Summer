@@ -17,8 +17,11 @@ public:
 
 	void Draw() const;
 
-	bool IsEndFadeOut() const { m_fadeParam.IsMax(); }
-	bool IsEndFadeIn() const { m_fadeParam.IsMin(); }
+	bool IsEndFadeOut() const;
+	bool IsEndFadeIn() const;
+
+	void FadeIn();
+	void FadeOut();
 private:
 
 	// trueならフェードイン、falseならフェードアウト
@@ -26,6 +29,6 @@ private:
 
 	std::shared_ptr<Image> m_fadeImage;
 
-	using FadeParam = RangeLimitedValue<int, 0, 255>;
+	using FadeParam = RangeLimitedValue<float, 0.0f, 255.0f>;
 	FadeParam m_fadeParam;
 };

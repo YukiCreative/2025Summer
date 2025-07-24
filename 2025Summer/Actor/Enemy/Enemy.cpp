@@ -33,6 +33,9 @@ Enemy::Enemy() :
 Enemy::~Enemy()
 {
 	DeleteShaderConstantBuffer(m_cBuffH);
+	DeleteShader(m_dissolvePsH);
+	DeleteShader(m_dissolveVsH);
+	DeleteGraph(m_dissolveTex);
 }
 
 void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle)

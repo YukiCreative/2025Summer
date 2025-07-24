@@ -5,18 +5,19 @@
 
 namespace
 {
-	constexpr float kFadeSpeed = 0.02f;
+	// 255 / フレーム数
+	constexpr float kFadeSpeed = 255.0f / 40.0f;
 }
 
 ScreenFade::ScreenFade() :
-	m_fadeImage()
+	m_fadeImage(),
+	m_isFadeIn(true)
 {
 }
 
 ScreenFade::~ScreenFade()
 {
 	m_fadeImage->DeleteImage();
-	m_fadeParam.SetMin();
 }
 
 void ScreenFade::Init()
@@ -27,7 +28,9 @@ void ScreenFade::Init()
 
 	m_fadeImage = std::make_shared<Image>();
 	m_fadeImage->Init(fadeImage);
-	m_fadeImage->SetImageBlendMode(DX_BLENDMODE_ALPHA, 0);
+	m_fadeParam.SetMax();
+	m_fadeImage->SetImageBlendMode(DX_BLENDMODE_ALPHA, m_fadeParam.Value());
+
 }
 
 void ScreenFade::Update()
@@ -35,6 +38,7 @@ void ScreenFade::Update()
 	if (m_isFadeIn)
 	{
 		// 透明度を下げる
+		// とりあえず固定値
 		m_fadeParam -= kFadeSpeed;
 	}
 	else
@@ -48,4 +52,24 @@ void ScreenFade::Update()
 void ScreenFade::Draw() const
 {
 	m_fadeImage->Draw({ Game::kScreenHalfWidth, Game::kScreenHalfHeight });
+}
+
+bool ScreenFade::IsEndFadeOut() const
+{
+	return m_fadeParam.IsMax();
+}
+
+bool ScreenFade::IsEndFadeIn() const
+{
+	return m_fadeParam.IsMin();
+}
+
+void ScreenFade::FadeIn()
+{
+	m_isFadeIn = true;
+}
+
+void ScreenFade::FadeOut()
+{
+	m_isFadeIn = false;
 }

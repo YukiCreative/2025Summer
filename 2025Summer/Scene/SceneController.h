@@ -5,11 +5,13 @@
 class Scene;
 class ScreenFade;
 
-enum class FadeState
+enum class SceneChangeKind
 {
-	kNormal,
-	kFadeIn,
-	kFadeOut
+	kStackScene,
+	kChangeScene,
+	kRemoveScene,
+	kResetScene,
+	kNone,
 };
 
 class SceneController
@@ -32,11 +34,18 @@ public:
 	void StackScene(std::shared_ptr<Scene> stackScene);
 	void RemoveScene();
 	// 今あるシーンを全て消して、新しいシーン一つだけにする
-	void SingleScene(std::shared_ptr<Scene> nextScene);
+	void ResetScene(std::shared_ptr<Scene> nextScene);
+
+	void StackSceneWithFade(std::shared_ptr<Scene> nextScene);
+	void ChangeSceneWithFade(std::shared_ptr<Scene> nextScene);
+	void RemoveSceneWithFade();
+	void ResetSceneWithFade(std::shared_ptr<Scene> nextScene);
 
 private:
 
 	std::shared_ptr<ScreenFade> m_fade;
 	std::shared_ptr<Scene> m_nextScene;
-	FadeState m_fadeState;
+	SceneChangeKind m_changeKind;
+
+	using FadeUpdate_t = void (SceneController::*)();
 };

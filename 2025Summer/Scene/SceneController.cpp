@@ -1,12 +1,11 @@
-#include "SceneController.h"
 #include "Scene.h"
-//#include "SceneTest.h"
+#include "SceneController.h"
 #include "SceneDebug.h"
-#include <cassert>
 #include "ScreenFade.h"
+#include <cassert>
 
 SceneController::SceneController() :
-	m_fadeState(FadeState::kFadeIn)
+	m_changeKind(SceneChangeKind::kStackScene)
 {
 }
 
@@ -20,30 +19,40 @@ void SceneController::Init()
 {
 	m_fade = std::make_shared<ScreenFade>();
 	m_fade->Init();
-	StackScene(std::make_shared<SceneDebug>());
+	StackSceneWithFade(std::make_shared<SceneDebug>());
 }
 
 void SceneController::Update()
 {
+	if (m_fade->IsEndFadeOut())
+	{
+		switch (m_changeKind)
+		{
+		case SceneChangeKind::kStackScene:
+			StackScene(m_nextScene);
+			break;
+		case SceneChangeKind::kChangeScene:
+			ChangeScene(m_nextScene);
+			break;
+		case SceneChangeKind::kRemoveScene:
+			RemoveScene();
+			break;
+		case SceneChangeKind::kResetScene:
+			ResetScene(m_nextScene);
+			break;
+		default:
+			assert(false && "SceneChangeKindの値が不正です。");
+			break;
+		}
+
+		m_changeKind = SceneChangeKind::kNone;
+		m_nextScene = nullptr;
+		m_fade->FadeIn();
+	}
+
 	m_fade->Update();
 
-	switch (m_fadeState)
-	{
-	case FadeState::kNormal:
-		break;
-	case FadeState::kFadeIn:
-		// フェードインしきったらnextSceneを遷移してNormalへ
-		if (m_fade->IsEndFadeIn())
-		{
-
-		}
-		break;
-	case FadeState::kFadeOut:
-		break;
-	default:
-		assert(false && "FadeStateの値が不正です");
-		break;
-	}
+	if (m_scenes.empty()) return;
 
 	m_scenes.back()->Update();
 }
@@ -54,6 +63,8 @@ void SceneController::Draw() const
 	{
 		scene->Draw();
 	}
+
+	m_fade->Draw();
 }
 
 void SceneController::ChangeScene(std::shared_ptr<Scene> nextScene)
@@ -92,7 +103,7 @@ void SceneController::RemoveScene()
 	m_scenes.back()->Entry();
 }
 
-void SceneController::SingleScene(std::shared_ptr<Scene> nextScene)
+void SceneController::ResetScene(std::shared_ptr<Scene> nextScene)
 {
 	if (!m_scenes.empty())
 	{
@@ -103,4 +114,31 @@ void SceneController::SingleScene(std::shared_ptr<Scene> nextScene)
 	m_scenes.emplace_back(nextScene);
 	m_scenes.back()->Init();
 	m_scenes.back()->Entry();
+}
+
+void SceneController::StackSceneWithFade(std::shared_ptr<Scene> nextScene)
+{
+	m_fade->FadeOut();
+	m_nextScene = nextScene;
+	m_changeKind = SceneChangeKind::kStackScene;
+}
+
+void SceneController::ChangeSceneWithFade(std::shared_ptr<Scene> nextScene)
+{
+	m_fade->FadeOut();
+	m_nextScene = nextScene;
+	m_changeKind = SceneChangeKind::kChangeScene;
+}
+
+void SceneController::RemoveSceneWithFade()
+{
+	m_fade->FadeOut();
+	m_changeKind = SceneChangeKind::kRemoveScene;
+}
+
+void SceneController::ResetSceneWithFade(std::shared_ptr<Scene> nextScene)
+{
+	m_fade->FadeOut();
+	m_nextScene = nextScene;
+	m_changeKind = SceneChangeKind::kResetScene;
 }

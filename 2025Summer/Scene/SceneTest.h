@@ -31,7 +31,6 @@ private:
 	std::shared_ptr<ShadowMap> m_shadow;
 
 	std::shared_ptr<Model> m_field;
-	int m_dirH;
 
 	int m_wave;
 

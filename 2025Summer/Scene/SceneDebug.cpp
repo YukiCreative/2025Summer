@@ -42,19 +42,19 @@ void SceneDebug::Update()
 		switch (m_selectNum)
 		{
 		case 0:
-			SceneController::GetInstance().ChangeScene(std::make_shared<SceneTitle>());
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneTitle>());
 			break;
 		case 1:
-			SceneController::GetInstance().ChangeScene(std::make_shared<SceneMenu>());
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneMenu>());
 			break;
 		case 2:
-			SceneController::GetInstance().ChangeScene(std::make_shared<SceneGame>());
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneGame>());
 			break;
 		case 3:
-			SceneController::GetInstance().ChangeScene(std::make_shared<SceneResult>());
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
 			break;
 		case 4:
-			SceneController::GetInstance().ChangeScene(std::make_shared<SceneTest>());
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneTest>());
 			break;
 		default:
 #if _DEBUG

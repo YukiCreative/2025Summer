@@ -28,14 +28,12 @@ namespace
 }
 
 SceneTest::SceneTest() :
-	m_dirH(-1),
 	m_wave(0)
 {
 }
 
 SceneTest::~SceneTest()
 {
-	DeleteLightHandle(m_dirH);
 }
 
 void SceneTest::Init()
@@ -100,7 +98,7 @@ void SceneTest::Draw() const
 	Input& input = Input::GetInstance();
 	if (input.IsTrigger("GoDebug"))
 	{
-		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
+		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneDebug>());
 		return;
 	}
 
