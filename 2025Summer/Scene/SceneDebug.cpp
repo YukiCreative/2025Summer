@@ -8,6 +8,8 @@
 #include "SceneResult.h"
 #include "SceneTest.h"
 
+#include "Image.h"
+
 SceneDebug::SceneDebug() : 
 	m_selectNum(0)
 {
@@ -21,6 +23,10 @@ void SceneDebug::Init()
 	m_menuList.emplace_back("Game");
 	m_menuList.emplace_back("Result");
 	m_menuList.emplace_back("Test");
+
+	a = std::make_shared<Image>();
+	a->Init("Flame01.png");
+	a->SetExRate(5.0f);
 }
 
 void SceneDebug::Update()
@@ -81,6 +87,8 @@ void SceneDebug::Draw() const
 	}
 
 	DrawString(200, 0, "それぞれのシーンでF1キーを押したらデバッグシーンに戻ります", 0xffffff);
+
+	a->Draw({640, 480});
 }
 
 void SceneDebug::Entry()

@@ -35,11 +35,12 @@ public:
 	std::weak_ptr<Button> UpButton()    const;
 	std::weak_ptr<Button> DownButton()  const;
 
+	// フォーカスの有無の切り替え
+	void InvertState();
+
 protected:
 	Vector2 m_pos;
 
-	// フォーカスの有無の切り替え
-	void InvertState();
 	virtual void FocusedUpdate() abstract;
 	virtual void NormalUpdate() abstract;
 

@@ -1,7 +1,10 @@
 #pragma once
 #include "Scene.h"
 #include <string>
+#include <memory>
 #include <list>
+
+class Image;
 
 class SceneDebug : public Scene
 {
@@ -20,5 +23,6 @@ private:
 	std::list<std::string> m_menuList;
 	int m_selectNum;
 
+	std::shared_ptr<Image> a;
 };
 

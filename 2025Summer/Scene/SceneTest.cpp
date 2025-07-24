@@ -75,6 +75,8 @@ void SceneTest::Init()
 
 void SceneTest::Update()
 {
+	auto& input = Input::GetInstance();
+
 	m_camera->Update();
 	m_actors->Update();
 	m_UI->Update();
@@ -91,17 +93,16 @@ void SceneTest::Update()
 		m_enemyGenerator->SpawnWave(m_wave);
 		++m_wave;
 	}
-}
 
-void SceneTest::Draw() const
-{
-	Input& input = Input::GetInstance();
 	if (input.IsTrigger("GoDebug"))
 	{
 		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneDebug>());
 		return;
 	}
+}
 
+void SceneTest::Draw() const
+{
 	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
 
 	m_shadow->StartShadowMapDraw(GetLightDirection());

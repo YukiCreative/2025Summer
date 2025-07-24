@@ -11,7 +11,8 @@ namespace
 
 ScreenFade::ScreenFade() :
 	m_fadeImage(),
-	m_isFadeIn(true)
+	m_isFadeIn(true),
+	m_fadeParam()
 {
 }
 

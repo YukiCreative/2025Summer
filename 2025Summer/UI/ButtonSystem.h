@@ -2,6 +2,7 @@
 #include <list>
 #include <memory>
 #include "Vector2.h"
+#include "UIBase.h"
 
 class Button;
 class ButtonNoFocus;
@@ -11,9 +12,28 @@ class ButtonNoFocus;
 // 入力をボタンに拘束、解除
 // どのボタンが選ばれているか教えてあげる
 // ボタンが押されたとき、そのボタンに教えてあげる　
-class ButtonSystem
+class ButtonSystem : public UIBase
 {
+public:
+	ButtonSystem();
+	~ButtonSystem();
+
+	void Init();
+
+	// 入力からどのボタンを選択しているかを変えたりする
+	void Update() override;
+	
+	void Draw() const override;
+
+	// ボタンを追加
+	// シーンが利用する想定
+	void AddButton(std::shared_ptr<Button> buttonInstance);
+
+	void SetButtonFocus(std::shared_ptr<Button> setButton);
+	void ExitFocus();
+
 private:
+
 	using ButtonList_t = std::list<std::shared_ptr<Button>>;
 	ButtonList_t m_buttons;
 	std::weak_ptr<Button> m_nowFocusedButton;
@@ -26,19 +46,4 @@ private:
 	void MoveFocus(Vector2 inputAxis);
 
 	bool CanMoveFocus(const Vector2& inputAxis) const;
-public:
-	ButtonSystem();
-	~ButtonSystem();
-
-	// 入力からどのボタンを選択しているかを変えたりする
-	void Update();
-	
-	void Draw() const;
-
-	// ボタンを追加
-	// シーンが利用する想定
-	void AddButton(std::shared_ptr<Button> buttonInstance);
-
-	void SetButtonFocus(std::shared_ptr<Button> setButton);
-	void ExitFocus();
 };
