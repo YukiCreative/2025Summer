@@ -17,7 +17,11 @@ namespace
 	const Vector3 kShadowAreaMin = { -1500, -300, -1500 };
 	const Vector3 kShadowAreaMax = { 1500,  300,  1500 };
 
-	const Vector2 kStartButtionPos = {Game::kScreenHalfWidth, Game::kScreenHalfHeight};
+	const Vector2 kStartButtionPos = { Game::kScreenHalfWidth, Game::kScreenHalfHeight + 200 };
+
+	const std::string kLogoName = "Title.png";
+	constexpr float kLogoExRate = 0.5f;
+	const Vector2 kLogoPos = { Game::kScreenHalfWidth, Game::kScreenHalfHeight - 50 };
 }
 
 SceneTitle::SceneTitle()
@@ -48,6 +52,10 @@ void SceneTitle::Init()
 	buttons->SetButtonFocus(startButton);
 
 	m_UI->AddUI(buttons);
+
+	m_title = std::make_shared<Image>();
+	m_title->Init(kLogoName);
+	m_title->SetExRate(kLogoExRate);
 }
 
 void SceneTitle::Update()
@@ -80,6 +88,7 @@ void SceneTitle::Draw() const
 
 	// 3Dの描画が終わった後にUIを描画
 	m_UI->Draw();
+	m_title->Draw(kLogoPos);
 
 	DrawString(0, 0, "タイトルシーンです", 0xffffff);
 }
@@ -98,7 +107,7 @@ void SceneTitle::Reave()
 
 namespace
 {
-	const std::string kStartButtonImage = "FillImage.png";
+	const std::string kStartButtonImage = "PressEny.png";
 	constexpr float kBlendParamMax = 255.0f;
 	constexpr float kBlinkSpeed = 0.05f;
 	constexpr float kRapidBlinkSpeed = 1.0f;

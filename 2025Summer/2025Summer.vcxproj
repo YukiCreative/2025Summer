@@ -74,6 +74,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
     <ClCompile Include="General\Application.cpp" />
     <ClCompile Include="General\Input.cpp" />
+    <ClCompile Include="General\ScoreManager.cpp" />
     <ClCompile Include="Geometry\Geometry.cpp" />
     <ClCompile Include="Geometry\Quaternion.cpp" />
     <ClCompile Include="Geometry\Vector2.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="General\Color.h" />
     <ClInclude Include="General\Game.h" />
     <ClInclude Include="General\Input.h" />
+    <ClInclude Include="General\ScoreManager.h" />
     <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="Geometry\Quaternion.h" />
     <ClInclude Include="Geometry\Vector2.h" />

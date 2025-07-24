@@ -9,6 +9,7 @@ class EnemyModelList
 {
 public:
 	EnemyModelList();
+	~EnemyModelList();
 
 	void Init();
 
@@ -19,5 +20,7 @@ public:
 
 private:
 	std::unordered_map<EnemyKind, int> m_handles;
+private:
+	void ClearHandle();
 };
 

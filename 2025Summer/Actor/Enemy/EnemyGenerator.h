@@ -24,6 +24,7 @@ class EnemyGenerator : public Actor
 
 public:
 	EnemyGenerator();
+	~EnemyGenerator();
 
 	void Init(std::weak_ptr<Player> player);
 

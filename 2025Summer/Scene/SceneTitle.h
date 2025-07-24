@@ -29,6 +29,7 @@ private:
 	std::shared_ptr<UIController> m_UI;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ShadowMap> m_shadow;
+	std::shared_ptr<Image> m_title;
 
 private:
 

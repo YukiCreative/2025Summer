@@ -23,6 +23,10 @@ EnemyGenerator::EnemyGenerator() :
 {
 }
 
+EnemyGenerator::~EnemyGenerator()
+{
+}
+
 void EnemyGenerator::Init(std::weak_ptr<Player> player)
 {
 	m_player = player;

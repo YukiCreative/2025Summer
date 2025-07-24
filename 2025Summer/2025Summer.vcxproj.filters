@@ -113,6 +113,7 @@
     <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Scene\ScreenFade.cpp" />
+    <ClCompile Include="General\ScoreManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -235,6 +236,7 @@
     <ClInclude Include="UI\PlayerSpecialGauge.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
     <ClInclude Include="Scene\ScreenFade.h" />
+    <ClInclude Include="General\ScoreManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
