@@ -7,6 +7,8 @@
 #include <DxLib.h>
 #include "ShaderDraw.h"
 #include "Collider3D.h"
+#include "EffectManager.h"
+#include "EffekseerEffect.h"
 
 namespace
 {
@@ -16,6 +18,8 @@ namespace
 	const std::string kVS = "Data/Shader/EnemyDissolveVS.vso";
 	const std::string kPS = "Data/Shader/EnemyWhiteFade.pso";
 	const std::string kTex = "Data/Image/pattern.png";
+
+	const std::string kDeathEffect = "BigBlood.efkefc";
 }
 
 Enemy::Enemy() :
@@ -58,6 +62,11 @@ void Enemy::Update()
 	UpdateState();
 
 	m_model->Update();
+
+	if (!m_bloodEffect.expired())
+	{
+		m_bloodEffect.lock()->SetPos(m_pos);
+	}
 
 	if (m_isDissolving)
 	{
@@ -142,6 +151,16 @@ bool Enemy::IsEndAnim() const
 void Enemy::AddVel(const Vector3& vel)
 {
 	m_collidable->AddVel(vel);
+}
+
+void Enemy::StartBloodEffect()
+{
+	m_bloodEffect = EffectManager::GetInstance().GenerateEffect(kDeathEffect, m_pos);
+}
+
+void Enemy::DisableLockOn()
+{
+	SetCanLockOn(false);
 }
 
 void Enemy::UpdateDissolve()

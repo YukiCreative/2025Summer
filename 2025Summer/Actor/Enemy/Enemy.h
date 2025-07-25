@@ -15,6 +15,8 @@ namespace DxLib
 	struct tagMATRIX;
 }
 
+class EffekseerEffect;
+
 // 敵の基底処理
 class Enemy abstract : public Actor
 {
@@ -43,10 +45,12 @@ public:
 	void AddVel(const Vector3& vel);
 
 	virtual void OnDeath() abstract;
-	// 一時的false
-	void StartDissolve() { m_isDissolving = false; }
+	void StartBloodEffect();
 
 	EnemyKind GetEnemyKind() const { return m_enemyKind; }
+
+	// 自身をロックオン不可にする
+	void DisableLockOn();
 
 protected:
 
@@ -73,6 +77,8 @@ protected:
 	int m_dissolveTex;
 
 	bool m_isDissolving;
+
+	std::weak_ptr<EffekseerEffect> m_bloodEffect;
 
 protected:
 

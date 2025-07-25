@@ -40,7 +40,7 @@ EnemyPlantDeath::EnemyPlantDeath(std::weak_ptr<EnemyPlant> parent) :
 
 	// –³“G‰»
 	m_parent.lock()->SetInvincibility(true);
-	m_parent.lock()->StartDissolve();
+	m_parent.lock()->StartBloodEffect();
 }
 
 EnemyPlantDeath::~EnemyPlantDeath()

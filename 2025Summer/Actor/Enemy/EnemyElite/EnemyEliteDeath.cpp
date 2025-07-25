@@ -11,7 +11,7 @@ EnemyEliteDeath::EnemyEliteDeath(std::weak_ptr<EnemyElite> parent) :
 {
 	m_parent.lock()->ChangeAnim(kAnimName, false);
 	m_parent.lock()->SetInvincibility(true);
-	m_parent.lock()->StartDissolve();
+	m_parent.lock()->StartBloodEffect();
 }
 
 EnemyEliteDeath::~EnemyEliteDeath()

@@ -11,6 +11,7 @@ public:
 	}
 
 	const bool CanLockOn() const { return m_canLockOn; }
+	void SetCanLockOn(const bool canLockOnOrNot) { m_canLockOn = canLockOnOrNot; }
 
 private:
 
