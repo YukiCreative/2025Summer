@@ -47,13 +47,15 @@ void Camera::Update()
 	Effekseer_Sync3DSetting();
 
 	Rotate();
+	SetShakePos();
 
 	m_lerpedTargetDistance = std::lerp(m_lerpedTargetDistance, m_targetDistance, kDistanceLerpStrength);
 
 	// 注視点をlerp
 	m_lerpedTargetPos.LerpMyself(m_targetPos, kLerpStrength);
 	// DxLibのカメラに反映
-	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_lerpedTargetDistance, m_lerpedTargetPos);
+	SetCameraPositionAndTarget_UpVecY(m_lerpedTargetPos + m_targetToCamera * m_lerpedTargetDistance + m_shakePos
+		, m_lerpedTargetPos);
 
 	m_FoV = std::lerp(m_FoV, m_targetFoV, kChangeFoVSpeed);
 	SetupCamera_Perspective(m_FoV);
@@ -155,6 +157,13 @@ void Camera::SetCameraDistanceDefault()
 	m_targetDistance = kInitCameraDistance;
 }
 
+void Camera::SetShake(const int frame, const int strength)
+{
+	m_shakeFrame = frame;
+	m_startFrame = frame;
+	m_shakeStrength = strength;
+}
+
 void Camera::Rotate()
 {
 	// カメラ速度減衰
@@ -185,4 +194,20 @@ void Camera::Rotate()
 
 	// 回転軸にそって回転
 	m_targetToCamera = VTransform(m_targetToCamera, MGetRotAxis(rightAxis, m_cameraVel.y));
+}
+
+void Camera::SetShakePos()
+{
+	// 時間によって強さを弱める
+	const float strength = m_shakeStrength * (static_cast<float>(m_shakeFrame) / static_cast<float>(m_startFrame));
+	
+	const float x = GetRand(strength) - strength * 0.5f;
+	const float y = GetRand(strength) - strength * 0.5f;
+	const float z = GetRand(strength) - strength * 0.5f;
+
+	// shakePosをランダムに
+	m_shakePos = Vector3(x, y, z);
+
+	--m_shakeFrame;
+	if (m_shakeFrame < 0) m_shakeFrame = 0;
 }

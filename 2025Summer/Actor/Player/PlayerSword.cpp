@@ -11,6 +11,7 @@
 #include "EffekseerEffect.h"
 #include <cassert>
 #include <cmath>
+#include "Camera.h"
 
 namespace
 {
@@ -35,6 +36,9 @@ namespace
 	constexpr int kChargeGaugeBasePoint = 1;
 	// 与ダメージのこの分だけ必殺技を増加
 	constexpr float kSpecialAttackAttackPowerMult = 0.01f;
+
+	constexpr int kShakeFrame = 5;
+	constexpr int kShakeStrength = 20;
 }
 
 PlayerSword::PlayerSword() :
@@ -133,6 +137,8 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 	{
 		// プレイヤーにヒットストップをかける
 		m_player.lock()->SetStopFrame(kStopFrame);
+		// ちょっと画面振動
+		m_player.lock()->m_camera.lock()->SetShake(kShakeFrame, kShakeStrength);
 
 		// プレイヤーの必殺技ゲージを増加
 		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));

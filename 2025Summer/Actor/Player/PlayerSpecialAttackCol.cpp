@@ -10,7 +10,7 @@
 
 namespace
 {
-	constexpr int kLifeTime = 10;
+	constexpr int kLifeTime = 100;
 	constexpr float kRadius = 1500.0f;
 	constexpr float kKnockbackPower = 100.0f;
 	constexpr float kAttackPower = 2000.0f;
@@ -36,6 +36,7 @@ void PlayerSpecialAttackCol::Init(std::weak_ptr<Player> parent, const Vector3& i
 
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
+	m_parent = parent;
 
 	// ‚±‚ê‚à‚ß‚ñ‚Ç‚­‚³‚­‚È‚Á‚Ä‚«‚½‚È
 	auto col = std::make_shared<SphereCollider>();
@@ -51,13 +52,16 @@ void PlayerSpecialAttackCol::Init(std::weak_ptr<Player> parent, const Vector3& i
 
 	EffectManager::GetInstance().GenerateEffect(kEffectName, m_pos);
 
-	parent.lock()->m_camera.lock()->SetTargetDistance(kCameraDistance);
+	m_parent.lock()->m_camera.lock()->SetTargetDistance(kCameraDistance);
+
+	m_parent.lock()->m_camera.lock()->SetShake(10, 100);
 }
 
 void PlayerSpecialAttackCol::Update()
 {
 	if (m_frame > kLifeTime)
 	{
+		m_parent.lock()->m_camera.lock()->SetShake(20, 100);
 		Destroy();
 	}
 

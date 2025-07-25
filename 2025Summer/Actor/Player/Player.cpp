@@ -94,6 +94,8 @@ void Player::Update()
 
 	m_model->Update();
 
+	m_specialGauge.SetMax();
+
 	// フラグをリセット
 	m_isContactLockOnActor = false;
 }

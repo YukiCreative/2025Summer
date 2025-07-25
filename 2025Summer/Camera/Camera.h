@@ -12,8 +12,7 @@ namespace DxLib
 	struct tagMATRIX;
 }
 
-// DxLibにカメラが一つしか存在しないのでシングルトンでも良さげ？
-// せずに済むならそれが一番なのだが
+
 class Camera
 {
 public:
@@ -45,6 +44,8 @@ public:
 	Vector3 GetTargetPos() const { return m_targetPos; }
 	float GetCameraNearFarLength() const;
 	void SetCameraDistanceDefault();
+	// カメラの振動
+	void SetShake(const int frame, const int strength);
 
 private:
 	// どこに向くか
@@ -61,10 +62,17 @@ private:
 	float m_targetFoV;
 	Vector2 m_cameraVel;
 
+	// カメラの振動分
+	Vector3 m_shakePos;
+	int m_shakeFrame;
+	int m_startFrame;
+	int m_shakeStrength;
+
 	// カメラが目指す座標
 	Vector3 m_targetCameraPos;
 	Vector3 m_lerpedCameraPos;
 
 private:
 	void Rotate();
+	void SetShakePos();
 };

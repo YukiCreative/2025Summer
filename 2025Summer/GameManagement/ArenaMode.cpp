@@ -1,10 +1,11 @@
 #include "ArenaMode.h"
 #include "WaveController.h"
 #include "Timer.h"
+#include "Game.h"
 
 namespace
 {
-	constexpr int kInitTimeLimit = 3600;
+	constexpr int kInitTimeLimit = 60 * Game::kFrameRate;
 }
 
 ArenaMode::ArenaMode()

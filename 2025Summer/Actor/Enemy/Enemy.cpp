@@ -47,6 +47,8 @@ void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const flo
 	m_model = std::make_shared<AnimationModel>();
 	m_model->Init(dupulicatedHandle, kAnimSpeed);
 
+	m_model->SetPos(m_pos);
+
 	InitDissolve();
 }
 
