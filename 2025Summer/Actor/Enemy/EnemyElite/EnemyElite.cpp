@@ -46,6 +46,8 @@ void EnemyElite::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 {
 	Enemy::Init(player, initPos, kMaxHp, dupulicatedHandle);
 
+	m_enemyKind = EnemyKind::kElite;
+
 	m_model->SetScale(kModelScale);
 	// ‰ñ“]
 	m_model->RotateUpVecY(Geometry::kPi);

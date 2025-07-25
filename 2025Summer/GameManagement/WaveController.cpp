@@ -39,7 +39,8 @@ void WaveController::BattleUpdate()
 		if (m_wave > kMaxWave)
 		{
 			// I—¹
-
+			StopUpdate();
+			return;
 		}
 
 		m_stateFrame = 0;

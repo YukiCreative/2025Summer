@@ -27,8 +27,12 @@ public:
 	// Enemyのlistを返します
 	ActorList_t SearchEnemy() const;
 
+	// 前のフレームに死んだ敵の種類を返す
+	std::list<EnemyKind> GetBeforeDeathEnemy() { return m_beforeDeathEnemy; }
+
 private:
 	ActorList_t m_actors;
 	// 重力、当たり判定、押し戻し
 	std::shared_ptr<Physics> m_physics;
+	std::list<EnemyKind> m_beforeDeathEnemy;
 };

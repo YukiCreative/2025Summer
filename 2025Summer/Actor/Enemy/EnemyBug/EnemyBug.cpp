@@ -48,6 +48,8 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const 
 {
 	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
+	m_enemyKind = EnemyKind::kBug;
+
 	auto col = std::make_shared<CapsuleCollider>();
 	col->Init(m_pos, m_pos + Vector3{0, 100, 0}, kWeight, false, false, kSphereRadius);
 	auto rigid = std::make_shared<Rigid>();

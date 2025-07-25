@@ -15,7 +15,7 @@ namespace
 	constexpr float kRedTime = 10.0f;
 	// å¥êFÇ≈ÇÕÇ»Ç¢Å@Ç¢Ç¢ä¥Ç∂ÇÃê‘
 	constexpr unsigned int kNiceRed = 0xee3311;
-	const std::string kFormatText = "Limit:%.1fs";
+	const std::string kFormatText = "Limit:%.2fs";
 }
 
 TimeUI::TimeUI() :

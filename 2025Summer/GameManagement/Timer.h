@@ -19,6 +19,7 @@ public:
 	void SetCount(const int count) { m_count = count; }
 	void SetStateCountUp();
 	void SetStateCountDown();
+	void AddCount(const int count) { m_count += count; }
 
 private:
 	using State_t = bool (Timer::*)();

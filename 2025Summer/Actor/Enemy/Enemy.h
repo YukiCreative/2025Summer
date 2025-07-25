@@ -3,6 +3,7 @@
 #include <string>
 #include "RangeLimitedValue.h"
 #include "HitPoint.h"
+#include "EnemyKind.h"
 
 class AnimationModel;
 class EnemyState;
@@ -45,6 +46,8 @@ public:
 	// 一時的false
 	void StartDissolve() { m_isDissolving = false; }
 
+	EnemyKind GetEnemyKind() const { return m_enemyKind; }
+
 protected:
 
 	// モデルディゾルブ
@@ -58,6 +61,7 @@ protected:
 	HitPoint_t m_hitPoint;
 	// モデルは共通で持っている
 	std::shared_ptr<AnimationModel> m_model;
+	EnemyKind m_enemyKind;
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
 	bool m_isInvincible;

@@ -18,6 +18,10 @@ namespace
 
 ArenaMode::ArenaMode()
 {
+	m_addFrameMap[EnemyKind::kNone ] =   0;
+	m_addFrameMap[EnemyKind::kBug  ] = 300;
+	m_addFrameMap[EnemyKind::kPlant] = 300;
+	m_addFrameMap[EnemyKind::kElite] = 600;
 }
 
 void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController> actors, std::weak_ptr<UIController> ui)
@@ -54,13 +58,10 @@ void ArenaMode::Update()
 	}
 
 	// 敵が死んだら
-	auto enemyList = m_actors.lock()->SearchEnemy();
-	for (auto& enemy : enemyList)
+	auto deathEnemyList = m_actors.lock()->GetBeforeDeathEnemy();
+	for (auto& enemy : deathEnemyList)
 	{
-		if (enemy->IsAlive())
-		{
-
-		}
+		// タイマー延長
+		m_timer->AddCount(m_addFrameMap[enemy]);
 	}
-		// スコア追加と制限時間延長
 }

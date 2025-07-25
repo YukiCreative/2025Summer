@@ -17,6 +17,8 @@ void ActorController::AddActor(std::shared_ptr<Actor> addActor)
 
 void ActorController::Update()
 {
+	m_beforeDeathEnemy.clear();
+
 	ActorList_t aliveActors;
 	for (auto& actor : m_actors)
 	{
@@ -33,6 +35,14 @@ void ActorController::Update()
 		{
 			aliveActors.emplace_back(actor);
 		}
+		else if (actor->GetKind() == ActorKind::kEnemy)
+		{
+			// “G‚ª€‚ñ‚¾‚Æ‚«A€‚ñ‚¾“G‚ğ‹L˜^
+			auto enemy = std::static_pointer_cast<Enemy>(actor);
+
+			m_beforeDeathEnemy.emplace_back(enemy->GetEnemyKind());
+		}
+
 		// ‰½‚©Actor‚ğ¶¬‚µ‚Ä‚¢‚½‚ç
 		if (actor->IsSpawnedActor())
 		{

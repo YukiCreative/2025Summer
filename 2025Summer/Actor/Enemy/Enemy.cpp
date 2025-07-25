@@ -26,7 +26,8 @@ Enemy::Enemy() :
 	m_cBuff(nullptr),
 	m_dissolveTex(-1),
 	m_dissolvePsH(-1),
-	m_dissolveVsH(-1)
+	m_dissolveVsH(-1),
+	m_enemyKind(EnemyKind::kNone)
 {
 }
 

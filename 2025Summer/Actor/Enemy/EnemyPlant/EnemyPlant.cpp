@@ -39,6 +39,8 @@ void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 {
 	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
+	m_enemyKind = EnemyKind::kPlant;
+
 	// ƒ‚ƒfƒ‹
 	m_model->SetScale(kModelExRate);
 
