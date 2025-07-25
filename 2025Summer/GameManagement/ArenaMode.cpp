@@ -2,18 +2,27 @@
 #include "WaveController.h"
 #include "Timer.h"
 #include "Game.h"
+#include "UIController.h"
+#include "TimeUI.h"
+#include "SceneController.h"
+#include "SceneResult.h"
+#include "ActorController.h"
+
+#include "Actor.h"
 
 namespace
 {
 	constexpr int kInitTimeLimit = 60 * Game::kFrameRate;
+	const Vector2 kTimerPos = {Game::kScreenHalfWidth, 50};
 }
 
 ArenaMode::ArenaMode()
 {
 }
 
-void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController> actors)
+void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController> actors, std::weak_ptr<UIController> ui)
 {
+	m_actors = actors;
 	m_wave = std::make_shared<WaveController>();
 	m_wave->Init(player, actors);
 
@@ -22,6 +31,10 @@ void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController
 	m_timer->SetCount(kInitTimeLimit);
 	m_timer->SetStateCountDown();
 	m_timer->StartCount();
+
+	auto timer = std::make_shared<TimeUI>();
+	timer->Init(kTimerPos, m_timer);
+	ui.lock()->AddUI(timer);
 }
 
 void ArenaMode::Update()
@@ -31,8 +44,23 @@ void ArenaMode::Update()
 	// 時間切れの処理
 	if (m_timer->Update())
 	{
+		m_timer->SetCount(0);
+		m_timer->StopCount();
 		m_wave->StopUpdate();
 
 		// シーン遷移とか
+		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
+		return;
 	}
+
+	// 敵が死んだら
+	auto enemyList = m_actors.lock()->SearchEnemy();
+	for (auto& enemy : enemyList)
+	{
+		if (enemy->IsAlive())
+		{
+
+		}
+	}
+		// スコア追加と制限時間延長
 }

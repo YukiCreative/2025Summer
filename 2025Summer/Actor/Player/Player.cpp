@@ -134,6 +134,8 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	// HP減らす
 	m_hp -= attack->GetAttackPower();
+	// あえて振動をなくす
+	m_camera.lock()->SetShake(0, 0);
 
 	// 食らったダメージの割合に応じて必殺技ゲージをチャージ
 	// HP100%分で50%貯まるようにしよう

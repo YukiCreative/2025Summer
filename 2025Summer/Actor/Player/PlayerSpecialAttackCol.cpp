@@ -18,6 +18,12 @@ namespace
 	constexpr float kDrag = 0.0f;
 	const std::string kEffectName = "SpecialAttack.efkefc";
 	constexpr float kCameraDistance = 800.0f;
+
+	// êUìÆ
+	constexpr int kStartShakeFrame = 10;
+	constexpr int kStartShakeStrength = 100;
+	constexpr int kFinishShakeFrame = 30;
+	constexpr int kFinishShakeStrength = 100;
 }
 
 PlayerSpecialAttackCol::PlayerSpecialAttackCol() :
@@ -54,14 +60,14 @@ void PlayerSpecialAttackCol::Init(std::weak_ptr<Player> parent, const Vector3& i
 
 	m_parent.lock()->m_camera.lock()->SetTargetDistance(kCameraDistance);
 
-	m_parent.lock()->m_camera.lock()->SetShake(10, 100);
+	m_parent.lock()->m_camera.lock()->SetShake(kStartShakeFrame, kStartShakeStrength);
 }
 
 void PlayerSpecialAttackCol::Update()
 {
 	if (m_frame > kLifeTime)
 	{
-		m_parent.lock()->m_camera.lock()->SetShake(20, 100);
+		m_parent.lock()->m_camera.lock()->SetShake(kFinishShakeFrame, kFinishShakeStrength);
 		Destroy();
 	}
 

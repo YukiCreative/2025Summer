@@ -27,7 +27,10 @@ Camera::Camera() :
 	m_targetDistance(kInitCameraDistance),
 	m_lerpedTargetDistance(kInitCameraDistance),
 	m_targetFoV(kInitFovDegrees),
-	m_FoV(kInitFovDegrees)
+	m_FoV(kInitFovDegrees),
+	m_shakeFrame(0),
+	m_startFrame(1),
+	m_shakeStrength(0)
 {
 }
 
@@ -161,6 +164,7 @@ void Camera::SetShake(const int frame, const int strength)
 {
 	m_shakeFrame = frame;
 	m_startFrame = frame;
+	if (!m_startFrame) m_startFrame = 1;
 	m_shakeStrength = strength;
 }
 
@@ -201,9 +205,9 @@ void Camera::SetShakePos()
 	// ŽžŠÔ‚É‚æ‚Á‚Ä‹­‚³‚ðŽã‚ß‚é
 	const float strength = m_shakeStrength * (static_cast<float>(m_shakeFrame) / static_cast<float>(m_startFrame));
 	
-	const float x = GetRand(strength) - strength * 0.5f;
-	const float y = GetRand(strength) - strength * 0.5f;
-	const float z = GetRand(strength) - strength * 0.5f;
+	const float x = GetRand(static_cast<int>(strength)) - strength * 0.5f;
+	const float y = GetRand(static_cast<int>(strength)) - strength * 0.5f;
+	const float z = GetRand(static_cast<int>(strength)) - strength * 0.5f;
 
 	// shakePos‚ðƒ‰ƒ“ƒ_ƒ€‚É
 	m_shakePos = Vector3(x, y, z);

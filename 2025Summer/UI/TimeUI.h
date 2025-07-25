@@ -2,21 +2,25 @@
 #include "Vector2.h"
 #include <memory>
 #include "Color.h"
+#include "UIBase.h"
 
 class Timer;
 
 // §ŒÀŠÔ‚ğ•\¦‚·‚é‚¾‚¯
-class TimeUI
+class TimeUI : public UIBase
 {
 public:
 	TimeUI();
+	~TimeUI();
+
 	void Init(const Vector2& initPos, std::weak_ptr<Timer> timerRef);
 
-	~TimeUI();
+	void Update() override;
+
+	void Draw() const override;
 
 	// ˆê‰‚ ‚Æ‚©‚ç‚Å‚àˆÊ’u‚ğ•ÏX‚Å‚«‚é
 	void SetPos(const Vector2& pos) { m_pos = pos; }
-	void Draw();
 private:
 	Vector2 m_pos;
 	// ›.››•b

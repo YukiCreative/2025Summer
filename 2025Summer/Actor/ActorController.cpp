@@ -3,6 +3,7 @@
 #include "Physics.h"
 #include <DxLib.h>
 #include <list>
+#include "Enemy.h"
 
 void ActorController::Init()
 {

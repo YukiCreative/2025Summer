@@ -38,9 +38,13 @@ TimeUI::~TimeUI()
 	DeleteFontToHandle(m_fontHandle);
 }
 
-void TimeUI::Draw()
+void TimeUI::Update()
 {
 	GetTime();
+}
+
+void TimeUI::Draw() const
+{
 	const int length = GetDrawStringWidthToHandle(kFormatText.c_str(), static_cast<int>(kFormatText.length()), m_fontHandle, false);
 	SetDrawBlendMode(DX_BLENDMODE_MULA, 100);
 	DrawBox(static_cast<int>(m_pos.x - kBackBoradWidth), 

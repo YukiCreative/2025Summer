@@ -69,7 +69,7 @@ void SceneTest::Init()
 	m_UI->AddUI(specialBar);
 
 	m_gameManager = std::make_shared<ArenaMode>();
-	m_gameManager->Init(player, m_actors);
+	m_gameManager->Init(player, m_actors, m_UI);
 }
 
 void SceneTest::Update()
