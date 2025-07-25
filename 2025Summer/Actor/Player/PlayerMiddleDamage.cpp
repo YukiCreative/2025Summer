@@ -5,6 +5,7 @@
 #include "PlayerMiddleDamage.h"
 #include "PlayerMove.h"
 #include "PlayerSlashDown.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -19,9 +20,11 @@ PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_frame(0)
 {
-	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
+	auto p = m_player.lock();
+
+	p->m_model->ChangeAnimation(kAnimName, false);
 	// Œ•‚ðÁ‚·
-	m_player.lock()->DisableSword();
+	p->DisableSword();
 
 	m_canCrossState = true;
 }

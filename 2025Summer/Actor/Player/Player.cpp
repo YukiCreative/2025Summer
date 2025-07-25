@@ -18,6 +18,8 @@
 #include "SphereCollider.h"
 #include "PlayerSpecialAttackCol.h"
 #include <DxLib.h>
+#include "EffectManager.h"
+#include "EffekseerEffect.h"
 
 namespace
 {
@@ -41,6 +43,8 @@ namespace
 	constexpr float kLockOnRotateSpeed = 0.2f;
 
 	constexpr int kDamageChargeRatio = 150;
+
+	const std::string kDamageEffect = "BloodDamage.efkefc";
 }
 
 Player::Player() :
@@ -136,6 +140,10 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 	m_hp -= attack->GetAttackPower();
 	// あえて振動をなくす
 	m_camera.lock()->SetShake(0, 0);
+
+	// 血しぶきを上げる
+	auto blood = EffectManager::GetInstance().GenerateEffect(kDamageEffect, m_pos + (kCapsuleEndPosOffset * GetRand(100) * 0.01f));
+	blood.lock()->SetRotate({ static_cast<float>(GetRand(180) * Geometry::kDegToRad),Geometry::Corner(Vector3::Back(), m_pos.XZ() - attack->GetPos().XZ()),0 });
 
 	// 食らったダメージの割合に応じて必殺技ゲージをチャージ
 	// HP100%分で50%貯まるようにしよう
@@ -373,4 +381,9 @@ void Player::SpecialAttack()
 bool Player::IsInputSpecialAttack() const
 {
 	return m_specialGauge.IsMax() && Input::GetInstance().IsTrigger("SpecialAttack");
+}
+
+Vector3 Player::GetDirection() const
+{
+	return m_model->GetDirection();
 }

@@ -31,8 +31,10 @@ public:
 private:
 
 	std::shared_ptr<DxLib::tagMATRIX> m_dir;
-	std::shared_ptr<EffekseerEffect> m_effect;
+	std::weak_ptr<EffekseerEffect> m_effect;
 	int m_frame;
 	std::weak_ptr<Player> m_player;
+	// ©g‚ÌY²‰ñ“]‚ğ‹L‰¯‚µ‚Ä‚¨‚­
+	float m_rotateY;
 };
 

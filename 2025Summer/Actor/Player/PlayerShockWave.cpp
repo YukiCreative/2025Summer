@@ -3,6 +3,9 @@
 #include "Collidable.h"
 #include "Rigid.h"
 #include "Player.h"
+#include "EffekseerEffect.h"
+#include "EffectManager.h"
+#include "Geometry.h"
 #include <DxLib.h>
 
 namespace
@@ -20,6 +23,9 @@ namespace
 	constexpr int kChargeGaugeBasePoint = 1;
 	// 与ダメージのこの分だけ必殺技を増加
 	constexpr float kSpecialAttackAttackPowerMult = 0.01f;
+
+	const std::string kShockWaveEffect = "ShockWave.efkefc";
+	const std::string kDisappearEffect = "ShockWaveDisappear.efkefc";
 }
 
 PlayerShockWave::PlayerShockWave() :
@@ -30,6 +36,11 @@ PlayerShockWave::PlayerShockWave() :
 
 PlayerShockWave::~PlayerShockWave()
 {
+	if (m_effect.expired()) return;
+
+	m_effect.lock()->Kill();
+	auto effect = EffectManager::GetInstance().GenerateEffect(kDisappearEffect, m_pos);
+	effect.lock()->SetRotate({0, m_rotateY, 0});
 }
 
 void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback,
@@ -56,12 +67,20 @@ void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, 
 
 	// これでコピーがshared_ptrとして作られる
 	m_dir = std::make_shared<MATRIX>(rot);
+
+	m_effect = EffectManager::GetInstance().GenerateEffect(kShockWaveEffect, m_pos);
+	// 回転
+	m_rotateY = Geometry::Corner(Vector3::Foward(), m_player.lock()->GetDirection());
+	if (m_player.lock()->GetDirection().Cross(Vector3::Foward()).y > 0) m_rotateY *= -1;
+	m_effect.lock()->SetRotate({ 0, m_rotateY, 0 });
 }
 
 void PlayerShockWave::Update()
 {
 	// 一定速度で移動
 	m_collidable->SetVel(VTransformSR({ 0,0,kMoveSpeed }, *m_dir));
+
+	m_effect.lock()->SetPos(m_pos);
 
 	// 一定時間で消える
 	if (m_frame >= kLifeTime)

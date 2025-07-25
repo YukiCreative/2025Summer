@@ -93,6 +93,8 @@ public:
 	bool IsChargeMax() const { return m_specialGauge.IsMax(); }
 	bool IsInputSpecialAttack() const;
 
+	Vector3 GetDirection() const;
+
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚½‚¢ƒƒ“ƒo•Ï”
 	std::shared_ptr<AnimationModel> m_model;

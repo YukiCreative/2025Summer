@@ -38,7 +38,9 @@ namespace
 	constexpr float kSpecialAttackAttackPowerMult = 0.01f;
 
 	constexpr int kShakeFrame = 5;
-	constexpr int kShakeStrength = 20;
+	constexpr int kShakeStrength = 5;
+
+	const std::string kHitEffectName = "HitEffect.efkefc";
 }
 
 PlayerSword::PlayerSword() :
@@ -139,6 +141,8 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 		m_player.lock()->SetStopFrame(kStopFrame);
 		// ちょっと画面振動
 		m_player.lock()->m_camera.lock()->SetShake(kShakeFrame, kShakeStrength);
+		// エフェクトを出す
+		EffectManager::GetInstance().GenerateEffect(kHitEffectName, m_pos);
 
 		// プレイヤーの必殺技ゲージを増加
 		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));
