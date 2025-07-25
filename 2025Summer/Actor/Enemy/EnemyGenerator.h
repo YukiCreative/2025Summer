@@ -1,5 +1,5 @@
 #pragma once
-#include "Actor.h"
+#include <string>
 #include "EnemyKind.h"
 #include "Vector3.h"
 #include <unordered_map>
@@ -8,10 +8,12 @@
 class Player;
 class Enemy;
 class EnemyModelList;
+class ActorController;
+class Actor;
 
 // 敵の発生を管理する
 // Sceneが持つ
-class EnemyGenerator : public Actor
+class EnemyGenerator
 {
 	struct SpawnData
 	{
@@ -26,13 +28,7 @@ public:
 	EnemyGenerator();
 	~EnemyGenerator();
 
-	void Init(std::weak_ptr<Player> player);
-
-	void Update() override {}
-
-	void Draw() const override {}
-
-	void CommitMove() override {}
+	void Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController>);
 
 	// 指定のウェーブの敵を発生させる
 	void SpawnWave(const int waveNum);
@@ -50,6 +46,7 @@ private:
 	std::shared_ptr<EnemyModelList> m_handles;
 
 	std::weak_ptr<Player> m_player;
+	std::weak_ptr<ActorController> m_actors;
 
 private:
 

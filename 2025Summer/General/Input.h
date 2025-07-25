@@ -23,6 +23,8 @@ public:
 	// 今まさに離された
 	bool IsReleased(const std::string& key) const;
 
+	bool IsPressAny() const;
+
 	// アナログコントローラ＆十字キーの入力
 	const Vector2& GetLeftInputAxis() const;
 	const Vector2& GetBeforeLeftInputAxis() const;

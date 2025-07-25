@@ -11,10 +11,10 @@
 #include "PlayerLockOnUI.h"
 #include "PlayerHPBar.h"
 #include "PlayerSpecialGauge.h"
+#include "ArenaMode.h"
 
 #include "Model.h"
 #include "Geometry.h"
-#include "EnemyGenerator.h"
 
 namespace
 {
@@ -27,8 +27,7 @@ namespace
 	const Vector3& kShadowAreaMax = {  1500,  300,  1500 };
 }
 
-SceneTest::SceneTest() :
-	m_wave(0)
+SceneTest::SceneTest()
 {
 }
 
@@ -50,10 +49,7 @@ void SceneTest::Init()
 
 	auto player = std::make_shared<Player>();
 	player->Init(m_camera, m_actors);
-	m_enemyGenerator = std::make_shared<EnemyGenerator>();
-	m_enemyGenerator->Init(player);
 	m_actors->AddActor(player);
-	m_actors->AddActor(m_enemyGenerator);
 
 	m_shadow = std::make_shared<ShadowMap>();
 	m_shadow->Init(kShadowAreaMin, kShadowAreaMax);
@@ -71,6 +67,9 @@ void SceneTest::Init()
 	auto specialBar = std::make_shared<PlayerSpecialGauge>();
 	specialBar->Init(player);
 	m_UI->AddUI(specialBar);
+
+	m_gameManager = std::make_shared<ArenaMode>();
+	m_gameManager->Init(player, m_actors);
 }
 
 void SceneTest::Update()
@@ -81,18 +80,7 @@ void SceneTest::Update()
 	m_actors->Update();
 	m_UI->Update();
 
-	m_wave = 0;
-	// 
-	if (m_actors->SearchEnemy().size() == 0)
-	{
-		//if (m_wave == 2)
-		//{
-		//	SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
-		//}
-
-		m_enemyGenerator->SpawnWave(m_wave);
-		++m_wave;
-	}
+	m_gameManager->Update();
 
 	if (input.IsTrigger("GoDebug"))
 	{
@@ -133,17 +121,4 @@ void SceneTest::Entry()
 
 void SceneTest::Reave()
 {
-}
-
-void SceneTest::DrawGrid(const int xNum, const int zNum) const
-{
-	for (int x = 0; x < xNum; ++x)
-	{
-		DrawLine3D({ kLineOffset * x - (xNum * 0.5f) * kLineOffset, 0, -kLineLength }, { kLineOffset * x - (xNum * 0.5f) * kLineOffset, 0, kLineLength }, 0xffffff);
-	}
-
-	for (int z = 0; z < zNum; ++z)
-	{
-		DrawLine3D({ -kLineLength, 0, kLineOffset * z - (zNum * 0.5f) * kLineOffset }, { kLineLength, 0, kLineOffset * z - (zNum * 0.5f) * kLineOffset }, 0xffffff);
-	}
 }

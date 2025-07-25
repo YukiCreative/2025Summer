@@ -68,13 +68,17 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashLeftSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
+    <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
+    <ClCompile Include="GameManagement\Timer.cpp" />
+    <ClCompile Include="UI\TimeUI.cpp" />
+    <ClCompile Include="GameManagement\WaveController.cpp" />
     <ClCompile Include="General\Application.cpp" />
     <ClCompile Include="General\Input.cpp" />
-    <ClCompile Include="General\ScoreManager.cpp" />
+    <ClCompile Include="Score\ScoreManager.cpp" />
     <ClCompile Include="Geometry\Geometry.cpp" />
     <ClCompile Include="Geometry\Quaternion.cpp" />
     <ClCompile Include="Geometry\Vector2.cpp" />
@@ -98,6 +102,7 @@
     <ClCompile Include="Actor\Player\PlayerIntermediateState.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSpecialAttack.cpp" />
     <ClCompile Include="Scene\ScreenFade.cpp" />
+    <ClCompile Include="Score\StylishRank.cpp" />
     <ClCompile Include="UI\PlayerLockOnUI.cpp" />
     <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
     <ClCompile Include="UI\UIController.cpp" />
@@ -180,14 +185,18 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashLeftSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
+    <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />
+    <ClInclude Include="GameManagement\Timer.h" />
+    <ClInclude Include="UI\TimeUI.h" />
+    <ClInclude Include="GameManagement\WaveController.h" />
     <ClInclude Include="General\Application.h" />
     <ClInclude Include="General\Color.h" />
     <ClInclude Include="General\Game.h" />
     <ClInclude Include="General\Input.h" />
-    <ClInclude Include="General\ScoreManager.h" />
+    <ClInclude Include="Score\ScoreManager.h" />
     <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="Geometry\Quaternion.h" />
     <ClInclude Include="Geometry\Vector2.h" />
@@ -210,6 +219,7 @@
     <ClInclude Include="Actor\Player\PlayerIntermediateState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSpecialAttack.h" />
     <ClInclude Include="Scene\ScreenFade.h" />
+    <ClInclude Include="Score\StylishRank.h" />
     <ClInclude Include="Shader\MV1Shader\DataType.h" />
     <ClInclude Include="Shader\MV1Shader\DxShader_Common_D3D11.h" />
     <ClInclude Include="Shader\MV1Shader\DxShader_DataType_D3D11.h" />
@@ -361,7 +371,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GameManagement;Score;Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -385,7 +395,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GameManagement;Score;Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -409,7 +419,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GameManagement;Score;Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -433,7 +443,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GameManagement;Score;Actor/Player/NormalState;Actor/Player/LockOnState;Actor/Player/AttackState;Actor/Enemy/EnemyElite;Actor/Enemy/EnemyPlant;Actor/Enemy/EnemyBug;Shader;Actor/Enemy;$(ProjectDir)Actor/Player;$(ProjectDir)Physics/Collider;$(ProjectDir)Physics;$(ProjectDir)Sound;$(ProjectDir)Geometry;$(ProjectDir)Utility;$(ProjectDir)UI;$(ProjectDir)Text;$(ProjectDir)Shape;$(ProjectDir)Scene;$(ProjectDir)Model;$(ProjectDir)Main;$(ProjectDir)General;$(ProjectDir)Camera;$(ProjectDir)Actor;Effect;../EffekseerForDxLib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

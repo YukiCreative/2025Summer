@@ -264,6 +264,18 @@ bool Input::IsReleased(const std::string& key) const
 	return isReleased;
 }
 
+bool Input::IsPressAny() const
+{
+	bool result = false;
+	for (auto& key : m_keyInput)
+	{
+		result |= static_cast<bool>(key);
+	}
+	result |= static_cast<bool>(m_padInput);
+
+	return result;
+}
+
 const Vector2& Input::GetLeftInputAxis() const
 {
 	return m_leftInputAxis;

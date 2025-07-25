@@ -5,6 +5,7 @@
 #include "NoCollidable.h"
 #include <DxLib.h>
 #include "EnemyModelList.h"
+#include "ActorController.h"
 #include <cassert>
 
 namespace
@@ -18,8 +19,7 @@ namespace
 	const std::string kEliteModel = "Data/Model/Elite.mv1";
 }
 
-EnemyGenerator::EnemyGenerator() :
-	Actor(false)
+EnemyGenerator::EnemyGenerator()
 {
 }
 
@@ -27,12 +27,10 @@ EnemyGenerator::~EnemyGenerator()
 {
 }
 
-void EnemyGenerator::Init(std::weak_ptr<Player> player)
+void EnemyGenerator::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController> cont)
 {
 	m_player = player;
-
-	// 物理を設定しないといけないのは欠陥では？
-	m_collidable = std::make_shared<NoCollidable>();
+	m_actors = cont;
 
 	InitFactory();
 
@@ -51,7 +49,7 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 	{
 		// スポーン
 
-		SpawnActor(m_factory[data.enemyName](m_player, data.pos * kPosMult, m_handles));
+		m_actors.lock()->AddActor(m_factory[data.enemyName](m_player, data.pos * kPosMult, m_handles));
 	}
 }
 

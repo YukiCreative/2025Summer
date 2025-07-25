@@ -8,4 +8,5 @@ namespace Color
 	constexpr ColorCode_t Green = 0x00ff00;
 	constexpr ColorCode_t Blue  = 0x0000ff;
 	constexpr ColorCode_t White = 0xffffff;
+	constexpr ColorCode_t Black = 0x000000;
 }

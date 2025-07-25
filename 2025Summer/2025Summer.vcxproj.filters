@@ -113,7 +113,12 @@
     <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Scene\ScreenFade.cpp" />
-    <ClCompile Include="General\ScoreManager.cpp" />
+    <ClCompile Include="Score\ScoreManager.cpp" />
+    <ClCompile Include="Score\StylishRank.cpp" />
+    <ClCompile Include="GameManagement\WaveController.cpp" />
+    <ClCompile Include="GameManagement\Timer.cpp" />
+    <ClCompile Include="UI\TimeUI.cpp" />
+    <ClCompile Include="GameManagement\ArenaMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -236,7 +241,12 @@
     <ClInclude Include="UI\PlayerSpecialGauge.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
     <ClInclude Include="Scene\ScreenFade.h" />
-    <ClInclude Include="General\ScoreManager.h" />
+    <ClInclude Include="Score\ScoreManager.h" />
+    <ClInclude Include="Score\StylishRank.h" />
+    <ClInclude Include="GameManagement\WaveController.h" />
+    <ClInclude Include="GameManagement\Timer.h" />
+    <ClInclude Include="UI\TimeUI.h" />
+    <ClInclude Include="GameManagement\ArenaMode.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

@@ -18,6 +18,7 @@ public:
 
 	virtual void Init();
 	virtual void Update();
+
 	virtual void Draw() const;
 
 	virtual void Entry();
@@ -26,36 +27,15 @@ public:
 private:
 
 	std::shared_ptr<ActorController> m_actors;
-	std::shared_ptr<UIController> m_UI;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ShadowMap> m_shadow;
 	std::shared_ptr<Image> m_title;
 
+	std::shared_ptr<Image> m_pressEnyImage;
+	bool m_isAnim;
+	int m_frame;
+
 private:
 
-	// スタートボタン
-	class StartButton : public Button
-	{
-	public:
-		StartButton();
-
-		void Init(const Vector2& initPos);
-
-		void Draw() const override;
-
-		virtual void OnFocused() override;
-		virtual void OnDisfocused() override;
-
-		virtual void OnPressed() override;
-
-	private:
-
-		virtual void FocusedUpdate() override;
-		virtual void NormalUpdate() override;
-
-		std::shared_ptr<Image> m_image;
-		bool m_isAnim;
-		int m_frame;
-	};
-
+	void UpdatePressEnyImage();
 };
