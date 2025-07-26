@@ -4,6 +4,7 @@
 namespace
 {
 	const std::string kAnimName = "Armature|DownBack";
+	constexpr int kDeathTime = 120;
 }
 
 EnemyEliteDeath::EnemyEliteDeath(std::weak_ptr<EnemyElite> parent) :
@@ -12,6 +13,7 @@ EnemyEliteDeath::EnemyEliteDeath(std::weak_ptr<EnemyElite> parent) :
 	m_parent.lock()->ChangeAnim(kAnimName, false);
 	m_parent.lock()->SetInvincibility(true);
 	m_parent.lock()->StartBloodEffect();
+	m_parent.lock()->SetCanLockOn(false);
 }
 
 EnemyEliteDeath::~EnemyEliteDeath()
@@ -20,7 +22,7 @@ EnemyEliteDeath::~EnemyEliteDeath()
 
 std::shared_ptr<EnemyEliteState> EnemyEliteDeath::Update()
 {
-	if (m_parent.lock()->IsEndAnim())
+	if (m_frame > kDeathTime)
 	{
 		m_parent.lock()->OnDeath();
 	}

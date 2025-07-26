@@ -71,6 +71,11 @@ Vector3 Model::GetFramePosition(const std::string& frameName) const
 	return MV1GetFramePosition(m_handle, MV1SearchFrame(m_handle, frameName.c_str()));
 }
 
+Vector3 Model::GetFramePosition(const int frameIndex) const
+{
+	return MV1GetFramePosition(m_handle, frameIndex);
+}
+
 const int Model::GetFrameNum() const
 {
 	return MV1GetFrameNum(m_handle);

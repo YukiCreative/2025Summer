@@ -10,7 +10,7 @@ namespace
 	const std::string kLeftDeath  = "Armature|DownLeft";
 	const std::string kRightDeath = "Armature|DownRight";
 
-	constexpr int kAnimFrameOffset = 180;
+	constexpr int kAnimFrameOffset = 120;
 }
 
 EnemyBugDeath::EnemyBugDeath(std::weak_ptr<EnemyBug> parent) :
@@ -48,6 +48,7 @@ EnemyBugDeath::EnemyBugDeath(std::weak_ptr<EnemyBug> parent) :
 	// –³“G‰»
 	m_parent.lock()->SetInvincibility(true);
 	m_parent.lock()->StartBloodEffect();
+	m_parent.lock()->SetCanLockOn(false);
 }
 
 EnemyBugDeath::~EnemyBugDeath()

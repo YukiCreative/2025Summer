@@ -34,6 +34,8 @@ namespace
 	constexpr int kRandomness = 60;
 
 	constexpr float kInitHP = 800.0f;
+
+	constexpr int kBloodFrame = 5;
 }
 
 std::normal_distribution<> EnemyBug::s_attackTimeNormalDist(kAttackFrame, kRandomness);
@@ -49,6 +51,7 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const 
 	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
 	m_enemyKind = EnemyKind::kBug;
+	m_bloodFrame = kBloodFrame;
 
 	auto col = std::make_shared<CapsuleCollider>();
 	col->Init(m_pos, m_pos + Vector3{0, 100, 0}, kWeight, false, false, kSphereRadius);

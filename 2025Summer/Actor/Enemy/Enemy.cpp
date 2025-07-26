@@ -65,7 +65,8 @@ void Enemy::Update()
 
 	if (!m_bloodEffect.expired())
 	{
-		m_bloodEffect.lock()->SetPos(m_pos);
+		// 派生先で出したいフレームを指定して出す
+		m_bloodEffect.lock()->SetPos(m_model->GetFramePosition(m_bloodFrame));
 	}
 
 	if (m_isDissolving)
@@ -155,6 +156,7 @@ void Enemy::AddVel(const Vector3& vel)
 
 void Enemy::StartBloodEffect()
 {
+	// 生成
 	m_bloodEffect = EffectManager::GetInstance().GenerateEffect(kDeathEffect, m_pos);
 }
 

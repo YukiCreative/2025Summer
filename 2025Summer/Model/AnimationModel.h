@@ -54,8 +54,10 @@ public:
 	// 0Å`1
 	void SetAnimBlendSpeed(const float speed) { m_animBlendSpeed = speed; }
 	Vector3 GetFramePosition(const std::string& frameName) const;
+	Vector3 GetFramePosition(const int frameIndex) const;
 	DxLib::tagMATRIX GetFrameMatrix(const std::string& frameName) const;
 	void SetScale(const Vector3& scale);
+	const int GetFrameNum() const;
 
 private:
 	std::shared_ptr<Model> m_model;

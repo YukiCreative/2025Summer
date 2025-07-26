@@ -8,6 +8,8 @@ namespace
 	const std::string kBackDeath  = "Armature|DownBack";
 	const std::string kRightDeath = "Armature|DownRight";
 	const std::string kLeftDeath  = "Armature|DownLeft";
+
+	constexpr int kDeathTime = 120;
 }
 
 EnemyPlantDeath::EnemyPlantDeath(std::weak_ptr<EnemyPlant> parent) :
@@ -41,6 +43,7 @@ EnemyPlantDeath::EnemyPlantDeath(std::weak_ptr<EnemyPlant> parent) :
 	// 無敵化
 	m_parent.lock()->SetInvincibility(true);
 	m_parent.lock()->StartBloodEffect();
+	m_parent.lock()->SetCanLockOn(false);
 }
 
 EnemyPlantDeath::~EnemyPlantDeath()
@@ -50,10 +53,12 @@ EnemyPlantDeath::~EnemyPlantDeath()
 std::shared_ptr<EnemyPlantState> EnemyPlantDeath::Update()
 {
 	// アニメーションが終わるまで待機
-	if (m_parent.lock()->IsEndAnim())
+	if (m_frame > kDeathTime)
 	{
 		m_parent.lock()->OnDeath();
 	}
+
+	++m_frame;
 
 	return shared_from_this();
 }

@@ -86,6 +86,11 @@ Vector3 AnimationModel::GetFramePosition(const std::string& frameName) const
 	return m_model->GetFramePosition(frameName);
 }
 
+Vector3 AnimationModel::GetFramePosition(const int frameIndex) const
+{
+	return m_model->GetFramePosition(frameIndex);
+}
+
 DxLib::tagMATRIX AnimationModel::GetFrameMatrix(const std::string& frameName) const
 {
 	return m_model->GetFrameMatrix(frameName);
@@ -94,6 +99,11 @@ DxLib::tagMATRIX AnimationModel::GetFrameMatrix(const std::string& frameName) co
 void AnimationModel::SetScale(const Vector3& scale)
 {
 	m_model->SetScale(scale);
+}
+
+const int AnimationModel::GetFrameNum() const
+{
+	return m_model->GetFrameNum();
 }
 
 int AnimationModel::GetAnimTotalTime() const

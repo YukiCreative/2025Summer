@@ -79,6 +79,8 @@ protected:
 	bool m_isDissolving;
 
 	std::weak_ptr<EffekseerEffect> m_bloodEffect;
+	// ”h¶ƒNƒ‰ƒX‚Åİ’è‚µ‚Ä‚à‚ç‚¤
+	int m_bloodFrame;
 
 protected:
 

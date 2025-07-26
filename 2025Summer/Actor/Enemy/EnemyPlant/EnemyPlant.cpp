@@ -27,6 +27,8 @@ namespace
 	constexpr int kRandomness = 30;
 
 	const std::string kBulletSpawnFrame = "plant_tongue_05";
+
+	constexpr int kBloodFrame = 38;
 }
 
 std::normal_distribution<> EnemyPlant::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
@@ -40,6 +42,7 @@ void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
 
 	m_enemyKind = EnemyKind::kPlant;
+	m_bloodFrame = kBloodFrame;
 
 	// ƒ‚ƒfƒ‹
 	m_model->SetScale(kModelExRate);
