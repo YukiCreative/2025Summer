@@ -113,8 +113,8 @@
     <ClCompile Include="UI\PlayerSpecialGauge.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Scene\ScreenFade.cpp" />
-    <ClCompile Include="Score\ScoreManager.cpp" />
-    <ClCompile Include="Score\StylishRank.cpp" />
+    <ClCompile Include="GameManagement\Score\ScoreManager.cpp" />
+    <ClCompile Include="GameManagement\Score\StylishRank.cpp" />
     <ClCompile Include="GameManagement\WaveController.cpp" />
     <ClCompile Include="GameManagement\Timer.cpp" />
     <ClCompile Include="UI\TimeUI.cpp" />
@@ -241,8 +241,8 @@
     <ClInclude Include="UI\PlayerSpecialGauge.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
     <ClInclude Include="Scene\ScreenFade.h" />
-    <ClInclude Include="Score\ScoreManager.h" />
-    <ClInclude Include="Score\StylishRank.h" />
+    <ClInclude Include="GameManagement\Score\ScoreManager.h" />
+    <ClInclude Include="GameManagement\Score\StylishRank.h" />
     <ClInclude Include="GameManagement\WaveController.h" />
     <ClInclude Include="GameManagement\Timer.h" />
     <ClInclude Include="UI\TimeUI.h" />

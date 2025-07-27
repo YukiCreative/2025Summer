@@ -21,6 +21,7 @@ public:
 
 private:
 
+	// TODO:WaveController‚ğArenaMode‚É“‡‚·‚é
 	std::shared_ptr<WaveController> m_wave;
 	std::shared_ptr<Timer> m_timer;
 	std::weak_ptr<ActorController> m_actors;
