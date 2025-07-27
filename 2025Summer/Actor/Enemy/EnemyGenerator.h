@@ -38,7 +38,7 @@ private:
 	using WaveData_t = std::vector<std::vector<SpawnData>>;
 	WaveData_t m_waveData;
 
-	using EnemyFactoryFunction_t = std::shared_ptr<Actor> (*)(std::weak_ptr<Player>, const Vector3&, std::shared_ptr<EnemyModelList>);
+	using EnemyFactoryFunction_t = std::shared_ptr<Enemy> (*)(std::weak_ptr<Player>, const Vector3&, std::shared_ptr<EnemyModelList>);
 
 	// 文字列を見て敵を生成する関数を返す
 	using EnemyFactory_t = std::unordered_map<std::string, EnemyFactoryFunction_t>;
@@ -54,5 +54,8 @@ private:
 	void InitFactory();
 	void LoadWaveData();
 	void LoadModelData();
+
+	// フィールド中央に回転させる
+	void RotateOriginPos(std::shared_ptr<Enemy> spawnEnemy);
 };
 

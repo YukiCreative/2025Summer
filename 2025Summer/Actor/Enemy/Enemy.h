@@ -38,6 +38,7 @@ public:
 	Vector3 EnemyToPlayer() const;
 	// ‚±‚ê‚Íƒ‚ƒfƒ‹‚ª‰Šúó‘Ô‚ÅZ-•ûŒü‚ÉŒü‚¢‚Ä‚¢‚é‘O’ñ‚Å‚·
 	Vector3 GetDir() const;
+	void RotateAxisY(const float rad);
 	DxLib::tagMATRIX GetModelMatrix() const;
 	// true‚Å–³“G
 	void SetInvincibility(const bool invincibleOrNot) { m_isInvincible = invincibleOrNot; }

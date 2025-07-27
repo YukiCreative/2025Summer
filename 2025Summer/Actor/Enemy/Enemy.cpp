@@ -129,6 +129,11 @@ Vector3 Enemy::GetDir() const
 	return { mat.m[2][0],mat.m[2][2] ,mat.m[2][2] };
 }
 
+void Enemy::RotateAxisY(const float rad)
+{
+	m_model->RotateUpVecY(rad);
+}
+
 MATRIX Enemy::GetModelMatrix() const
 {
 	auto mat = m_model->GetMatrix();

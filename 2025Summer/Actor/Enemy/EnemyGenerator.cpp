@@ -6,6 +6,7 @@
 #include <DxLib.h>
 #include "EnemyModelList.h"
 #include "ActorController.h"
+#include "Geometry.h"
 #include <cassert>
 
 namespace
@@ -17,6 +18,8 @@ namespace
 	const std::string kBugModel = "Data/Model/bug.mv1";
 	const std::string kPlantModel = "Data/Model/Plant.mv1";
 	const std::string kEliteModel = "Data/Model/Elite.mv1";
+
+	const Vector3 kFieldOriginPos = { 0,0,0 };
 }
 
 EnemyGenerator::EnemyGenerator()
@@ -48,26 +51,27 @@ void EnemyGenerator::SpawnWave(const int waveNum)
 	for (auto& data : wave)
 	{
 		// ƒXƒ|[ƒ“
-
-		m_actors.lock()->AddActor(m_factory[data.enemyName](m_player, data.pos * kPosMult, m_handles));
+		auto spawnEnemy = m_factory[data.enemyName](m_player, data.pos* kPosMult, m_handles);
+		RotateOriginPos(spawnEnemy);
+		m_actors.lock()->AddActor(spawnEnemy);
 	}
 }
 
 void EnemyGenerator::InitFactory()
 {
-	m_factory["bug"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
+	m_factory["bug"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Enemy>
 	{
 		auto enemy = std::make_shared<EnemyBug>();
 		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kBug));
 		return enemy;
 	};
-	m_factory["Plant"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
+	m_factory["Plant"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Enemy>
 	{
 		auto enemy = std::make_shared<EnemyPlant>();
 		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kPlant));
 		return enemy;
 	};
-	m_factory["Elite"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Actor>
+	m_factory["Elite"] = [](std::weak_ptr<Player> player, const Vector3& initPos, std::shared_ptr<EnemyModelList> handle)->std::shared_ptr<Enemy>
 	{
 		auto enemy = std::make_shared<EnemyElite>();
 		enemy->Init(player, initPos, handle->GetEnemyHandle(EnemyKind::kElite));
@@ -132,4 +136,12 @@ void EnemyGenerator::LoadModelData()
 	m_handles->AddEnemyHandle(EnemyKind::kBug, MV1LoadModel(kBugModel.c_str()));
 	m_handles->AddEnemyHandle(EnemyKind::kPlant, MV1LoadModel(kPlantModel.c_str()));
 	m_handles->AddEnemyHandle(EnemyKind::kElite, MV1LoadModel(kEliteModel.c_str()));
+}
+
+void EnemyGenerator::RotateOriginPos(std::shared_ptr<Enemy> spawnEnemy)
+{
+	const auto toFieldOrigin = (kFieldOriginPos - spawnEnemy->GetPos()).XZ();
+	const float rot = Geometry::Corner(spawnEnemy->GetDir().XZ(), toFieldOrigin);
+	const float correctedRot = spawnEnemy->GetDir().XZ().Cross(toFieldOrigin).y > 0 ? rot : -rot;
+	spawnEnemy->RotateAxisY(correctedRot);
 }
