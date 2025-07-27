@@ -111,8 +111,6 @@ void EnemyGenerator::LoadWaveData()
 
 			FileRead_read(enemyName.data(), static_cast<int>(enemyName.size()), waveH);
 
-			// –¼‘O‚©‚çŽí—Þ‚ð“Á’è
-
 			// ŽŸ‚ÉˆÊ’u‚ðŽæ“¾
 			Vector3 enemyPos;
 
