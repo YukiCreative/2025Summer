@@ -12,7 +12,8 @@
 #include "PlayerHPBar.h"
 #include "PlayerSpecialGauge.h"
 #include "ArenaMode.h"
-
+#include "StylishRank.h"
+#include "StylishRankUI.h"
 #include "Model.h"
 #include "Geometry.h"
 
@@ -67,6 +68,9 @@ void SceneTest::Init()
 	auto specialBar = std::make_shared<PlayerSpecialGauge>();
 	specialBar->Init(player);
 	m_UI->AddUI(specialBar);
+	auto stylishUI = std::make_shared<StylishRankUI>();
+	stylishUI->Init();
+	m_UI->AddUI(stylishUI);
 
 	m_gameManager = std::make_shared<ArenaMode>();
 	m_gameManager->Init(player, m_actors, m_UI);
@@ -82,6 +86,10 @@ void SceneTest::Update()
 
 	m_gameManager->Update();
 
+	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kSlashDown);
+
+	StylishRank::GetInstance().Update();
+
 	if (input.IsTrigger("GoDebug"))
 	{
 		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneDebug>());
@@ -91,8 +99,6 @@ void SceneTest::Update()
 
 void SceneTest::Draw() const
 {
-	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
-
 	m_shadow->StartShadowMapDraw(GetLightDirection());
 
 	m_field->Draw();
@@ -112,6 +118,12 @@ void SceneTest::Draw() const
 	DrawLine3D({0,100,0}, {100, 100, 0}, 0xff0000);
 	DrawLine3D({0,100,0}, {0, 200, 0}, 0x00ff00);
 	DrawLine3D({0,100,0}, {0, 100, 100}, 0x0000ff);
+
+	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
+
+	DrawFormatString(500, 0, 0xffffff, "StylishPoint:%f", StylishRank::GetInstance().GetStylishPoint());
+	DrawFormatString(700, 0, 0xffffff, "StylishRank:%d", StylishRank::GetInstance().GetRankUIParam().m_rank);
+	DrawFormatString(900, 0, 0xffffff, "StylishRankRatio:%f", StylishRank::GetInstance().GetRankUIParam().m_ratio.Value());
 #endif
 }
 

@@ -74,6 +74,7 @@
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
     <ClCompile Include="GameManagement\Timer.cpp" />
+    <ClCompile Include="UI\StylishRankUI.cpp" />
     <ClCompile Include="UI\TimeUI.cpp" />
     <ClCompile Include="GameManagement\WaveController.cpp" />
     <ClCompile Include="General\Application.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />
     <ClInclude Include="GameManagement\Timer.h" />
+    <ClInclude Include="UI\StylishRankUI.h" />
     <ClInclude Include="UI\TimeUI.h" />
     <ClInclude Include="GameManagement\WaveController.h" />
     <ClInclude Include="General\Application.h" />

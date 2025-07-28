@@ -119,6 +119,7 @@
     <ClCompile Include="GameManagement\Timer.cpp" />
     <ClCompile Include="UI\TimeUI.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
+    <ClCompile Include="UI\StylishRankUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -247,6 +248,7 @@
     <ClInclude Include="GameManagement\Timer.h" />
     <ClInclude Include="UI\TimeUI.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
+    <ClInclude Include="UI\StylishRankUI.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

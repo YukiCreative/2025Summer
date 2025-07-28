@@ -7,6 +7,7 @@
 #include "SoundManager.h"
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
+#include "StylishRank.h"
 
 
 namespace
@@ -93,6 +94,7 @@ bool Application::Init()
 
 	// —”‚ğ‰Šú‰»
 	MyRandom::GetInstance().Init();
+	StylishRank::GetInstance().Init();
 
 	return true;
 }

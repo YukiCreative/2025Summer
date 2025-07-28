@@ -29,11 +29,33 @@ enum class DecreaseStylishPointKind
 	kDamage,
 };
 
-// ScoreManagerに寄生して疑似シングルトンにしよう
+enum class StylishRankKind
+{
+	kNoRank, // 初期状態　ランクの表示なし
+	kDRank,
+	kCRank,
+	kBRank,
+	kARank,
+	kSRank,
+	kSSRank,
+	kSSSRank
+};
+
+struct StylishRankUIParam
+{
+	StylishRankKind m_rank = StylishRankKind::kNoRank;
+	RangeLimitedValue<float, 0.0f, 1.0f> m_ratio;
+};
+
 class StylishRank
 {
-public:
+private:
 	StylishRank();
+	StylishRank(const StylishRank&) = delete;
+	void operator=(const StylishRank&) = delete;
+
+public:
+	static StylishRank& GetInstance();
 
 	void Init();
 
@@ -49,6 +71,10 @@ public:
 
 	// 0~100
 	const float GetStylishPoint() const { return m_sp.Value(); }
+	// 今のスタイリッシュランクとその割合を返す
+	const StylishRankUIParam GetRankUIParam() const;
+
+	void ResetRank();
 
 private:
 
@@ -59,6 +85,8 @@ private:
 	std::unordered_map<DecreaseStylishPointKind, float> m_decreasePointMap;
 
 	std::list<IncreaseStylishPointKind> m_stylishActionHistory;
+
+	float m_spContinueDecreaseSpeed;
 
 private:
 

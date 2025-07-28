@@ -25,22 +25,13 @@ namespace
 Enemy::Enemy() :
 	Actor(true), // 敵はロックオン可能
 	m_isInvincible(false),
-	m_isDissolving(false),
-	m_cBuffH(-1),
-	m_cBuff(nullptr),
-	m_dissolveTex(-1),
-	m_dissolvePsH(-1),
-	m_dissolveVsH(-1),
-	m_enemyKind(EnemyKind::kNone)
+	m_enemyKind(EnemyKind::kNone),
+	m_bloodFrameIndex(0)
 {
 }
 
 Enemy::~Enemy()
 {
-	DeleteShaderConstantBuffer(m_cBuffH);
-	DeleteShader(m_dissolvePsH);
-	DeleteShader(m_dissolveVsH);
-	DeleteGraph(m_dissolveTex);
 }
 
 void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle)
@@ -53,8 +44,6 @@ void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const flo
 	m_model->Init(dupulicatedHandle, kAnimSpeed);
 
 	m_model->SetPos(m_pos);
-
-	InitDissolve();
 }
 
 void Enemy::Update()
@@ -66,25 +55,13 @@ void Enemy::Update()
 	if (!m_bloodEffect.expired())
 	{
 		// 派生先で出したいフレームを指定して出す
-		m_bloodEffect.lock()->SetPos(m_model->GetFramePosition(m_bloodFrame));
-	}
-
-	if (m_isDissolving)
-	{
-		UpdateDissolve();
+		m_bloodEffect.lock()->SetPos(m_model->GetFramePosition(m_bloodFrameIndex));
 	}
 }
 
 void Enemy::Draw() const
 {
-	if (m_isDissolving)
-	{
-		DissolveDraw();
-	}
-	else
-	{
-		m_model->Draw();
-	}
+	m_model->Draw();
 
 #if _DEBUG
 	m_collidable->GetCol().Draw();
@@ -168,29 +145,4 @@ void Enemy::StartBloodEffect()
 void Enemy::DisableLockOn()
 {
 	SetCanLockOn(false);
-}
-
-void Enemy::UpdateDissolve()
-{
-	m_cBuff->time += kDissolveSpeed;
-	if (m_cBuff->time >= 1.0f) m_cBuff->time = 1.0f;
-	UpdateShaderConstantBuffer(m_cBuffH);
-}
-
-void Enemy::DissolveDraw() const
-{
-	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, 4);
-	ShaderDraw::DrawModel(m_model, m_dissolvePsH, m_dissolveVsH, m_dissolveTex);
-}
-
-void Enemy::InitDissolve()
-{
-	m_cBuffH = CreateShaderConstantBuffer(sizeof(EnemyCBuff));
-	m_cBuff = (EnemyCBuff*)GetBufferShaderConstantBuffer(m_cBuffH);
-	m_cBuff->time = 0.0f;
-	UpdateShaderConstantBuffer(m_cBuffH);
-
-	m_dissolvePsH = LoadPixelShader(kPS.c_str());
-	m_dissolveVsH = LoadVertexShader(kVS.c_str());
-	m_dissolveTex = LoadGraph(kTex.c_str());
 }

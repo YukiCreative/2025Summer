@@ -1,8 +1,9 @@
 #pragma once
 #include <algorithm>
 
-// 範囲が制限された値を作りたいときに使う
 // テンプレート型関数がヘッダでしか定義できないとは知らなかった
+
+// 範囲が制限された値を作りたいときに使う
 // ※当然ながら算術演算子が実装されていない型では使えません
 template <typename T, T Min, T Max>
 struct RangeLimitedValue
@@ -70,7 +71,7 @@ public:
 	void SetMin() { m_value = kMinValue; }	
 	// 今の値が最大値にたいしてどれくらいの割合なのか返す
 	// 0～1
-	// floatにキャストできる型であること。
+	// ※floatにキャストできる型であること。
 	float GetRatio() const
 	{
 		float ratio = static_cast<float>(m_value) / static_cast<float>(kMaxValue);

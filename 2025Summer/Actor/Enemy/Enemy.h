@@ -70,28 +70,17 @@ protected:
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
 	bool m_isInvincible;
-	int m_cBuffH;
-	EnemyCBuff* m_cBuff;
-	// 甘んじてすべてのEnemyでロードしよう
-	int m_dissolvePsH;
-	int m_dissolveVsH;
-	int m_dissolveTex;
-
-	bool m_isDissolving;
 
 	std::weak_ptr<EffekseerEffect> m_bloodEffect;
+
+	// 死亡時の血しぶきエフェクトの発生源をどのリグにするか
 	// 派生クラスで設定してもらう
-	int m_bloodFrame;
+	int m_bloodFrameIndex;
 
 protected:
 
 	virtual void OnDamage(std::shared_ptr<AttackCol>) abstract;
 
 private:
-
-	void InitDissolve();
-	// 死亡演出Draw
-	void UpdateDissolve();
-	void DissolveDraw() const;
 
 };

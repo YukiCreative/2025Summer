@@ -19,7 +19,5 @@ public:
 private:
 
 	float m_score;
-
-	std::shared_ptr<StylishRank> m_stylishRank;
 };
 
