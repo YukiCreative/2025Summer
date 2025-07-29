@@ -3,6 +3,7 @@
 #include <list>
 #include "PlayerIntermediateState.h"
 #include "RangeLimitedValue.h"
+#include "IncreaseStylishPointAction.h"
 #include <string>
 
 class AnimationModel;
@@ -67,6 +68,7 @@ public:
 	void EnableSword();
 	// Œ•‚Ì“–‚½‚è”»’è‚ð—LŒø‰»‚·‚é
 	void EnableSwordCol(const float attackPower, const float knockbackPower = 0.0f);
+	void SetActionKind(const IncreaseStylishPointKind kind);
 
 	void DisableSword();
 	void DisableSwordCol();

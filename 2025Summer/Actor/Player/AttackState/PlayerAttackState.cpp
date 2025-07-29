@@ -53,6 +53,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	if (m_frame == m_enableAttackColFrame)
 	{
 		p->EnableSwordCol(m_attackPower, m_knockbackPower);
+		p->SetActionKind(m_actionKind);
 	}
 	if (m_frame == m_disableAttackColFrame)
 	{

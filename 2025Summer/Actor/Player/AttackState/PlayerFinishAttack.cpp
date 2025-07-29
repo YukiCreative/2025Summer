@@ -33,6 +33,7 @@ PlayerFinishAttack::~PlayerFinishAttack()
 
 void PlayerFinishAttack::Init()
 {
+	m_actionKind = IncreaseStylishPointKind::kFinishAttack;
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

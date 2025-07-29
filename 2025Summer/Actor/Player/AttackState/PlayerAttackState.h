@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerState.h"
+#include "IncreaseStylishPointAction.h"
 #include <string>
 
 class PlayerAttackState abstract : public PlayerState 
@@ -36,6 +37,8 @@ protected:
 	float m_knockbackPower;
 	// îhê∂Ç∑ÇÈçUåÇ
 	std::shared_ptr<PlayerAttackState> m_comboAttack;
+	IncreaseStylishPointKind m_actionKind;
+
 
 protected:
 

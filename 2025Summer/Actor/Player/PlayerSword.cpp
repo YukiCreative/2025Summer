@@ -12,6 +12,7 @@
 #include <cassert>
 #include <cmath>
 #include "Camera.h"
+#include "StylishRank.h"
 
 namespace
 {
@@ -51,7 +52,8 @@ PlayerSword::PlayerSword() :
 	m_colTex(-1),
 	m_dissolveTex(-1),
 	m_psH(-1),
-	m_vsH(-1)
+	m_vsH(-1),
+	m_actionKind(IncreaseStylishPointKind::kNone)
 {
 }
 
@@ -146,6 +148,9 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 
 		// プレイヤーの必殺技ゲージを増加
 		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));
+
+		// スタイリッシュゲージを増加
+		StylishRank::GetInstance().IncreaseStylishPoint(m_actionKind);
 	}
 }
 
@@ -200,6 +205,11 @@ void PlayerSword::ColDisable()
 	if (m_effect.expired()) return;
 
 	m_effect.reset();
+}
+
+void PlayerSword::SetActionKind(const IncreaseStylishPointKind kind)
+{
+	m_actionKind = kind;
 }
 
 void PlayerSword::SetCBuffStatus()

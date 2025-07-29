@@ -7,6 +7,7 @@
 #include <string>
 #include "Camera.h"
 #include "Player.h"
+#include "StylishRank.h"
 
 namespace
 {
@@ -89,4 +90,7 @@ void PlayerSpecialAttackCol::OnCollisionEnter(std::shared_ptr<Actor> other)
 	if (other->GetKind() != ActorKind::kEnemy) return;
 
 	other->SetStopFrame(kHitStopFrame);
+
+	// spëùâ¡
+	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kSpecialAttack);
 }

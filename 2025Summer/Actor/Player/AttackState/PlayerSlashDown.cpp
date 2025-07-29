@@ -41,6 +41,7 @@ void PlayerSlashDown::Init()
 	// ˆê’i–Ú‚È‚Ì‚ÅŒ•‚ðo‚·
 	m_player.lock()->EnableSword();
 
+	m_actionKind = IncreaseStylishPointKind::kSlashDown;
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

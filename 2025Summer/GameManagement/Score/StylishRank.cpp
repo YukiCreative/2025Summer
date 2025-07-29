@@ -7,9 +7,9 @@ namespace
 	constexpr size_t kMaxHistory = 10;
 
 	// 位置フレームに自然減少する最大速度
-	constexpr float kMaxDecreaseSpeed = 10.0f / Game::kFrameRate;
+	constexpr float kMaxDecreaseSpeed = 5.0f / Game::kFrameRate;
 	// 自然減少加速度
-	constexpr float kContinueDecreaseAccel = 0.003f;
+	constexpr float kContinueDecreaseAccel = 0.0003f;
 
 	// ここまで達したらそのランク
 	constexpr float kDRankThreshold = 10.0f;

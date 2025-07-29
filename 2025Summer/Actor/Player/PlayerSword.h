@@ -2,6 +2,7 @@
 #include "AttackCol.h"
 #include "Model.h"
 #include "RangeLimitedValue.h"
+#include "IncreaseStylishPointAction.h"
 
 class Player;
 class EffekseerEffect;
@@ -31,6 +32,8 @@ public:
 	void ColEnable();
 	void ColDisable();
 
+	void SetActionKind(const IncreaseStylishPointKind kind);
+
 private:
 
 	std::shared_ptr<Model> m_model;
@@ -59,6 +62,8 @@ private:
 	RangeLimitedValue<float, 0.0f, 1.0f> m_dissolveParam;
 	SwordCBuff* m_cBuff;
 	int m_cBuffH;
+
+	IncreaseStylishPointKind m_actionKind;
 
 private:
 

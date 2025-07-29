@@ -249,6 +249,7 @@
     <ClInclude Include="UI\TimeUI.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="UI\StylishRankUI.h" />
+    <ClInclude Include="GameManagement\Score\IncreaseStylishPointAction.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

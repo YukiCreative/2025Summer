@@ -7,6 +7,7 @@
 #include "EffectManager.h"
 #include "Geometry.h"
 #include <DxLib.h>
+#include "StylishRank.h"
 
 namespace
 {
@@ -30,7 +31,8 @@ namespace
 
 PlayerShockWave::PlayerShockWave() :
 	AttackCol(),
-	m_frame(0)
+	m_frame(0),
+	m_rotateY(0.0f)
 {
 }
 
@@ -115,5 +117,8 @@ void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 
 		// ÉQÅ[ÉWëùâ¡
 		m_player.lock()->ChargeSpecialGauge(kChargeGaugeBasePoint + static_cast<int>(m_attackPower * kSpecialAttackAttackPowerMult));
+
+		// spëùâ¡
+		StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kShockWave);
 	}
 }

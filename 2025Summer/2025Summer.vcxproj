@@ -190,6 +190,7 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />
+    <ClInclude Include="GameManagement\Score\IncreaseStylishPointAction.h" />
     <ClInclude Include="GameManagement\Timer.h" />
     <ClInclude Include="UI\StylishRankUI.h" />
     <ClInclude Include="UI\TimeUI.h" />

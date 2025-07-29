@@ -44,6 +44,7 @@ PlayerChargeAttack::~PlayerChargeAttack()
 
 void PlayerChargeAttack::Init()
 {
+	m_actionKind = IncreaseStylishPointKind::kChargeAttack;
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

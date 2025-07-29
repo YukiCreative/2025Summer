@@ -86,8 +86,6 @@ void SceneTest::Update()
 
 	m_gameManager->Update();
 
-	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kSlashDown);
-
 	StylishRank::GetInstance().Update();
 
 	if (input.IsTrigger("GoDebug"))

@@ -41,6 +41,7 @@ PlayerSlashSide::~PlayerSlashSide()
 
 void PlayerSlashSide::Init()
 {
+	m_actionKind = IncreaseStylishPointKind::kSlashRightSide;
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

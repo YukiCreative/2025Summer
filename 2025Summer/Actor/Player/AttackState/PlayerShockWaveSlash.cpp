@@ -62,6 +62,7 @@ void PlayerShockWaveSlash::Init()
 
 	// この代入操作は共通化できないだろうか
 	// 外部データ化して取得すれば解決する
+	m_actionKind = IncreaseStylishPointKind::kShockWaveAttack;
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

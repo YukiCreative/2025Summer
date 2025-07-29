@@ -329,6 +329,11 @@ void Player::EnableSwordCol(const float attackPower, const float knockbackPower)
 	m_sword->SetKnockbackPower(knockbackPower);
 }
 
+void Player::SetActionKind(const IncreaseStylishPointKind kind)
+{
+	m_sword->SetActionKind(kind);
+}
+
 void Player::DisableSword()
 {
 	m_sword->Disable();

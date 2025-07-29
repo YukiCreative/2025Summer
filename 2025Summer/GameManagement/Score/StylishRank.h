@@ -1,4 +1,5 @@
 #pragma once
+#include "IncreaseStylishPointAction.h"
 #include "RangeLimitedValue.h"
 #include <unordered_map>
 #include <list>
@@ -8,20 +9,6 @@ namespace StylishRankRange
 	constexpr float kRankMin = 0.0f;
 	constexpr float kRankMax = 100.0f;
 }
-
-// 加点行動
-enum class IncreaseStylishPointKind
-{
-	kSlashDown,
-	kSlashLeftSide,
-	kSlashRightSide,
-	kSlashUp,
-	kFinishAttack,
-	kChargeAttack,
-	kShockWaveAttack,
-	kShockWave,
-	kSpecialAttack,
-};
 
 // 減点行動
 enum class DecreaseStylishPointKind
