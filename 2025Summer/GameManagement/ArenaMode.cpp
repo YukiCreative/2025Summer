@@ -7,6 +7,7 @@
 #include "SceneController.h"
 #include "SceneResult.h"
 #include "ActorController.h"
+#include "EnemyGenerator.h"
 
 #include "Actor.h"
 
@@ -39,6 +40,9 @@ void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController
 	auto timer = std::make_shared<TimeUI>();
 	timer->Init(kTimerPos, m_timer);
 	ui.lock()->AddUI(timer);
+
+	m_enemyGenerator = std::make_shared<EnemyGenerator>();
+	m_enemyGenerator->Init(player, actors);
 }
 
 void ArenaMode::Update()
@@ -50,7 +54,7 @@ void ArenaMode::Update()
 	{
 		m_timer->SetCount(0);
 		m_timer->StopCount();
-		m_wave->StopUpdate();
+		//m_wave->StopUpdate();
 
 		// シーン遷移とか
 		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
@@ -63,5 +67,13 @@ void ArenaMode::Update()
 	{
 		// タイマー延長
 		m_timer->AddCount(m_addFrameMap[enemy]);
+	}
+
+	// ウェーブでだした敵が全員死んだら
+	// UIを出す
+	// スコア出す
+	if (m_wave->IsDefeatedAllEnemy())
+	{
+
 	}
 }

@@ -17,12 +17,17 @@ public:
 
 	void StopUpdate() { m_state = &WaveController::InActiveUpdate; }
 
+	// ウェーブが切り替わった(敵が全滅した)フレームだけtrueになります
+	const bool IsDefeatedAllEnemy() const { return m_isDefeatedAllEnemy; }
+	const int GetNowWave() const { return m_wave; }
+
 private:
 
 	std::shared_ptr<EnemyGenerator> m_enemyGenerator;
 	std::weak_ptr<ActorController> m_actors;
 	int m_wave;
 	int m_stateFrame;
+	bool m_isDefeatedAllEnemy;
 
 	using WaveState_t = void (WaveController::*)();
 	WaveState_t m_state;

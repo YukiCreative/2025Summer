@@ -11,7 +11,8 @@ namespace
 WaveController::WaveController() :
 	m_wave(0),
 	m_stateFrame(0),
-	m_state(&WaveController::IntervalUpdate)
+	m_state(&WaveController::IntervalUpdate),
+	m_isChangedWave(false)
 {
 }
 
@@ -25,6 +26,7 @@ void WaveController::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorContr
 
 void WaveController::Update()
 {
+	m_isChangedWave = false;
 	(this->*m_state)();
 }
 
@@ -36,6 +38,7 @@ void WaveController::BattleUpdate()
 	if (m_actors.lock()->SearchEnemy().size() == 0)
 	{
 		++m_wave;
+		m_isChangedWave = true;
 		if (m_wave > kMaxWave)
 		{
 			// èIóπ
