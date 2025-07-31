@@ -20,6 +20,7 @@
 #include <DxLib.h>
 #include "EffectManager.h"
 #include "EffekseerEffect.h"
+#include "WaveResult.h"
 
 namespace
 {
@@ -142,7 +143,7 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 	m_camera.lock()->SetShake(0, 0);
 
 	// 血しぶきを上げる
-	auto blood = EffectManager::GetInstance().GenerateEffect(kDamageEffect, m_pos + (kCapsuleEndPosOffset * GetRand(100) * 0.01f));
+	auto blood = EffectManager::GetInstance().GenerateEffect(kDamageEffect, m_pos + (kCapsuleEndPosOffset * static_cast<float>(GetRand(100)) * 0.01f));
 	blood.lock()->SetRotate({ static_cast<float>(GetRand(180) * Geometry::kDegToRad),Geometry::Corner(Vector3::Foward(), m_pos.XZ() - attack->GetPos().XZ()),0 });
 
 	// 食らったダメージの割合に応じて必殺技ゲージをチャージ

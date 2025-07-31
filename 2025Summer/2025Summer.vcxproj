@@ -73,6 +73,7 @@
     <ClCompile Include="Effect\EffectManager.cpp" />
     <ClCompile Include="Effect\EffekseerEffect.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
+    <ClCompile Include="GameManagement\CampaignMode.cpp" />
     <ClCompile Include="GameManagement\Timer.cpp" />
     <ClCompile Include="UI\StylishRankUI.cpp" />
     <ClCompile Include="UI\TimeUI.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="UI\Image.cpp" />
     <ClCompile Include="UI\ImageStore.cpp" />
     <ClCompile Include="UI\UIBase.cpp" />
+    <ClCompile Include="UI\WaveResult.cpp" />
     <ClCompile Include="Utility\MyRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +192,8 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />
     <ClInclude Include="Effect\EffekseerEffect.h" />
-    <ClInclude Include="GameManagement\Score\IncreaseStylishPointAction.h" />
+    <ClInclude Include="GameManagement\CampaignMode.h" />
+    <ClInclude Include="GameManagement\Score\StylishEnum.h" />
     <ClInclude Include="GameManagement\Timer.h" />
     <ClInclude Include="UI\StylishRankUI.h" />
     <ClInclude Include="UI\TimeUI.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="UI\Image.h" />
     <ClInclude Include="UI\ImageStore.h" />
     <ClInclude Include="UI\UIBase.h" />
+    <ClInclude Include="UI\WaveResult.h" />
     <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />
     <ClInclude Include="Utility\Utility.h" />

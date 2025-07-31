@@ -14,7 +14,7 @@ private:
 	using FontMap_t = std::unordered_map<std::string, int>;
 	FontMap_t m_fontHandles;
 public:
-	// 何回実行しても一度しか実行されない
+	// 何回実行しても一度しか実行されない はず
 	static void LoadFontFile();
 
 	~FontLoader();

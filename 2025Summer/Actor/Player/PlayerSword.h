@@ -2,7 +2,7 @@
 #include "AttackCol.h"
 #include "Model.h"
 #include "RangeLimitedValue.h"
-#include "IncreaseStylishPointAction.h"
+#include "StylishEnum.h"
 
 class Player;
 class EffekseerEffect;

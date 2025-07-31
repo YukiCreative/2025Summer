@@ -3,7 +3,7 @@
 #include <list>
 #include "PlayerIntermediateState.h"
 #include "RangeLimitedValue.h"
-#include "IncreaseStylishPointAction.h"
+#include "StylishEnum.h"
 #include <string>
 
 class AnimationModel;

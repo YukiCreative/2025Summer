@@ -118,7 +118,6 @@ void Application::Run()
 
 		input.Update();
 
-#if _DEBUG
 		// デバッグの一時停止処理
 		if (DebugPause())
 		{	
@@ -127,7 +126,6 @@ void Application::Run()
 
 			continue;
 		}
-#endif
 
 		// 画面をきれいに
 		ClearDrawScreen();

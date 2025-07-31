@@ -1,5 +1,5 @@
 #pragma once
-#include "IncreaseStylishPointAction.h"
+#include "StylishEnum.h"
 #include "RangeLimitedValue.h"
 #include <unordered_map>
 #include <list>
@@ -14,18 +14,6 @@ namespace StylishRankRange
 enum class DecreaseStylishPointKind
 {
 	kDamage,
-};
-
-enum class StylishRankKind
-{
-	kNoRank, // ‰Šúó‘Ô@ƒ‰ƒ“ƒN‚Ì•\¦‚È‚µ
-	kDRank,
-	kCRank,
-	kBRank,
-	kARank,
-	kSRank,
-	kSSRank,
-	kSSSRank
 };
 
 struct StylishRankUIParam

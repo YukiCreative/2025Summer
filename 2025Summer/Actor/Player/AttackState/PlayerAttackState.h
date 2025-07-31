@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayerState.h"
-#include "IncreaseStylishPointAction.h"
+#include "StylishEnum.h"
 #include <string>
 
 class PlayerAttackState abstract : public PlayerState 
