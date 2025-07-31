@@ -1,5 +1,5 @@
 #include "Actor.h"
-#include "Collidable.h"
+#include "../Physics/Collidable.h"
 
 namespace
 {

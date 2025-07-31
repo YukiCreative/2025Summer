@@ -1,5 +1,5 @@
 #include "NoCollidable.h"
-#include "SphereCollider.h"
+#include "../Physics/Collider/SphereCollider.h"
 #include "Rigid.h"
 
 NoCollidable::NoCollidable()

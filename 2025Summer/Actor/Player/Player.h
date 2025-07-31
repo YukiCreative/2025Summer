@@ -1,9 +1,9 @@
 #pragma once
-#include "Actor.h"
+#include "../Actor.h"
 #include <list>
 #include "PlayerIntermediateState.h"
-#include "RangeLimitedValue.h"
-#include "StylishEnum.h"
+#include "../../Utility/RangeLimitedValue.h"
+#include "../../GameManagement/Score/StylishRank.h"
 #include <string>
 
 class AnimationModel;
