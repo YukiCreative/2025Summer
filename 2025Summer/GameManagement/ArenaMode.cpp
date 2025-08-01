@@ -1,15 +1,15 @@
 #include "ArenaMode.h"
 #include "WaveController.h"
 #include "Timer.h"
-#include "Game.h"
-#include "UIController.h"
-#include "TimeUI.h"
-#include "SceneController.h"
-#include "SceneResult.h"
-#include "ActorController.h"
-#include "EnemyGenerator.h"
+#include "../General/Game.h"
+#include "../UI/UIController.h"
+#include "../UI/TimeUI.h"
+#include "../Scene/SceneController.h"
+#include "../Scene/SceneResult.h"
+#include "../Actor/ActorController.h"
+#include "../Actor/Enemy/EnemyGenerator.h"
 
-#include "Actor.h"
+#include "../Actor/Actor.h"
 
 namespace
 {

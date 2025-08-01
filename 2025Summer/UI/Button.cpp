@@ -1,5 +1,4 @@
 #include "Button.h"
-#include "SceneTitle.h"
 
 Button::Button() :
 	m_pos(),

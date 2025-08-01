@@ -1,7 +1,7 @@
 #pragma once
-#include "RangeLimitedValue.h"
-#include "Vector3.h"
-#include "Vector2.h"
+#include "../Utility/RangeLimitedValue.h"
+#include "../Geometry/Vector3.h"
+#include "../Geometry/Vector2.h"
 #include <memory>
 #include <list>
 

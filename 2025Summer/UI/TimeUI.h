@@ -1,7 +1,7 @@
 #pragma once
-#include "Vector2.h"
+#include "../Geometry/Vector2.h"
 #include <memory>
-#include "Color.h"
+#include "../General/Color.h"
 #include "UIBase.h"
 
 class Timer;

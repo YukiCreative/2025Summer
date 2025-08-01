@@ -1,7 +1,7 @@
 #pragma once
 #include "UIBase.h"
-#include "Vector2.h"
-#include "RangeLimitedValue.h"
+#include "../Geometry/Vector2.h"
+#include "../Utility/RangeLimitedValue.h"
 
 class Image;
 class Player;

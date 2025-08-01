@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include <DxLib.h>
-#include "Geometry.h"
+#include "../Geometry/Geometry.h"
 #include <EffekseerForDXLib.h>
 
 namespace

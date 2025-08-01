@@ -2,7 +2,7 @@
 #include <string>
 #include "Image.h"
 #include <cmath>
-#include "Player.h"
+#include "../Actor/Player/Player.h"
 
 namespace
 {

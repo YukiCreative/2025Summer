@@ -1,6 +1,6 @@
 #include "Model.h"
 #include <DxLib.h>
-#include "Geometry.h"
+#include "../Geometry/Geometry.h"
 #include <cassert>
 
 Model::Model() :

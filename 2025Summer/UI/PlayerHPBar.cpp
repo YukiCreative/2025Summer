@@ -2,7 +2,7 @@
 #include "Image.h"
 #include <DxLib.h>
 #include <cmath>
-#include "Player.h"
+#include "../Actor/Player/Player.h"
 
 namespace
 {

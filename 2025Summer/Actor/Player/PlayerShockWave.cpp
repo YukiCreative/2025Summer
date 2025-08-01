@@ -1,13 +1,13 @@
 #include "PlayerShockWave.h"
-#include "CapsuleCollider.h"
-#include "Collidable.h"
-#include "Rigid.h"
+#include "../../Physics/Collider/CapsuleCollider.h"
+#include "../../Physics/Collidable.h"
+#include "../../Physics/Rigid.h"
 #include "Player.h"
-#include "EffekseerEffect.h"
-#include "EffectManager.h"
-#include "Geometry.h"
+#include "../../Effect/EffectManager.h"
+#include "../../Effect/EffekseerEffect.h"
+#include "../../Geometry/Geometry.h"
 #include <DxLib.h>
-#include "StylishRank.h"
+#include "../../GameManagement/Score/StylishRank.h"
 
 namespace
 {

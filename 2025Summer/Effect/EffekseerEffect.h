@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.h"
+#include "../Geometry/Vector3.h"
 
 // エフェクトクラス
 class EffekseerEffect

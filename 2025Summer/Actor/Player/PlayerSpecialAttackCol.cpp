@@ -1,13 +1,13 @@
 #include "PlayerSpecialAttackCol.h"
-#include "Collidable.h"
-#include "SphereCollider.h"
-#include "Rigid.h"
-#include "EffectManager.h"
-#include "EffekseerEffect.h"
+#include "../../Physics/Collidable.h"
+#include "../../Physics/Collider/SphereCollider.h"
+#include "../../Physics/Rigid.h"
+#include "../../Effect/EffekseerEffect.h"
+#include "../../Effect/EffectManager.h"
 #include <string>
-#include "Camera.h"
+#include "../../Camera/Camera.h"
 #include "Player.h"
-#include "StylishRank.h"
+#include "../../GameManagement/Score/StylishRank.h"
 
 namespace
 {

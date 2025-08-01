@@ -1,6 +1,6 @@
 #pragma once
 #include "UIBase.h"
-#include "RangeLimitedValue.h"
+#include "../Utility/RangeLimitedValue.h"
 
 class Image;
 class Player;

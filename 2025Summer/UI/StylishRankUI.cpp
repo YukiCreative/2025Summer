@@ -24,7 +24,7 @@ namespace
 	constexpr float kImageShrinkingSpeed = 0.1f;
 	constexpr float kImageAppearSpeed = 20.0f;
 
-	const Vector3 kInitPos = {600.0f, 300.0f, 0.0f};
+	const Vector3 kInitPos = {800.0f, 200.0f, 0.0f};
 }
 
 void StylishRankUI::Init()
@@ -36,7 +36,6 @@ void StylishRankUI::Init()
 	m_baseImage->SetImageBlendMode(DX_BLENDMODE_ALPHA);
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kNoImageFill);
-	m_baseImage->SetImageBlendMode(DX_BLENDMODE_ALPHA);
 
 	m_pos = kInitPos;
 
@@ -61,6 +60,7 @@ void StylishRankUI::Update()
 	m_nowParam = param;
 
 	m_baseImage->SetExRate(m_exRate.Value());
+	m_fillImage->SetExRate(m_exRate.Value());
 	m_baseImage->SetImageBlendParam(m_alphaRate.Value());
 
 	m_exRate -= kImageShrinkingSpeed;
@@ -70,11 +70,13 @@ void StylishRankUI::Update()
 void StylishRankUI::Draw() const
 {
 	const Vector2 drawPos = { m_pos.x, m_pos.y };
-	const Vector2 imgSize = m_fillImage->GetImageSize();
+	const Vector2 imgSize = m_fillImage->GetImageSize() * m_exRate.Value();
+	const float ratio = 1 - m_nowParam.m_ratio.Value();
+
 	// ƒ‰ƒ“ƒN‚ÌŠ„‡‚É•¹‚¹‚Ä‰æ‘œ‚ð•\Ž¦
-	m_baseImage->Draw(drawPos + imgSize * 0.5f);
-	m_fillImage->RectDraw({ drawPos.x , drawPos.y + (imgSize.y * (1 - m_nowParam.m_ratio.Value())) },
-		{ 0.0f, imgSize.y * (1 - m_nowParam.m_ratio.Value()) }, { imgSize.x, imgSize.y });
+	m_baseImage->Draw(drawPos);
+	m_fillImage->RectRotaDraw({ drawPos.x , drawPos.y + imgSize.y * ratio },
+		{ 0.0f, imgSize.y * ratio }, { imgSize.x, imgSize.y });
 }
 
 void StylishRankUI::InitMap()

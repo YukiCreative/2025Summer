@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "EnemyKind.h"
-#include "Vector3.h"
+#include "../../Geometry/Vector3.h"
 #include <unordered_map>
 #include <vector>
 

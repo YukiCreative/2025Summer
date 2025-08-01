@@ -1,18 +1,18 @@
 #include "PlayerSword.h"
-#include "CapsuleCollider.h"
-#include "Collidable.h"
+#include "../../Physics/Collider/CapsuleCollider.h"
+#include "../../Physics/Collidable.h"
 #include "Player.h"
-#include "Rigid.h"
+#include "../../Physics/Rigid.h"
 #include <DxLib.h>
-#include "AnimationModel.h"
-#include "ConstantBufferIndex.h"
-#include "ShaderDraw.h"
-#include "EffectManager.h"
-#include "EffekseerEffect.h"
+#include "../../Model/AnimationModel.h"
+#include "../../Shader/ConstantBufferIndex.h"
+#include "../../Shader/ShaderDraw.h"
+#include "../../Effect/EffectManager.h"
+#include "../../Effect/EffekseerEffect.h"
 #include <cassert>
 #include <cmath>
-#include "Camera.h"
-#include "StylishRank.h"
+#include "../../Camera/Camera.h"
+#include "../../GameManagement/Score/StylishRank.h"
 
 namespace
 {

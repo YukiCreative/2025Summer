@@ -1,5 +1,5 @@
 #include "Image.h"
-#include "Vector2.h"
+#include "../Geometry/Vector2.h"
 #include <cassert>
 #include <DxLib.h>
 #include <string>
@@ -42,6 +42,17 @@ void Image::RectDraw(const Vector2& pos, const Vector2& rectStart, const Vector2
 	SetDrawBlendMode(m_blendMode, static_cast<int>(m_blendPal.Value()));
 	DrawRectGraphF(correctedPos.x, correctedPos.y, static_cast<int>(rectStart.x), static_cast<int>(rectStart.y),
 		static_cast<int>(rectEnd.x), static_cast<int>(rectEnd.y),
+		m_sourceHandle, true, m_reverceX, m_reverceY);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
+void Image::RectRotaDraw(const Vector2& pos, const Vector2& rectStart, const Vector2& rectEnd, const float rad) const
+{
+	Vector2 correctedPos = pos + m_offset;
+	SetDrawBlendMode(m_blendMode, static_cast<int>(m_blendPal.Value()));
+	DrawRectRotaGraphF(correctedPos.x, correctedPos.y, static_cast<int>(rectStart.x), static_cast<int>(rectStart.y),
+		static_cast<int>(rectEnd.x), static_cast<int>(rectEnd.y),
+		m_expandRate, rad,
 		m_sourceHandle, true, m_reverceX, m_reverceY);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

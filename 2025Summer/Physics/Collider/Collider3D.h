@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include "Vector3.h"
+#include "../../Geometry/Vector3.h"
 
 enum class ColKind3D
 {

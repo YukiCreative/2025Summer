@@ -1,5 +1,5 @@
 #pragma once
-#include "RangeLimitedValue.h"
+#include "../Utility/RangeLimitedValue.h"
 
 namespace
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "UIBase.h"
-#include "StylishEnum.h"
+#include "../GameManagement/Score/StylishEnum.h"
 
 class Image;
 class ArenaMode;

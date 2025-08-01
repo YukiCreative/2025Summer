@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "Model.h"
 #include <cassert>
-#include "Game.h"
+#include "../General/Game.h"
 
 void AnimationModel::ChangeAnimation(const int animId, bool isLoop)
 {

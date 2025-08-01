@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "Vector3.h"
-#include "RangeLimitedValue.h"
+#include "../Geometry/Vector3.h"
+#include "../Utility/RangeLimitedValue.h"
 
 // Actorの移動速度に関する処理
 // Physicsはこれを参照する

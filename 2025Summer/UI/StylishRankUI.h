@@ -1,6 +1,6 @@
 #pragma once
 #include "UIBase.h"
-#include "StylishRank.h"
+#include "../GameManagement/Score/StylishRank.h"
 #include <unordered_map>
 #include <string>
 
@@ -23,7 +23,7 @@ private:
 	std::unordered_map<StylishRankKind, std::string> m_rankBaseImageMap;
 	std::unordered_map<StylishRankKind, std::string> m_rankFillImageMap;
 
-	RangeLimitedValue<float, 1.0f, 2.0f> m_exRate;
+	RangeLimitedValue<float, 0.5f, 2.0f> m_exRate;
 	RangeLimitedValue<float, 0.0f, 255.0f> m_alphaRate;
 
 private:

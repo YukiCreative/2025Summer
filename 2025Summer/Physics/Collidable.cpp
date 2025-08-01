@@ -1,5 +1,5 @@
 #include "Collidable.h"
-#include "Collider3D.h"
+#include "Collider/Collider3D.h"
 #include "Rigid.h"
 
 Collidable::Collidable()

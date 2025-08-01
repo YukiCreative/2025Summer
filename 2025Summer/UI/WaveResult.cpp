@@ -2,7 +2,7 @@
 #include <string>
 #include "Image.h"
 #include <DxLib.h>
-#include "Game.h"
+#include "../General/Game.h"
 
 namespace
 {
