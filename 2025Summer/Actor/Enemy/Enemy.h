@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "../Actor.h"
 #include <string>
-#include "RangeLimitedValue.h"
-#include "HitPoint.h"
+#include "../../Utility/RangeLimitedValue.h"
+#include "../HitPoint.h"
 #include "EnemyKind.h"
 
 class AnimationModel;

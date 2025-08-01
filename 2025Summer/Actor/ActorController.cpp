@@ -1,9 +1,9 @@
 #include "Actor.h"
 #include "ActorController.h"
-#include "Physics.h"
+#include "../Physics/Physics.h"
 #include <DxLib.h>
 #include <list>
-#include "Enemy.h"
+#include "Enemy/Enemy.h"
 
 void ActorController::Init()
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include "EnemyKind.h"
+#include "../Actor/Enemy/EnemyKind.h"
 
 class Player;
 class ActorController;

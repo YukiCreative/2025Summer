@@ -2,7 +2,7 @@
 #include <memory>
 #include <list>
 #include <unordered_map>
-#include "EnemyKind.h"
+#include "Enemy/EnemyKind.h"
 
 class Actor;
 class Physics;

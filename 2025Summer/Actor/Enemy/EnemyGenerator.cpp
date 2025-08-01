@@ -1,12 +1,12 @@
-#include "EnemyBug.h"
+#include "EnemyBug/EnemyBug.h"
 #include "EnemyGenerator.h"
-#include "EnemyPlant.h"
-#include "EnemyElite.h"
-#include "NoCollidable.h"
+#include "EnemyPlant/EnemyPlant.h"
+#include "EnemyElite/EnemyElite.h"
+#include "../../Physics/NoCollidable.h"
 #include <DxLib.h>
 #include "EnemyModelList.h"
-#include "ActorController.h"
-#include "Geometry.h"
+#include "../ActorController.h"
+#include "../../Geometry/Geometry.h"
 #include <cassert>
 
 namespace

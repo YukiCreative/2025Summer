@@ -1,8 +1,8 @@
 #pragma once
-#include "AttackCol.h"
-#include "Model.h"
-#include "RangeLimitedValue.h"
-#include "StylishEnum.h"
+#include "../AttackCol.h"
+#include "../../Model/Model.h"
+#include "../../Utility/RangeLimitedValue.h"
+#include "../../GameManagement/Score/StylishEnum.h"
 
 class Player;
 class EffekseerEffect;

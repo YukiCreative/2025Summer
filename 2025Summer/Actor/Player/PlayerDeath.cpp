@@ -1,6 +1,6 @@
 #include "PlayerDeath.h"
 #include "Player.h"
-#include "AnimationModel.h"
+#include "../../Model/AnimationModel.h"
 
 namespace
 {

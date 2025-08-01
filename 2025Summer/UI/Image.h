@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "Vector2.h"
-#include "Geometry.h"
-#include "RangeLimitedValue.h"
+#include "../Geometry/Vector2.h"
+#include "../Geometry/Geometry.h"
+#include "../Utility/RangeLimitedValue.h"
 
 using BlendParam = RangeLimitedValue<float, 0.0f, 255.0f>;
 
@@ -15,7 +15,9 @@ public:
 	void Init(const std::string& fileName);
 
 	void Draw(const Vector2& pos) const;
+	// ê›íËÇµÇΩägëÂílÇ™ìKópÇ≥ÇÍÇ»Ç¢ÇÃÇ≈íçà”
 	void RectDraw(const Vector2& pos, const Vector2& rectStart, const Vector2& rectEnd) const;
+	void RectRotaDraw(const Vector2& pos, const Vector2& rectStart, const Vector2& rectEnd, const float rad = 0.0f) const;
 
 	void SetGraph(const std::string& fileName);
 

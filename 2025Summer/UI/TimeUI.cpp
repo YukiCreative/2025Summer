@@ -1,6 +1,6 @@
 #include "TimeUI.h"
 #include <DxLib.h>
-#include "Timer.h"
+#include "../GameManagement/Timer.h"
 #include <string>
 
 namespace

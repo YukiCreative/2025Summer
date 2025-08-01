@@ -2,8 +2,8 @@
 #include "Player.h"
 #include <cmath>
 #include <DxLib.h>
-#include "Input.h"
-#include "AnimationModel.h"
+#include "../../General/Input.h"
+#include "../../Model/AnimationModel.h"
 
 PlayerState::PlayerState(std::weak_ptr<Player> parent) :
 	m_canCrossState(false)

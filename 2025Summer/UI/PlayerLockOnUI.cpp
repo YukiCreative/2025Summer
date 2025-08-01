@@ -1,5 +1,5 @@
 #include "PlayerLockOnUI.h"
-#include "Player.h"
+#include "../Actor/Player/Player.h"
 #include "Image.h"
 #include <cmath>
 

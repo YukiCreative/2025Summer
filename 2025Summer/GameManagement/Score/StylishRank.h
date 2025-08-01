@@ -1,6 +1,6 @@
 #pragma once
 #include "StylishEnum.h"
-#include "RangeLimitedValue.h"
+#include "../../Utility/RangeLimitedValue.h"
 #include <unordered_map>
 #include <list>
 

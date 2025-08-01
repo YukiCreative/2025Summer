@@ -1,14 +1,14 @@
 #include "Enemy.h"
-#include "AnimationModel.h"
-#include "Collidable.h"
-#include "Player.h"
-#include "AttackCol.h"
-#include "Geometry.h"
+#include "../../Model/AnimationModel.h"
+#include "../../Physics/Collidable.h"
+#include "../Player/Player.h"
+#include "../AttackCol.h"
+#include "../../Geometry/Geometry.h"
 #include <DxLib.h>
-#include "ShaderDraw.h"
-#include "Collider3D.h"
-#include "EffectManager.h"
-#include "EffekseerEffect.h"
+#include "../../Shader/ShaderDraw.h"
+#include "../../Physics/Collider/Collider3D.h"
+#include "../../Effect/EffectManager.h"
+#include "../../Effect/EffekseerEffect.h"
 
 namespace
 {

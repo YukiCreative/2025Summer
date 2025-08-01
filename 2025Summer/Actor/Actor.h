@@ -1,6 +1,6 @@
 #pragma once
 #include "ActorKind.h"
-#include "Vector3.h"
+#include "../Geometry/Vector3.h"
 #include <list>
 #include <memory>
 #include "LockOnstate.h"

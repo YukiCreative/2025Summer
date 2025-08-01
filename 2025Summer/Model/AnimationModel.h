@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "Vector3.h"
-#include "RangeLimitedValue.h"
+#include "../Geometry/Vector3.h"
+#include "../Utility/RangeLimitedValue.h"
 
 class Model;
 

@@ -1,5 +1,5 @@
 #include "StylishRank.h"
-#include "Game.h"
+#include "../../General/Game.h"
 #include <cassert>
 
 namespace

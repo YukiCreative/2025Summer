@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "Vector3.h"
+#include "../../Geometry/Vector3.h"
 
 class Player;
 
