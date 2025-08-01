@@ -24,7 +24,7 @@ namespace
 	constexpr float kImageShrinkingSpeed = 0.1f;
 	constexpr float kImageAppearSpeed = 20.0f;
 
-	const Vector3 kInitPos = {800.0f, 200.0f, 0.0f};
+	const Vector3 kInitPos = {900.0f, 400.0f, 0.0f};
 }
 
 void StylishRankUI::Init()
@@ -70,13 +70,14 @@ void StylishRankUI::Update()
 void StylishRankUI::Draw() const
 {
 	const Vector2 drawPos = { m_pos.x, m_pos.y };
-	const Vector2 imgSize = m_fillImage->GetImageSize() * m_exRate.Value();
+	const Vector2 imgSize = m_fillImage->GetImageSize();
 	const float ratio = 1 - m_nowParam.m_ratio.Value();
+	const float offsetY = imgSize.y * ratio;
 
 	// ƒ‰ƒ“ƒN‚ÌŠ„‡‚É•¹‚¹‚Ä‰æ‘œ‚ð•\Ž¦
 	m_baseImage->Draw(drawPos);
-	m_fillImage->RectRotaDraw({ drawPos.x , drawPos.y + imgSize.y * ratio },
-		{ 0.0f, imgSize.y * ratio }, { imgSize.x, imgSize.y });
+	m_fillImage->RectRotaDraw({ drawPos.x , drawPos.y + offsetY * m_exRate.Value() * 0.5f },
+		{ 0.0f, offsetY }, { imgSize.x, imgSize.y });
 }
 
 void StylishRankUI::InitMap()
