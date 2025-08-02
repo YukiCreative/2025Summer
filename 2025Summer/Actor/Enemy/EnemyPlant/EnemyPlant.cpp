@@ -1,15 +1,16 @@
-#include "AnimationModel.h"
-#include "CapsuleCollider.h"
-#include "Collidable.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../Physics/Collider/CapsuleCollider.h"
+#include "../../../Physics/Collidable.h"
 #include "EnemyPlant.h"
 #include "EnemyPlantBullet.h"
 #include "EnemyPlantDamage.h"
 #include "EnemyPlantDeath.h"
 #include "EnemyPlantIdle.h"
-#include "Player.h"
-#include "Rigid.h"
+#include "../../Player/Player.h"
+#include "../../../Physics/Rigid.h"
 #include <DxLib.h>
-#include "MyRandom.h"
+#include "../../../Utility/MyRandom.h"
+#include "../../AttackCol.h"
 
 namespace
 {

@@ -1,9 +1,9 @@
 #include "PlayerChargeAttack.h"
-#include "Player.h"
-#include "Collidable.h"
+#include "../Player.h"
+#include "../../../Physics/Collidable.h"
 #include <DxLib.h>
-#include "AnimationModel.h"
-#include "Input.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../General/Input.h"
 
 namespace
 {

@@ -1,7 +1,7 @@
 #include "ScreenFade.h"
 #include <DxLib.h>
-#include "Game.h"
-#include "Image.h"
+#include "../General/Game.h"
+#include "../UI/Image.h"
 
 namespace
 {

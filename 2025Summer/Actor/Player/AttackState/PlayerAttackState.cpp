@@ -1,13 +1,13 @@
 #include "PlayerAttackState.h"
-#include "Input.h"
-#include "Player.h"
-#include "PlayerIdle.h"
-#include "Rigid.h"
-#include "ActorController.h"
-#include "Geometry.h"
-#include "Camera.h"
-#include "AnimationModel.h"
-#include "PlayerMove.h"
+#include "../../../General/Input.h"
+#include "../Player.h"
+#include "../NormalState/PlayerIdle.h"
+#include "../../../Physics/Rigid.h"
+#include "../../ActorController.h"
+#include "../../../Geometry/Geometry.h"
+#include "../../../Camera/Camera.h"
+#include "../../../Model/AnimationModel.h"
+#include "../NormalState/PlayerMove.h"
 
 namespace
 { 

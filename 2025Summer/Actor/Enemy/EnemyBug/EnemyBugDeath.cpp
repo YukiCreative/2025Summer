@@ -1,6 +1,6 @@
 #include "EnemyBugDeath.h"
 #include "EnemyBug.h"
-#include "Geometry.h"
+#include "../../../Geometry/Geometry.h"
 
 namespace
 {

@@ -3,13 +3,13 @@
 #include "PlayerLockOnMoveRight.h"
 #include "PlayerLockOnMoveLeft.h"
 #include "PlayerLockOnIdle.h"
-#include "Input.h"
-#include "AnimationModel.h"
-#include "Player.h"
+#include "../../../General/Input.h"
+#include "../../../Model/AnimationModel.h"
+#include "../Player.h"
 #include <DxLib.h>
-#include "Camera.h"
-#include "PlayerChargeAttack.h"
-#include "PlayerShockWaveSlash.h"
+#include "../../../Camera/Camera.h"
+#include "../AttackState/PlayerChargeAttack.h"
+#include "../AttackState/PlayerShockWaveSlash.h"
 
 namespace
 {

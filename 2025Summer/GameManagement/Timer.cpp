@@ -1,5 +1,5 @@
 #include "Timer.h"
-#include "Game.h"
+#include "../General/Game.h"
 
 Timer::Timer() :
 	m_count(0),

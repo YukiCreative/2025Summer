@@ -1,5 +1,5 @@
 #pragma once
-#include "AttackCol.h"
+#include "../../AttackCol.h"
 
 namespace DxLib
 {

@@ -1,5 +1,5 @@
 #include "ButtonSystem.h"
-#include "Input.h"
+#include "../General/Input.h"
 #include "Button.h"
 #include "ButtonNoFocus.h"
 #include <cassert>

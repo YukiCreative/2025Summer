@@ -3,7 +3,7 @@
 #include "EnemyBugWalkFoward.h"
 #include <random>
 #include "EnemyBugAttack.h"
-#include "Geometry.h"
+#include "../../../Geometry/Geometry.h"
 
 namespace
 {

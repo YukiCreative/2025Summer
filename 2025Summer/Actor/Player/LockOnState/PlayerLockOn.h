@@ -1,6 +1,6 @@
 #pragma once
-#include "PlayerInterMediateState.h"
-#include "RangeLimitedValue.h"
+#include "../PlayerInterMediateState.h"
+#include "../../../Utility/RangeLimitedValue.h"
 
 // ƒƒbƒNƒIƒ“’†‚Ìó‘Ô‚ğ§Œä
 class PlayerLockOn : public PlayerIntermediateState

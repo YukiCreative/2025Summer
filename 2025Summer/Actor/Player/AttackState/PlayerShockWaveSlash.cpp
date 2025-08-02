@@ -1,8 +1,8 @@
 #include "PlayerShockWaveSlash.h"
-#include "Player.h"
-#include "Collidable.h"
+#include "../Player.h"
+#include "../../../Physics/Collidable.h"
 #include <DxLib.h>
-#include "Geometry.h"
+#include "../../../Geometry/Geometry.h"
 
 namespace
 {

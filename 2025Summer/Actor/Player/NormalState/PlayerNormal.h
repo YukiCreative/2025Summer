@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayerIntermediateState.h"
+#include "../PlayerIntermediateState.h"
 
 // ƒƒbƒNƒIƒ“‚µ‚Ä‚È‚¢ó‘Ô
 class PlayerNormal : public PlayerIntermediateState

@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayerState.h"
+#include "../PlayerState.h"
 
 class PlayerLockOnMoveFoward : public PlayerState
 {

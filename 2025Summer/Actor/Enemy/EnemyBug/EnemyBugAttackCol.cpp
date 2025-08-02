@@ -1,10 +1,10 @@
 #include "EnemyBugAttackCol.h"
 #include "EnemyBug.h"
-#include "Collidable.h"
-#include "EffectManager.h"
-#include "EffekseerEffect.h"
-#include "CapsuleCollider.h"
-#include "Rigid.h"
+#include "../../../Physics/Collidable.h"
+#include "../../../Effect/EffectManager.h"
+#include "../../../Effect/EffekseerEffect.h"
+#include "../../../Physics/Collider/CapsuleCollider.h"
+#include "../../../Physics/Rigid.h"
 #include <DxLib.h>
 
 namespace

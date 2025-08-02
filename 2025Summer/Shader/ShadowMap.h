@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.h"
+#include "../Geometry/Vector3.h"
 
 //DxLib‚Ì‰e‹@”\‚ðŽg‚¢‚â‚·‚­‚µ‚½‚¢
 class ShadowMap

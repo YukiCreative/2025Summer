@@ -1,10 +1,10 @@
 #include "PlayerSpecialAttack.h"
-#include "Player.h"
-#include "AnimationModel.h"
-#include "Input.h"
-#include "PlayerMove.h"
-#include "PlayerIdle.h"
-#include "Camera.h"
+#include "../Player.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../General/Input.h"
+#include "../NormalState/PlayerMove.h"
+#include "../NormalState/PlayerIdle.h"
+#include "../../../Camera/Camera.h"
 
 namespace
 {

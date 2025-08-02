@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include <memory>
-#include "Vector2.h"
+#include "../Geometry/Vector2.h"
 #include "UIBase.h"
 
 class Button;

@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-#include "Vector3.h"
+#include "../Geometry/Vector3.h"
 #include <memory>
 
 class Camera;

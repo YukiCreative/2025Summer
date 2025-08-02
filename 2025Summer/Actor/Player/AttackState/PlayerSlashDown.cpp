@@ -1,6 +1,6 @@
 #include "PlayerSlashDown.h"
 #include "PlayerSlashLeftSide.h"
-#include "Player.h"
+#include "../Player.h"
 
 namespace
 {

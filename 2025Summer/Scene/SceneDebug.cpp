@@ -1,6 +1,6 @@
 #include "SceneDebug.h"
 #include <DxLib.h>
-#include "Input.h"
+#include "../General/Input.h"
 #include "SceneController.h"
 #include "SceneTitle.h"
 #include "SceneMenu.h"
@@ -8,7 +8,7 @@
 #include "SceneResult.h"
 #include "SceneTest.h"
 
-#include "Image.h"
+#include "../UI/Image.h"
 
 SceneDebug::SceneDebug() : 
 	m_selectNum(0)

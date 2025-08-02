@@ -1,7 +1,7 @@
 #pragma once
-#include "Image.h"
+#include "../UI/Image.h"
 #include <memory>
-#include "RangeLimitedValue.h"
+#include "../Utility/RangeLimitedValue.h"
 
 // フェードインアウトをつかさどります
 class ScreenFade

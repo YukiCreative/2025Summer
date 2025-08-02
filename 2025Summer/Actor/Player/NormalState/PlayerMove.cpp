@@ -1,12 +1,12 @@
-#include "Input.h"
-#include "Player.h"
+#include "../../../General/Input.h"
+#include "../Player.h"
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
-#include "AnimationModel.h"
-#include "PlayerSlashDown.h"
-#include "Collidable.h"
+#include "../../../Model/AnimationModel.h"
+#include "../AttackState/PlayerSlashDown.h"
+#include "../../../Physics/Collidable.h"
 #include <DxLib.h>
-#include "PlayerLockOnIdle.h"
+#include "../LockOnState/PlayerLockOnIdle.h"
 
 namespace
 {

@@ -1,14 +1,14 @@
 #include "PlayerNormal.h"
-#include "Player.h"
-#include "PlayerLockOn.h"
+#include "../Player.h"
+#include "../LockOnState/PlayerLockOn.h"
 #include "PlayerIdle.h"
-#include "Input.h"
-#include "ActorController.h"
+#include "../../../General/Input.h"
+#include "../../ActorController.h"
 #include <DxLib.h>
-#include "Game.h"
-#include "Camera.h"
-#include "PlayerAttackState.h"
-#include "PlayerSpecialAttack.h"
+#include "../../../General/Game.h"
+#include "../../../Camera/Camera.h"
+#include "../AttackState/PlayerAttackState.h"
+#include "../AttackState/PlayerSpecialAttack.h"
 
 PlayerNormal::PlayerNormal(std::weak_ptr<Player> parent, std::shared_ptr<PlayerState> initState) :
 	PlayerIntermediateState(parent)

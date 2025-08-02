@@ -1,6 +1,6 @@
 #pragma once
-#include "Vector3.h"
-#include "Color.h"
+#include "../Geometry/Vector3.h"
+#include "../General/Color.h"
 
 // DrawSphere3D‚ðƒNƒ‰ƒX‰»‚µ‚½
 class Sphere

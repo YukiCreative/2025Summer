@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "SceneController.h"
 #include "SceneDebug.h"
-#include "Input.h"
+#include "../General/Input.h"
 
 SceneGame::SceneGame()
 {

@@ -2,7 +2,7 @@
 #include "EnemyBug.h"
 #include "EnemyBugIdle.h"
 #include <DxLib.h>
-#include "Geometry.h"
+#include "../../../Geometry/Geometry.h"
 #include "EnemyBugAttack.h"
 
 namespace

@@ -1,10 +1,10 @@
-#include "Input.h"
-#include "Player.h"
+#include "../../../General/Input.h"
+#include "../Player.h"
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
-#include "AnimationModel.h"
-#include "PlayerLockOnIdle.h"
-#include "PlayerSlashDown.h"
+#include "../../../Model/AnimationModel.h"
+#include "../LockOnState/PlayerLockOnIdle.h"
+#include "../AttackState/PlayerSlashDown.h"
 
 namespace
 {

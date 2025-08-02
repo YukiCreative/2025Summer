@@ -1,7 +1,7 @@
-#include "AnimationModel.h"
-#include "AttackCol.h"
-#include "CapsuleCollider.h"
-#include "Collidable.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../AttackCol.h"
+#include "../../../Physics/Collider/CapsuleCollider.h"
+#include "../../../Physics/Collidable.h"
 #include "EnemyBug.h"
 #include "EnemyBugAttack.h"
 #include "EnemyBugAttackCol.h"
@@ -9,10 +9,9 @@
 #include "EnemyBugDeath.h"
 #include "EnemyBugIdle.h"
 #include "EnemyBugState.h"
-#include "MyRandom.h"
-#include "Player.h"
-#include "Rigid.h"
-#include "SphereCollider.h"
+#include "../../../Utility/MyRandom.h"
+#include "../../Player/Player.h"
+#include "../../../Physics/Rigid.h"
 #include <DxLib.h>
 
 namespace

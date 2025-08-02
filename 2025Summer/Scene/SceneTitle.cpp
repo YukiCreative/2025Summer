@@ -1,16 +1,15 @@
-#include "ButtonSystem.h"
-#include "Input.h"
 #include "SceneController.h"
 #include "SceneDebug.h"
 #include "SceneTitle.h"
 #include <DxLib.h>
-#include "UIController.h"
-#include "ActorController.h"
-#include "Camera.h"
-#include "ShadowMap.h"
-#include "Game.h"
-#include "Image.h"
 #include "SceneTest.h"
+#include "../Shader/ShadowMap.h"
+#include "../General/Game.h"
+#include "../Camera/Camera.h"
+#include "../Actor/ActorController.h"
+#include "../UI/Image.h"
+#include "../General/Input.h"
+
 
 namespace
 {

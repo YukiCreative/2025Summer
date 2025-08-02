@@ -3,17 +3,17 @@
 #include "EnemyEliteIdle.h"
 #include "EnemyEliteDamage.h"
 #include "EnemyEliteDeath.h"
-#include "Player.h"
-#include "CapsuleCollider.h"
-#include "Rigid.h"
-#include "Collidable.h"
-#include "AnimationModel.h"
-#include "MyRandom.h"
-#include "AttackCol.h"
+#include "../../Player/Player.h"
+#include "../../../Physics/Collider/CapsuleCollider.h"
+#include "../../../Physics/Rigid.h"
+#include "../../../Physics/Collidable.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../Utility/MyRandom.h"
+#include "../../AttackCol.h"
 #include "EnemyEliteBiteCol.h"
 #include "EnemyEliteArmCol.h"
 #include <DxLib.h>
-#include "Geometry.h"
+#include "../../../Geometry/Geometry.h"
 
 namespace
 {

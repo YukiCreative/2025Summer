@@ -1,6 +1,6 @@
 #include "WaveController.h"
-#include "EnemyGenerator.h"
-#include "ActorController.h"
+#include "../Actor/Enemy/EnemyGenerator.h"
+#include "../Actor/ActorController.h"
 
 namespace
 {

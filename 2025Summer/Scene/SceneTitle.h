@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <memory>
-#include "Button.h"
+#include "../UI/Button.h"
 
 class ButtonSystem;
 class ActorController;

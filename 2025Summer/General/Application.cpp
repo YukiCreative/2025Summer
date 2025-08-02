@@ -1,13 +1,13 @@
 #include "Application.h"
-#include "EffectManager.h"
+#include "../Effect/EffectManager.h"
 #include "Game.h"
 #include "Input.h"
-#include "MyRandom.h"
-#include "SceneController.h"
-#include "SoundManager.h"
+#include "../Utility/MyRandom.h"
+#include "../Sound/SoundManager.h"
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
-#include "StylishRank.h"
+#include "../GameManagement/Score/StylishRank.h"
+#include "../Scene/SceneController.h"
 
 
 namespace

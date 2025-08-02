@@ -1,12 +1,12 @@
-#include "AnimationModel.h"
-#include "Camera.h"
-#include "Game.h"
-#include "Input.h"
-#include "Player.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../Camera/Camera.h"
+#include "../../../General/Game.h"
+#include "../../../General/Input.h"
+#include "../Player.h"
 #include "PlayerLockOn.h"
 #include "PlayerLockOnIdle.h"
-#include "PlayerNormal.h"
-#include "PlayerSpecialAttack.h"
+#include "../NormalState/PlayerNormal.h"
+#include "../AttackState/PlayerSpecialAttack.h"
 #include <DxLib.h>
 #include <algorithm>
 

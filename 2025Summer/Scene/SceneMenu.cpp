@@ -1,6 +1,6 @@
 #include "SceneMenu.h"
 #include <DxLib.h>
-#include "Input.h"
+#include "../General/Input.h"
 #include "SceneController.h"
 #include "SceneDebug.h"
 

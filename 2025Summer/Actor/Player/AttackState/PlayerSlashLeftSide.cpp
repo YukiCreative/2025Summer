@@ -1,13 +1,13 @@
 #include "PlayerSlashLeftSide.h"
 
-#include "Player.h"
-#include "AnimationModel.h"
-#include "PlayerIdle.h"
-#include "Collidable.h"
+#include "../Player.h"
+#include "../../../Model/AnimationModel.h"
+#include "../NormalState/PlayerIdle.h"
+#include "../../../Physics/Collidable.h"
 #include <DxLib.h>
-#include "Input.h"
+#include "../../../General/Input.h"
 #include "PlayerSlashUp.h"
-#include "Rigid.h"
+#include "../../../Physics/Rigid.h"
 
 namespace
 {
