@@ -1,10 +1,10 @@
-#include "AnimationModel.h"
-#include "Input.h"
+#include "../../Model/AnimationModel.h"
+#include "../../General/Input.h"
 #include "Player.h"
-#include "PlayerIdle.h"
+#include "NormalState/PlayerIdle.h"
 #include "PlayerMiddleDamage.h"
-#include "PlayerMove.h"
-#include "PlayerSlashDown.h"
+#include "NormalState/PlayerMove.h"
+#include "AttackState/PlayerSlashDown.h"
 #include <DxLib.h>
 
 namespace

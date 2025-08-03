@@ -1,9 +1,9 @@
-#include "Actor.h"
+#include "../../Actor/Actor.h"
 #include "CapsuleCollider.h"
-#include "Collidable.h"
+#include "../Collidable.h"
 #include "CollisionChecker.h"
-#include "Geometry.h"
-#include "Rigid.h"
+#include "../../Geometry/Geometry.h"
+#include "../Rigid.h"
 #include <algorithm>
 #include <array>
 #include <DxLib.h>

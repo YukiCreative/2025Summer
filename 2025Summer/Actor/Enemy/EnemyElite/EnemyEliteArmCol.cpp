@@ -1,8 +1,8 @@
 #include "EnemyEliteArmCol.h"
 #include "EnemyElite.h"
-#include "Collidable.h"
-#include "CapsuleCollider.h"
-#include "Rigid.h"
+#include "../../../Physics/Collidable.h"
+#include "../../../Physics/Collider/CapsuleCollider.h"
+#include "../../../Physics/Rigid.h"
 
 namespace
 {

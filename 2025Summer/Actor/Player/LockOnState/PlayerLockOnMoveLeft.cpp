@@ -1,14 +1,14 @@
-#include "AnimationModel.h"
-#include "Camera.h"
-#include "Input.h"
-#include "Player.h"
+#include "../../../Model/AnimationModel.h"
+#include "../../../Camera/Camera.h"
+#include "../../../General/Input.h"
+#include "../Player.h"
 #include "PlayerLockOnIdle.h"
 #include "PlayerLockOnMoveBack.h"
 #include "PlayerLockOnMoveFoward.h"
 #include "PlayerLockOnMoveLeft.h"
 #include "PlayerLockOnMoveRight.h"
 #include <DxLib.h>
-#include "PlayerSlashDown.h"
+#include "../AttackState/PlayerSlashDown.h"
 
 namespace
 {

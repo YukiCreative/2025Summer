@@ -1,7 +1,7 @@
 #include "ShaderDraw.h"
 
-#include "AnimationModel.h"
-#include "Model.h"
+#include "../Model/AnimationModel.h"
+#include "../Model/Model.h"
 #include <DxLib.h>
 
 void ShaderDraw::DrawModel(std::shared_ptr<Model> model, int psH, int vsH, int texH, int texH2)

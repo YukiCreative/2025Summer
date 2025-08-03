@@ -1,4 +1,4 @@
-#include "Color.h"
+#include "../../General/Color.h"
 #include "SphereCollider.h"
 #include <DxLib.h>
 

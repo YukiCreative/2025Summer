@@ -1,10 +1,10 @@
 #include "EnemyEliteBiteCol.h"
 #include <string>
 #include "EnemyElite.h"
-#include "SphereCollider.h"
+#include "../../../Physics/Collider/SphereCollider.h"
 #include <DxLib.h>
-#include "Rigid.h"
-#include "Collidable.h"
+#include "../../../Physics/Rigid.h"
+#include "../../../Physics/Collidable.h"
 
 namespace
 {

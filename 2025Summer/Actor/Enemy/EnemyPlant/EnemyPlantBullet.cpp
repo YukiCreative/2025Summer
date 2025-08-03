@@ -1,11 +1,11 @@
 #include "EnemyPlantBullet.h"
 #include <DxLib.h>
-#include "Collidable.h"
-#include "SphereCollider.h"
-#include "Rigid.h"
-#include "EffectManager.h"
-#include "EffekseerEffect.h"
-#include "Player.h"
+#include "../../../Physics/Collidable.h"
+#include "../../../Physics/Collider/SphereCollider.h"
+#include "../../../Physics/Rigid.h"
+#include "../../../Effect/EffectManager.h"
+#include "../../../Effect/EffekseerEffect.h"
+#include "../../Player/Player.h"
 
 namespace
 {
