@@ -24,7 +24,7 @@ namespace
 	constexpr float kImageShrinkingSpeed = 0.1f;
 	constexpr float kImageAppearSpeed = 20.0f;
 
-	const Vector3 kInitPos = {900.0f, 400.0f, 0.0f};
+	const Vector3 kInitPos = {1100.0f, 400.0f, 0.0f};
 }
 
 void StylishRankUI::Init()
