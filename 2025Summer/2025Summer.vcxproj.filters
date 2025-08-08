@@ -126,6 +126,7 @@
     <ClCompile Include="GameManagement\TutorialMode.cpp" />
     <ClCompile Include="Scene\SceneOption.cpp" />
     <ClCompile Include="Scene\SceneRanking.cpp" />
+    <ClCompile Include="Shader\SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -262,6 +263,7 @@
     <ClInclude Include="GameManagement\TutorialMode.h" />
     <ClInclude Include="Scene\SceneOption.h" />
     <ClInclude Include="Scene\SceneRanking.h" />
+    <ClInclude Include="Shader\SkyBox.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

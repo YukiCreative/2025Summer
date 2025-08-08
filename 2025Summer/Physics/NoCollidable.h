@@ -6,6 +6,8 @@ class NoCollidable : public Collidable
 {
 public:
 	NoCollidable();
+
+	void Init(std::shared_ptr<Collider3D> col, std::shared_ptr<Rigid> rigid) = delete;
 private:
 };
 

@@ -68,6 +68,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashLeftSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
+    <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Effect\EffectManager.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashLeftSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
+    <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Effect\EffectManager.h" />

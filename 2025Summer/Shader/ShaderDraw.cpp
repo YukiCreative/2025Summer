@@ -3,6 +3,8 @@
 #include "../Model/AnimationModel.h"
 #include "../Model/Model.h"
 #include <DxLib.h>
+#include <array>
+#include "../General/Game.h"
 
 void ShaderDraw::DrawModel(std::shared_ptr<Model> model, int psH, int vsH, int texH, int texH2)
 {
@@ -38,4 +40,29 @@ void ShaderDraw::DrawModel(std::shared_ptr<AnimationModel> model, int psH, int v
 	SetUseTextureToShader(4, -1);
 
 	MV1SetUseOrigShader(false);
+}
+
+void ShaderDraw::DrawScreen(const int tex, const int psH, const int tex2)
+{
+	const int kVertNum = 4;
+	std::array<VERTEX2DSHADER, kVertNum> vertices;
+
+	vertices[0].pos = { 0,0,0 };
+	vertices[0].u = 0.0f;
+	vertices[0].v = 0.0f;
+
+	vertices[1].pos = { Game::kScreenWidth,0,0 };
+	vertices[1].u = 1.0f;
+	vertices[1].v = 0.0f;
+
+	vertices[2].pos = { 0,Game::kScreenHeight,0 };
+	vertices[2].u = 0.0f;
+	vertices[2].v = 1.0f;
+
+	vertices[3].pos = { Game::kScreenWidth,Game::kScreenHeight,0 };
+	vertices[3].u = 1.0f;
+	vertices[3].v = 1.0f;
+
+	const int kPolyNum = 2;
+	DrawPolygon2DToShader(vertices.data(), kPolyNum);
 }
