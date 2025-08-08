@@ -10,6 +10,7 @@
 #include "../Actor/Enemy/EnemyGenerator.h"
 
 #include "../Actor/Actor.h"
+#include "TutorialMode.h"
 
 namespace
 {

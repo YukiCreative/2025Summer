@@ -122,6 +122,10 @@
     <ClCompile Include="UI\StylishRankUI.cpp" />
     <ClCompile Include="UI\WaveResult.cpp" />
     <ClCompile Include="GameManagement\CampaignMode.cpp" />
+    <ClCompile Include="Scene\SceneTutorial.cpp" />
+    <ClCompile Include="GameManagement\TutorialMode.cpp" />
+    <ClCompile Include="Scene\SceneOption.cpp" />
+    <ClCompile Include="Scene\SceneRanking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -254,6 +258,10 @@
     <ClInclude Include="GameManagement\Score\StylishEnum.h" />
     <ClInclude Include="UI\WaveResult.h" />
     <ClInclude Include="GameManagement\CampaignMode.h" />
+    <ClInclude Include="Scene\SceneTutorial.h" />
+    <ClInclude Include="GameManagement\TutorialMode.h" />
+    <ClInclude Include="Scene\SceneOption.h" />
+    <ClInclude Include="Scene\SceneRanking.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

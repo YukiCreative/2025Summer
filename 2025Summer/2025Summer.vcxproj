@@ -75,6 +75,10 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantState.cpp" />
     <ClCompile Include="GameManagement\CampaignMode.cpp" />
     <ClCompile Include="GameManagement\Timer.cpp" />
+    <ClCompile Include="GameManagement\TutorialMode.cpp" />
+    <ClCompile Include="Scene\SceneOption.cpp" />
+    <ClCompile Include="Scene\SceneRanking.cpp" />
+    <ClCompile Include="Scene\SceneTutorial.cpp" />
     <ClCompile Include="UI\StylishRankUI.cpp" />
     <ClCompile Include="UI\TimeUI.cpp" />
     <ClCompile Include="GameManagement\WaveController.cpp" />
@@ -195,6 +199,10 @@
     <ClInclude Include="GameManagement\CampaignMode.h" />
     <ClInclude Include="GameManagement\Score\StylishEnum.h" />
     <ClInclude Include="GameManagement\Timer.h" />
+    <ClInclude Include="GameManagement\TutorialMode.h" />
+    <ClInclude Include="Scene\SceneOption.h" />
+    <ClInclude Include="Scene\SceneRanking.h" />
+    <ClInclude Include="Scene\SceneTutorial.h" />
     <ClInclude Include="UI\StylishRankUI.h" />
     <ClInclude Include="UI\TimeUI.h" />
     <ClInclude Include="GameManagement\WaveController.h" />

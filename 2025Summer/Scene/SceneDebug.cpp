@@ -7,6 +7,7 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
 #include "SceneTest.h"
+#include "SceneTutorial.h"
 
 #include "../UI/Image.h"
 
@@ -23,6 +24,7 @@ void SceneDebug::Init()
 	m_menuList.emplace_back("Game");
 	m_menuList.emplace_back("Result");
 	m_menuList.emplace_back("Test");
+	m_menuList.emplace_back("Tutorial");
 
 	a = std::make_shared<Image>();
 	a->Init("Flame01.png");
@@ -61,6 +63,9 @@ void SceneDebug::Update()
 			break;
 		case 4:
 			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneTest>());
+			break;
+		case 5:
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneTutorial>());
 			break;
 		default:
 #if _DEBUG

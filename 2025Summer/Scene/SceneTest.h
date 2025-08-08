@@ -16,12 +16,12 @@ public:
 	SceneTest();
 	~SceneTest();
 
-	virtual void Init();
-	virtual void Update();
-	virtual void Draw() const;
+	void Init() override;
+	void Update() override;
+	void Draw() const override;
 
-	virtual void Entry();
-	virtual void Reave();
+	void Entry() override;
+	void Reave() override;
 
 private:
 	std::shared_ptr<Camera> m_camera;
