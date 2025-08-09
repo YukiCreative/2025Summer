@@ -108,3 +108,8 @@ const Vector3 Model::GetModelBBMax() const
 	}
 	return maxPos;
 }
+
+void Model::SetWriteZBuffer(const bool writeOrNot)
+{
+	MV1SetWriteZBuffer(m_handle, writeOrNot);
+}

@@ -23,7 +23,6 @@ public:
 	void Init(const std::string& path);
 
 	void SetPos(const Vector3& pos) const;
-	void CommitMove(const Vector3& moveValue);
 	void Draw() const;
 
 	void RotateUpVecY(const float rad);
@@ -38,6 +37,7 @@ public:
 	const int GetFrameNum() const;
 	const Vector3 GetModelBBMin() const;
 	const Vector3 GetModelBBMax() const;
+	void SetWriteZBuffer(const bool writeOrNot);
 
 private:
 	int m_handle;

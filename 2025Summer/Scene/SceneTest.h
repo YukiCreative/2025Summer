@@ -9,6 +9,7 @@ class UIController;
 class Model;
 class ShadowMap;
 class ArenaMode;
+class SkyBox;
 
 class SceneTest : public Scene
 {
@@ -31,6 +32,7 @@ private:
 	std::shared_ptr<ArenaMode> m_gameManager;
 
 	std::shared_ptr<Model> m_field;
+	std::shared_ptr<SkyBox> m_skyBox;
 
 private:
 };

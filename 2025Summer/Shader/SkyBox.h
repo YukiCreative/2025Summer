@@ -1,20 +1,24 @@
 #pragma once
+#include <string>
+#include <memory>
+
+class Camera;
+class Model;
 
 class SkyBox
 {
 public:
 	SkyBox();
+	~SkyBox();
 
-	void Init();
+	void Init(const std::string& fileName, std::weak_ptr<Camera> camera);
 	void Update();
 	void Draw() const;
 
-	void SetGraph(const int handle);
-
 private:
 
-	int m_psH;
+	std::weak_ptr<Camera> m_camera;
 
-
+	std::shared_ptr<Model> m_model;
 };
 

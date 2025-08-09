@@ -81,6 +81,12 @@ void SceneTutorial::Update()
 	m_actors->Update();
 	m_camera->Update();
 	m_UI->Update();
+
+	if (Input::GetInstance().IsTrigger("GoDebug"))
+	{
+		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneDebug>());
+		return;
+	}
 }
 
 void SceneTutorial::Draw() const

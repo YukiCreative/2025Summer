@@ -16,6 +16,7 @@
 #include "../UI/StylishRankUI.h"
 #include "../Model/Model.h"
 #include "../Geometry/Geometry.h"
+#include "../Shader/SkyBox.h"
 
 namespace
 {
@@ -26,6 +27,8 @@ namespace
 
 	const Vector3& kShadowAreaMin = { -1500, -300, -1500 };
 	const Vector3& kShadowAreaMax = {  1500,  300,  1500 };
+
+	const std::string kSkyBoxImg = "SkyBox_Dark.png";
 }
 
 SceneTest::SceneTest()
@@ -74,6 +77,9 @@ void SceneTest::Init()
 
 	m_gameManager = std::make_shared<ArenaMode>();
 	m_gameManager->Init(player, m_actors, m_UI);
+
+	m_skyBox = std::make_shared<SkyBox>();
+	m_skyBox->Init(kSkyBoxImg, m_camera);
 }
 
 void SceneTest::Update()
@@ -83,6 +89,7 @@ void SceneTest::Update()
 	m_camera->Update();
 	m_actors->Update();
 	m_UI->Update();
+	m_skyBox->Update();
 
 	m_gameManager->Update();
 
@@ -97,6 +104,8 @@ void SceneTest::Update()
 
 void SceneTest::Draw() const
 {
+	m_skyBox->Draw();
+
 	m_shadow->StartShadowMapDraw(GetLightDirection());
 
 	m_field->Draw();

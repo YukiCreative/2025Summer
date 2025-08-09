@@ -13,6 +13,7 @@
 #include <cmath>
 #include "../../Camera/Camera.h"
 #include "../../GameManagement/Score/StylishRank.h"
+#include "../Enemy/Enemy.h"
 
 namespace
 {
@@ -139,6 +140,10 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 	// 敵に当たったら
 	if (other->GetKind() == ActorKind::kEnemy)
 	{
+		// 敵が無敵ならスキップ
+		auto enemy = std::static_pointer_cast<Enemy>(other);
+		if (enemy->IsInvincible()) return;
+
 		// プレイヤーにヒットストップをかける
 		m_player.lock()->SetStopFrame(kStopFrame);
 		// ちょっと画面振動

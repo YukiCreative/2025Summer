@@ -52,6 +52,7 @@ public:
 
 	// 自身をロックオン不可にする
 	void DisableLockOn();
+	bool IsInvincible() const { return m_isInvincible; }
 
 protected:
 
