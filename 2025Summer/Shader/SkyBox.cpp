@@ -20,7 +20,6 @@ void SkyBox::Init(const std::string& fileName, std::weak_ptr<Camera> camera)
 
 	m_model = std::make_shared<Model>();
 	m_model->Init("Data/Model/SkyBox.mv1");
-	m_model->SetScale({10.0f, 10.0f, 10.0f});
 	m_model->SetWriteZBuffer(false);
 }
 
