@@ -127,6 +127,7 @@
     <ClCompile Include="Scene\SceneOption.cpp" />
     <ClCompile Include="Scene\SceneRanking.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
+    <ClCompile Include="Actor\Player\PlayerDodge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Scene\SceneOption.h" />
     <ClInclude Include="Scene\SceneRanking.h" />
     <ClInclude Include="Shader\SkyBox.h" />
+    <ClInclude Include="Actor\Player\PlayerDodge.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

@@ -49,6 +49,7 @@
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
+    <ClCompile Include="Actor\Player\PlayerDodge.cpp" />
     <ClCompile Include="Actor\Player\PlayerShockWave.cpp" />
     <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
     <ClCompile Include="Actor\Player\PlayerSword.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
+    <ClInclude Include="Actor\Player\PlayerDodge.h" />
     <ClInclude Include="Actor\Player\PlayerShockWave.h" />
     <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerSword.h" />
