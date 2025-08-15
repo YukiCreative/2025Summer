@@ -127,6 +127,11 @@ void Input::SetKeyDefault()
 		{PeripheralType::kKeyboard, KEY_INPUT_X},
 		{PeripheralType::kPad, kPadY},
 	};
+	m_inputEvent["Dodge"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_C},
+		{PeripheralType::kPad, kPadB},
+	};
 }
 
 void Input::Init()

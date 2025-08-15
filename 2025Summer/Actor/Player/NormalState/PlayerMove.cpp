@@ -7,6 +7,7 @@
 #include "../../../Physics/Collidable.h"
 #include <DxLib.h>
 #include "../LockOnState/PlayerLockOnIdle.h"
+#include "../PlayerDodge.h"
 
 namespace
 {
@@ -65,6 +66,10 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 		p->GetCollidable().AddVel(VTransformSR({0,0,kSashAttackForce}, p->GetModelMatrix()));
 
 		return std::make_shared<PlayerSlashDown>(m_player);
+	}
+	if (input.IsTrigger("Dodge"))
+	{
+		return std::make_shared<PlayerDodge>(m_player);
 	}
 
 	++m_moveFrame;

@@ -103,6 +103,7 @@ void Player::Update()
 
 	// フラグをリセット
 	m_isContactLockOnActor = false;
+	m_isDamageFromEnemy = false;
 }
 
 void Player::CameraMove()
@@ -274,6 +275,8 @@ void Player::OnCollisionEnter(std::shared_ptr<Actor> other)
 	if (other->GetKind() == ActorKind::kEnemyAttack)
 	{
 		auto attack = std::static_pointer_cast<AttackCol>(other);
+
+		m_isDamageFromEnemy = true;
 
 		OnDamage(attack);
 	}

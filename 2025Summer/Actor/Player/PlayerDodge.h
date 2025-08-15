@@ -13,5 +13,9 @@ public:
 private:
 
 	int m_frame;
+	bool m_isJustDodge;
+
+private:
+	void JustDodge();
 };
 

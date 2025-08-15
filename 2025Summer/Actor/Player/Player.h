@@ -115,6 +115,8 @@ public:
 	bool m_isInvincible;
 	bool m_canLockOn;
 	bool m_isDraw;
+	// ‚±‚ÌƒtƒŒ[ƒ€‚ÉA“G‚©‚çUŒ‚‚ğó‚¯‚½‚©
+	bool m_isDamageFromEnemy;
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”

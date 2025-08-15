@@ -138,11 +138,12 @@ void StylishRank::InitMap()
 	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 2.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 5.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 5.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 15.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 10.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 8.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWaveAttack] = 3.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWave] = 8.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSpecialAttack] = 20.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kJustDodge] = 15.0f;
 
 	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 40.0f;
 }
