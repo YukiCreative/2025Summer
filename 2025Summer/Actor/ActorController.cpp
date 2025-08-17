@@ -28,7 +28,11 @@ void ActorController::Update()
 		{
 			actor->Update();
 		}
-		actor->LimitMovementRange();
+		// ˆÚ“®”ÍˆÍ§ŒÀ
+		if (actor->IsPosLimited())
+		{
+			actor->LimitMovementRange();
+		}
 
 		// ¶‚«‚Ä‚é‚â‚ÂƒŠƒXƒg‚ðì‚é
 		if (actor->IsAlive())

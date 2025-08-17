@@ -8,6 +8,7 @@
 #include <DxLib.h>
 #include "../LockOnState/PlayerLockOnIdle.h"
 #include "../PlayerDodge.h"
+#include "../PlayerJump.h"
 
 namespace
 {
@@ -70,6 +71,10 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	if (input.IsTrigger("Dodge"))
 	{
 		return std::make_shared<PlayerDodge>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
 	}
 
 	++m_moveFrame;

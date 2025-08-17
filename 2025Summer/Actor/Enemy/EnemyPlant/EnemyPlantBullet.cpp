@@ -41,6 +41,8 @@ void EnemyPlantBullet::Init(const Vector3& initPos, const DxLib::tagMATRIX& dir)
 	m_attackPower = kDamage;
 	m_knockbackPower = kKnockback;
 	m_dir = std::make_shared<MATRIX>(dir);
+	// ƒAƒŠ[ƒi‚Ì”ÍˆÍ§ŒÀ‚ğó‚¯‚È‚¢
+	SetPosLimit(false);
 
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(m_pos, 0, true, true, kRadius);

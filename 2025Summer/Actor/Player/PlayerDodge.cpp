@@ -3,7 +3,7 @@
 #include "../../Physics/Rigid.h"
 #include "../../Model/AnimationModel.h"
 #include <DxLib.h>
-#include "NormalState/PlayerIdle.h";
+#include "NormalState/PlayerIdle.h"
 #include "../../GameManagement/Score/StylishRank.h"
 #include "../../General/Input.h"
 #include "NormalState/PlayerMove.h"
@@ -66,6 +66,7 @@ std::shared_ptr<PlayerState> PlayerDodge::Update()
 	}
 	if (p->m_model->IsEnd())
 	{
+		p->SetInvincibility(false);
 		return std::make_shared<PlayerIdle>(m_player);
 	}
 	if (m_frame > kCanMoveFrame && Input::GetInstance().GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
@@ -80,13 +81,15 @@ void PlayerDodge::JustDodge()
 {
 	if (m_isJustDodge) return;
 
-	m_player.lock()->SetStopFrame(10);
+	auto p = m_player.lock();
+
+	p->SetStopFrame(10);
 
 	m_isJustDodge;
 
-	m_player.lock()->ChangeAnim(kJustAnimName, false);
+	p->ChangeAnim(kJustAnimName, false);
 	// スタイリッシュゲージを増加
 	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kJustDodge);
 	// この後アニメーションが終わるまで無敵
-
+	p->SetInvincibility(true);
 }

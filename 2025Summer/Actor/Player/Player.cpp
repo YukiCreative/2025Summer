@@ -55,7 +55,9 @@ Player::Player() :
 	m_isInvincible(false),
 	m_canLockOn(true),
 	m_isDraw(true),
-	m_specialGauge(0)
+	m_specialGauge(0),
+	m_isGround(true),
+	m_isDamageFromEnemy(false)
 {
 }
 
@@ -104,6 +106,7 @@ void Player::Update()
 	// フラグをリセット
 	m_isContactLockOnActor = false;
 	m_isDamageFromEnemy = false;
+	m_isGround = false;
 }
 
 void Player::CameraMove()
@@ -291,6 +294,12 @@ void Player::CommitMove()
 
 	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
+
+	// キャラクターが地面についているか調べる
+	if (m_pos.y <= 0.0f)
+	{
+		m_isGround = true;
+	}
 }
 
 DxLib::tagMATRIX Player::GetModelMatrix() const
@@ -395,4 +404,14 @@ bool Player::IsInputSpecialAttack() const
 Vector3 Player::GetDirection() const
 {
 	return m_model->GetDirection();
+}
+
+void Player::AddVel(const Vector3& vel)
+{
+	m_collidable->AddVel(vel);
+}
+
+bool Player::IsAnimEnd() const
+{
+	return m_model->IsEnd();
 }

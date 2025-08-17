@@ -14,7 +14,7 @@ using SpawnActorList_t = std::list<std::shared_ptr<Actor>>;
 
 // ゲーム内に登場する物体
 // GameObjectだと「全部やん」ってなるので
-class Actor abstract : public LockOnState
+class Actor abstract : public ActorAttribute
 {
 public:
 	Actor(const bool canLockOn);

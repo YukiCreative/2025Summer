@@ -50,6 +50,7 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Actor\Player\PlayerDodge.cpp" />
+    <ClCompile Include="Actor\Player\PlayerFall.cpp" />
     <ClCompile Include="Actor\Player\PlayerShockWave.cpp" />
     <ClCompile Include="Actor\Player\PlayerSpecialAttackCol.cpp" />
     <ClCompile Include="Actor\Player\PlayerSword.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashLeftSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
+    <ClCompile Include="Actor\Player\PlayerJump.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerFinishAttack.h" />
     <ClInclude Include="Actor\Player\PlayerDodge.h" />
+    <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Player\PlayerShockWave.h" />
     <ClInclude Include="Actor\Player\PlayerSpecialAttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerSword.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashLeftSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
+    <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />

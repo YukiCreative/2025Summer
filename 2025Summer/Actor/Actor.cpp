@@ -11,7 +11,7 @@ Actor::Actor(const bool canLockOn) :
 	m_pos(),
 	m_collidable(nullptr),
 	m_kind(ActorKind::kNone),
-	LockOnState(canLockOn),
+	ActorAttribute(canLockOn),
 	m_stopFrame(0)
 {
 }

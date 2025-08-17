@@ -97,6 +97,11 @@ public:
 
 	Vector3 GetDirection() const;
 
+	// Rigidの仲介
+	void AddVel(const Vector3& vel);
+	bool IsAnimEnd() const;
+	bool IsGround() const { return m_isGround; }
+
 public:
 	// 自分かPlayerStateだけで見たいメンバ変数
 	std::shared_ptr<AnimationModel> m_model;
@@ -117,6 +122,7 @@ public:
 	bool m_isDraw;
 	// このフレームに、敵から攻撃を受けたか
 	bool m_isDamageFromEnemy;
+	bool m_isGround;
 
 public:
 	// 自分かPlayerStateだけで見てほしい関数
