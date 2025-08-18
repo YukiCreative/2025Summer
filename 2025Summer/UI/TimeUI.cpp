@@ -19,6 +19,7 @@ namespace
 }
 
 TimeUI::TimeUI() :
+	UIBase(UIKind::kTimeUI),
 	m_color(0),
 	m_fontHandle(-1),
 	m_second(0)

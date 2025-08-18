@@ -9,16 +9,17 @@ namespace
 	const std::string kBaseImageName = "SpecialGaugeBase.png";
 	const std::string kFillImageName = "SpecialGaugeFill.png";
 	constexpr float kLerpSpeed = 0.1f;
-	const Vector3 kInitPos = { 50, 110, 0 };
+	const Vector2 kInitPos = { 50, 110 };
 }
 
-PlayerSpecialGauge::PlayerSpecialGauge()
+PlayerSpecialGauge::PlayerSpecialGauge() :
+	UIBase(UIKind::kPlayerSpecialGauge)
 {
 }
 
 void PlayerSpecialGauge::Init(std::weak_ptr<Player> player)
 {
-	m_pos = kInitPos;
+	m_positionData.pos = kInitPos;
 
 	m_player = player;
 
@@ -50,7 +51,7 @@ void PlayerSpecialGauge::Update()
 
 void PlayerSpecialGauge::Draw() const
 {
-	Vector2 drawPos = { m_pos.x, m_pos.y };
+	Vector2 drawPos = m_positionData.pos;
 	m_baseImage->Draw(drawPos + m_fillImageSize * 0.5f);
 	m_fillImage->RectDraw(drawPos, Vector2::Zero(), { m_fillImageSize.x * m_fillRatio.Value(), m_fillImageSize.y });
 }

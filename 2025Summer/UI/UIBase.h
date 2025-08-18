@@ -2,23 +2,30 @@
 #include <memory>
 #include "../Geometry/Vector3.h"
 #include "../Geometry/Vector2.h"
+#include "UIKind.h"
 
 class Image;
+
+struct UIPositionData
+{
+public:
+	Vector2 pos;
+	Vector3 scale;
+};
 
 // UIの基底クラス
 // 3Dの描画後に描画される
 class UIBase abstract
 {
 public:
-	UIBase();
+	UIBase(const UIKind& m_kind);
 
 	virtual void Update() abstract;
 	virtual void Draw() const abstract;
 
 protected:
 
-	// Zによって重なる順番を操作できてもいいかも
-	// 7/16現在はそんな機能はない
-	Vector3 m_pos;
+	UIPositionData m_positionData;
+	UIKind m_kind;
 };
 

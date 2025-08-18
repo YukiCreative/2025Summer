@@ -14,6 +14,7 @@ namespace
 }
 
 ButtonSystem::ButtonSystem() :
+	UIBase(UIKind::kNone),
 	m_cursorMoveTimer(0),
 	m_inputDirLastMove(0,0)
 {

@@ -24,7 +24,12 @@ namespace
 	constexpr float kImageShrinkingSpeed = 0.1f;
 	constexpr float kImageAppearSpeed = 20.0f;
 
-	const Vector3 kInitPos = {1100.0f, 400.0f, 0.0f};
+	const Vector2 kInitPos = {1100.0f, 400.0f};
+}
+
+StylishRankUI::StylishRankUI() :
+	UIBase(UIKind::kStylishRankUI)
+{
 }
 
 void StylishRankUI::Init()
@@ -37,7 +42,7 @@ void StylishRankUI::Init()
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kNoImageFill);
 
-	m_pos = kInitPos;
+	m_positionData.pos = kInitPos;
 
 	ResetAnim();
 }
@@ -69,7 +74,7 @@ void StylishRankUI::Update()
 
 void StylishRankUI::Draw() const
 {
-	const Vector2 drawPos = { m_pos.x, m_pos.y };
+	const Vector2 drawPos = m_positionData.pos;
 	const Vector2 imgSize = m_fillImage->GetImageSize();
 	const float ratio = 1 - m_nowParam.m_ratio.Value();
 	const float offsetY = imgSize.y * ratio;

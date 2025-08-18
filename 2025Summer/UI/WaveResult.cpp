@@ -14,12 +14,13 @@ namespace
 	constexpr int kLifeFrame = 180;
 	constexpr int kDisappearFrame = 60;
 
-	const Vector3 kInitPos = { Game::kScreenWidth + 500.0f, 500.0f, 0.0f };
-	const Vector3 kAppearTargetPos = { Game::kScreenWidth - 500.0f, 500.0f, 0.0f };
+	const Vector2 kInitPos = { Game::kScreenWidth + 500.0f, 500.0f};
+	const Vector2 kAppearTargetPos = { Game::kScreenWidth - 500.0f, 500.0f};
 	constexpr float kLerpSpeed = 0.3f;
 }
 
 WaveResult::WaveResult() :
+	UIBase(UIKind::kWaveResult),
 	m_fontH(-1)
 {
 }
@@ -42,18 +43,18 @@ void WaveResult::Update()
 
 void WaveResult::Draw() const
 {
-	m_image->Draw({ m_pos.x, m_pos.y});
+	m_image->Draw(m_positionData.pos);
 }
 
 void WaveResult::StartResult()
 {
-	m_pos = kInitPos;
+	m_positionData.pos = kInitPos;
 }
 
 void WaveResult::Appear()
 {
 	// ‚É‚ã‚Á
-	m_pos.LerpMyself(kAppearTargetPos, kLerpSpeed);
+	m_positionData.pos.LerpMyself(kAppearTargetPos, kLerpSpeed);
 }
 
 void WaveResult::Wait()
@@ -65,5 +66,5 @@ void WaveResult::Wait()
 void WaveResult::Disappear()
 {
 	// ‚Á‚ã‚É
-	m_pos.LerpMyself(kInitPos, kLerpSpeed);
+	m_positionData.pos.LerpMyself(kInitPos, kLerpSpeed);
 }

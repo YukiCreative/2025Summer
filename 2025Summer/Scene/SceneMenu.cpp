@@ -6,6 +6,7 @@
 #include "../UI/Image.h"
 #include <cassert>
 #include "../UI/ButtonSystem.h"
+#include "../UI/UIController.h"
 
 #include "SceneTutorial.h"
 #include "SceneTitle.h"
@@ -27,15 +28,21 @@ SceneMenu::SceneMenu()
 
 void SceneMenu::Init()
 {
-	m_buttons = std::make_shared<ButtonSystem>();
-	m_buttons->Init();
+	auto buttons = std::make_shared<ButtonSystem>();
+	buttons->Init();
 
 	for (int i = 0; i < kMenuNum; ++i)
 	{
 		auto button = std::make_shared<MenuButton>();
 		button->Init(kButtonPos + kButtonPosOffset * static_cast<float>(i), static_cast<TitleTransitionSceneKind>(i));
-		m_buttons->AddButton(button);
+		buttons->AddButton(button);
+		buttons->SetButtonFocus(button);
 	}
+
+	m_UI = std::make_shared<UIController>();
+	m_UI->Init();
+
+	m_UI->AddUI(buttons);
 }
 
 void SceneMenu::Update()
@@ -45,12 +52,16 @@ void SceneMenu::Update()
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
 	}
+
+	m_UI->Update();
 }
 
 void SceneMenu::Draw() const
 {
 	DrawString(0, 0, "メニューシーンです", 0xffffff);
 	DrawString(0, 15, "ゲームを選択", 0xffffff);
+
+	m_UI->Draw();
 }
 
 void SceneMenu::Entry()
@@ -66,6 +77,7 @@ void SceneMenu::Reave()
 // ===============================================
 
 SceneMenu::MenuButton::MenuButton() :
+	Button(),
 	m_kind(TitleTransitionSceneKind::kNone)
 {
 }
@@ -73,6 +85,11 @@ SceneMenu::MenuButton::MenuButton() :
 void SceneMenu::MenuButton::Init(const Vector2 initPos, const TitleTransitionSceneKind kind)
 {
 	m_kind = kind;
+
+	Button::Init(initPos);
+
+	m_image = std::make_shared<Image>();
+	m_image->Init("SpecialGaugeBase.png");
 }
 
 void SceneMenu::MenuButton::Draw() const

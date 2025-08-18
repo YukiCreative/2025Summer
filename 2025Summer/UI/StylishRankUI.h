@@ -9,6 +9,8 @@ class Image;
 class StylishRankUI : public UIBase
 {
 public:
+	StylishRankUI();
+
 	void Init();
 
 	void Update() override;

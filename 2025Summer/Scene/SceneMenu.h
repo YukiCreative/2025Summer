@@ -5,6 +5,7 @@
 
 class ButtonSystem;
 class Image;
+class UIController;
 
 class SceneMenu : public Scene
 {
@@ -19,6 +20,11 @@ public:
 	void Reave() override;
 
 private:
+
+	std::shared_ptr<UIController> m_UI;
+
+private:
+
 	enum class TitleTransitionSceneKind
 	{
 		kTutorial,
@@ -29,8 +35,6 @@ private:
 		kTitle,
 		kNone,
 	};
-
-	std::shared_ptr<ButtonSystem> m_buttons;
 
 	class MenuButton : public Button
 	{
