@@ -31,11 +31,14 @@ public:
 	const Vector2& GetRightInputAxis() const;
 	const Vector2& GetBeforeRightInputAxis() const;
 
+	Vector2 GetMousePos() const;
+
 private:
 	enum class PeripheralType
 	{
 		kKeyboard,
 		kPad,
+		kMouse,
 	};
 
 	struct Peripheral
@@ -60,6 +63,9 @@ private:
 	Vector2 m_beforeLeftInputAxis;
 	Vector2 m_rightInputAxis;
 	Vector2 m_beforeRightInputAxis;
+
+	int m_mouseInput;
+	int m_beforeMouseInput;
 
 	std::unordered_map<std::string, std::vector<Peripheral>> m_inputEvent;
 };

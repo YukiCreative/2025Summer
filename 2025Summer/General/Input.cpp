@@ -43,6 +43,7 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_RETURN},
 		{PeripheralType::kPad, kPadA},
+		{PeripheralType::kMouse, MOUSE_INPUT_LEFT}
 	};
 	m_inputEvent["Up"] =
 	{
@@ -121,6 +122,7 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_Z},
 		{PeripheralType::kPad, kPadX},
+		{PeripheralType::kMouse, MOUSE_INPUT_LEFT},
 	};
 	m_inputEvent["SpecialAttack"] =
 	{
@@ -131,6 +133,7 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_C},
 		{PeripheralType::kPad, kPadB},
+		{PeripheralType::kMouse, MOUSE_INPUT_RIGHT}
 	};
 }
 
@@ -193,6 +196,11 @@ void Input::Update()
 	// そして更新
 	m_leftInputAxis = leftInputAxis;
 	m_rightInputAxis = rightInputAxis;
+
+
+	// マウスの入力を覚えておく
+	m_beforeMouseInput = m_mouseInput;
+	m_mouseInput = GetMouseInput();
 }
 
 bool Input::IsPressed(const std::string& key) const
@@ -211,6 +219,10 @@ bool Input::IsPressed(const std::string& key) const
 		case PeripheralType::kPad:
 			// パッド
 			isPressed = isPressed || m_padInput & inputEvent.inputCode;
+			break;
+		case PeripheralType::kMouse:
+			// マウス
+			isPressed = isPressed || m_mouseInput & inputEvent.inputCode;
 			break;
 		default:
 			assert(false && "列挙体の要素に対して処理が実装されていない");
@@ -235,6 +247,10 @@ bool Input::IsTrigger(const std::string& key) const
 		case PeripheralType::kPad:
 			// パッド
 			isTrigger = isTrigger || (m_padInput & inputEvent.inputCode) && !(m_beforePadInput & inputEvent.inputCode);
+			break;
+		case PeripheralType::kMouse:
+			// マウス
+			isTrigger = isTrigger || (m_mouseInput & inputEvent.inputCode)&& !(m_beforeMouseInput & inputEvent.inputCode);
 			break;
 		default:
 			assert(false && "列挙体の要素に対して処理が実装されていない");
@@ -299,4 +315,11 @@ const Vector2& Input::GetRightInputAxis() const
 const Vector2& Input::GetBeforeRightInputAxis() const
 {
 	return m_beforeRightInputAxis;
+}
+
+Vector2 Input::GetMousePos() const
+{
+	int x, y;
+	GetMousePoint(&x, &y);
+	return Vector2(static_cast<float>(x), static_cast<float>(y));
 }

@@ -25,7 +25,8 @@ PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
 	p->m_model->ChangeAnimation(kAnimName, false);
 	// Œ•‚ðÁ‚·
 	p->DisableSword();
-
+	// “–‚½‚è”»’è‚àÁ‚·
+	p->DisableSwordCol();
 	m_canCrossState = true;
 }
 

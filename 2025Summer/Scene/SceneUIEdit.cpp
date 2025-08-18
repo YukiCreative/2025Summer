@@ -1,7 +1,6 @@
 #include "SceneUIEdit.h"
 #include "../UI/Image.h"
 #include "../General/Input.h"
-#include <fstream>
 #include <cassert>
 
 SceneUIEdit::SceneUIEdit()
@@ -16,11 +15,7 @@ void SceneUIEdit::Update()
 {
 	auto& input = Input::GetInstance();
 
-	// クリックして画像を動かす
-	if ()
-	{
-
-	}
+	// 
 
 	// 保存キーを押したら今出ているUIの座標を保存
 	if (Input::GetInstance().IsTrigger("Submit"))
