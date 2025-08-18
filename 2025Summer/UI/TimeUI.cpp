@@ -65,4 +65,8 @@ void TimeUI::GetTime()
 	{
 		m_color = kNiceRed;
 	}
+	else
+	{
+		m_color = Color::White;
+	}
 }
