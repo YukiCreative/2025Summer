@@ -135,6 +135,18 @@ void Input::SetKeyDefault()
 		{PeripheralType::kPad, kPadB},
 		{PeripheralType::kMouse, MOUSE_INPUT_RIGHT}
 	};
+	m_inputEvent["EditSave"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_END}
+	};
+	m_inputEvent["GoEdit"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_F2}
+	};
+	m_inputEvent["SelectEditUI"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_TAB}
+	};
 }
 
 void Input::Init()

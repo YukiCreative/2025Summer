@@ -87,7 +87,10 @@ void SceneTest::Update()
 	auto& input = Input::GetInstance();
 
 	m_camera->Update();
-	m_actors->Update();
+	if (!m_UI->IsEditing())
+	{
+		m_actors->Update();
+	}
 	m_UI->Update();
 	m_skyBox->Update();
 

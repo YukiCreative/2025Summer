@@ -20,7 +20,7 @@ namespace
 }
 
 WaveResult::WaveResult() :
-	UIBase(UIKind::kWaveResult),
+	UIBase(ToString(WaveResult)),
 	m_fontH(-1)
 {
 }
@@ -43,28 +43,28 @@ void WaveResult::Update()
 
 void WaveResult::Draw() const
 {
-	m_image->Draw(m_positionData.pos);
+	m_image->Draw(m_pos);
 }
 
 void WaveResult::StartResult()
 {
-	m_positionData.pos = kInitPos;
+	m_pos = kInitPos;
 }
 
 void WaveResult::Appear()
 {
-	// Ç…Ç„Ç¡
-	m_positionData.pos.LerpMyself(kAppearTargetPos, kLerpSpeed);
+	// èoåª
+	m_pos.LerpMyself(kAppearTargetPos, kLerpSpeed);
 }
 
 void WaveResult::Wait()
 {
-	// ÇŒÅ[ÇÒ
+	// êîéöèoÇ∑
 
 }
 
 void WaveResult::Disappear()
 {
-	// Ç¡Ç„Ç…
-	m_positionData.pos.LerpMyself(kInitPos, kLerpSpeed);
+	// ñﬂÇÈ
+	m_pos.LerpMyself(kInitPos, kLerpSpeed);
 }

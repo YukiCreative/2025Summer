@@ -13,7 +13,7 @@ namespace
 }
 
 PlayerLockOnUI::PlayerLockOnUI() :
-	UIBase(UIKind::kPlayerLockOnUI),
+	UIBase(ToString(PlayerLockOnUI)),
 	m_stateParam(0),
 	m_state(&PlayerLockOnUI::NoLockOn)
 {
@@ -40,7 +40,7 @@ void PlayerLockOnUI::Update()
 
 void PlayerLockOnUI::Draw() const
 {
-	m_image->Draw(m_positionData.pos);
+	m_image->Draw(m_pos);
 }
 
 void PlayerLockOnUI::StartLockOn()
@@ -120,7 +120,6 @@ void PlayerLockOnUI::MoveToLockOnTarget()
 	// ロックオンされている対象のスクリーン上の位置に移動
 	auto lockOnActorScreenPos = m_player.lock()->GetLockOnActorScreenPos();
 
-	// Zは変化してほしくない
-	m_positionData.pos.x = lockOnActorScreenPos.x;
-	m_positionData.pos.y = lockOnActorScreenPos.y;
+	m_pos.x = lockOnActorScreenPos.x;
+	m_pos.y = lockOnActorScreenPos.y;
 }

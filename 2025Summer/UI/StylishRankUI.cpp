@@ -28,7 +28,7 @@ namespace
 }
 
 StylishRankUI::StylishRankUI() :
-	UIBase(UIKind::kStylishRankUI)
+	UIBase(ToString(StylishRankUI))
 {
 }
 
@@ -42,7 +42,7 @@ void StylishRankUI::Init()
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kNoImageFill);
 
-	m_positionData.pos = kInitPos;
+	m_pos = kInitPos;
 
 	ResetAnim();
 }
@@ -74,7 +74,7 @@ void StylishRankUI::Update()
 
 void StylishRankUI::Draw() const
 {
-	const Vector2 drawPos = m_positionData.pos;
+	const Vector2 drawPos = m_pos;
 	const Vector2 imgSize = m_fillImage->GetImageSize();
 	const float ratio = 1 - m_nowParam.m_ratio.Value();
 	const float offsetY = imgSize.y * ratio;

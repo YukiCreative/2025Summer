@@ -1,9 +1,11 @@
 #include "UIBase.h"
-#include "UIPositionStore.h"
+#include "UIPositionLoader.h"
 
-UIBase::UIBase(const UIKind& kind) :
-	m_kind(kind)
+UIBase::UIBase(const std::string& className)
 {
-	// ç¿ïWéÊìæ
-	m_positionData = UIPositionStore::GetInstance().GetPositionData(kind);
+	m_name = className;
+
+	UIPosData data = UIPositionLoader::GeInstance().GetPosData(className);
+	m_pos = data.pos;
+	m_scale = data.scale;
 }

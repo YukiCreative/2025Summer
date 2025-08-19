@@ -71,7 +71,6 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
-    <ClCompile Include="Scene\SceneUIEdit.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -138,7 +137,7 @@
     <ClCompile Include="UI\Image.cpp" />
     <ClCompile Include="UI\ImageStore.cpp" />
     <ClCompile Include="UI\UIBase.cpp" />
-    <ClCompile Include="UI\UIPositionStore.cpp" />
+    <ClCompile Include="UI\UIPositionLoader.cpp" />
     <ClCompile Include="UI\WaveResult.cpp" />
     <ClCompile Include="Utility\MyRandom.cpp" />
   </ItemGroup>
@@ -201,7 +200,6 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
     <ClInclude Include="Actor\Player\PlayerJump.h" />
-    <ClInclude Include="Scene\SceneUIEdit.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />
@@ -279,7 +277,7 @@
     <ClInclude Include="UI\ImageStore.h" />
     <ClInclude Include="UI\UIBase.h" />
     <ClInclude Include="UI\UIKind.h" />
-    <ClInclude Include="UI\UIPositionStore.h" />
+    <ClInclude Include="UI\UIPositionLoader.h" />
     <ClInclude Include="UI\WaveResult.h" />
     <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />

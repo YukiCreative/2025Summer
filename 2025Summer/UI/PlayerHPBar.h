@@ -5,6 +5,7 @@
 
 class Image;
 class Player;
+class UIPositionLoader;
 
 class PlayerHPBar : public UIBase
 {

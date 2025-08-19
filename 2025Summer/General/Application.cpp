@@ -8,7 +8,7 @@
 #include <EffekseerForDXLib.h>
 #include "../GameManagement/Score/StylishRank.h"
 #include "../Scene/SceneController.h"
-
+#include "../UI/UIPositionLoader.h"
 
 namespace
 {
@@ -20,7 +20,6 @@ namespace
 
 	constexpr LONGLONG kWaitTime = 16667;
 }
-
 
 Application::Application() :
 	m_isRunning(true),
@@ -95,6 +94,7 @@ bool Application::Init()
 	// —”‚ğ‰Šú‰»
 	MyRandom::GetInstance().Init();
 	StylishRank::GetInstance().Init();
+	UIPositionLoader::GeInstance().LoadPosition();
 
 	return true;
 }

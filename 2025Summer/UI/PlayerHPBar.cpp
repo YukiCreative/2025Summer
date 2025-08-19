@@ -13,13 +13,13 @@ namespace
 }
 
 PlayerHPBar::PlayerHPBar() :
-	UIBase(UIKind::kPlayerHPBar)
+	UIBase(ToString(PlayerHPBar))
 {
 }
 
 void PlayerHPBar::Init(std::weak_ptr<Player> player)
 {
-	m_positionData.pos = kInitPos;
+	m_pos = kInitPos;
 
 	m_player = player;
 
@@ -50,7 +50,7 @@ void PlayerHPBar::Update()
 
 void PlayerHPBar::Draw() const
 {
-	Vector2 drawPos = m_positionData.pos;
+	Vector2 drawPos = m_pos;
 	m_baseImage->Draw(drawPos + m_fillImageSize * 0.5f);
 	m_fillImage->RectDraw(drawPos, Vector2::Zero(), { m_fillImageSize.x * m_fillRatio.Value(), m_fillImageSize.y});
 }

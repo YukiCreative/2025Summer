@@ -130,8 +130,7 @@
     <ClCompile Include="Actor\Player\PlayerDodge.cpp" />
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
-    <ClCompile Include="Scene\SceneUIEdit.cpp" />
-    <ClCompile Include="UI\UIPositionStore.cpp" />
+    <ClCompile Include="UI\UIPositionLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -272,8 +271,7 @@
     <ClInclude Include="Actor\Player\PlayerDodge.h" />
     <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
-    <ClInclude Include="Scene\SceneUIEdit.h" />
-    <ClInclude Include="UI\UIPositionStore.h" />
+    <ClInclude Include="UI\UIPositionLoader.h" />
     <ClInclude Include="UI\UIKind.h" />
   </ItemGroup>
   <ItemGroup>

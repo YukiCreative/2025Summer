@@ -13,13 +13,13 @@ namespace
 }
 
 PlayerSpecialGauge::PlayerSpecialGauge() :
-	UIBase(UIKind::kPlayerSpecialGauge)
+	UIBase(ToString(PlayerSpecialGauge))
 {
 }
 
 void PlayerSpecialGauge::Init(std::weak_ptr<Player> player)
 {
-	m_positionData.pos = kInitPos;
+	m_pos = kInitPos;
 
 	m_player = player;
 
@@ -51,7 +51,7 @@ void PlayerSpecialGauge::Update()
 
 void PlayerSpecialGauge::Draw() const
 {
-	Vector2 drawPos = m_positionData.pos;
+	Vector2 drawPos = m_pos;
 	m_baseImage->Draw(drawPos + m_fillImageSize * 0.5f);
 	m_fillImage->RectDraw(drawPos, Vector2::Zero(), { m_fillImageSize.x * m_fillRatio.Value(), m_fillImageSize.y });
 }

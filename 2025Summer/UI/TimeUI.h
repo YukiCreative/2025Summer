@@ -22,7 +22,6 @@ public:
 	// ˆê‰‚ ‚Æ‚©‚ç‚Å‚àˆÊ’u‚ğ•ÏX‚Å‚«‚é
 	void SetPos(const Vector2& pos) { m_pos = pos; }
 private:
-	Vector2 m_pos;
 	// ›.››•b
 	float m_second;
 	std::weak_ptr<Timer> m_timerRef;

@@ -78,7 +78,11 @@ void SceneTutorial::Init()
 
 void SceneTutorial::Update()
 {
-	m_actors->Update();
+	if (!m_UI->IsEditing())
+	{
+		m_actors->Update();
+	}
+
 	m_camera->Update();
 	m_UI->Update();
 
