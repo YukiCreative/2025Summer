@@ -42,7 +42,8 @@ void StylishRankUI::Init()
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kNoImageFill);
 
-	m_pos = kInitPos;
+	m_baseImage->SetExRate(m_scale);
+	m_fillImage->SetExRate(m_scale);
 
 	ResetAnim();
 }

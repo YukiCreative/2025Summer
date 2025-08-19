@@ -10,7 +10,7 @@
 namespace
 {
 	constexpr float kRadius = 50.0f;
-	const Vector3 kMoveSpeed = { 0,0, 1.0f };
+	const Vector3 kMoveSpeed = { 0,0, 2.0f };
 	constexpr int kLifeTime = 300;
 
 	const std::string kTrajectoryEffectName = "FireBall.efkefc";
