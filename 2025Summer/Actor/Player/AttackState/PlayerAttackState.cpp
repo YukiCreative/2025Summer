@@ -8,6 +8,7 @@
 #include "../../../Camera/Camera.h"
 #include "../../../Model/AnimationModel.h"
 #include "../NormalState/PlayerMove.h"
+#include "../PlayerFall.h"
 
 namespace
 { 
@@ -29,7 +30,8 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
     m_knockbackPower(0.0f),  
     m_stateTotalFrame(0),  
     m_trackForce(0.0f),  
-    m_trackFrame(0)  
+    m_trackFrame(0) ,
+	m_actionKind(IncreaseStylishPointKind::kNone)
 {  
 	// ƒƒbƒNƒIƒ“‚ğ‚Ü‚½‚®
 	m_canCrossState = true;
@@ -104,7 +106,14 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	{
 		p->DisableSword();
 
-		return std::make_shared<PlayerIdle>(m_player);
+		if (p->IsGround())
+		{
+			return std::make_shared<PlayerIdle>(m_player);
+		}
+		else
+		{
+			return std::make_shared<PlayerFall>(m_player);
+		}
 	}
 
 	// ”CˆÓ‚Ìˆ—

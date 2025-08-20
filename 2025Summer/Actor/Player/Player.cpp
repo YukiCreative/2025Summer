@@ -418,3 +418,8 @@ bool Player::IsAnimEnd() const
 {
 	return m_model->IsEnd();
 }
+
+void Player::StopY()
+{
+	m_collidable->GetRigid().StopY();
+}

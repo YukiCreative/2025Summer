@@ -7,6 +7,7 @@
 #include "../AttackState/PlayerSlashDown.h"
 #include "../PlayerDodge.h"
 #include "../PlayerJump.h"
+#include "../PlayerFall.h"
 
 namespace
 {
@@ -34,6 +35,10 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	// âΩÇ‡ÇµÇ»Ç¢
 	Input& input = Input::GetInstance();
 
+	if (!m_player.lock()->IsGround())
+	{
+		return std::make_shared<PlayerFall>(m_player);
+	}
 	if (!m_player.lock()->m_lockOnActor.expired())
 	{
 		// ÉçÉbÉNÉIÉì

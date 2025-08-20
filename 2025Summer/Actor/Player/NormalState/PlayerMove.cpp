@@ -9,6 +9,7 @@
 #include "../LockOnState/PlayerLockOnIdle.h"
 #include "../PlayerDodge.h"
 #include "../PlayerJump.h"
+#include "../PlayerFall.h"
 
 namespace
 {
@@ -52,9 +53,10 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 		// すると攻撃→Idle→Moveと二回アニメーションが切り替わるので、アニメーション補完が死ぬ。
 		return std::make_shared<PlayerLockOnIdle>(m_player);
 	}
-
-	// 移動
-	p->Move(kRunSpeed);
+	if (!m_player.lock()->IsGround())
+	{
+		return std::make_shared<PlayerFall>(m_player);
+	}
 
 	// 入力が切れたら待機状態へ
 	if (input.GetLeftInputAxis().SqrMagnitude() < kMoveThreshold)
@@ -76,6 +78,9 @@ std::shared_ptr<PlayerState> PlayerMove::Update()
 	{
 		return std::make_shared<PlayerJump>(m_player);
 	}
+
+	// 移動
+	p->Move(kRunSpeed);
 
 	++m_moveFrame;
 

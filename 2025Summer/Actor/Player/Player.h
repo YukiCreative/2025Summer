@@ -101,6 +101,7 @@ public:
 	void AddVel(const Vector3& vel);
 	bool IsAnimEnd() const;
 	bool IsGround() const { return m_isGround; }
+	void StopY();
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚½‚¢ƒƒ“ƒo•Ï”

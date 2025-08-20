@@ -85,7 +85,7 @@ void Actor::LimitMovementRange()
 	{
 		m_pos.y = 0;
 		const Vector3& vel = m_collidable->GetVel();
-		m_collidable->SetVel({ vel.x, 0.01f, vel.z });
+		m_collidable->SetVel({ vel.x, std::max(vel.y, 0.0f), vel.z});
 	}
 
 	// 円形のフィールドから出ないようにする

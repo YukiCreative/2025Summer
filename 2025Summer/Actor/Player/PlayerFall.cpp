@@ -1,10 +1,13 @@
 #include "PlayerFall.h"
 #include "Player.h"
-#include "NormalState/PlayerIdle.h"
+#include "PlayerLanding.h"
+#include "../../General/Input.h"
+#include "AttackState/PlayerAirAttack1.h"
 
 namespace
 {
 	const std::string kAnimName = "Armature|AirIdle";
+	constexpr float kMoveSpeed = 0.0015f;
 }
 
 PlayerFall::PlayerFall(std::weak_ptr<Player> player) :
@@ -22,13 +25,19 @@ std::shared_ptr<PlayerState> PlayerFall::Update()
 {
 	// キャラクターが地面についたら遷移
 	auto p = m_player.lock();
-
-	// 移動できる
+	Input& input = Input::GetInstance();
 
 	if (p->IsGround())
 	{
-		return std::make_shared<PlayerIdle>(m_player);
+		return std::make_shared<PlayerLanding>(m_player);
 	}
+	if (input.IsTrigger("Attack"))
+	{
+		return std::make_shared<PlayerAirAttack1>(m_player);
+	}
+
+	// 移動できる
+	p->Move(kMoveSpeed);
 
 	return shared_from_this();
 }

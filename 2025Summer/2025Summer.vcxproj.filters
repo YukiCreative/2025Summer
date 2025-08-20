@@ -132,6 +132,9 @@
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
     <ClCompile Include="UI\UIPositionLoader.cpp" />
     <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack1.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack2.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -275,6 +278,9 @@
     <ClInclude Include="UI\UIPositionLoader.h" />
     <ClInclude Include="UI\UIKind.h" />
     <ClInclude Include="Actor\Player\PlayerLanding.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack1.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack2.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack3.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
