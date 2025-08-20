@@ -15,97 +15,43 @@ namespace
 {
 	const std::string kAnimName = "Armature|WalkFoward";
 
-	// 内積の1～-1の四等分
-	constexpr float kMoveDirThreshold = 0.25f;
-
 	// ドライブ発生のための後ろ入力猶予
 	constexpr int kBackInputRespite = 8;
 }
 
 PlayerLockOnMoveFoward::PlayerLockOnMoveFoward(std::weak_ptr<Player> parent) :
-	PlayerState(parent)
+	PlayerLockOnMove(parent, kAnimName, PlayerInputDir::kFront)
 {
-	m_player.lock()->m_model->ChangeAnimation(kAnimName);
 }
 
 PlayerLockOnMoveFoward::~PlayerLockOnMoveFoward()
 {
 }
 
-std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::Update()
+std::shared_ptr<PlayerState> PlayerLockOnMoveFoward::OnAttack()
 {
-	// 移動
-	auto p = m_player.lock();
-	auto& input = Input::GetInstance();
+	// 一定フレームの間に後ろに入力していたらドライブに派生
 
-	p->MoveWithoutRotate(kLockOnWalkSpeed);
-	p->LockOnRotate();
+	bool isInputBack = false;
+	int  searchDepth = 0;
+	const int  searchMax = std::min(static_cast<int>(m_player.lock()->m_inputList.size()), kBackInputRespite);
 
-	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
-	inputAxis.z *= -1;
-	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
-
-	// 入力がなくなったらIdleへ
-	if (cameraRotatedAxis.SqrMagnitude() < kMoveThreshold)
+	for (auto it = m_player.lock()->m_inputList.rbegin(); ; ++it)
 	{
-		return std::make_shared<PlayerLockOnIdle>(m_player);
+		if (searchDepth >= searchMax) break;
+		// 指定の回数遡って合致する要素があるか調べる
+		isInputBack |= (*it == PlayerInputDir::kBack);
+		++searchDepth;
 	}
 
-	const Vector3 modelDir = p->m_model->GetDirection();
-
-	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
-
-	// キャラの向きに対して入力がどんな位置関係か調べたい
-	const Vector3 cross = modelDir.Cross(cameraRotatedAxisN);
-
-	const float modelAxisDot = modelDir.Dot(cameraRotatedAxisN);
-
-	/// 攻撃
-	if (input.IsTrigger("Attack"))
+	if (isInputBack)
 	{
-		// 一定フレームの間に後ろに入力していたらドライブに派生
-
-		bool isInputBack = false;
-		int  searchDepth = 0;
-		const int  searchMax = std::min(static_cast<int>(p->m_inputList.size()), kBackInputRespite);
-
-		for (auto it = p->m_inputList.rbegin(); ; ++it)
-		{
-			if (searchDepth >= searchMax) break;
-			// 指定の回数遡って合致する要素があるか調べる
-			isInputBack |= (*it == PlayerInputDir::kBack);
-			++searchDepth;
-		}
-
-		if (isInputBack)
-		{
-			// ドライブ
-			return std::make_shared<PlayerShockWaveSlash>(m_player);
-		}
-		else
-		{
-			// 突進攻撃
-			return std::make_shared<PlayerChargeAttack>(m_player);
-		}
+		// ドライブ
+		return std::make_shared<PlayerShockWaveSlash>(m_player);
 	}
-
-	// 状態を記録
-	p->SetInputDir(PlayerInputDir::kFront);
-
-	if (modelAxisDot > kMoveDirThreshold) // 前
+	else
 	{
-		return shared_from_this();
-	}
-	else if (modelAxisDot < -kMoveDirThreshold) // 後
-	{
-		return std::make_shared<PlayerLockOnMoveBack>(m_player);
-	}
-	else if (cross.y > 0) // 右
-	{
-		return std::make_shared<PlayerLockOnMoveRight>(m_player);
-	}
-	else // 左
-	{
-		return std::make_shared<PlayerLockOnMoveLeft>(m_player);
+		// 突進攻撃
+		return std::make_shared<PlayerChargeAttack>(m_player);
 	}
 }

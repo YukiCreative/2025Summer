@@ -107,7 +107,9 @@ std::shared_ptr<PlayerIntermediateState> PlayerLockOn::Update()
     SetTargetPos();
 
     // ロックオンボタンを離したら
-    if (!input.IsPressed("LockOn") && p->CanLockOn())
+    // もしくは対象がロックオン不可になったら
+    if (!input.IsPressed("LockOn") && p->CanLockOn() || 
+        !m_player.lock()->m_lockOnActor.lock()->CanLockOn())
     {
         p->ReleaseLockOn();
 

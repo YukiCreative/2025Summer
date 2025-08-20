@@ -10,5 +10,12 @@ public:
 	void Init() override;
 
 private:
+
+	// ’·‰Ÿ‚µ‚µ‚Ä‚¢‚é‚©
+	bool m_isLongPress;
+
+private:
+
+	void OptionalProcess() override;
 };
 

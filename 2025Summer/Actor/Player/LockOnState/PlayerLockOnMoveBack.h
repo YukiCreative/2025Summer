@@ -1,14 +1,14 @@
 #pragma once
-#include "../PlayerState.h"
+#include "PlayerLockOnMove.h"
 
-class PlayerLockOnMoveBack : public PlayerState
+class PlayerLockOnMoveBack : public PlayerLockOnMove
 {
 public:
 	PlayerLockOnMoveBack(std::weak_ptr<Player> parent);
 	~PlayerLockOnMoveBack();
 
-	std::shared_ptr<PlayerState> Update() override;
-
 private:
+
+	std::shared_ptr<PlayerState> OnAttack() override;
 };
 

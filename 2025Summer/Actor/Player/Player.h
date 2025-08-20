@@ -5,6 +5,7 @@
 #include "../../Utility/RangeLimitedValue.h"
 #include "../../GameManagement/Score/StylishRank.h"
 #include <string>
+#include "LockOnState/PlayerInputDir.h"
 
 class AnimationModel;
 class Camera;
@@ -17,14 +18,6 @@ namespace DxLib
 {
 	struct tagMATRIX;
 }
-
-enum class PlayerInputDir
-{
-	kFront,
-	kRight,
-	kLeft,
-	kBack
-};
 
 namespace
 {
