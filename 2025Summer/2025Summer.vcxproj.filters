@@ -135,6 +135,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack1.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack2.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack3.cpp" />
+    <ClCompile Include="Actor\Player\AttackState\PlayerKnockUpSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -281,6 +282,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack1.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack2.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack3.h" />
+    <ClInclude Include="Actor\Player\AttackState\PlayerKnockUpSlash.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

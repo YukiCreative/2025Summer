@@ -7,7 +7,7 @@
 #include "PlayerLockOnMoveFoward.h"
 #include "PlayerLockOnMoveLeft.h"
 #include "PlayerLockOnMoveRight.h"
-#include "../AttackState/PlayerSlashDown.h"
+#include "../AttackState/PlayerKnockUpSlash.h"
 #include <DxLib.h>
 
 namespace
@@ -61,7 +61,7 @@ std::shared_ptr<PlayerState> PlayerLockOnMoveBack::Update()
 	{
 		// ’Êí‚ÌƒRƒ“ƒ{
 
-		return std::make_shared<PlayerSlashDown>(m_player);
+		return std::make_shared<PlayerKnockUpSlash>(m_player);
 	}
 
 	// ó‘Ô‚ğ‹L˜^

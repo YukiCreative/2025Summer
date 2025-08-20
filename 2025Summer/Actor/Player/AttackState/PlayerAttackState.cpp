@@ -9,6 +9,7 @@
 #include "../../../Model/AnimationModel.h"
 #include "../NormalState/PlayerMove.h"
 #include "../PlayerFall.h"
+#include "../PlayerJump.h"
 
 namespace
 { 
@@ -94,10 +95,18 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
 		{
 			p->DisableSword();
+			p->DisableSwordCol();
 
 			// 移動状態へ移行
 			// ロックオン状態でも正常に動作するようになっているので心配なく
 			return std::make_shared<PlayerMove>(m_player);
+		}
+		if (input.IsTrigger("Jump"))
+		{
+			p->DisableSword();
+			p->DisableSwordCol();
+
+			return std::make_shared<PlayerJump>(m_player);
 		}
 	}
 
