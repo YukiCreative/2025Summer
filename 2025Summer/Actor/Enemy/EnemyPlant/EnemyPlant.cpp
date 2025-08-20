@@ -30,11 +30,14 @@ namespace
 	const std::string kBulletSpawnFrame = "plant_tongue_05";
 
 	constexpr int kBloodFrame = 38;
+
+	constexpr float kMAxStunPoint = 30.0f;
 }
 
 std::normal_distribution<> EnemyPlant::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
 
-EnemyPlant::EnemyPlant()
+EnemyPlant::EnemyPlant() :
+	Enemy(kMAxStunPoint)
 {
 }
 

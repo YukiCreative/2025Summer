@@ -4,6 +4,7 @@
 #include "../../Utility/RangeLimitedValue.h"
 #include "../HitPoint.h"
 #include "EnemyKind.h"
+#include "StunPoint.h"
 
 class AnimationModel;
 class EnemyState;
@@ -22,7 +23,7 @@ class Enemy abstract : public Actor
 {
 public:
 	// ロックオンの設定
-	Enemy();
+	Enemy(const float maxStunPoint);
 	~Enemy();
 
 	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle);
@@ -65,6 +66,7 @@ protected:
 	};
 
 	HitPoint_t m_hitPoint;
+	StunPoint m_stunPoint;
 	// モデルは共通で持っている
 	std::shared_ptr<AnimationModel> m_model;
 	EnemyKind m_enemyKind;

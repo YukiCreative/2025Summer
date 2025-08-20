@@ -22,11 +22,12 @@ namespace
 	const std::string kDeathEffect = "BigBlood.efkefc";
 }
 
-Enemy::Enemy() :
+Enemy::Enemy(const float maxStunPoint) :
 	Actor(true), // 敵はロックオン可能
 	m_isInvincible(false),
 	m_enemyKind(EnemyKind::kNone),
-	m_bloodFrameIndex(0)
+	m_bloodFrameIndex(0),
+	m_stunPoint(maxStunPoint)
 {
 }
 
@@ -149,6 +150,14 @@ void Enemy::DisableLockOn()
 
 void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult)
 {
+	Vector3 force = attack->GetKnockbackPower();
+
+	// 気絶していないとき、上方向に飛ばない
+	if (!m_stunPoint.IsStun())
+	{
+		force.y = 0.0f;
+	}
+
 	// 食らった当たり判定の位置を見て吹っ飛ぶ
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
 	m_collidable->SetVel(VTransformSR(attack->GetKnockbackPower() * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));

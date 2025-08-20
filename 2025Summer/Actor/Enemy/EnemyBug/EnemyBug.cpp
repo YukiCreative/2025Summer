@@ -35,12 +35,14 @@ namespace
 	constexpr float kInitHP = 800.0f;
 
 	constexpr int kBloodFrame = 5;
+
+	constexpr float kMaxStunPoint = 10.0f;
 }
 
 std::normal_distribution<> EnemyBug::s_attackTimeNormalDist(kAttackFrame, kRandomness);
 
 EnemyBug::EnemyBug() :
-	Enemy(),
+	Enemy(kMaxStunPoint),
 	m_attackFrame(0)
 {
 }
@@ -127,7 +129,6 @@ Vector3 EnemyBug::GetAttackRigPos() const
 {
 	auto ago1 = m_model->GetFramePosition(kCollisionFrameName1);
 	auto ago2 = m_model->GetFramePosition(kCollisionFrameName2);
-
 
 	return (ago1 + ago2) * 0.5f;
 }

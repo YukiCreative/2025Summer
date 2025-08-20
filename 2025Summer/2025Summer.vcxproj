@@ -48,6 +48,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
+    <ClCompile Include="Actor\Enemy\StunPoint.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack1.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack2.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack3.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
     <ClInclude Include="Actor\Enemy\EnemyKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
+    <ClInclude Include="Actor\Enemy\StunPoint.h" />
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack1.h" />
