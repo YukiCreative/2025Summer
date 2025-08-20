@@ -24,6 +24,7 @@ namespace
 
 	constexpr int kJumpFrame = 9;
 	const Vector3 kJumpForce = {0.0f, 40.0f, 0.0f};
+	constexpr float kStunPower = 10.0f;
 }
 
 PlayerKnockUpSlash::PlayerKnockUpSlash(std::weak_ptr<Player> parent) :
@@ -55,6 +56,7 @@ void PlayerKnockUpSlash::Init()
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
+	m_stunPower = kStunPower;
 }
 
 void PlayerKnockUpSlash::OptionalProcess()

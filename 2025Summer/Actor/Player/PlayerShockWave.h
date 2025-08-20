@@ -17,8 +17,7 @@ public:
 	PlayerShockWave();
 	~PlayerShockWave();
 
-	void Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback,
-		std::weak_ptr<Player> player);
+	void Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, std::weak_ptr<Player> player);
 
 	void Update() override;
 

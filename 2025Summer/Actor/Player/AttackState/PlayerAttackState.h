@@ -35,6 +35,7 @@ protected:
 	int m_enableComboFrame;
 	float m_attackPower;
 	Vector3 m_knockbackPower;
+	float m_stunPower;
 	// ”h¶‚·‚éUŒ‚
 	std::shared_ptr<PlayerAttackState> m_comboAttack;
 	IncreaseStylishPointKind m_actionKind;

@@ -4,6 +4,7 @@
 #include "../../../Camera/Camera.h"
 #include "PlayerLockOnIdle.h"
 #include "../../../Model/AnimationModel.h"
+#include "../PlayerFall.h"
 
 #include "PlayerLockOnMoveBack.h"
 #include "PlayerLockOnMoveFoward.h"
@@ -62,6 +63,10 @@ std::shared_ptr<PlayerState> PlayerLockOnMove::Update()
 	if (input.IsTrigger("Attack"))
 	{
 		return OnAttack();
+	}
+	if (!p->IsGround())
+	{
+		return std::make_shared<PlayerFall>(m_player);
 	}
 
 	if (modelAxisDot > kMoveDirThreshold) // ‘O

@@ -27,6 +27,10 @@ namespace
 
 	const std::string kShockWaveEffect = "ShockWave.efkefc";
 	const std::string kDisappearEffect = "ShockWaveDisappear.efkefc";
+
+	constexpr float kShockWaveAtk = 130.0f;
+	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 10.0f };
+	constexpr float kStunPower = 10.0f;
 }
 
 PlayerShockWave::PlayerShockWave() :
@@ -45,8 +49,7 @@ PlayerShockWave::~PlayerShockWave()
 	effect.lock()->SetRotate({0, m_rotateY, 0});
 }
 
-void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback,
-	std::weak_ptr<Player> player)
+void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, std::weak_ptr<Player> player)
 {
 	m_kind = ActorKind::kPlayerAttack;
 
@@ -64,8 +67,9 @@ void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, 
 	m_collidable = std::make_shared<Collidable>();
 	m_collidable->Init(col, rigid);
 
-	m_attackPower = atk;
-	m_knockbackPower = knockback;
+	m_attackPower = kShockWaveAtk;
+	m_knockbackPower = kKnockbackPower;
+	m_stunPower = kStunPower;
 
 	// Ç±ÇÍÇ≈ÉRÉsÅ[Ç™shared_ptrÇ∆ÇµÇƒçÏÇÁÇÍÇÈ
 	m_dir = std::make_shared<MATRIX>(rot);

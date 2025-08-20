@@ -20,6 +20,7 @@ namespace
 
 	constexpr float kAttackPower = 400.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 50.0f };
+	constexpr float kStunPower = 15.0f;
 }
 
 PlayerFinishAttack::PlayerFinishAttack(std::weak_ptr<Player> parent) :
@@ -47,4 +48,5 @@ void PlayerFinishAttack::Init()
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
 	m_comboAttack = std::make_shared<PlayerSlashDown>(m_player);
+	m_stunPower = kStunPower;
 }

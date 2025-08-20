@@ -74,8 +74,12 @@ void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
-		std::shared_ptr<PlayerSword> attack = std::static_pointer_cast<PlayerSword>(other);
-		OnDamage(attack);
+		auto attackCol = std::static_pointer_cast<AttackCol>(other);
+		// スタン値を減らす
+		m_stunPoint.DecreasePoint(attackCol->GetStunPower());
+		printf("スタン値:%f", m_stunPoint.Value());
+		if (m_stunPoint.IsStun()) printf("スタン！");
+		OnDamage(attackCol);
 		return;
 	}
 }

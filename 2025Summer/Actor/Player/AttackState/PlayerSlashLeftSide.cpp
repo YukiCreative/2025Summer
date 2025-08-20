@@ -25,6 +25,7 @@ namespace
 
 	constexpr float kAttackPower = 100.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 10.0f };
+	constexpr float kStunPower = 3.0f;
 
 	const std::string kAnimName = "Armature|LeftHorizontalSlash";
 	constexpr bool kIsLoopAnim = false;
@@ -55,4 +56,5 @@ void PlayerSlashLeftSide::Init()
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
 	m_comboAttack = std::make_shared<PlayerSlashUp>(m_player);
+	m_stunPower = kStunPower;
 }

@@ -23,6 +23,8 @@ public:
 		return m_point <= 0.0f;
 	}
 
+	float Value() const { return m_point; }
+
 private:
 
 	float m_point;

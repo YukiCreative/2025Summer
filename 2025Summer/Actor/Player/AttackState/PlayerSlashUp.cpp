@@ -24,6 +24,7 @@ namespace
 
 	constexpr float kAttackPower = 130.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 30.0f };
+	constexpr float kStunPower = 4.0f;
 
 	const std::string kAnimName = "Armature|SlashUp";
 	constexpr bool kIsLoopAnim = false;
@@ -54,4 +55,5 @@ void PlayerSlashUp::Init()
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
 	m_comboAttack = std::make_shared<PlayerFinishAttack>(m_player);
+	m_stunPower = kStunPower;
 }

@@ -133,10 +133,10 @@ void Player::SetInputDir(const PlayerInputDir& dir)
 	m_inputList.emplace_back(dir);
 }
 
-void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback)
+void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos)
 {
 	auto shockWave = std::make_shared<PlayerShockWave>();
-	shockWave->Init(rot, initPos, atk, knockback, weak_from_this());
+	shockWave->Init(rot, initPos, weak_from_this());
 	SpawnActor(shockWave);
 }
 
@@ -340,11 +340,12 @@ void Player::EnableSword()
 	m_sword->Enable();
 }
 
-void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPower)
+void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPower, const float stunPower)
 {
 	m_sword->ColEnable();
 	m_sword->SetAttackPower(attackPower);
 	m_sword->SetKnockbackPower(knockbackPower);
+	m_sword->SetStunPower(stunPower);
 }
 
 void Player::SetActionKind(const IncreaseStylishPointKind kind)

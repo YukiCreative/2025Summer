@@ -21,6 +21,7 @@ namespace
 
 	constexpr float kAttackPower = 100.0f;
 	const Vector3 kKnockbackPower =  {0.0f, 0.0f, -2.0f};
+	constexpr float kStunPower = 3.0f;
 
 	const Vector3 kHoverForce = { 0.0f, 20.0f, 0.0f };
 }
@@ -55,6 +56,7 @@ void PlayerAirAttack1::Init()
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
 	m_comboAttack = std::make_shared<PlayerAirAttack2>(m_player);
+	m_stunPower = kStunPower;
 }
 
 void PlayerAirAttack1::OptionalProcess()

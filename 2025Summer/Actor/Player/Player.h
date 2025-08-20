@@ -60,7 +60,7 @@ public:
 	// 剣自体の見た目を表示する
 	void EnableSword();
 	// 剣の当たり判定を有効化する
-	void EnableSwordCol(const float attackPower, const Vector3& knockbackPower);
+	void EnableSwordCol(const float attackPower, const Vector3& knockbackPower, const float stunPower);
 	void SetActionKind(const IncreaseStylishPointKind kind);
 
 	void DisableSword();
@@ -125,7 +125,7 @@ public:
 	void CameraMove();
 	void SetInputDir(const PlayerInputDir& dir);
 	// PlayerShockWaveSlash用
-	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback);
+	void SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos);
 	void OnDamage(std::shared_ptr<AttackCol> attack);
 	// プレイヤーをロックオン対象へ向ける
 	void LockOnRotate();

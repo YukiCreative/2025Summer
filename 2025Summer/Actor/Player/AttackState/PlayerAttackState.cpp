@@ -32,7 +32,8 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
     m_stateTotalFrame(0),  
     m_trackForce(0.0f),  
     m_trackFrame(0) ,
-	m_actionKind(IncreaseStylishPointKind::kNone)
+	m_actionKind(IncreaseStylishPointKind::kNone),
+	m_stunPower(0.0f)
 {  
 	// ロックオンをまたぐ
 	m_canCrossState = true;
@@ -55,7 +56,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	// 剣の攻撃判定を有効化
 	if (m_frame == m_enableAttackColFrame)
 	{
-		p->EnableSwordCol(m_attackPower, m_knockbackPower);
+		p->EnableSwordCol(m_attackPower, m_knockbackPower, m_stunPower);
 		p->SetActionKind(m_actionKind);
 	}
 	if (m_frame == m_disableAttackColFrame)

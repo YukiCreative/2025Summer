@@ -36,10 +36,7 @@ namespace
 
 	constexpr float kShockWaveRot1 = 80.0f;
 	constexpr float kShockWaveRot2 = -80.0f;
-	constexpr float kShockWaveAtk1 = 130.0f;
-	constexpr float kShockWaveAtk2 = 150.0f;
-	const Vector3 kKnockbackPower1 = { 0.0f, 0.0f, 10.0f };
-	const Vector3 kKnockbackPower2 = { 0.0f, 0.0f, 30.0f };
+	constexpr float kStunPower = 5.0f;
 }
 
 PlayerShockWaveSlash::PlayerShockWaveSlash(std::weak_ptr<Player> parent) :
@@ -75,6 +72,7 @@ void PlayerShockWaveSlash::Init()
 	m_acceptNextAttackInputFrame = kAcceptAttackInputFrame;
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
+	m_stunPower = kStunPower;
 }
 
 void PlayerShockWaveSlash::OptionalProcess()
@@ -84,7 +82,7 @@ void PlayerShockWaveSlash::OptionalProcess()
 	// “ñ‰ñ–Ú‚ÌUŒ‚”»’è
 	if (m_frame == kEnableAttackFrame2)
 	{
-		p->EnableSwordCol(kAttackPower2, Vector3::Zero());
+		p->EnableSwordCol(kAttackPower2, Vector3::Zero(), kStunPower);
 	}
 	if (m_frame == kDisableAttackFrame2)
 	{
@@ -101,11 +99,11 @@ void PlayerShockWaveSlash::OptionalProcess()
 	if (m_frame == kShockWaveFrame1)
 	{
 		auto rot = MMult(MGetRotZ(kShockWaveRot1 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
-		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk1, kKnockbackPower1);
+		p->SpawnShockWave(rot, p->GetRightInexPos());
 	}
 	if (m_frame == kShockWaveFrame2)
 	{
 		auto rot = MMult(MGetRotZ(kShockWaveRot2 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
-		p->SpawnShockWave(rot, p->GetRightInexPos(), kShockWaveAtk2, kKnockbackPower2);
+		p->SpawnShockWave(rot, p->GetRightInexPos());
 	}
 }

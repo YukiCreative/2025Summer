@@ -25,6 +25,7 @@ namespace
 
 	constexpr float kAttackPower = 200.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 50.0f };
+	constexpr float kStunPower = 6.0f;
 
 	const std::string kAnimName = "Armature|LeftHorizontalSlash";
 	constexpr bool kIsLoopAnim = false;
@@ -57,6 +58,7 @@ void PlayerChargeAttack::Init()
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
+	m_stunPower = kStunPower;
 
 	// åïèoÇ∑
 	auto p = m_player.lock();
