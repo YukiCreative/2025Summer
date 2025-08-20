@@ -22,10 +22,6 @@ public:
 
 	void CommitMove() override;
 
-	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
-	void OnCollisionStay(std::shared_ptr<Actor> other) override;
-	void OnCollisionExit(std::shared_ptr<Actor> other) override;
-
 	// ステートにも変数を隠してみるか
 	std::weak_ptr<Player> GetPlayer() const { return m_player; }
 	void GenerateAttackCol();
@@ -53,6 +49,6 @@ private:
 
 private:
 
-	void OnDamage(std::shared_ptr<AttackCol> other);
+	void OnDamage(std::shared_ptr<AttackCol> other) override;
 };
 

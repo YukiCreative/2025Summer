@@ -11,13 +11,11 @@ public:
 
 	void Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle);
 
-	void UpdateState() override; 
+	void UpdateState() override;
 
 	void CommitMove() override;
 
 	void OnDeath() override;
-
-	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
 
 	bool CheckAnimName(const std::string& animName) const;
 

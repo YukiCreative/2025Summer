@@ -5,6 +5,7 @@
 #include "../HitPoint.h"
 #include "EnemyKind.h"
 #include "StunPoint.h"
+#include "../../GameManagement/Score/StylishEnum.h"
 
 class AnimationModel;
 class EnemyState;
@@ -32,6 +33,8 @@ public:
 	virtual void UpdateState() abstract;
 
 	void Draw() const override final;
+
+	void OnCollisionEnter(std::shared_ptr<Actor>) override final; 
 
 	void ChangeAnim(const std::string& animName, const bool isLoop = true);
 

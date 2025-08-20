@@ -13,7 +13,11 @@ enum class IncreaseStylishPointKind
 	kShockWaveAttack,
 	kShockWave,
 	kSpecialAttack,
-	kJustDodge
+	kJustDodge,
+	kAir1,
+	kAir2,
+	kAir3,
+	kKnockUpSlash,
 };
 
 enum class StylishRankKind

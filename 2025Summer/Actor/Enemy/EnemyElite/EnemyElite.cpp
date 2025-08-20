@@ -91,16 +91,6 @@ void EnemyElite::OnDeath()
 	Destroy();
 }
 
-void EnemyElite::OnCollisionEnter(std::shared_ptr<Actor> other)
-{
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-		auto attack = std::static_pointer_cast<AttackCol>(other);
-
-		OnDamage(attack);
-	}
-}
-
 bool EnemyElite::CheckAnimName(const std::string& animName) const
 {
 	return m_model->CheckAnimName(animName);

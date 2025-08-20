@@ -136,14 +136,18 @@ void StylishRank::InitMap()
 	// ‚ ‚Æ‚ÅŠO•”‰»‚·‚é‚©‚à
 	m_increasePointMap[IncreaseStylishPointKind::kSlashDown] = 2.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 5.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 2.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 5.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 10.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 8.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 7.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 5.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWaveAttack] = 3.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kShockWave] = 8.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kShockWave] = 6.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSpecialAttack] = 20.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kJustDodge] = 15.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir1] = 2.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir2] = 2.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 5.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 4.0f;
 
 	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 40.0f;
 }

@@ -16,8 +16,6 @@ public:
 
 	void CommitMove() override;
 
-	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
-
 	void SpawnBullet();
 	void OnDeath() override;
 	int GetAttackInterval();

@@ -9,6 +9,7 @@
 #include "../../Physics/Collider/Collider3D.h"
 #include "../../Effect/EffectManager.h"
 #include "../../Effect/EffekseerEffect.h"
+#include "../Player/PlayerSword.h"
 
 namespace
 {
@@ -67,6 +68,16 @@ void Enemy::Draw() const
 #if _DEBUG
 	m_collidable->GetCol().Draw();
 #endif
+}
+
+void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
+{
+	if (other->GetKind() == ActorKind::kPlayerAttack)
+	{
+		std::shared_ptr<PlayerSword> attack = std::static_pointer_cast<PlayerSword>(other);
+		OnDamage(attack);
+		return;
+	}
 }
 
 void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)
@@ -160,5 +171,5 @@ void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMu
 
 	// H‚ç‚Á‚½“–‚½‚è”»’è‚ÌˆÊ’u‚ðŒ©‚Ä‚Á”ò‚Ô
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
-	m_collidable->SetVel(VTransformSR(attack->GetKnockbackPower() * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));
+	m_collidable->SetVel(VTransformSR(force * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));
 }

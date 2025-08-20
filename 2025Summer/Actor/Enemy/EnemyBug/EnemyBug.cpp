@@ -81,32 +81,6 @@ void EnemyBug::CommitMove()
 	m_collidable->SetPos(m_pos + kColOffset);
 }
 
-void EnemyBug::OnCollisionEnter(std::shared_ptr<Actor> other)
-{
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-		auto attack = std::static_pointer_cast<AttackCol>(other);
-
-		// É_ÉÅÅ[ÉW
-		OnDamage(attack);
-		return;
-	}
-}
-
-void EnemyBug::OnCollisionStay(std::shared_ptr<Actor> other)
-{
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-	}
-}
-
-void EnemyBug::OnCollisionExit(std::shared_ptr<Actor> other)
-{
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-	}
-}
-
 void EnemyBug::OnDeath()
 {
 	Destroy();

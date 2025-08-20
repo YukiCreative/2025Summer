@@ -31,13 +31,13 @@ namespace
 
 	constexpr int kBloodFrame = 38;
 
-	constexpr float kMAxStunPoint = 30.0f;
+	constexpr float kMaxStunPoint = 30.0f;
 }
 
 std::normal_distribution<> EnemyPlant::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
 
 EnemyPlant::EnemyPlant() :
-	Enemy(kMAxStunPoint)
+	Enemy(kMaxStunPoint)
 {
 }
 
@@ -75,14 +75,6 @@ void EnemyPlant::CommitMove()
 
 	m_collidable->SetPos(m_pos + kCapsuleEndOffset);
 	m_model->SetPos(m_pos);
-}
-
-void EnemyPlant::OnCollisionEnter(std::shared_ptr<Actor> other)
-{
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-		OnDamage(std::static_pointer_cast<AttackCol>(other));
-	}
 }
 
 void EnemyPlant::OnDeath()
