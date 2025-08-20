@@ -45,7 +45,7 @@ PlayerShockWave::~PlayerShockWave()
 	effect.lock()->SetRotate({0, m_rotateY, 0});
 }
 
-void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback,
+void PlayerShockWave::Init(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback,
 	std::weak_ptr<Player> player)
 {
 	m_kind = ActorKind::kPlayerAttack;

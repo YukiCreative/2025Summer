@@ -8,7 +8,7 @@ namespace
 {
 	constexpr float kRadius = 50.0f;
 	constexpr float kAttackPower = 200.0f;
-	constexpr float kKnockbackPower = 80.0f;
+	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 80.0f };
 	const Vector2 kDrag = { 0.0f, 0.0f };
 	constexpr int kLifeTime = 50;
 }

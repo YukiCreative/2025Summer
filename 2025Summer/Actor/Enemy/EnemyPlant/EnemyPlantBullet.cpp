@@ -16,7 +16,7 @@ namespace
 	const std::string kTrajectoryEffectName = "FireBall.efkefc";
 
 	constexpr float kDamage = 100.0f;
-	constexpr float kKnockback = 10.0f;
+	const Vector3 kKnockback = { 0.0f, 0.0f,10.0f };
 
 	const Vector2 kDrag = { 0.1f, 0.05f };
 }

@@ -133,7 +133,7 @@ void Player::SetInputDir(const PlayerInputDir& dir)
 	m_inputList.emplace_back(dir);
 }
 
-void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const float knockback)
+void Player::SpawnShockWave(const DxLib::tagMATRIX& rot, const Vector3& initPos, const float atk, const Vector3& knockback)
 {
 	auto shockWave = std::make_shared<PlayerShockWave>();
 	shockWave->Init(rot, initPos, atk, knockback, weak_from_this());
@@ -162,7 +162,9 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 #endif
 
 	// ノックバック
-	m_collidable->AddVel((m_pos - attack->GetPos()).GetNormalize() * attack->GetKnockbackPower());
+	
+		const Vector3 eToPN = (m_pos - attack->GetPos()).GetNormalize();
+	m_collidable->AddVel(VTransformSR(attack->GetKnockbackPower(), MGetRotVec2(Vector3::Foward(), eToPN)));
 
 	if (m_hp.IsMin())
 	{
@@ -338,7 +340,7 @@ void Player::EnableSword()
 	m_sword->Enable();
 }
 
-void Player::EnableSwordCol(const float attackPower, const float knockbackPower)
+void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPower)
 {
 	m_sword->ColEnable();
 	m_sword->SetAttackPower(attackPower);

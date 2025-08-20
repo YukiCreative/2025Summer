@@ -20,7 +20,7 @@ namespace
 	constexpr int kEnableComboFrame = 26;
 
 	constexpr float kAttackPower = 100.0f;
-	constexpr float kKnockbackPower = 10.0f;
+	const Vector3 kKnockbackPower = {0.0f, 0.0f, 10.0f };
 }
 
 PlayerSlashDown::PlayerSlashDown(std::weak_ptr<Player> parent) :

@@ -38,8 +38,8 @@ namespace
 	constexpr float kShockWaveRot2 = -80.0f;
 	constexpr float kShockWaveAtk1 = 130.0f;
 	constexpr float kShockWaveAtk2 = 150.0f;
-	constexpr float kKnockbackPower1 = 10.0f;
-	constexpr float kKnockbackPower2 = 30.0f;
+	const Vector3 kKnockbackPower1 = { 0.0f, 0.0f, 10.0f };
+	const Vector3 kKnockbackPower2 = { 0.0f, 0.0f, 30.0f };
 }
 
 PlayerShockWaveSlash::PlayerShockWaveSlash(std::weak_ptr<Player> parent) :
@@ -63,6 +63,7 @@ void PlayerShockWaveSlash::Init()
 	// この代入操作は共通化できないだろうか
 	// 外部データ化して取得すれば解決する
 	m_actionKind = IncreaseStylishPointKind::kShockWaveAttack;
+	m_knockbackPower = Vector3::Zero();
 	m_animName = kAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
@@ -83,7 +84,7 @@ void PlayerShockWaveSlash::OptionalProcess()
 	// 二回目の攻撃判定
 	if (m_frame == kEnableAttackFrame2)
 	{
-		p->EnableSwordCol(kAttackPower2);
+		p->EnableSwordCol(kAttackPower2, Vector3::Zero());
 	}
 	if (m_frame == kDisableAttackFrame2)
 	{

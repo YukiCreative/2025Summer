@@ -146,3 +146,10 @@ void Enemy::DisableLockOn()
 {
 	SetCanLockOn(false);
 }
+
+void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult)
+{
+	// H‚ç‚Á‚½“–‚½‚è”»’è‚ÌˆÊ’u‚ðŒ©‚Ä‚Á”ò‚Ô
+	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
+	m_collidable->SetVel(VTransformSR(attack->GetKnockbackPower() * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));
+}

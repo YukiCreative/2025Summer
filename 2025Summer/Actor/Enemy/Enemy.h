@@ -81,6 +81,7 @@ protected:
 protected:
 
 	virtual void OnDamage(std::shared_ptr<AttackCol>) abstract;
+	void KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult = 1.0f);
 
 private:
 

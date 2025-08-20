@@ -13,7 +13,7 @@ namespace
 {
 	constexpr int kLifeTime = 100;
 	constexpr float kRadius = 1500.0f;
-	constexpr float kKnockbackPower = 100.0f;
+	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 100.0f };
 	constexpr float kAttackPower = 2000.0f;
 	constexpr int kHitStopFrame = 100;
 	const Vector2 kDrag = { 0.0f, 0.0f };

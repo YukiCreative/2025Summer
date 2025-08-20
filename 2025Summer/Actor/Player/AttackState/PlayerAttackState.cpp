@@ -27,7 +27,7 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
     m_enableComboFrame(0),  
     m_enemyTrackForce(0.0f),  
     m_isLoopAnim(false),  
-    m_knockbackPower(0.0f),  
+    m_knockbackPower(),  
     m_stateTotalFrame(0),  
     m_trackForce(0.0f),  
     m_trackFrame(0) ,

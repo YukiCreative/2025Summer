@@ -19,7 +19,7 @@ namespace
 	constexpr int kEnableComboFrame = 70;
 
 	constexpr float kAttackPower = 400.0f;
-	constexpr float kKnockbackPower = 50.0f;
+	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 50.0f };
 }
 
 PlayerFinishAttack::PlayerFinishAttack(std::weak_ptr<Player> parent) :

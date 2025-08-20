@@ -7,12 +7,12 @@ class AttackCol abstract : public Actor
 public:
 	AttackCol() : Actor(false) {}
 
-	void  SetAttackPower   (const float atk) { m_attackPower = atk; }
-	float GetAttackPower   () const          { return m_attackPower; }
-	void SetKnockbackPower(const float pow)  { m_knockbackPower = pow; }
-	float GetKnockbackPower() const          { return m_knockbackPower; }
+	void  SetAttackPower   (const float atk)  { m_attackPower = atk; }
+	float GetAttackPower   () const           { return m_attackPower; }
+	void SetKnockbackPower(const Vector3& pow){ m_knockbackPower = pow; }
+	Vector3 GetKnockbackPower() const         { return m_knockbackPower; }
 protected:
 	float m_attackPower = 0;
-	float m_knockbackPower = 0;
+	Vector3 m_knockbackPower = Vector3::Zero();
 private:
 };
