@@ -10,6 +10,7 @@
 #include "../../Effect/EffectManager.h"
 #include "../../Effect/EffekseerEffect.h"
 #include "../Player/PlayerSword.h"
+#include "../../Physics/Rigid.h"
 
 namespace
 {
@@ -77,6 +78,7 @@ void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 		auto attackCol = std::static_pointer_cast<AttackCol>(other);
 		// スタン値を減らす
 		m_stunPoint.DecreasePoint(attackCol->GetStunPower());
+		m_collidable->GetRigid().StopY();
 		printf("スタン値:%f", m_stunPoint.Value());
 		if (m_stunPoint.IsStun()) printf("スタン！");
 		OnDamage(attackCol);

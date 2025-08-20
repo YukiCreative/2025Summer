@@ -124,7 +124,7 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 	auto attackPower = attack->GetAttackPower();
 
 	// ヒットストップをかける
-	m_stopFrame = 10;
+	m_stopFrame = 2;
 
 #if _DEBUG
 	printf("食らった！%fダメージ！\n", attackPower);

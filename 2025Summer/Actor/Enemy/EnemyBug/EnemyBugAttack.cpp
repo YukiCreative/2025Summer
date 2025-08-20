@@ -12,8 +12,7 @@ namespace
 }
 
 EnemyBugAttack::EnemyBugAttack(std::weak_ptr<EnemyBug> parent) :
-	EnemyBugState(parent),
-	m_frame(0)
+	EnemyBugState(parent)
 {
 	m_parent.lock()->ChangeAnim(kAnimName, false);
 	// Ÿ‚ÌUŒ‚ƒtƒŒ[ƒ€‚ğŒˆ’è

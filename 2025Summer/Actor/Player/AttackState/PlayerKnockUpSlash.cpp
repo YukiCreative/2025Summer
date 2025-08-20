@@ -23,7 +23,7 @@ namespace
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr int kJumpFrame = 9;
-	const Vector3 kJumpForce = {0.0f, 40.0f, 0.0f};
+	const Vector3 kJumpForce = {0.0f, 30.0f, 0.0f};
 	constexpr float kStunPower = 10.0f;
 }
 

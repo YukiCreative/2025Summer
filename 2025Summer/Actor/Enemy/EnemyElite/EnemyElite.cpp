@@ -153,6 +153,8 @@ void EnemyElite::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	auto attackPower = attack->GetAttackPower();
 
+	m_stopFrame = 2;
+
 #if _DEBUG
 	printf("食らった！%fダメージ！\n", attackPower);
 #endif

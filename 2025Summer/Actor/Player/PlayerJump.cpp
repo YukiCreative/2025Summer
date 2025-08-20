@@ -2,7 +2,9 @@
 #include "Player.h"
 #include "PlayerFall.h"
 #include "../../General/Input.h"
+#include "PlayerLanding.h"
 #include "AttackState/PlayerAirAttack1.h"
+#include "../../Physics/Rigid.h"
 
 namespace
 {
@@ -29,6 +31,7 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     auto p = m_player.lock();
     Input& input = Input::GetInstance();
 
+    // アニメーションが終わったらループモーションに
     if (p->IsAnimEnd())
     {
         return std::make_shared<PlayerFall>(m_player);
@@ -37,8 +40,13 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     {
         return std::make_shared<PlayerAirAttack1>(m_player);
     }
+    if (p->IsGround())
+    {
+        return std::make_shared<PlayerLanding>(m_player);
+    }
 
     p->Move(kMoveSpeed);
+    //if (p->GetRigid().)
 
     return shared_from_this();
 }
