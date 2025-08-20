@@ -24,7 +24,7 @@ namespace
 
 	const std::string kRightWeaponFrame = "mixamorig:RightWeaponRig";
 
-	constexpr float kDrag = 0.0f;
+	const Vector2 kDrag = { 0.0f, 0.0f };
 
 	const MATRIX kHandPosOffset = MGetTranslate({0, -20, 0});
 

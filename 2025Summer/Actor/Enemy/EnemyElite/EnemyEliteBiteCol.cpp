@@ -14,7 +14,7 @@ namespace
 	constexpr float kLength = 10.0f;
 	constexpr float kAttackPower = 100.0f;
 	constexpr float kKnockbackPower = 30.0f;
-	constexpr float kDrag = 0.0f;
+	const Vector2 kDrag = { 0.0f, 0.0f };
 }
 
 EnemyEliteBiteCol::EnemyEliteBiteCol() :

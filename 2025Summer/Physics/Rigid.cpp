@@ -13,7 +13,7 @@ Rigid::Rigid() :
 {
 }
 
-void Rigid::Init(const float drag)
+void Rigid::Init(const Vector2& drag)
 {
 	m_drag = drag;
 }
@@ -21,7 +21,11 @@ void Rigid::Init(const float drag)
 const Vector3 Rigid::Update()
 {
 	// 速度を減衰
-	m_vel -= m_vel * m_drag;
+	// XZ平面とYで分ける
+	m_vel.x -= m_vel.x * m_drag.x;
+	m_vel.z -= m_vel.z * m_drag.x;
+
+	m_vel.y -= m_vel.y * m_drag.y;
 
 	return m_vel;
 }

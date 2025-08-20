@@ -4,7 +4,7 @@
 
 namespace
 {
-    const Vector3 kJumpForce = {0.0f, 60.0f, 0.0f};
+    const Vector3 kJumpForce = {0.0f, 30.0f, 0.0f};
     const std::string kAnimName = "Armature|Jump";
 }
 

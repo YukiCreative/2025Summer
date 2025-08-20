@@ -24,7 +24,7 @@
 
 namespace
 {
-	constexpr float kDrag = 0.2f;
+	const Vector2 kDrag = { 0.2f, 0.02f };
 
 	constexpr int kWeight = 10;
 
@@ -46,6 +46,9 @@ namespace
 	constexpr int kDamageChargeRatio = 150;
 
 	const std::string kDamageEffect = "BloodDamage.efkefc";
+
+	constexpr int kDamageCameraShakeFrame = 5;
+	constexpr int kDamageCameraShakeStrength = 5;
 }
 
 Player::Player() :
@@ -143,8 +146,8 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 
 	// HPå∏ÇÁÇ∑
 	m_hp -= attack->GetAttackPower();
-	// Ç†Ç¶ÇƒêUìÆÇÇ»Ç≠Ç∑
-	m_camera.lock()->SetShake(0, 0);
+	// êUìÆ
+	m_camera.lock()->SetShake(kDamageCameraShakeFrame, kDamageCameraShakeStrength);
 
 	// ååÇµÇ‘Ç´Çè„Ç∞ÇÈ
 	auto blood = EffectManager::GetInstance().GenerateEffect(kDamageEffect, m_pos + (kCapsuleEndPosOffset * static_cast<float>(GetRand(100)) * 0.01f));

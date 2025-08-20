@@ -19,7 +19,7 @@ namespace
 	constexpr int kLifeTime = 40;
 	constexpr int kResidueFrame = 1;
 
-	constexpr float kDrag = 0.0f;
+	const Vector2 kDrag = { 0.0f, 0.0f};
 
 	constexpr int kChargeGaugeBasePoint = 1;
 	// —^ƒ_ƒ[ƒW‚Ì‚±‚Ì•ª‚¾‚¯•KE‹Z‚ğ‘‰Á

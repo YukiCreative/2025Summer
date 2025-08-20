@@ -23,6 +23,8 @@ std::shared_ptr<PlayerState> PlayerFall::Update()
 	// キャラクターが地面についたら遷移
 	auto p = m_player.lock();
 
+	// 移動できる
+
 	if (p->IsGround())
 	{
 		return std::make_shared<PlayerIdle>(m_player);

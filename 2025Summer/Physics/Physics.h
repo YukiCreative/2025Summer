@@ -24,6 +24,8 @@ private:
 	void CheckHit(std::list<std::shared_ptr<Actor>>& actorList);
 	// Exitの判定も行っている
 	void SendOnCollision();
+	// ステージの範囲に移動を制限する
+	void LimitMoveRange(std::list<std::shared_ptr<Actor>>& actorList);
 private:
 
 	struct OnCollisionMessage

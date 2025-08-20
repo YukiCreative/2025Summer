@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../Geometry/Vector3.h"
+#include "../Geometry/Vector2.h"
 #include "../Utility/RangeLimitedValue.h"
 
 // Actorの移動速度に関する処理
@@ -9,7 +10,7 @@ class Rigid
 {
 public:
 	Rigid();
-	void Init(const float drag);
+	void Init(const Vector2& drag);
 
 	// 更新
 	// 速度減衰とか
@@ -29,15 +30,13 @@ public:
 	void StopY();
 	void SetUseGravity(const bool useOrNot) { m_useGravity = useOrNot; }
 	bool IsUseGravity() const { return m_useGravity; }
+
 private:
 	// 今フレームの地上移動量
 	Vector3 m_vel;
 	// 速度減衰
-	float m_drag;
+	Vector2 m_drag;
 
 	bool m_useGravity;
-
-	using UpdateFunc_t = const Vector3 (Rigid::*)();
-	UpdateFunc_t m_update;
 };
 

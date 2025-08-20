@@ -24,6 +24,7 @@ void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
 	Gravity(actorList);
 
 	CheckHit(actorList);
+	LimitMoveRange(actorList);
 
 	SendOnCollision();
 }
@@ -131,6 +132,16 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 			}
 		}
 		++loopCount;
+	}
+}
+
+void Physics::LimitMoveRange(std::list<std::shared_ptr<Actor>>& actorList)
+{
+	for (auto& actor : actorList)
+	{
+		if (!actor->IsPosLimited()) continue;
+
+		actor->LimitMovementRange();
 	}
 }
 

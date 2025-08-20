@@ -16,7 +16,7 @@ namespace
 	constexpr float kKnockbackPower = 100.0f;
 	constexpr float kAttackPower = 2000.0f;
 	constexpr int kHitStopFrame = 100;
-	constexpr float kDrag = 0.0f;
+	const Vector2 kDrag = { 0.0f, 0.0f };
 	const std::string kEffectName = "SpecialAttack.efkefc";
 	constexpr float kCameraDistance = 800.0f;
 
@@ -45,7 +45,6 @@ void PlayerSpecialAttackCol::Init(std::weak_ptr<Player> parent, const Vector3& i
 	m_knockbackPower = kKnockbackPower;
 	m_parent = parent;
 
-	// ‚±‚ê‚à‚ß‚ñ‚Ç‚­‚³‚­‚È‚Á‚Ä‚«‚½‚È
 	auto col = std::make_shared<SphereCollider>();
 	col->Init(initPos, 0, true, true, kRadius);
 

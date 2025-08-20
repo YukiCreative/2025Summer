@@ -18,7 +18,7 @@ namespace
 	constexpr float kDamage = 100.0f;
 	constexpr float kKnockback = 10.0f;
 
-	constexpr float kDrag = 0.1f;
+	const Vector2 kDrag = { 0.1f, 0.05f };
 }
 
 EnemyPlantBullet::EnemyPlantBullet() :

@@ -22,7 +22,7 @@ namespace
 	constexpr float kRadius = 80.0f;
 	const Vector3 kModelExRate = { 1.5f,1.5f,1.5f };
 
-	constexpr float kDrag = 0.1f;
+	const Vector2 kDrag = { 0.1f, 0.02f };
 
 	constexpr int kAttackFrame = 280;
 	constexpr int kRandomness = 30;
