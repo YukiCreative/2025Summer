@@ -1,4 +1,5 @@
 #include "PlayerAirAttack3.h"
+#include "PlayerAirAttack1.h"
 #include "../Player.h"
 
 namespace
@@ -16,7 +17,7 @@ namespace
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 10;
 	// 攻撃が派生するタイミング
-	constexpr int kEnableComboFrame = 26;
+	constexpr int kEnableComboFrame = 40;
 
 	constexpr float kAttackPower = 100.0f;
 	constexpr float kKnockbackPower = -2.0f;
@@ -50,6 +51,7 @@ void PlayerAirAttack3::Init()
 	m_enableComboFrame = kEnableComboFrame;
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
+	m_comboAttack = std::make_shared<PlayerAirAttack1>(m_player);
 }
 
 void PlayerAirAttack3::OptionalProcess()
