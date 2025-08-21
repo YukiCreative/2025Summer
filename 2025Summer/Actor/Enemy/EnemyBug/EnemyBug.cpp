@@ -140,6 +140,4 @@ void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
 	{
 		m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
 	}
-
-	KnockBack(attack);
 }

@@ -57,8 +57,7 @@ public:
 	// 自身をロックオン不可にする
 	void DisableLockOn();
 	bool IsInvincible() const { return m_isInvincible; }
-	// 自身が吹き飛ばされたとき、移動抵抗を変える
-	void SetDragKnockUp();
+	void KnockBack(const Vector3& power);
 
 protected:
 
@@ -91,7 +90,6 @@ protected:
 protected:
 
 	virtual void OnDamage(std::shared_ptr<AttackCol>) abstract;
-	void KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult = 1.0f);
 	void KnockUpUpdate();
 	
 private:

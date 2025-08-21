@@ -8,6 +8,8 @@
 #include "../../Camera/Camera.h"
 #include "Player.h"
 #include "../../GameManagement/Score/StylishRank.h"
+#include "../Enemy/Enemy.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -90,7 +92,16 @@ void PlayerSpecialAttackCol::OnCollisionEnter(std::shared_ptr<Actor> other)
 	// 敵以外には当たらない
 	if (other->GetKind() != ActorKind::kEnemy) return;
 
+	// 敵が無敵ならスキップ
+	auto enemy = std::static_pointer_cast<Enemy>(other);
+	if (enemy->IsInvincible()) return;
+
 	other->SetStopFrame(kHitStopFrame);
+
+	// ノックバック
+	// この攻撃の中心から放射状に飛ばす
+	Vector3 thisToE = enemy->GetPos() - m_pos;
+	enemy->KnockBack(VTransformSR(m_knockbackPower, MGetRotVec2(Vector3::Foward(), thisToE)));
 
 	// sp増加
 	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kSpecialAttack);

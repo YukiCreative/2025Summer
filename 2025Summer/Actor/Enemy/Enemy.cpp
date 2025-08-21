@@ -184,24 +184,16 @@ void Enemy::DisableLockOn()
 	SetCanLockOn(false);
 }
 
-void Enemy::SetDragKnockUp()
+void Enemy::KnockBack(const Vector3& power)
 {
-	m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag});
-}
+	Vector3 temp = power;
 
-void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult)
-{
-	Vector3 force = attack->GetKnockbackPower();
-
-	// 気絶していないとき、上方向に飛ばない
 	if (!m_stunPoint.IsStun())
 	{
-		force.y = 0.0f;
+		temp.y = 0;
 	}
 
-	// 食らった当たり判定の位置を見て吹っ飛ぶ
-	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
-	m_collidable->SetVel(VTransformSR(force * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));
+	m_collidable->AddVel(temp);
 }
 
 void Enemy::KnockUpUpdate()

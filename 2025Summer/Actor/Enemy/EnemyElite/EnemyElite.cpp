@@ -169,7 +169,4 @@ void EnemyElite::OnDamage(std::shared_ptr<AttackCol> attack)
 	{
 		m_state = std::make_shared<EnemyEliteDamage>(weak_from_this());
 	}
-
-	// ”¼•ª‚­‚ç‚¢‚Ì—Í‚Å‚«”ò‚Î‚³‚ê‚é
-	KnockBack(attack, 0.5f);
 }

@@ -311,9 +311,9 @@ DxLib::tagMATRIX Player::GetModelMatrix() const
 {
 	auto mat = m_model->GetMatrix();
 
-	mat.m[0][0] *= -1;
-	mat.m[0][1] *= -1;
-	mat.m[0][2] *= -1;
+	//mat.m[0][0] *= -1;
+	//mat.m[0][1] *= -1;
+	//mat.m[0][2] *= -1;
 
 	mat.m[2][0] *= -1;
 	mat.m[2][1] *= -1;
