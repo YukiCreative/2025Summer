@@ -37,6 +37,7 @@ PlayerKnockUpSlash::PlayerKnockUpSlash(std::weak_ptr<Player> parent) :
 
 PlayerKnockUpSlash::~PlayerKnockUpSlash()
 {
+	m_player.lock()->SetDragDefault();
 }
 
 void PlayerKnockUpSlash::Init()
