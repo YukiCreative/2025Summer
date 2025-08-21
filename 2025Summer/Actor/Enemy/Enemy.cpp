@@ -94,10 +94,8 @@ void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 #if _DEBUG
 			printf("ƒXƒ^ƒ“I");
 #endif
-			m_isKnockUp = true;
-			m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag});
+			OnStun();
 		}
-		OnDamage(attackCol);
 		return;
 	}
 }
@@ -191,6 +189,12 @@ void Enemy::KnockBack(const Vector3& power)
 	}
 
 	m_collidable->AddVel(temp);
+}
+
+void Enemy::OnStun()
+{
+	m_isKnockUp = true;
+	m_collidable->GetRigid().SetDrag({ m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag });
 }
 
 void Enemy::KnockUpUpdate()

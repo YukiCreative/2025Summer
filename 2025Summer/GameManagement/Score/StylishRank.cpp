@@ -7,7 +7,7 @@ namespace
 	constexpr size_t kMaxHistory = 10;
 
 	// 位置フレームに自然減少する最大速度
-	constexpr float kMaxDecreaseSpeed = 5.0f / Game::kFrameRate;
+	constexpr float kMaxDecreaseSpeed = 1.0f / Game::kFrameRate;
 	// 自然減少加速度
 	constexpr float kContinueDecreaseAccel = 0.0003f;
 
@@ -134,20 +134,20 @@ void StylishRank::InitMap()
 {
 	// ひとまず定数
 	// あとで外部化するかも
-	m_increasePointMap[IncreaseStylishPointKind::kSlashDown] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 5.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashDown] = 3.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 3.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 3.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 6.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 7.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 5.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 7.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWaveAttack] = 3.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWave] = 6.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSpecialAttack] = 20.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kJustDodge] = 15.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir1] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir2] = 2.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 5.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 4.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir1] = 4.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir2] = 4.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 7.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 6.0f;
 
 	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 40.0f;
 }

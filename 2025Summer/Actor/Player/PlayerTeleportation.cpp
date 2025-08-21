@@ -9,17 +9,19 @@
 
 namespace
 {
-	constexpr int kDisappearFrame = 5;
+	constexpr int kDisappearFrame = 3;
 	const std::string kAnimName = "Armature|FrontStop";
 
-	constexpr int kTelePortFrame = 10;
+	constexpr int kTelePortFrame = 5;
 
-	constexpr int kAppearFrame = 15;
+	constexpr int kAppearFrame = 10;
 
 	const Vector3 kBackPos = { 0.0f, 0.0f, -300.0f };
 
-	constexpr int kStateWholeFrame = 30;
-	constexpr int kCanTransitionFrame = 20;
+	constexpr int kStateWholeFrame = 20;
+	constexpr int kCanTransitionFrame = 15;
+
+	constexpr float kTeleDistance = 150.0f;
 }
 
 PlayerTeleportation::PlayerTeleportation(std::weak_ptr<Player> player) :
@@ -34,6 +36,7 @@ PlayerTeleportation::PlayerTeleportation(std::weak_ptr<Player> player) :
 PlayerTeleportation::~PlayerTeleportation()
 {
 	m_player.lock()->SetInvincibility(false);
+	m_player.lock()->GetCol().SetIsThrough(false);
 }
 
 std::shared_ptr<PlayerState> PlayerTeleportation::Update()
@@ -55,7 +58,7 @@ std::shared_ptr<PlayerState> PlayerTeleportation::Update()
 			Vector3 enemyPos = player->m_lockOnActor.lock()->GetPos();
 			// “G‚Ì‚»‚Î‚ÉˆÚ“®
 			Vector3 eToPN = (player->GetPos() - enemyPos).GetNormalize();
-			Vector3 teleportedPos = enemyPos + eToPN * (static_cast<CapsuleCollider&>(player->GetCol()).GetRadius() * 2);
+			Vector3 teleportedPos = enemyPos + eToPN * kTeleDistance;
 
 			player->SetPos(teleportedPos);
 		}
@@ -64,6 +67,11 @@ std::shared_ptr<PlayerState> PlayerTeleportation::Update()
 			// Œã‚ë‚ÉˆÚ“®
 			player->SetPos(player->GetPos() + VTransformSR(kBackPos, player->GetModelMatrix()));
 		}
+	}
+
+	if (m_frame == kAppearFrame)
+	{
+		player->Apeear();
 	}
 
 	if (m_frame > kCanTransitionFrame)

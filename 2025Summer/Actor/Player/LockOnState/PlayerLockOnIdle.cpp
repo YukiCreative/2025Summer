@@ -14,6 +14,7 @@
 #include "../PlayerFall.h"
 #include "../PlayerJump.h"
 #include "../PlayerDodge.h"
+#include "../PlayerTeleportation.h"
 #include <DxLib.h>
 
 namespace
@@ -94,6 +95,10 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 	if (input.IsTrigger("Dodge"))
 	{
 		return std::make_shared<PlayerDodge>(m_player);
+	}
+	if (input.IsTrigger("Tele"))
+	{
+		return std::make_shared<PlayerTeleportation>(m_player);
 	}
 
 	return shared_from_this();

@@ -170,6 +170,8 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 
 		// スタイリッシュゲージを増加
 		StylishRank::GetInstance().IncreaseStylishPoint(m_actionKind);
+
+		enemy->OnDamage(shared_from_this());
 	}
 }
 
