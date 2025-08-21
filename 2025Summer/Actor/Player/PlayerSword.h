@@ -33,6 +33,8 @@ public:
 	void ColDisable();
 
 	void SetActionKind(const IncreaseStylishPointKind kind);
+	// UŒ‚Ï‚İƒŠƒXƒg‚ğ‰Šú‰»
+	void ClearAttackedList();
 
 private:
 
@@ -65,8 +67,11 @@ private:
 
 	IncreaseStylishPointKind m_actionKind;
 
+	std::list<std::shared_ptr<Actor>> m_attackedEenemyList;
+
 private:
 
 	void SetCBuffStatus();
+	bool CheckIsAttacked(std::shared_ptr<Actor>);
 };
 

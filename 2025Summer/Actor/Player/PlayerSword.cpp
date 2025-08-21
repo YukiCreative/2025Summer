@@ -137,12 +137,19 @@ void PlayerSword::Draw() const
 
 void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 {
+	// すでに今回の攻撃が当たっているならスキップ
+	if (CheckIsAttacked(other)) return;
+
+	// 当たったActorリストに登録
+	m_attackedEenemyList.emplace_back(other);
+
 	// 敵に当たったら
 	if (other->GetKind() == ActorKind::kEnemy)
 	{
 		// 敵が無敵ならスキップ
 		auto enemy = std::static_pointer_cast<Enemy>(other);
 		if (enemy->IsInvincible()) return;
+
 
 		// プレイヤーにヒットストップをかける
 		m_player.lock()->SetStopFrame(kStopFrame);
@@ -217,10 +224,20 @@ void PlayerSword::SetActionKind(const IncreaseStylishPointKind kind)
 	m_actionKind = kind;
 }
 
+void PlayerSword::ClearAttackedList()
+{
+	m_attackedEenemyList.clear();
+}
+
 void PlayerSword::SetCBuffStatus()
 {
 	m_cBuff->minPos = m_model->GetModelBBMin();
 	m_cBuff->maxPos = m_model->GetModelBBMax();
 	m_cBuff->time = m_dissolveParam.Value();
 	UpdateShaderConstantBuffer(m_cBuffH);
+}
+
+bool PlayerSword::CheckIsAttacked(std::shared_ptr<Actor> actor)
+{
+	return std::find(m_attackedEenemyList.begin(), m_attackedEenemyList.end(), actor) != m_attackedEenemyList.end();
 }

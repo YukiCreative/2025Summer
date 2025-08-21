@@ -18,7 +18,7 @@ namespace
 	constexpr int kEnableComboFrame = 30;
 
 	constexpr float kAttackPower = 130.0f;
-	const Vector3 kKnockbackPower = { 0.0f, 60.0f, 1.0f };
+	const Vector3 kKnockbackPower = { 0.0f, 65.0f, 1.0f };
 
 	const std::string kAnimName = "Armature|SlashUp";
 	constexpr bool kIsLoopAnim = false;

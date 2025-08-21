@@ -361,6 +361,7 @@ void Player::DisableSword()
 void Player::DisableSwordCol()
 {
 	m_sword->ColDisable();
+	m_sword->ClearAttackedList();
 }
 
 Vector3 Player::GetLockOnActorScreenPos() const
