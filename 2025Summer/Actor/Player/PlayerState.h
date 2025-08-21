@@ -10,6 +10,9 @@ namespace
 	constexpr float kMoveThreshold = 0.001f;
 	const Vector3 kCameraTargetOffset = { 0,150,0 };
 	constexpr float kLockOnWalkSpeed = 0.002f;
+	const Vector3 kJumpForce = { 0.0f, 60.0f, 0.0f };
+	constexpr float kStartDragY = 0.1f;
+	constexpr int kSetDragDefaultFrame = 10;
 }
 
 // プレイヤーの状態をクラスに分ける

@@ -1,5 +1,8 @@
 #pragma once
-#include "PlayerState.h"
+#include <memory>
+
+class PlayerState;
+class Player;
 
 // プレイヤーと状態の間に一枚入れているクラス
 // 今のところロックオンしてるかそうでないかに使ってる

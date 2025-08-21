@@ -12,7 +12,6 @@
 namespace
 {
 	// 重力は定数
-	// 後で変数にするかも？？？
 	const Vector3 kGravity = { 0, -0.8f, 0 };
 
 	constexpr int kCheckLoopMax = 1;
@@ -242,14 +241,13 @@ void Physics::Gravity(std::list<std::shared_ptr<Actor>> actorList)
 	{
 		// 持っていない可能性がある
 		if (!actor->CanCollide() || !actor->HasRigid()) continue;
-
 		// staticのやつは動かさない
 		if (actor->GetCol().IsStatic()) continue;
-
-		// ウチ重力いらないんで
+		// 重力を適用しない設定
 		if (!actor->GetCollidable().GetRigid().IsUseGravity()) continue;
 
 		auto& rigid = actor->GetRigid();
-		rigid.AddVel(kGravity);
+		Vector3 correctedGravity = kGravity * rigid.GetGravityMagnification();
+		rigid.AddVel(correctedGravity);
 	}
 }

@@ -30,12 +30,22 @@ public:
 	void StopY();
 	void SetUseGravity(const bool useOrNot) { m_useGravity = useOrNot; }
 	bool IsUseGravity() const { return m_useGravity; }
+	const Vector2& GetDrag() const { return m_drag; }
+	void SetDrag(const Vector2& drag) { m_drag = drag; }
+	// 初期化時の抵抗に戻す
+	void SetDragDefault() { m_drag = m_defaultDrag; }
+	// 今のY抵抗が初期値より小さいとtrue
+	bool IsMinDefaultDragY() const { return m_drag.y < m_defaultDrag.y; }
+	void SetGravityMagnification(float magnification) { m_gravityMagnification = magnification; }
+	float GetGravityMagnification() const { return m_gravityMagnification; }
 
 private:
 	// 今フレームの地上移動量
 	Vector3 m_vel;
 	// 速度減衰
 	Vector2 m_drag;
+	Vector2 m_defaultDrag;
+	float m_gravityMagnification = 1.0f;
 
 	bool m_useGravity;
 };

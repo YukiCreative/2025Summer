@@ -1,6 +1,7 @@
 #include "PlayerKnockUpSlash.h"
 #include "../Player.h"
 #include "../../../General/Input.h"
+#include "PlayerAirAttack1.h"
 
 namespace
 {
@@ -17,13 +18,12 @@ namespace
 	constexpr int kEnableComboFrame = 30;
 
 	constexpr float kAttackPower = 130.0f;
-	const Vector3 kKnockbackPower = { 0.0f, 40.0f, 1.0f };
+	const Vector3 kKnockbackPower = { 0.0f, 60.0f, 1.0f };
 
 	const std::string kAnimName = "Armature|SlashUp";
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr int kJumpFrame = 9;
-	const Vector3 kJumpForce = {0.0f, 30.0f, 0.0f};
 	constexpr float kStunPower = 10.0f;
 }
 
@@ -57,6 +57,7 @@ void PlayerKnockUpSlash::Init()
 	m_attackPower = kAttackPower;
 	m_knockbackPower = kKnockbackPower;
 	m_stunPower = kStunPower;
+	m_comboAttack = std::make_shared<PlayerAirAttack1>(m_player);
 }
 
 void PlayerKnockUpSlash::OptionalProcess()
@@ -67,6 +68,11 @@ void PlayerKnockUpSlash::OptionalProcess()
 	// “Á’è‚ÌƒtƒŒ[ƒ€‚Ü‚ÅUŒ‚‚ð’·‰Ÿ‚µ‚µ‚Ä‚¢‚½‚ç”ò‚Ñã‚ª‚é
 	if (m_frame == kJumpFrame && m_isLongPress)
 	{
+		m_player.lock()->SetDragY(kStartDragY);
 		m_player.lock()->AddVel(kJumpForce);
+	}
+	if (m_frame == kJumpFrame + kSetDragDefaultFrame)
+	{
+		m_player.lock()->SetDragDefault();
 	}
 }

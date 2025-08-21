@@ -58,6 +58,7 @@ public:
 	DxLib::tagMATRIX GetFrameMatrix(const std::string& frameName) const;
 	void SetScale(const Vector3& scale);
 	const int GetFrameNum() const;
+	void SetAnimPlaySpeed(const float speed) { m_playSpeed = speed; }
 
 private:
 	std::shared_ptr<Model> m_model;

@@ -2,6 +2,8 @@
 #include "../Player.h"
 #include "PlayerAirAttack2.h"
 
+#include "../../../Model/AnimationModel.h"
+
 namespace
 {
 	const std::string kAnimName = "Armature|AirCombo1";
@@ -20,10 +22,10 @@ namespace
 	constexpr int kEnableComboFrame = 26;
 
 	constexpr float kAttackPower = 100.0f;
-	const Vector3 kKnockbackPower =  {0.0f, 0.0f, -2.0f};
+	const Vector3 kKnockbackPower =  {0.0f, 10.0f, -2.0f};
 	constexpr float kStunPower = 3.0f;
 
-	const Vector3 kHoverForce = { 0.0f, 20.0f, 0.0f };
+	const Vector3 kHoverForce = { 0.0f, 10.0f, 0.0f };
 }
 
 PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
@@ -31,6 +33,7 @@ PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
 {
 	Init();
 	PlayAnim();
+	//m_player.lock()->m_model->SetAnimPlaySpeed(60);
 }
 
 PlayerAirAttack1::~PlayerAirAttack1()

@@ -24,7 +24,7 @@
 
 namespace
 {
-	const Vector2 kDrag = { 0.2f, 0.02f };
+	const Vector2 kDrag = { 0.2f, 0.01f };
 
 	constexpr int kWeight = 10;
 
@@ -425,4 +425,14 @@ bool Player::IsAnimEnd() const
 void Player::StopY()
 {
 	m_collidable->GetRigid().StopY();
+}
+
+void Player::SetDragY(const float drag)
+{
+	m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, drag});
+}
+
+void Player::SetDragDefault()
+{
+	m_collidable->GetRigid().SetDragDefault();
 }

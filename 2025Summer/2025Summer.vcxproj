@@ -55,6 +55,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerFinishAttack.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerKnockUpSlash.cpp" />
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOnMove.cpp" />
+    <ClCompile Include="Actor\Player\PlayerAttackCol.cpp" />
     <ClCompile Include="Actor\Player\PlayerDodge.cpp" />
     <ClCompile Include="Actor\Player\PlayerFall.cpp" />
     <ClCompile Include="Actor\Player\PlayerLanding.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerKnockUpSlash.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerInputDir.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMove.h" />
+    <ClInclude Include="Actor\Player\PlayerAttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerDodge.h" />
     <ClInclude Include="Actor\Player\PlayerFall.h" />
     <ClInclude Include="Actor\Player\PlayerLanding.h" />

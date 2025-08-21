@@ -8,7 +8,6 @@
 
 namespace
 {
-    const Vector3 kJumpForce = {0.0f, 30.0f, 0.0f};
     const std::string kAnimName = "Armature|Jump";
     constexpr float kMoveSpeed = 0.0015f;
 }
@@ -20,6 +19,7 @@ PlayerJump::PlayerJump(std::weak_ptr<Player> player) :
     // ジャンプ
     m_player.lock()->AddVel(kJumpForce);
     m_player.lock()->ChangeAnim(kAnimName, false);
+    m_player.lock()->SetDragY(kStartDragY);
 }
 
 PlayerJump::~PlayerJump()
@@ -31,6 +31,10 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     auto p = m_player.lock();
     Input& input = Input::GetInstance();
 
+    if (m_frame == kSetDragDefaultFrame)
+    {
+        m_player.lock()->SetDragDefault();
+    }
     // アニメーションが終わったらループモーションに
     if (p->IsAnimEnd())
     {
@@ -46,7 +50,8 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     }
 
     p->Move(kMoveSpeed);
-    //if (p->GetRigid().)
+
+    ++m_frame;
 
     return shared_from_this();
 }

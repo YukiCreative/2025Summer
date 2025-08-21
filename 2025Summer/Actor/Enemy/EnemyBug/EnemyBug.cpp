@@ -16,7 +16,7 @@
 
 namespace
 {
-	const Vector2 kDrag = { 0.1f, 0.02f };
+	const Vector2 kDrag = { 0.1f, 0.01f };
 
 	// コライダー
 	constexpr float kSphereRadius = 60.0f;

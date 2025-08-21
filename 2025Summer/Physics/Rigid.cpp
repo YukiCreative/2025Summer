@@ -16,6 +16,7 @@ Rigid::Rigid() :
 void Rigid::Init(const Vector2& drag)
 {
 	m_drag = drag;
+	m_defaultDrag = drag;
 }
 
 const Vector3 Rigid::Update()

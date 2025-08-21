@@ -138,6 +138,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerKnockUpSlash.cpp" />
     <ClCompile Include="Actor\Player\LockOnState\PlayerLockOnMove.cpp" />
     <ClCompile Include="Actor\Enemy\StunPoint.cpp" />
+    <ClCompile Include="Actor\Player\PlayerAttackCol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -288,6 +289,7 @@
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMove.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerInputDir.h" />
     <ClInclude Include="Actor\Enemy\StunPoint.h" />
+    <ClInclude Include="Actor\Player\PlayerAttackCol.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

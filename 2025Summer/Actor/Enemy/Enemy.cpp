@@ -22,6 +22,9 @@ namespace
 	const std::string kTex = "Data/Image/pattern.png";
 
 	const std::string kDeathEffect = "BigBlood.efkefc";
+
+	constexpr float kKnockUpStartDrag = 0.1f;
+	constexpr float kKnockUpDecreaseDragAmount = 0.001f;
 }
 
 Enemy::Enemy(const float maxStunPoint) :
@@ -29,7 +32,9 @@ Enemy::Enemy(const float maxStunPoint) :
 	m_isInvincible(false),
 	m_enemyKind(EnemyKind::kNone),
 	m_bloodFrameIndex(0),
-	m_stunPoint(maxStunPoint)
+	m_stunPoint(maxStunPoint),
+	m_isKnockUp(false),
+	m_fallFrame(0)
 {
 }
 
@@ -60,6 +65,10 @@ void Enemy::Update()
 		// 派生先で出したいフレームを指定して出す
 		m_bloodEffect.lock()->SetPos(m_model->GetFramePosition(m_bloodFrameIndex));
 	}
+
+	if (!m_isKnockUp) return;
+
+	KnockUpUpdate();
 }
 
 void Enemy::Draw() const
@@ -79,8 +88,18 @@ void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 		// スタン値を減らす
 		m_stunPoint.DecreasePoint(attackCol->GetStunPower());
 		m_collidable->GetRigid().StopY();
+
+#if _DEBUG
 		printf("スタン値:%f", m_stunPoint.Value());
-		if (m_stunPoint.IsStun()) printf("スタン！");
+#endif
+		if (m_stunPoint.IsStun())
+		{
+#if _DEBUG
+			printf("スタン！");
+#endif
+			m_isKnockUp = true;
+			m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag});
+		}
 		OnDamage(attackCol);
 		return;
 	}
@@ -165,6 +184,11 @@ void Enemy::DisableLockOn()
 	SetCanLockOn(false);
 }
 
+void Enemy::SetDragKnockUp()
+{
+	m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag});
+}
+
 void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMult)
 {
 	Vector3 force = attack->GetKnockbackPower();
@@ -178,4 +202,36 @@ void Enemy::KnockBack(std::shared_ptr<AttackCol> attack, const float knockbackMu
 	// 食らった当たり判定の位置を見て吹っ飛ぶ
 	auto colToEN = (m_pos.XZ() - attack->GetPos().XZ()).GetNormalize();
 	m_collidable->SetVel(VTransformSR(force * knockbackMult, MGetRotVec2(Vector3::Foward(), colToEN)));
+}
+
+void Enemy::KnockUpUpdate()
+{
+	Rigid& rigid = m_collidable->GetRigid();
+	Vector2 drag = rigid.GetDrag();
+	drag.y -= kKnockUpDecreaseDragAmount;
+	rigid.SetDrag(drag);
+	if (rigid.IsMinDefaultDragY())
+	{
+		rigid.SetDragDefault();
+	}
+
+	bool shouldSlowFallSpeed = false;
+	shouldSlowFallSpeed = rigid.GetVel().y < 0;
+
+	// 落下を開始したとき、一定時間重力を弱める
+	if (shouldSlowFallSpeed)
+	{
+		rigid.SetGravityMagnification(0.02f);
+		++m_fallFrame;
+	}
+	if (m_fallFrame > 30)
+	{
+		rigid.SetGravityMagnification(1.0f);
+	}
+
+	// 着地するまで継続
+	if (m_fallFrame > 1 && m_pos.y <= 0.0f)
+	{
+		m_isKnockUp = false;
+	}
 }

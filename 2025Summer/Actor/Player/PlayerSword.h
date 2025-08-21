@@ -1,5 +1,5 @@
 #pragma once
-#include "../AttackCol.h"
+#include "PlayerAttackCol.h"
 #include "../../Model/Model.h"
 #include "../../Utility/RangeLimitedValue.h"
 #include "../../GameManagement/Score/StylishEnum.h"
@@ -8,7 +8,7 @@ class Player;
 class EffekseerEffect;
 
 // モデルと当たり判定のセット
-class PlayerSword : public AttackCol
+class PlayerSword : public PlayerAttackCol
 {
 public:
 	PlayerSword();

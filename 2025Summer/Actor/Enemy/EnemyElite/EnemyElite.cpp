@@ -37,7 +37,7 @@ namespace
 
 	constexpr int kBloodFrame = 5;
 
-	constexpr float kMaxStunPoint = 100.0f;
+	constexpr float kMaxStunPoint = 30.0f;
 }
 
 std::normal_distribution<> EnemyElite::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
