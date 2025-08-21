@@ -7,6 +7,8 @@
 #include "../../GameManagement/Score/StylishRank.h"
 #include "../../General/Input.h"
 #include "NormalState/PlayerMove.h"
+#include "../../Camera/Camera.h"
+#include "../../Geometry/Geometry.h"
 
 namespace
 {
@@ -29,7 +31,28 @@ PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 	m_frame(0),
 	m_isJustDodge(false)
 {
-	m_player.lock()->m_model->ChangeAnimation(kAnimName, false);
+	Input& input = Input::GetInstance();
+	std::shared_ptr<Player> p = m_player.lock();
+
+	p->m_model->ChangeAnimation(kAnimName, false);
+	// “ü—Í•ûŒü‚ÉŒü‚«‚ð•Ï‚¦‚é
+
+	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
+	inputAxis.z *= -1;
+	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
+
+	const Vector3 modelDir = p->m_model->GetDirection();
+
+	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
+
+	// ƒLƒƒƒ‰‚ÌŒü‚«‚É‘Î‚µ‚Ä“ü—Í‚ª‚Ç‚ñ‚ÈˆÊ’uŠÖŒW‚©’²‚×‚½‚¢
+	const Vector3 cross = modelDir.Cross(cameraRotatedAxisN);
+
+	float corner = Geometry::Corner(cameraRotatedAxisN, modelDir);
+
+	if (cross.y < 0) corner *= -1;
+
+	p->m_model->RotateUpVecY(corner);
 }
 
 PlayerDodge::~PlayerDodge()

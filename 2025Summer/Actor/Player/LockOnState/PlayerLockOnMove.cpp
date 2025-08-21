@@ -5,6 +5,8 @@
 #include "PlayerLockOnIdle.h"
 #include "../../../Model/AnimationModel.h"
 #include "../PlayerFall.h"
+#include "../PlayerJump.h"
+#include "../PlayerDodge.h"
 
 #include "PlayerLockOnMoveBack.h"
 #include "PlayerLockOnMoveFoward.h"
@@ -67,6 +69,14 @@ std::shared_ptr<PlayerState> PlayerLockOnMove::Update()
 	if (!p->IsGround())
 	{
 		return std::make_shared<PlayerFall>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
+	}
+	if (input.IsTrigger("Dodge"))
+	{
+		return std::make_shared<PlayerDodge>(m_player);
 	}
 
 	if (modelAxisDot > kMoveDirThreshold) // ‘O

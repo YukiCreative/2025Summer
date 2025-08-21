@@ -12,6 +12,8 @@
 #include "PlayerLockOnMoveRight.h"
 #include "../AttackState/PlayerSlashDown.h"
 #include "../PlayerFall.h"
+#include "../PlayerJump.h"
+#include "../PlayerDodge.h"
 #include <DxLib.h>
 
 namespace
@@ -84,6 +86,14 @@ std::shared_ptr<PlayerState> PlayerLockOnIdle::Update()
 	if (!p->IsGround())
 	{
 		return std::make_shared<PlayerFall>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
+	}
+	if (input.IsTrigger("Dodge"))
+	{
+		return std::make_shared<PlayerDodge>(m_player);
 	}
 
 	return shared_from_this();
