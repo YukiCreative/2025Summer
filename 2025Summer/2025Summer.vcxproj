@@ -79,6 +79,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashSide.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
+    <ClCompile Include="Actor\Player\PlayerTeleportation.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashSide.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
     <ClInclude Include="Actor\Player\PlayerJump.h" />
+    <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />

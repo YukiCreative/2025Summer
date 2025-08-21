@@ -81,11 +81,20 @@ SpawnActorList_t Actor::GetSpawnActor()
 void Actor::LimitMovementRange()
 {
 	//地面にめり込まないようにする
-	if (m_pos.y < 0)
+	if (m_pos.y < 0.0f)
 	{
 		m_pos.y = 0;
 		const Vector3& vel = m_collidable->GetVel();
+		if (vel.y > 50)
+		{
+			printf("通った");
+		}
 		m_collidable->SetVel({ vel.x, std::max(vel.y, 0.0f), vel.z});
+		//m_isGround = true;
+	}
+	else
+	{
+		//m_isGround = false;
 	}
 
 	// 円形のフィールドから出ないようにする
@@ -123,6 +132,11 @@ void Actor::CountStopFrame()
 void Actor::Destroy()
 {
 	m_isAlive = false;
+}
+
+void Actor::CheckIsGround()
+{
+	m_isGround = m_pos.y <= 0.0f;
 }
 
 void Actor::SpawnActor(std::shared_ptr<Actor> spawnActor)

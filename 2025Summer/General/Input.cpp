@@ -126,8 +126,8 @@ void Input::SetKeyDefault()
 	};
 	m_inputEvent["SpecialAttack"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_X},
-		{PeripheralType::kPad, kPadY},
+		{PeripheralType::kKeyboard, KEY_INPUT_R},
+		{PeripheralType::kPad, kPadL},
 	};
 	m_inputEvent["Dodge"] =
 	{
@@ -146,6 +146,11 @@ void Input::SetKeyDefault()
 	m_inputEvent["SelectEditUI"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_TAB}
+	};
+	m_inputEvent["Tele"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_X},
+		{PeripheralType::kPad, kPadY}
 	};
 }
 

@@ -20,7 +20,7 @@ namespace
 	const Vector3 kDodgeForce = { 0.0f, 0.0f, 4.0f };
 	constexpr int kForceFrame = 25;
 
-	constexpr int kCanMoveFrame = 30;
+	constexpr int kCanTransitionFrame = 30;
 
 	const std::string kAnimName =  "Armature|RollingDodge";
 	const std::string kJustAnimName =  "Armature|JustDodge";
@@ -33,6 +33,8 @@ PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 {
 	Input& input = Input::GetInstance();
 	std::shared_ptr<Player> p = m_player.lock();
+
+	m_canCrossState = true;
 
 	p->m_model->ChangeAnimation(kAnimName, false);
 	// “ü—Í•ûŒü‚ÉŒü‚«‚ð•Ï‚¦‚é
@@ -92,7 +94,7 @@ std::shared_ptr<PlayerState> PlayerDodge::Update()
 		p->SetInvincibility(false);
 		return std::make_shared<PlayerIdle>(m_player);
 	}
-	if (m_frame > kCanMoveFrame && Input::GetInstance().GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+	if (m_frame > kCanTransitionFrame && Input::GetInstance().GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
 	{
 		return std::make_shared<PlayerMove>(m_player);
 	}

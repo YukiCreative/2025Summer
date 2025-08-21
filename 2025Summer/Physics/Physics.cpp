@@ -246,6 +246,7 @@ void Physics::Gravity(std::list<std::shared_ptr<Actor>> actorList)
 		// d—Í‚ð“K—p‚µ‚È‚¢Ý’è
 		if (!actor->GetCollidable().GetRigid().IsUseGravity()) continue;
 
+
 		auto& rigid = actor->GetRigid();
 		Vector3 correctedGravity = kGravity * rigid.GetGravityMagnification();
 		rigid.AddVel(correctedGravity);

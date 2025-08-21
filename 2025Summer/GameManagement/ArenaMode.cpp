@@ -14,7 +14,7 @@
 
 namespace
 {
-	constexpr int kInitTimeLimit = 60 * Game::kFrameRate;
+	constexpr int kInitTimeLimit = 300 * Game::kFrameRate; // DEBUG
 	const Vector2 kTimerPos = {Game::kScreenHalfWidth, 50};
 }
 

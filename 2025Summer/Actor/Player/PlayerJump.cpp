@@ -46,7 +46,7 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     }
     if (p->IsGround())
     {
-        return std::make_shared<PlayerLanding>(m_player);
+         return std::make_shared<PlayerLanding>(m_player);
     }
 
     p->Move(kMoveSpeed);

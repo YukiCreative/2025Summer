@@ -53,12 +53,14 @@ public:
 	void CountStopFrame();
 	// ‚±‚ÌActor‚ğíœ
 	void Destroy();
+	void CheckIsGround();
 
 protected:
 	Vector3 m_pos;
 	std::shared_ptr<Collidable> m_collidable;
 	ActorKind m_kind;
 	int m_stopFrame;
+	bool m_isGround = true;
 
 protected:
 	// Actor‚ğ¶¬‚·‚é

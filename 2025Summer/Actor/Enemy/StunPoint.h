@@ -20,7 +20,7 @@ public:
 
 	bool IsStun() const
 	{
-		return m_point <= 0.0f;
+		return m_point <= 0.00001f;
 	}
 
 	float Value() const { return m_point; }

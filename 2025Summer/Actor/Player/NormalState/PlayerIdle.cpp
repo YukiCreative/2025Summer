@@ -8,6 +8,7 @@
 #include "../PlayerDodge.h"
 #include "../PlayerJump.h"
 #include "../PlayerFall.h"
+#include "../PlayerTeleportation.h"
 
 namespace
 {
@@ -60,6 +61,10 @@ std::shared_ptr<PlayerState> PlayerIdle::Update()
 	if (input.IsTrigger("Jump"))
 	{
 		return std::make_shared<PlayerJump>(m_player);
+	}
+	if (input.IsTrigger("Tele"))
+	{
+		return std::make_shared<PlayerTeleportation>(m_player);
 	}
 
 	return shared_from_this();

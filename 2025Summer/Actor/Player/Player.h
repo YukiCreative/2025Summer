@@ -118,7 +118,6 @@ public:
 	bool m_isDraw;
 	// ‚±‚ÌƒtƒŒ[ƒ€‚ÉA“G‚©‚çUŒ‚‚ğó‚¯‚½‚©
 	bool m_isDamageFromEnemy;
-	bool m_isGround;
 
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚Ä‚Ù‚µ‚¢ŠÖ”

@@ -17,6 +17,7 @@ PlayerLanding::PlayerLanding(std::weak_ptr<Player> player) :
 	m_frame(0)
 {
 	m_player.lock()->ChangeAnim(kAnimName, false);
+	m_canCrossState = true;
 }
 
 PlayerLanding::~PlayerLanding()

@@ -22,7 +22,7 @@ namespace
 	constexpr float kSphereRadius = 60.0f;
 	constexpr int kWeight = 10;
 
-	const Vector3 kColOffset = {0,60,0};
+	const Vector3 kColOffset = {0,30,0};
 
 	// UŒ‚”»’è‚ğoŒ»‚³‚¹‚é‚ÉŠî€‚É‚·‚éƒŠƒO
 	const std::string kCollisionFrameName1 = "bug_mandible_R";
@@ -37,6 +37,8 @@ namespace
 	constexpr int kBloodFrame = 5;
 
 	constexpr float kMaxStunPoint = 10.0f;
+
+	const Vector3 kCapsuleLength = { 0, 50, 0 };
 }
 
 std::normal_distribution<> EnemyBug::s_attackTimeNormalDist(kAttackFrame, kRandomness);
@@ -55,7 +57,7 @@ void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const 
 	m_bloodFrameIndex = kBloodFrame;
 
 	auto col = std::make_shared<CapsuleCollider>();
-	col->Init(m_pos, m_pos + Vector3{0, 100, 0}, kWeight, false, false, kSphereRadius);
+	col->Init(m_pos, m_pos + kCapsuleLength, kWeight, false, false, kSphereRadius);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kDrag);
 
@@ -75,6 +77,17 @@ void EnemyBug::UpdateState()
 void EnemyBug::CommitMove()
 {
 	const Vector3 vel = m_collidable->UpdateRigid();
+
+	// DEBUG
+	if (vel.y > 100.0f)
+	{
+		if (vel.y > 100.0f) 
+		{
+
+		}
+	} 
+	// DEBUG
+
 	m_pos += vel;
 
 	m_model->SetPos(m_pos);

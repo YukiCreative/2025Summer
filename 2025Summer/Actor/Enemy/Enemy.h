@@ -58,6 +58,7 @@ public:
 	void DisableLockOn();
 	bool IsInvincible() const { return m_isInvincible; }
 	void KnockBack(const Vector3& power);
+	void DecreaseStunPoint(const float point) { m_stunPoint.DecreasePoint(point); }
 
 protected:
 

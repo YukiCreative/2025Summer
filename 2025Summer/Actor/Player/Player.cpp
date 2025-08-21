@@ -59,7 +59,6 @@ Player::Player() :
 	m_canLockOn(true),
 	m_isDraw(true),
 	m_specialGauge(0),
-	m_isGround(true),
 	m_isDamageFromEnemy(false)
 {
 }
@@ -299,12 +298,6 @@ void Player::CommitMove()
 
 	m_camera.lock()->SetTargetPos(m_targetPos);
 	m_model->SetPos(m_pos);
-
-	// キャラクターが地面についているか調べる
-	if (m_pos.y <= 0.0f)
-	{
-		m_isGround = true;
-	}
 }
 
 DxLib::tagMATRIX Player::GetModelMatrix() const

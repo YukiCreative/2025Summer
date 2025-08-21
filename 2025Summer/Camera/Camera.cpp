@@ -164,7 +164,7 @@ void Camera::SetShake(const int frame, const int strength)
 {
 	m_shakeFrame = frame;
 	m_startFrame = frame;
-	if (!m_startFrame) m_startFrame = 1;
+	if (m_startFrame < 1) m_startFrame = 1;
 	m_shakeStrength = strength;
 }
 

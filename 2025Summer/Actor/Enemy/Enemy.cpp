@@ -85,9 +85,6 @@ void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 	if (other->GetKind() == ActorKind::kPlayerAttack)
 	{
 		auto attackCol = std::static_pointer_cast<AttackCol>(other);
-		// スタン値を減らす
-		m_stunPoint.DecreasePoint(attackCol->GetStunPower());
-		m_collidable->GetRigid().StopY();
 
 #if _DEBUG
 		printf("スタン値:%f", m_stunPoint.Value());
@@ -221,9 +218,11 @@ void Enemy::KnockUpUpdate()
 		rigid.SetGravityMagnification(1.0f);
 	}
 
-	// 着地するまで継続
-	if (m_fallFrame > 1 && m_pos.y <= 0.0f)
+	// 落下を始めて着地するまで継続
+	if (m_fallFrame && m_isGround)
 	{
+		rigid.SetGravityMagnification(1.0f);
 		m_isKnockUp = false;
+		m_fallFrame = 0;
 	}
 }

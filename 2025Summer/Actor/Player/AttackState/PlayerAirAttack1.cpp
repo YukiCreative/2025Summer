@@ -33,7 +33,6 @@ PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
 {
 	Init();
 	PlayAnim();
-	//m_player.lock()->m_model->SetAnimPlaySpeed(60);
 }
 
 PlayerAirAttack1::~PlayerAirAttack1()
