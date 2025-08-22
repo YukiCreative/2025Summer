@@ -73,7 +73,7 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     {
         m_time += kLerpSpeed;
         m_time = std::min(m_time, 1.0f);
-        p->SetPos(m_startPos.Lerp(m_targetPos, Geometry::Easing(m_time, Geometry::EasingKind::kInOutQuint)));
+        p->SetPos(m_startPos.Lerp(m_targetPos, Geometry::Easing(m_time, Geometry::EasingKind::kOutQuart)));
         
         if (!CheckLockOnJump())
         {

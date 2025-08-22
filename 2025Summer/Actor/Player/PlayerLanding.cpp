@@ -4,6 +4,7 @@
 #include "NormalState/PlayerMove.h"
 #include "../../General/Input.h"
 #include "AttackState/PlayerSlashDown.h"
+#include "PlayerJump.h"
 
 namespace
 {
@@ -41,6 +42,10 @@ std::shared_ptr<PlayerState> PlayerLanding::Update()
 	if (input.IsTrigger("Attack"))
 	{
 		return std::make_shared<PlayerSlashDown>(m_player);
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		return std::make_shared<PlayerJump>(m_player);
 	}
 
 	p->Move(kMoveSpeed);

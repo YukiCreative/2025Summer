@@ -17,7 +17,7 @@ namespace
 	constexpr float kInitHP = 750.0f;
 
 	// コライダー
-	const Vector3 kCapsuleEndOffset = {0.0f, 100.0f, 0.0f};
+	const Vector3 kCapsuleEndOffset = {0.0f, 80.0f, 0.0f};
 	constexpr int kWeight = 10;
 	constexpr float kRadius = 80.0f;
 	const Vector3 kModelExRate = { 1.5f,1.5f,1.5f };

@@ -86,8 +86,8 @@ void WaveController::IntervalUpdate()
 
 	if (m_stateFrame > kWaitFrame)
 	{
-		++m_wave;
 		m_enemyGenerator->SpawnWave(m_wave);
+		++m_wave;
 		m_stateFrame = 0;
 		m_state = &WaveController::BattleUpdate;
 		return;

@@ -19,7 +19,7 @@ namespace
 {
 	constexpr float kMaxHp = 2000.0f;
 	const Vector2 kDrag = { 0.1f, 0.02f };
-	const Vector3 kCapsuleEndOffset = {0, 200, 0};
+	const Vector3 kCapsuleEndOffset = {0, 100, 0};
 	constexpr int kWeight = 50;
 	constexpr float kRadius = 160.0f;
 	const Vector3 kModelScale = {2.0f, 2.0f, 2.0f};

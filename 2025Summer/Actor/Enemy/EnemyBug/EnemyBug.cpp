@@ -22,7 +22,7 @@ namespace
 	constexpr float kSphereRadius = 60.0f;
 	constexpr int kWeight = 10;
 
-	const Vector3 kColOffset = {0,30,0};
+	const Vector3 kColOffset = {0,50,0};
 
 	// UŒ‚”»’è‚ğoŒ»‚³‚¹‚é‚ÉŠî€‚É‚·‚éƒŠƒO
 	const std::string kCollisionFrameName1 = "bug_mandible_R";
