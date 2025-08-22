@@ -77,6 +77,11 @@ void UIPositionLoader::SavePosition()
 
 	std::ofstream output(kFilePath);
 
+	if (!output)
+	{
+		printf("ŠJ‚¯‚È‚©‚Á‚½\n");
+	}
+
 	output << kHeader << std::endl;
 
 	for (auto& data : m_dataMap)
@@ -89,7 +94,7 @@ void UIPositionLoader::SavePosition()
 
 	output.close();
 
-	printf("‘‚«o‚µŠ®—¹");
+	printf("‘‚«o‚µŠ®—¹\n");
 
 #endif
 }

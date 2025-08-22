@@ -19,14 +19,15 @@ PlayerSpecialGauge::PlayerSpecialGauge() :
 
 void PlayerSpecialGauge::Init(std::weak_ptr<Player> player)
 {
-	m_pos = kInitPos;
-
 	m_player = player;
 
 	m_baseImage = std::make_shared<Image>();
 	m_baseImage->Init(kBaseImageName);
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kFillImageName);
+
+	m_baseImage->SetExRate(m_scale);
+	m_fillImage->SetExRate(m_scale);
 
 	m_fillImageSize = m_fillImage->GetImageSize();
 }

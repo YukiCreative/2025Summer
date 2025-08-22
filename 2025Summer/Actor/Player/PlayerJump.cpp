@@ -6,13 +6,14 @@
 #include "AttackState/PlayerAirAttack1.h"
 #include "../../Physics/Rigid.h"
 #include "../../Geometry/Geometry.h"
+#include "../../General/Game.h"
 
 namespace
 {
     const std::string kAnimName = "Armature|Jump";
     constexpr float kMoveSpeed = 0.0015f;
     constexpr float kJumpThreshold = 5.0f;
-    constexpr float kLerpSpeed = 0.05f;
+    constexpr float kLerpSpeed = 2.0f / static_cast<float>(Game::kFrameRate);
 }
 
 PlayerJump::PlayerJump(std::weak_ptr<Player> player) :
