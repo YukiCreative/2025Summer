@@ -146,12 +146,12 @@ int EnemyElite::GetAttackInterval()
 	return static_cast<int>(s_attackIntervalNormalDist(MyRandom::GetInstance().GetRandomEngine()));
 }
 
-void EnemyElite::OnDamage(std::shared_ptr<AttackCol> attack)
+void EnemyElite::OnDamage(std::weak_ptr<AttackCol> attack)
 {
 	// –³“G‚È‚çH‚ç‚í‚È‚¢
 	if (m_isInvincible) return;
 
-	auto attackPower = attack->GetAttackPower();
+	auto attackPower = attack.lock()->GetAttackPower();
 
 	m_stopFrame = 2;
 

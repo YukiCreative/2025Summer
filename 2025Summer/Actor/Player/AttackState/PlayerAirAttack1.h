@@ -11,6 +11,10 @@ public:
 
 private:
 
+	Vector3 m_beforeVel = {};
+
+private:
+
 	void OptionalProcess() override;
 };
 

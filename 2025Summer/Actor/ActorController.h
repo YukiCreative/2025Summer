@@ -7,6 +7,7 @@
 class Actor;
 class Physics;
 class UIBase;
+class Enemy;
 
 using ActorList_t = std::list<std::shared_ptr<Actor>>;
 
@@ -25,7 +26,7 @@ public:
 	// ‚»‚à‚»‚à¢ŠE‚É“G‚ª‚¢‚È‚©‚Á‚½‚çnullptr‚ª•Ô‚Á‚Ä‚«‚Ü‚·
 	std::shared_ptr<Actor> SearchNearestLockOnActor(const Vector3& pos) const;
 	// Enemy‚Ìlist‚ğ•Ô‚µ‚Ü‚·
-	ActorList_t SearchEnemy() const;
+	std::list<std::shared_ptr<Enemy>> SearchEnemy() const;
 
 	// ‘O‚ÌƒtƒŒ[ƒ€‚É€‚ñ‚¾“G‚Ìí—Ş‚ğ•Ô‚·
 	std::list<EnemyKind> GetBeforeDeathEnemy() { return m_beforeDeathEnemy; }

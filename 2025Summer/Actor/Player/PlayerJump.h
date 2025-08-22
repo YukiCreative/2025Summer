@@ -12,5 +12,8 @@ public:
 private:
 
 	int m_frame;
+	Vector3 m_startPos;
+	Vector3 m_targetPos;
+	float m_time;
 };
 

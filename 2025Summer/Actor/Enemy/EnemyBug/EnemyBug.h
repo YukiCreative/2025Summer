@@ -30,6 +30,7 @@ public:
 	Vector3 GetAttackRigPos() const;
 
 	void OnDeath() override;
+	void OnDamage(std::weak_ptr<AttackCol> other) override;
 
 	int GetAttackInterval();
 
@@ -48,7 +49,5 @@ private:
 	int m_attackFrame;
 
 private:
-
-	void OnDamage(std::shared_ptr<AttackCol> other) override;
 };
 

@@ -1,6 +1,7 @@
 #include "PlayerAirAttack3.h"
 #include "PlayerAirAttack1.h"
 #include "../Player.h"
+#include "../../../Physics/Rigid.h"
 
 namespace
 {
@@ -29,12 +30,12 @@ namespace
 PlayerAirAttack3::PlayerAirAttack3(std::weak_ptr<Player> player) :
 	PlayerAttackState(player)
 {
-	// 落下速度をリセット
-	m_player.lock()->StopY();
+	m_beforeVel = m_player.lock()->GetRigid().GetVel();
 }
 
 PlayerAirAttack3::~PlayerAirAttack3()
 {
+	m_player.lock()->AddVel(m_beforeVel);
 }
 
 void PlayerAirAttack3::Init()

@@ -82,22 +82,6 @@ void Enemy::Draw() const
 
 void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
-	if (other->GetKind() == ActorKind::kPlayerAttack)
-	{
-		auto attackCol = std::static_pointer_cast<AttackCol>(other);
-
-#if _DEBUG
-		printf("スタン値:%f", m_stunPoint.Value());
-#endif
-		if (m_stunPoint.IsStun())
-		{
-#if _DEBUG
-			printf("スタン！");
-#endif
-			OnStun();
-		}
-		return;
-	}
 }
 
 void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)
@@ -189,6 +173,15 @@ void Enemy::KnockBack(const Vector3& power)
 	}
 
 	m_collidable->AddVel(temp);
+}
+
+void Enemy::DecreaseStunPoint(const float point)
+{
+	m_stunPoint.DecreasePoint(point);
+	if (m_stunPoint.IsStun())
+	{
+		OnStun();
+	}
 }
 
 void Enemy::OnStun()

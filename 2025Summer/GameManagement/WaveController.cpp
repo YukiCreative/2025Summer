@@ -1,6 +1,9 @@
 #include "WaveController.h"
 #include "../Actor/Enemy/EnemyGenerator.h"
 #include "../Actor/ActorController.h"
+#include "../General/Input.h"
+#include "../Actor/ActorController.h"
+#include "../Actor/Enemy/Enemy.h"
 
 namespace
 {
@@ -27,6 +30,29 @@ void WaveController::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorContr
 void WaveController::Update()
 {
 	m_isDefeatedAllEnemy = false;
+
+#if _DEBUG
+	Input& input = Input::GetInstance();
+
+	if (input.IsTrigger("WaveProceed"))
+	{
+		// 今のウェーブを出現させる
+		m_enemyGenerator->SpawnWave(m_wave);
+		m_stateFrame = 0;
+		m_state = &WaveController::BattleUpdate;
+		return;
+	}
+	if (input.IsTrigger("WaveEliminate"))
+	{
+		// 今出ている敵を全滅させる
+		auto enemyes = m_actors.lock()->SearchEnemy();
+		for (auto& enemy : enemyes)
+		{
+			enemy->OnDeath();
+		}
+	}
+#endif
+
 	(this->*m_state)();
 }
 
@@ -37,7 +63,6 @@ void WaveController::BattleUpdate()
 
 	if (m_actors.lock()->SearchEnemy().size() == 0)
 	{
-		++m_wave;
 		m_isDefeatedAllEnemy = true;
 		if (m_wave > kMaxWave)
 		{
@@ -61,6 +86,7 @@ void WaveController::IntervalUpdate()
 
 	if (m_stateFrame > kWaitFrame)
 	{
+		++m_wave;
 		m_enemyGenerator->SpawnWave(m_wave);
 		m_stateFrame = 0;
 		m_state = &WaveController::BattleUpdate;

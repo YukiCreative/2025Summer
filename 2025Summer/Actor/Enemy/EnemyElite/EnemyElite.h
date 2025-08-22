@@ -16,6 +16,7 @@ public:
 	void CommitMove() override;
 
 	void OnDeath() override;
+	void OnDamage(std::weak_ptr<AttackCol>) override;
 
 	bool CheckAnimName(const std::string& animName) const;
 
@@ -36,7 +37,5 @@ private:
 	std::shared_ptr<EnemyEliteState> m_state;
 
 private:
-
-	void OnDamage(std::shared_ptr<AttackCol>) override;
 };
 

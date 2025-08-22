@@ -1,6 +1,7 @@
 #include "PlayerAirAttack1.h"
 #include "../Player.h"
 #include "PlayerAirAttack2.h"
+#include "../../../Physics/Rigid.h"
 
 #include "../../../Model/AnimationModel.h"
 
@@ -33,10 +34,14 @@ PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
 {
 	Init();
 	PlayAnim();
+
+	// ‚¢‚Á‚½‚ñ‰Á‘¬“x‚ð‹L˜^
+	m_beforeVel = m_player.lock()->GetRigid().GetVel();
 }
 
 PlayerAirAttack1::~PlayerAirAttack1()
 {
+	m_player.lock()->AddVel(m_beforeVel);
 }
 
 void PlayerAirAttack1::Init()

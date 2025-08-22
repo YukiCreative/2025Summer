@@ -4,7 +4,7 @@
 class Player;
 class EffekseerEffect;
 
-class PlayerSpecialAttackCol : public AttackCol, std::enable_shared_from_this<PlayerSpecialAttackCol>
+class PlayerSpecialAttackCol : public AttackCol, public std::enable_shared_from_this<PlayerSpecialAttackCol>
 {
 public:
 	PlayerSpecialAttackCol();

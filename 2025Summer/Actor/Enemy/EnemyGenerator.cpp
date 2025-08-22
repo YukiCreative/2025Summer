@@ -44,7 +44,7 @@ void EnemyGenerator::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorContr
 
 void EnemyGenerator::SpawnWave(const int waveNum)
 {
-	if (waveNum < 0 || waveNum > m_waveData.size()) return;
+	if (waveNum < 0 || waveNum >= m_waveData.size()) return;
 
 	auto& wave = m_waveData[waveNum];
 

@@ -69,19 +69,6 @@ void Input::SetKeyDefault()
 		{PeripheralType::kKeyboard, KEY_INPUT_LEFT},
 		{PeripheralType::kPad, PAD_INPUT_LEFT},
 	};
-	m_inputEvent["Rise"] =
-	{
-		{PeripheralType::kKeyboard, KEY_INPUT_RSHIFT}
-	};
-	m_inputEvent["Descend"] =
-	{
-		{PeripheralType::kKeyboard, KEY_INPUT_RCONTROL}
-	};
-
-	m_inputEvent["GoDebug"] =
-	{
-		{PeripheralType::kKeyboard, KEY_INPUT_F1}
-	};
 	m_inputEvent["Jump"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_SPACE},
@@ -135,6 +122,11 @@ void Input::SetKeyDefault()
 		{PeripheralType::kPad, kPadB},
 		{PeripheralType::kMouse, MOUSE_INPUT_RIGHT}
 	};
+	m_inputEvent["Tele"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_X},
+		{PeripheralType::kPad, kPadY}
+	};
 	m_inputEvent["EditSave"] =
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_END}
@@ -147,10 +139,17 @@ void Input::SetKeyDefault()
 	{
 		{PeripheralType::kKeyboard, KEY_INPUT_TAB}
 	};
-	m_inputEvent["Tele"] =
+	m_inputEvent["GoDebug"] =
 	{
-		{PeripheralType::kKeyboard, KEY_INPUT_X},
-		{PeripheralType::kPad, kPadY}
+		{PeripheralType::kKeyboard, KEY_INPUT_F1}
+	};
+	m_inputEvent["WaveProceed"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_F3}
+	};
+	m_inputEvent["WaveEliminate"] =
+	{
+		{PeripheralType::kKeyboard, KEY_INPUT_F4}
 	};
 }
 

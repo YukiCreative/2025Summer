@@ -18,6 +18,7 @@ public:
 
 	void SpawnBullet();
 	void OnDeath() override;
+	void OnDamage(std::weak_ptr<AttackCol> other);
 	int GetAttackInterval();
 
 private:
@@ -27,7 +28,5 @@ private:
 	std::shared_ptr<EnemyPlantState> m_state;
 
 private:
-
-	void OnDamage(std::shared_ptr<AttackCol> other);
 };
 

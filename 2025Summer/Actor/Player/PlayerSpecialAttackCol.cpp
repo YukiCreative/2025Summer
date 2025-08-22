@@ -106,5 +106,5 @@ void PlayerSpecialAttackCol::OnCollisionEnter(std::shared_ptr<Actor> other)
 	// sp‘‰Á
 	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kSpecialAttack);
 
-	enemy->OnDamage(shared_from_this());
+	enemy->OnDamage(weak_from_this());
 }

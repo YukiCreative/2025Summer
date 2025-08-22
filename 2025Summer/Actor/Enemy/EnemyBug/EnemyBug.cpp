@@ -79,7 +79,7 @@ void EnemyBug::CommitMove()
 	const Vector3 vel = m_collidable->UpdateRigid();
 
 	// DEBUG
-	if (vel.y > 100.0f)
+	if (vel.y > 50.0f)
 	{
 		if (vel.y > 100.0f) 
 		{
@@ -129,12 +129,12 @@ int EnemyBug::GetAttackInterval()
 	return interval;
 }
 
-void EnemyBug::OnDamage(std::shared_ptr<AttackCol> attack)
+void EnemyBug::OnDamage(std::weak_ptr<AttackCol> attack)
 {
 	// 無敵なら食らわない
 	if (m_isInvincible) return;
 
-	auto attackPower = attack->GetAttackPower();
+	auto attackPower = attack.lock()->GetAttackPower();
 
 	// ヒットストップをかける
 	m_stopFrame = 2;
