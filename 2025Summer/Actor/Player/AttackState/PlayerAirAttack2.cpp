@@ -9,8 +9,8 @@ namespace
 	const std::string kAnimName = "Armature|AirCombo2";
 	constexpr bool kIsLoopAnim = false;
 
-	constexpr int kEnableAttackFrame = 10;
-	constexpr int kDisableAttackFrame = 25;
+	constexpr int kEnableAttackFrame = 5;
+	constexpr int kDisableAttackFrame = 20;
 	constexpr int kStateWholeFrame = 58;
 	// 前進するタイミング
 	constexpr int kTrackFrame = 0;
@@ -25,7 +25,7 @@ namespace
 	const Vector3 kKnockbackPower = {0.0f, 10.0f, -2.0f};
 	constexpr float kStunPower = 3.0f;
 
-	const Vector3 kHoverForce = { 0.0f, 10.0f, 0.0f };
+	const Vector3 kHoverForce = { 0.0f, 15.0f, 0.0f };
 }
 
 PlayerAirAttack2::PlayerAirAttack2(std::weak_ptr<Player> player) :
