@@ -47,6 +47,7 @@ PlayerJump::PlayerJump(std::weak_ptr<Player> player) :
 
 PlayerJump::~PlayerJump()
 {
+    m_player.lock()->SetDragDefault();
 }
 
 std::shared_ptr<PlayerState> PlayerJump::Update()

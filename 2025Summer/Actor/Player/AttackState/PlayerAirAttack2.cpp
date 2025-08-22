@@ -32,6 +32,13 @@ PlayerAirAttack2::PlayerAirAttack2(std::weak_ptr<Player> player) :
 	PlayerAttackState(player)
 {
 	m_beforeVel = m_player.lock()->GetRigid().GetVel();
+	// ã¸‚µ‚Ä‚¢‚é•ª‚Í•Û‘¶‚µ‚È‚¢
+	if (m_beforeVel.y > 0.0f)
+	{
+		m_beforeVel.y = 0.0f;
+		m_player.lock()->StopY();
+		m_player.lock()->AddVel(kHoverForce);
+	}
 }
 
 PlayerAirAttack2::~PlayerAirAttack2()

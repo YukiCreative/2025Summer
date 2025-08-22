@@ -11,14 +11,14 @@ namespace
 	// 前進するタイミング
 	constexpr int kTrackFrame = 12;
 	// 前進する力
-	const float kTrackForce = 10.0f;
+	const float kTrackForce = 20.0f;
 	// 次の攻撃入力の受付開始時間
 	constexpr int kAcceptAttackInputFrame = 20;
 	// 攻撃が派生するタイミング
 	constexpr int kEnableComboFrame = 30;
 
 	constexpr float kAttackPower = 130.0f;
-	const Vector3 kKnockbackPower = { 0.0f, 65.0f, 10.0f };
+	const Vector3 kKnockbackPower = { 0.0f, 85.0f, 10.0f };
 
 	const std::string kAnimName = "Armature|SlashUp";
 	constexpr bool kIsLoopAnim = false;
