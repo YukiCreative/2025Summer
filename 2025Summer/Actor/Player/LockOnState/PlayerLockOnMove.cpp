@@ -7,6 +7,7 @@
 #include "../PlayerFall.h"
 #include "../PlayerJump.h"
 #include "../PlayerDodge.h"
+#include "../PlayerTeleportation.h"
 
 #include "PlayerLockOnMoveBack.h"
 #include "PlayerLockOnMoveFoward.h"
@@ -77,6 +78,10 @@ std::shared_ptr<PlayerState> PlayerLockOnMove::Update()
 	if (input.IsTrigger("Dodge"))
 	{
 		return std::make_shared<PlayerDodge>(m_player);
+	}
+	if (input.IsTrigger("Tele"))
+	{
+		return std::make_shared<PlayerTeleportation>(m_player);
 	}
 
 	if (modelAxisDot > kMoveDirThreshold) // ‘O

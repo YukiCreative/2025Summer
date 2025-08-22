@@ -10,6 +10,7 @@
 #include "../NormalState/PlayerMove.h"
 #include "../PlayerFall.h"
 #include "../PlayerJump.h"
+#include "../PlayerDodge.h"
 
 namespace
 { 
@@ -41,6 +42,7 @@ PlayerAttackState::PlayerAttackState(std::weak_ptr<Player> parent) :
 
 PlayerAttackState::~PlayerAttackState()
 {
+	m_player.lock()->DisableSwordCol();
 }
 
 void PlayerAttackState::PlayAnim()
@@ -74,6 +76,12 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	if (m_frame >= m_acceptNextAttackInputFrame)
 	{
 		m_isEnterAttack |= input.IsTrigger("Attack");
+	}
+
+	// UŒ‚ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ
+	if (input.IsTrigger("Dodge"))
+	{
+		return std::make_shared<PlayerDodge>(m_player);
 	}
 
 	// Ÿ‚ÌUŒ‚‚Ö

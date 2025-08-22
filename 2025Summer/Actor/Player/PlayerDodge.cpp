@@ -9,6 +9,7 @@
 #include "NormalState/PlayerMove.h"
 #include "../../Camera/Camera.h"
 #include "../../Geometry/Geometry.h"
+#include "AttackState/PlayerSlashDown.h"
 
 namespace
 {
@@ -20,16 +21,19 @@ namespace
 	const Vector3 kDodgeForce = { 0.0f, 0.0f, 4.0f };
 	constexpr int kForceFrame = 25;
 
-	constexpr int kCanTransitionFrame = 30;
+	constexpr int kTypeAheadFrame = 20;
+	constexpr int kCanTransitionFrame = 35;
 
-	const std::string kAnimName =  "Armature|RollingDodge";
-	const std::string kJustAnimName =  "Armature|JustDodge";
+	const std::string kAnimName = "Armature|RollingDodge";
+	const std::string kJustAnimName = "Armature|JustDodge";
 }
 
 PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 	PlayerState(parent),
 	m_frame(0),
-	m_isJustDodge(false)
+	m_isJustDodge(false),
+	m_isInputAheadAttack(false),
+	m_isInputAheadDodge(false)
 {
 	Input& input = Input::GetInstance();
 	std::shared_ptr<Player> p = m_player.lock();
@@ -42,19 +46,16 @@ PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };
 	inputAxis.z *= -1;
 	Vector3 cameraRotatedAxis = p->m_camera.lock()->RotateVecToCameraDirXZ(inputAxis, Vector3::Foward());
-
-	const Vector3 modelDir = p->m_model->GetDirection();
-
 	const Vector3 cameraRotatedAxisN = cameraRotatedAxis.GetNormalize();
 
 	// ƒLƒƒƒ‰‚ÌŒü‚«‚É‘Î‚µ‚Ä“ü—Í‚ª‚Ç‚ñ‚ÈˆÊ’uŠÖŒW‚©’²‚×‚½‚¢
-	const Vector3 cross = modelDir.Cross(cameraRotatedAxisN);
-
-	float corner = Geometry::Corner(cameraRotatedAxisN, modelDir);
+	const Vector3 cross = p->GetDirection().Cross(cameraRotatedAxisN);
+	float corner = Geometry::Corner(cameraRotatedAxisN, p->GetDirection());
 
 	if (cross.y < 0) corner *= -1;
 
 	p->m_model->RotateUpVecY(corner);
+	p->DisableSword();
 }
 
 PlayerDodge::~PlayerDodge()
@@ -64,6 +65,7 @@ PlayerDodge::~PlayerDodge()
 std::shared_ptr<PlayerState> PlayerDodge::Update()
 {
 	auto p = m_player.lock();
+	Input& input = Input::GetInstance();
 
 	// ó‘Ô‘JˆÚŒã‚©‚çˆê’èŠÔ‘O•û‚ÉˆÚ“®
 	if (m_frame < kForceFrame)
@@ -94,9 +96,25 @@ std::shared_ptr<PlayerState> PlayerDodge::Update()
 		p->SetInvincibility(false);
 		return std::make_shared<PlayerIdle>(m_player);
 	}
-	if (m_frame > kCanTransitionFrame && Input::GetInstance().GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+	if (m_frame > kTypeAheadFrame)
 	{
-		return std::make_shared<PlayerMove>(m_player);
+		m_isInputAheadDodge |= input.IsTrigger("Dodge");
+		m_isInputAheadAttack |= input.IsTrigger("Attack");
+	}
+	if (m_frame > kCanTransitionFrame)
+	{
+		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
+		{
+			return std::make_shared<PlayerMove>(m_player);
+		}
+		if (m_isInputAheadDodge)
+		{
+			return std::make_shared<PlayerDodge>(m_player);
+		}
+		if (m_isInputAheadAttack)
+		{
+			return std::make_shared<PlayerSlashDown>(m_player);
+		}
 	}
 
 	return shared_from_this();

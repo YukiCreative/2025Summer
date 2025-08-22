@@ -3,6 +3,7 @@
 #include "PlayerLanding.h"
 #include "../../General/Input.h"
 #include "AttackState/PlayerAirAttack1.h"
+#include "PlayerTeleportation.h"
 
 namespace
 {
@@ -34,6 +35,10 @@ std::shared_ptr<PlayerState> PlayerFall::Update()
 	if (input.IsTrigger("Attack"))
 	{
 		return std::make_shared<PlayerAirAttack1>(m_player);
+	}
+	if (input.IsTrigger("Tele"))
+	{
+		return std::make_shared<PlayerTeleportation>(m_player);
 	}
 
 	// ˆÚ“®‚Å‚«‚é

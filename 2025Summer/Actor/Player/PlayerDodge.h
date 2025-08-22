@@ -15,6 +15,10 @@ private:
 	int m_frame;
 	bool m_isJustDodge;
 
+	// ‰ñ”ğ‚ÆUŒ‚‚È‚ç‰ñ”ğ—Dæ
+	bool m_isInputAheadAttack;
+	bool m_isInputAheadDodge;
+
 private:
 	void JustDodge();
 };
