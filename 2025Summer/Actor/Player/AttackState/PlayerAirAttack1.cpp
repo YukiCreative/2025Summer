@@ -2,6 +2,7 @@
 #include "../Player.h"
 #include "PlayerAirAttack2.h"
 #include "../../../Physics/Rigid.h"
+#include "../PlayerLanding.h"
 
 #include "../../../Model/AnimationModel.h"
 
@@ -66,7 +67,7 @@ void PlayerAirAttack1::Init()
 	m_stunPower = kStunPower;
 }
 
-void PlayerAirAttack1::OptionalProcess()
+std::shared_ptr<PlayerState> PlayerAirAttack1::OptionalProcess()
 {
 	if (m_frame == kEnableAttackFrame)
 	{
@@ -74,4 +75,12 @@ void PlayerAirAttack1::OptionalProcess()
 		m_player.lock()->StopY();
 		m_player.lock()->AddVel(kHoverForce);
 	}
+
+	// ’n–Ê‚É‚Â‚¢‚Ä‚½‚ç’…’n
+	if (m_player.lock()->IsGround())
+	{
+		return std::make_shared<PlayerLanding>(m_player);
+	}
+
+	return shared_from_this();
 }

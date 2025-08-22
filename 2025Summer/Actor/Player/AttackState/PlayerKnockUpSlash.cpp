@@ -61,7 +61,7 @@ void PlayerKnockUpSlash::Init()
 	m_comboAttack = std::make_shared<PlayerAirAttack1>(m_player);
 }
 
-void PlayerKnockUpSlash::OptionalProcess()
+std::shared_ptr<PlayerState> PlayerKnockUpSlash::OptionalProcess()
 {
 	// ˆê“x—£‚µ‚½‚çfalse‚É‚È‚é
 	m_isLongPress &= Input::GetInstance().IsPressed("Attack");
@@ -76,4 +76,6 @@ void PlayerKnockUpSlash::OptionalProcess()
 	{
 		m_player.lock()->SetDragDefault();
 	}
+
+	return shared_from_this();
 }

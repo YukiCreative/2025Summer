@@ -75,7 +75,7 @@ void PlayerShockWaveSlash::Init()
 	m_stunPower = kStunPower;
 }
 
-void PlayerShockWaveSlash::OptionalProcess()
+std::shared_ptr<PlayerState> PlayerShockWaveSlash::OptionalProcess()
 {
 	auto p = m_player.lock();
 
@@ -106,4 +106,6 @@ void PlayerShockWaveSlash::OptionalProcess()
 		auto rot = MMult(MGetRotZ(kShockWaveRot2 * Geometry::kDegToRad), MGetRotElem(p->GetModelMatrix()));
 		p->SpawnShockWave(rot, p->GetRightInexPos());
 	}
+
+	return shared_from_this();
 }

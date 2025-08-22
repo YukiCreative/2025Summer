@@ -135,11 +135,11 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	}
 
 	// ”CˆÓ‚Ìˆ—
-	OptionalProcess();
+	std::shared_ptr<PlayerState> nextState = OptionalProcess();
 
 	++m_frame;
 
-	return shared_from_this();
+	return nextState;
 }
 
 Vector3 PlayerAttackState::TrackingVec(const float strength, const float trackEnemyStrength)

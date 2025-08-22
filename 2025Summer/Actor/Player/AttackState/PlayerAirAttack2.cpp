@@ -2,6 +2,7 @@
 #include "../Player.h"
 #include "PlayerAirAttack3.h"
 #include "../../../Physics/Rigid.h"
+#include "../PlayerLanding.h"
 
 namespace
 {
@@ -57,7 +58,7 @@ void PlayerAirAttack2::Init()
 	m_stunPower = kStunPower;
 }
 
-void PlayerAirAttack2::OptionalProcess()
+std::shared_ptr<PlayerState> PlayerAirAttack2::OptionalProcess()
 {
 	if (m_frame == kEnableAttackFrame)
 	{
@@ -65,4 +66,12 @@ void PlayerAirAttack2::OptionalProcess()
 		m_player.lock()->StopY();
 		m_player.lock()->AddVel(kHoverForce);
 	}
+
+	// ’n–Ê‚É‚Â‚¢‚Ä‚½‚ç’…’n
+	if (m_player.lock()->IsGround())
+	{
+		return std::make_shared<PlayerLanding>(m_player);
+	}
+
+	return shared_from_this();
 }

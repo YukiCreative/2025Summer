@@ -44,7 +44,7 @@ protected:
 protected:
 
 	// ”h¶æ‚Å”CˆÓ‚Ìˆ—‚ğÀ‘•‚µ‚½‚¢‚Æ‚«‚Ég‚¤
-	virtual void OptionalProcess() {}
+	virtual std::shared_ptr<PlayerState> OptionalProcess() { return shared_from_this(); }
 
 	// “G‚É‹z‚¢‚Â‚­‹““®‚ğÀŒ»‚µ‚Ü‚·
 	// ‹z‚¢‚Â‚­‚Æ‚«‚Æ‚»‚¤‚Å‚È‚¢(”CˆÓ“ü—ÍA‘ÎÛ‚È‚µ)‚Å‰Á‚¦‚é—Í‚ğ•Ï‚¦‚ç‚ê‚é

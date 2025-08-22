@@ -11,6 +11,6 @@ public:
 
 private:
 
-	void OptionalProcess() override;
+	std::shared_ptr<PlayerState> OptionalProcess() override;
 };
 

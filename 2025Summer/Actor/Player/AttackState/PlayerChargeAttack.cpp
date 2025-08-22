@@ -65,7 +65,7 @@ void PlayerChargeAttack::Init()
 	p->EnableSword();
 }
 
-void PlayerChargeAttack::OptionalProcess()
+std::shared_ptr<PlayerState> PlayerChargeAttack::OptionalProcess()
 {
 	auto p = m_player.lock();
 
@@ -108,4 +108,6 @@ void PlayerChargeAttack::OptionalProcess()
 		// ‚·‚Å‚É‚»‚Ìƒ‰ƒCƒ“‚ð’´‚¦‚Ä‚¢‚ê‚Î‰½‚à‚µ‚È‚¢
 		m_frame = std::max(kChargeFrame-1, m_frame);
 	}
+
+	return shared_from_this();
 }
