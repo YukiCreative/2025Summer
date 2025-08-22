@@ -5,12 +5,13 @@
 #include "PlayerLanding.h"
 #include "AttackState/PlayerAirAttack1.h"
 #include "../../Physics/Rigid.h"
+#include "../../Geometry/Geometry.h"
 
 namespace
 {
     const std::string kAnimName = "Armature|Jump";
     constexpr float kMoveSpeed = 0.0015f;
-    constexpr float kJumpThreshold = 50.0f;
+    constexpr float kJumpThreshold = 5.0f;
     constexpr float kLerpSpeed = 0.05f;
 }
 
@@ -25,22 +26,20 @@ PlayerJump::PlayerJump(std::weak_ptr<Player> player) :
     m_startPos = p->GetPos();
     // ジャンプ
     // ロックオンしているかどうかで処理を分ける
-    if (p->IsLockOn())
+    if (CheckLockOnJump())
     {
         Vector3 enemyPos = p->m_lockOnActor.lock()->GetPos();
 
         // 敵のほうがプレイヤーより一定以上高ければ
-        if (p->GetPos().y - enemyPos.y > kJumpThreshold)
-        {
-            // その高さに合うようにジャンプ
-            m_targetPos = Vector3{ p->GetPos().x, enemyPos.y, p->GetPos().z };
-        }
+        // その高さに合うようにジャンプ
+        m_targetPos = Vector3{ p->GetPos().x, enemyPos.y, p->GetPos().z };
     }
     else
     {
         // そうでないなら普通にジャンプ
         p->AddVel(kJumpForce);
         p->SetDragY(kStartDragY);
+        m_targetPos = p->GetPos();
     }
 
     p->ChangeAnim(kAnimName, false);
@@ -68,21 +67,24 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     {
         return std::make_shared<PlayerAirAttack1>(m_player);
     }
-    if (p->IsGround())
-    {
-        return std::make_shared<PlayerLanding>(m_player);
-    }
 
     // ロックオンジャンプの処理
-    if (p->IsLockOn() && p->GetPos().y - p->m_lockOnActor.lock()->GetPos().y > kJumpThreshold)
+    if (CheckLockOnJump())
     {
-        p->SetPos(m_startPos.Lerp(m_targetPos, m_time));
         m_time += kLerpSpeed;
         m_time = std::min(m_time, 1.0f);
-        if (p->GetPos().y - p->m_lockOnActor.lock()->GetPos().y < kJumpThreshold)
+        p->SetPos(m_startPos.Lerp(m_targetPos, Geometry::Easing(m_time, Geometry::EasingKind::kInOutQuint)));
+        
+        if (!CheckLockOnJump())
         {
             return std::make_shared<PlayerFall>(m_player);
         }
+        p->CheckIsGround();
+    }
+
+    if (p->IsGround())
+    {
+        return std::make_shared<PlayerLanding>(m_player);
     }
 
     p->Move(kMoveSpeed);
@@ -90,4 +92,9 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
     ++m_frame;
 
     return shared_from_this();
+}
+
+bool PlayerJump::CheckLockOnJump() const
+{
+    return m_player.lock()->IsLockOn() && m_player.lock()->m_lockOnActor.lock()->GetPos().y - m_player.lock()->GetPos().y > kJumpThreshold;
 }

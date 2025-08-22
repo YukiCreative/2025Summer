@@ -1,6 +1,7 @@
 #include "Geometry.h"
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 
 Vector3 Geometry::GetRotatedPosUpVecY(const Vector3& movePos, const Vector3& basePos, const float rad)
 {
@@ -81,4 +82,23 @@ MATRIX Geometry::GetMatXYZ(const float x, const float y, const float z)
 	auto zRot = MGetRotX(z);
 
 	return MMult(MMult(xRot,yRot),zRot);
+}
+
+float Geometry::Easing(RangeLimitedValue<float, 0.0f, 1.0f> time, EasingKind kind)
+{
+	switch (kind)
+	{
+	case Geometry::EasingKind::kOutQuart:
+		// https://easings.net/ja#easeOutQuart
+		return 1 - static_cast<float>(pow(1 - time.Value(), 4));
+		break;
+	case Geometry::EasingKind::kInOutQuint:
+		// https://easings.net/ja#easeInOutQuint
+		return (time.Value() < 0.5f) ? 16 * static_cast<float>(pow(time.Value(), 5)) : 1 - static_cast<float>(pow(-2 * time.Value() + 2, 5)) / 2;
+		break;
+	default:
+		assert(false && "—ñ‹“‚Éˆ—‚ªì‚ç‚ê‚Ä‚¢‚È‚¢");
+		return time.Value();
+		break;
+	}
 }

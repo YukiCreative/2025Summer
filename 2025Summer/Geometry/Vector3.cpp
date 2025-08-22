@@ -174,9 +174,9 @@ Vector3 Vector3::Cross(const Vector3& other) const
 Vector3 Vector3::Lerp(const Vector3& targetPos, const float time) const
 {
 	Vector3 lerped;
-	lerped.x += (targetPos.x - x) * time;
-	lerped.y += (targetPos.y - y) * time;
-	lerped.z += (targetPos.z - z) * time;
+	lerped.x = x + (targetPos.x - x) * time;
+	lerped.y = y + (targetPos.y - y) * time;
+	lerped.z = z + (targetPos.z - z) * time;
 	return lerped;
 }
 

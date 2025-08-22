@@ -421,6 +421,11 @@ void Player::StopY()
 	m_collidable->GetRigid().StopY();
 }
 
+void Player::StopVel()
+{
+	m_collidable->GetRigid().Stop();
+}
+
 void Player::SetDragY(const float drag)
 {
 	m_collidable->GetRigid().SetDrag({m_collidable->GetRigid().GetDrag().x, drag});

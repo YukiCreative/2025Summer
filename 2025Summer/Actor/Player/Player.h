@@ -95,6 +95,7 @@ public:
 	bool IsAnimEnd() const;
 	bool IsGround() const { return m_isGround; }
 	void StopY();
+	void StopVel();
 	void SetDragY(const float drag);
 	void SetDragDefault();
 

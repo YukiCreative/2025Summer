@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include <DxLib.h>
+#include "../Utility/RangeLimitedValue.h"
 
 namespace Geometry
 {
@@ -30,4 +31,12 @@ namespace Geometry
 
 	// XYZ‰ñ“](ƒ‰ƒWƒAƒ“)
 	MATRIX GetMatXYZ(const float x, const float y, const float z);
+
+	enum class EasingKind
+	{
+		kOutQuart,
+		kInOutQuint,
+	};
+
+	float Easing(RangeLimitedValue<float, 0.0f, 1.0f> time, EasingKind kind);
 }

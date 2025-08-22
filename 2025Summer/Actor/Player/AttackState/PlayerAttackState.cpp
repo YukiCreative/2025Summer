@@ -158,10 +158,10 @@ Vector3 PlayerAttackState::TrackVec(const float strength, const float trackEnemy
 		return inputV.GetNormalize() * strength;
 	}
 		
-	// ロックオンしてるなら、その敵の方向
+	// ロックオンしてるなら、その敵のXZ方向
 	if (p->IsLockOn())
 	{
-		return (p->m_lockOnActor.lock()->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
+		return (p->m_lockOnActor.lock()->GetPos().XZ() - p->GetPos().XZ()).GetNormalize() * trackEnemyStrength;
 	}
 
 	auto nearestActor = p->m_cont.lock()->SearchNearestLockOnActor(m_player.lock()->GetPos());

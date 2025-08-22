@@ -27,7 +27,9 @@ Input::Input() :
 	m_beforeKeyInput(),
 	m_leftInputAxis(),
 	m_beforeLeftInputAxis(),
-	m_inputEvent()
+	m_inputEvent(),
+	m_mouseInput(),
+	m_beforeMouseInput()
 {
 }
 
