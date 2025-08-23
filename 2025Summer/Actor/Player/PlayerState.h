@@ -37,34 +37,3 @@ protected:
 
 protected:
 };
-
-using FunctionEnter = std::function<void()>;
-using FunctionUpdate = std::function<void(float)>;
-using FunctionExit = std::function<void()>;
-
-struct StateInfo
-{
-	FunctionEnter Enter;
-	FunctionUpdate Update;
-	FunctionExit Exit;
-};
-
-class StateMachine
-{
-public:
-	void AddState(string, FunctionEnter, FunctionUpdate, FunctionExit);
-	void Update(float DeltaTime)
-	{
-		//
-	}
-protected:
-	map<string/*StateName*/, StateInfo> StateList;
-};
-
-class PlayerMove
-{
-protected:
-	StateMachine StateMachine;
-
-private:
-};

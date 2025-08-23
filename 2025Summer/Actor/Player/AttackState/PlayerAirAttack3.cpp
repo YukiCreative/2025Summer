@@ -9,15 +9,15 @@ namespace
 	const std::string kAnimName = "Armature|AirCombo3";
 	constexpr bool kIsLoopAnim = false;
 
-	constexpr int kEnableAttackFrame = 13;
-	constexpr int kDisableAttackFrame = 28;
-	constexpr int kStateWholeFrame = 58;
+	constexpr int kEnableAttackFrame = 9;
+	constexpr int kDisableAttackFrame = 20;
+	constexpr int kStateWholeFrame = 64;
 	// 前進するタイミング
 	constexpr int kTrackFrame = 0;
 	// 前進する力
 	const float kTrackForce = 0.0f;
 	// 次の攻撃入力の受付開始時間
-	constexpr int kAcceptAttackInputFrame = 10;
+	constexpr int kAcceptAttackInputFrame = 20;
 	// 攻撃が派生するタイミング
 	constexpr int kEnableComboFrame = 40;
 
@@ -25,7 +25,7 @@ namespace
 	const Vector3 kKnockbackPower = { 0.0f, -50.0f, 100.0f };
 	constexpr float kStunPower = 4.0f;
 
-	const Vector3 kHoverForce = { 0.0f, 15.0f, 0.0f };
+	const Vector3 kHoverForce = { 0.0f, 10.0f, 0.0f };
 }
 
 PlayerAirAttack3::PlayerAirAttack3(std::weak_ptr<Player> player) :
