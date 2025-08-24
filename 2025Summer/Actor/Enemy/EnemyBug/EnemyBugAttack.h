@@ -10,5 +10,4 @@ public:
 
 	std::shared_ptr<EnemyBugState> Update() override;
 private:
-	int m_frame = 0;
 };

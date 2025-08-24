@@ -61,6 +61,7 @@ public:
 	void DecreaseStunPoint(const float point);
 	void OnStun();
 	virtual void OnDamage(std::weak_ptr<AttackCol>) abstract;
+	bool IsDamagedInThisFrame() const { return m_isDamageInThisFrame; }
 
 protected:
 
@@ -80,6 +81,8 @@ protected:
 	// プレイヤーの参照を持たせる
 	std::weak_ptr<Player> m_player;
 	bool m_isInvincible;
+	// このフレームに攻撃を受けたかどうか
+	bool m_isDamageInThisFrame;
 
 	std::weak_ptr<EffekseerEffect> m_bloodEffect;
 

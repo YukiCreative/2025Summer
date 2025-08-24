@@ -34,7 +34,8 @@ Enemy::Enemy(const float maxStunPoint) :
 	m_bloodFrameIndex(0),
 	m_stunPoint(maxStunPoint),
 	m_isKnockUp(false),
-	m_fallFrame(0)
+	m_fallFrame(0),
+	m_isDamageInThisFrame(false)
 {
 }
 
@@ -69,6 +70,9 @@ void Enemy::Update()
 	if (!m_isKnockUp) return;
 
 	KnockUpUpdate();
+
+	// フラグリセット
+	m_isDamageInThisFrame = false;
 }
 
 void Enemy::Draw() const
@@ -82,6 +86,7 @@ void Enemy::Draw() const
 
 void Enemy::OnCollisionEnter(std::shared_ptr<Actor> other)
 {
+	m_isDamageInThisFrame |= other->GetKind() == ActorKind::kPlayerAttack;
 }
 
 void Enemy::ChangeAnim(const std::string& animName, const bool isLoop)

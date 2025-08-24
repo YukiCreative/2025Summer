@@ -15,6 +15,7 @@ public:
 protected:
 
 	std::weak_ptr<EnemyBug> m_parent;
+	int m_frame = 0;
 
 private:
 
