@@ -29,7 +29,7 @@ TimeUI::TimeUI() :
 void TimeUI::Init(const Vector2& initPos, std::weak_ptr<Timer> timerRef)
 {
 	m_timerRef = timerRef;
-	m_fontHandle = CreateFontToHandle(kFontName.c_str(), kFontSize * m_scale, kFontThick, DX_FONTTYPE_EDGE);
+	m_fontHandle = CreateFontToHandle(kFontName.c_str(), static_cast<int>(kFontSize * m_scale), kFontThick, DX_FONTTYPE_EDGE);
 	m_color = Color::White;
 }
 

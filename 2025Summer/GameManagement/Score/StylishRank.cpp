@@ -53,7 +53,7 @@ void StylishRank::IncreaseStylishPoint(const IncreaseStylishPointKind kind)
 	assert(m_increasePointMap.contains(kind) && "対応してる列挙体の要素がMapになかったよ");
 
 	// 連続して同じ方法で加点されてたら加点量を減らす
-	const int historyCount = std::count(m_stylishActionHistory.begin(), m_stylishActionHistory.end(), kind);
+	const int historyCount = static_cast<int>(std::count(m_stylishActionHistory.begin(), m_stylishActionHistory.end(), kind));
 
 	// この計算式なら一回目は100％二回目は50％三回目は33％…になっていく
 	// 後で変えるかも

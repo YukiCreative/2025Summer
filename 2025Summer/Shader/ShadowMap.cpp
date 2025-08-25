@@ -3,7 +3,7 @@
 
 namespace
 {
-	constexpr int kShadowTextureSize = 1024;
+	constexpr int kShadowTextureSize = 2048;
 }
 
 ShadowMap::ShadowMap() :

@@ -1,6 +1,6 @@
 Name,PosX,PosY,Scale
 PlayerLockOnUI,663.348,333.595,1
-PlayerHPBar,52,40,1.9
+PlayerHPBar,52,40,1
 PlayerSpecialGauge,50,83,1
 StylishRankUI,1139,400,1
-TimeUI,820,35,1
+TimeUI,814,38,1

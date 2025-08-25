@@ -1,10 +1,13 @@
 #include "EnemyBugStun.h"
 #include "EnemyBug.h"
 #include <string>
+#include "EnemyBugIdle.h"
+#include "EnemyBugKnockUp.h"
 
 namespace
 {
 	const std::string kDamageAnimName = "Armature|HitReact";
+	constexpr int kStunFrame = 300;
 }
 
 EnemyBugStun::EnemyBugStun(std::weak_ptr<EnemyBug> parent) :
@@ -27,9 +30,18 @@ std::shared_ptr<EnemyBugState> EnemyBugStun::Update()
 	}
 
 	// ‘Å‚¿ã‚°UŒ‚‚ðŽó‚¯‚½‚ç‘Å‚¿ã‚°ó‘Ô‚Ö
+	if (parent->IsKnockUp())
+	{
+		return std::make_shared<EnemyBugKnockUp>(m_parent);
+	}
 
 	// ˆê’èŽžŠÔŒo‰ß‚µ‚½‚ç’Êíó‘Ô‚Ö
+	if (m_frame > kStunFrame)
+	{
+		return std::make_shared<EnemyBugIdle>(m_parent);
+	}
 
+	++m_frame;
 
 	return shared_from_this();
 }

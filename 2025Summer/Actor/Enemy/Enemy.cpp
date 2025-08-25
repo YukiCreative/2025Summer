@@ -195,6 +195,13 @@ void Enemy::OnStun()
 	m_collidable->GetRigid().SetDrag({ m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag });
 }
 
+void Enemy::ReversePlaybackAnim()
+{
+	if (!this) return;
+
+	m_model->SetAnimPlaySpeed(m_model->GetAnimPlaySpeed() * -1);
+}
+
 void Enemy::KnockUpUpdate()
 {
 	Rigid& rigid = m_collidable->GetRigid();

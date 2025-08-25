@@ -26,7 +26,9 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDamage.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugDeath.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugIdle.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugStun.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.cpp" />
@@ -161,7 +163,9 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugAttackCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDamage.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugDeath.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugIdle.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugState.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugStun.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugWalkFoward.h" />

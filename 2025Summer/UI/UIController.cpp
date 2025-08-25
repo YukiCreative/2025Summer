@@ -153,7 +153,7 @@ void UIController::EditDraw() const
 		UI->Draw();
 	}
 
-	DrawCircle((*m_selectedUI)->GetPos().x, (*m_selectedUI)->GetPos().y, 10, Color::Red);
+	DrawCircle(static_cast<int>((*m_selectedUI)->GetPos().x), static_cast<int>((*m_selectedUI)->GetPos().y), 10, Color::Red);
 
 	DrawString(500, 30, "Editモードです", 0xffffff);
 	//DrawString(700, 30, "※テキストのサイズは変更しにくいため、再起動しないと反映されません", 0xffffff);

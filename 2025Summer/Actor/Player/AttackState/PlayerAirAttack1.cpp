@@ -24,7 +24,7 @@ namespace
 	constexpr int kEnableComboFrame = 25;
 
 	constexpr float kAttackPower = 100.0f;
-	const Vector3 kKnockbackPower =  {0.0f, 5.0f, -2.0f};
+	const Vector3 kKnockbackPower =  {0.0f, 0.0f, -2.0f};
 	constexpr float kStunPower = 3.0f;
 
 	const Vector3 kHoverForce = { 0.0f, 10.0f, 0.0f };

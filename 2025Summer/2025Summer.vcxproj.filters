@@ -141,6 +141,8 @@
     <ClCompile Include="Actor\Player\PlayerAttackCol.cpp" />
     <ClCompile Include="Actor\Player\PlayerTeleportation.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugStun.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -294,6 +296,8 @@
     <ClInclude Include="Actor\Player\PlayerAttackCol.h" />
     <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugStun.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

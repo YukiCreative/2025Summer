@@ -12,6 +12,7 @@
 #include "../../../Utility/MyRandom.h"
 #include "../../Player/Player.h"
 #include "../../../Physics/Rigid.h"
+#include "EnemyBugStun.h"
 #include <DxLib.h>
 
 namespace
@@ -149,8 +150,10 @@ void EnemyBug::OnDamage(std::weak_ptr<AttackCol> attack)
 	{
 		m_state = std::make_shared<EnemyBugDeath>(weak_from_this());
 	}
-	else
+
+	if (m_stunPoint.IsStun())
 	{
-		m_state = std::make_shared<EnemyBugDamage>(weak_from_this());
+		// ƒXƒ^ƒ“
+		m_state = std::make_shared<EnemyBugStun>(weak_from_this());
 	}
 }

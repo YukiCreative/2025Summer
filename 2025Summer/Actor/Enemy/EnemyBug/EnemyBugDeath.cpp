@@ -15,8 +15,7 @@ namespace
 
 EnemyBugDeath::EnemyBugDeath(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent),
-	m_animTotalFrame(0),
-	m_frame(0)
+	m_animTotalFrame(0)
 {
 	// アニメーション
 	// プレイヤーとの向きによって倒れる向きを変えよう

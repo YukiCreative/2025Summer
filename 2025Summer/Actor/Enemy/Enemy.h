@@ -62,6 +62,12 @@ public:
 	void OnStun();
 	virtual void OnDamage(std::weak_ptr<AttackCol>) abstract;
 	bool IsDamagedInThisFrame() const { return m_isDamageInThisFrame; }
+	bool IsKnockUp() const { return m_isKnockUp; }
+	void RecoveryStunPoint() { m_stunPoint.SetMax(); }
+
+	// TEST
+	// 実行するたびにアニメーション速度が反転します
+	void ReversePlaybackAnim();
 
 protected:
 

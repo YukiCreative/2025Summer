@@ -14,8 +14,7 @@ namespace
 }
 
 EnemyBugIdle::EnemyBugIdle(std::weak_ptr<EnemyBug> parent) :
-	EnemyBugState(parent),
-	m_frame(0)
+	EnemyBugState(parent)
 {
 	// アニメーション再生
 	m_parent.lock()->ChangeAnim(kAnimName, true);

@@ -59,6 +59,7 @@ public:
 	void SetScale(const Vector3& scale);
 	const int GetFrameNum() const;
 	void SetAnimPlaySpeed(const float speed) { m_playSpeed = speed; }
+	float GetAnimPlaySpeed() const { return m_playSpeed; }
 
 private:
 	std::shared_ptr<Model> m_model;
