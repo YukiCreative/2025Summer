@@ -3,5 +3,8 @@
 
 class PlayerAttackCol : public AttackCol
 {
+public:
+
+private:
 };
 

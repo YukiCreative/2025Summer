@@ -6,6 +6,7 @@
 
 namespace
 {
+	const std::string kStunAnimName = "Armature|Stun";
 	const std::string kDamageAnimName = "Armature|HitReact";
 	constexpr int kStunFrame = 300;
 }
@@ -14,6 +15,7 @@ EnemyBugStun::EnemyBugStun(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
 	// スタン中アニメーションを流したい
+	m_parent.lock()->ChangeAnim(kStunAnimName);
 }
 
 EnemyBugStun::~EnemyBugStun()
@@ -27,6 +29,11 @@ std::shared_ptr<EnemyBugState> EnemyBugStun::Update()
 	if (parent->IsDamagedInThisFrame())
 	{
 		parent->ChangeAnim(kDamageAnimName, false);
+	}
+
+	if (parent->CompareAnim(kDamageAnimName) && parent->IsEndAnim())
+	{
+		parent->ChangeAnim(kStunAnimName);
 	}
 
 	// 打ち上げ攻撃を受けたら打ち上げ状態へ

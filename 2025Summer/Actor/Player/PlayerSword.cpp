@@ -150,10 +150,6 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 		auto enemy = std::static_pointer_cast<Enemy>(other);
 		if (enemy->IsInvincible()) return;
 
-		// 敵のスタン値を減らす
-		enemy->DecreaseStunPoint(m_stunPower);
-		// 敵の落下を止める
-		enemy->GetRigid().StopY();
 		// 敵をノックバック
 		// プレイヤーの向きに飛ばす
 		Vector3 knockback = VTransformSR(m_knockbackPower, m_player.lock()->GetModelMatrix());

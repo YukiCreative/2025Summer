@@ -25,5 +25,7 @@ std::shared_ptr<EnemyBugState> EnemyBugKnockUp::Update()
 		return std::make_shared<EnemyBugGetUp>(m_parent);
 	}
 
+	m_parent.lock()->KnockUpUpdate();
+
 	return shared_from_this();
 }

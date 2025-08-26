@@ -135,25 +135,18 @@ void EnemyBug::OnDamage(std::weak_ptr<AttackCol> attack)
 	// 無敵なら食らわない
 	if (m_isInvincible) return;
 
-	auto attackPower = attack.lock()->GetAttackPower();
-
-	// ヒットストップをかける
-	m_stopFrame = 2;
-
-#if _DEBUG
-	printf("食らった！%fダメージ！\n", attackPower);
-#endif
-
-	m_hitPoint -= attackPower;
+	Enemy::OnDamage(attack);
 
 	if (m_hitPoint.IsMin())
 	{
 		m_state = std::make_shared<EnemyBugDeath>(weak_from_this());
+		return;
 	}
 
 	if (m_stunPoint.IsStun())
 	{
 		// スタン
 		m_state = std::make_shared<EnemyBugStun>(weak_from_this());
+		return;
 	}
 }

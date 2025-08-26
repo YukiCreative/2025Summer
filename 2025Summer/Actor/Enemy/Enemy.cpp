@@ -25,6 +25,8 @@ namespace
 
 	constexpr float kKnockUpStartDrag = 0.1f;
 	constexpr float kKnockUpDecreaseDragAmount = 0.001f;
+
+	constexpr int kDamageStopFrame = 2;
 }
 
 Enemy::Enemy(const float maxStunPoint) :
@@ -35,7 +37,8 @@ Enemy::Enemy(const float maxStunPoint) :
 	m_stunPoint(maxStunPoint),
 	m_isKnockUp(false),
 	m_fallFrame(0),
-	m_isDamageInThisFrame(false)
+	m_isDamageInThisFrame(false),
+	m_isStun(false)
 {
 }
 
@@ -67,12 +70,42 @@ void Enemy::Update()
 		m_bloodEffect.lock()->SetPos(m_model->GetFramePosition(m_bloodFrameIndex));
 	}
 
-	if (!m_isKnockUp) return;
-
-	KnockUpUpdate();
-
 	// フラグリセット
 	m_isDamageInThisFrame = false;
+}
+
+void Enemy::KnockUpUpdate()
+{
+	Rigid& rigid = m_collidable->GetRigid();
+	Vector2 drag = rigid.GetDrag();
+	drag.y -= kKnockUpDecreaseDragAmount;
+	rigid.SetDrag(drag);
+	if (rigid.IsMinDefaultDragY())
+	{
+		rigid.SetDragDefault();
+	}
+
+	bool shouldSlowFallSpeed = false;
+	shouldSlowFallSpeed = rigid.GetVel().y < 0;
+
+	// 落下を開始したとき、一定時間重力を弱める
+	if (shouldSlowFallSpeed)
+	{
+		rigid.SetGravityMagnification(0.02f);
+		++m_fallFrame;
+	}
+	if (m_fallFrame > 30)
+	{
+		rigid.SetGravityMagnification(1.0f);
+	}
+
+	// 落下を始めて着地するまで継続
+	if (m_fallFrame && m_isGround)
+	{
+		rigid.SetGravityMagnification(1.0f);
+		m_isKnockUp = false;
+		m_fallFrame = 0;
+	}
 }
 
 void Enemy::Draw() const
@@ -182,56 +215,48 @@ void Enemy::KnockBack(const Vector3& power)
 
 void Enemy::DecreaseStunPoint(const float point)
 {
-	m_stunPoint.DecreasePoint(point);
-	if (m_stunPoint.IsStun())
-	{
-		OnStun();
-	}
 }
 
 void Enemy::OnStun()
 {
-	m_isKnockUp = true;
+	m_isStun = true;
 	m_collidable->GetRigid().SetDrag({ m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag });
 }
 
-void Enemy::ReversePlaybackAnim()
+void Enemy::OnDamage(std::weak_ptr<AttackCol> attack)
+{
+	// 無敵なら食らわない
+	if (m_isInvincible) return;
+
+	auto attackPower = attack.lock()->GetAttackPower();
+
+	// ヒットストップ
+	SetStopFrame(kDamageStopFrame);
+
+	m_stunPoint.DecreasePoint(attack.lock()->GetStunPower());
+	if (m_stunPoint.IsStun())
+	{
+		OnStun();
+	}
+
+#if _DEBUG
+	printf("食らった！%fダメージ！\n", attackPower);
+#endif
+
+	m_hitPoint -= attackPower;
+
+	// ダメージ状態、死亡状態はそれぞれのクラスによって実装が違うのでここには書けなかった
+	// それぞれのOnDamage内でEnemy::OnDamageを呼んでください
+}
+
+void Enemy::SetAnimSpeed(const float speed)
 {
 	if (!this) return;
 
-	m_model->SetAnimPlaySpeed(m_model->GetAnimPlaySpeed() * -1);
+	m_model->SetAnimPlaySpeed(speed);
 }
 
-void Enemy::KnockUpUpdate()
+bool Enemy::CompareAnim(const std::string& animName) const
 {
-	Rigid& rigid = m_collidable->GetRigid();
-	Vector2 drag = rigid.GetDrag();
-	drag.y -= kKnockUpDecreaseDragAmount;
-	rigid.SetDrag(drag);
-	if (rigid.IsMinDefaultDragY())
-	{
-		rigid.SetDragDefault();
-	}
-
-	bool shouldSlowFallSpeed = false;
-	shouldSlowFallSpeed = rigid.GetVel().y < 0;
-
-	// 落下を開始したとき、一定時間重力を弱める
-	if (shouldSlowFallSpeed)
-	{
-		rigid.SetGravityMagnification(0.02f);
-		++m_fallFrame;
-	}
-	if (m_fallFrame > 30)
-	{
-		rigid.SetGravityMagnification(1.0f);
-	}
-
-	// 落下を始めて着地するまで継続
-	if (m_fallFrame && m_isGround)
-	{
-		rigid.SetGravityMagnification(1.0f);
-		m_isKnockUp = false;
-		m_fallFrame = 0;
-	}
+	return m_model->CheckAnimName(animName);
 }

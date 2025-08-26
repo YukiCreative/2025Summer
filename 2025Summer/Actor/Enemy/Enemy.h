@@ -31,6 +31,7 @@ public:
 
 	void Update() override final;
 	virtual void UpdateState() abstract;
+	void KnockUpUpdate();
 
 	void Draw() const override final;
 
@@ -60,14 +61,13 @@ public:
 	void KnockBack(const Vector3& power);
 	void DecreaseStunPoint(const float point);
 	void OnStun();
-	virtual void OnDamage(std::weak_ptr<AttackCol>) abstract;
+	virtual void OnDamage(std::weak_ptr<AttackCol>);
 	bool IsDamagedInThisFrame() const { return m_isDamageInThisFrame; }
 	bool IsKnockUp() const { return m_isKnockUp; }
 	void RecoveryStunPoint() { m_stunPoint.SetMax(); }
 
-	// TEST
-	// 実行するたびにアニメーション速度が反転します
-	void ReversePlaybackAnim();
+	void SetAnimSpeed(const float speed);
+	bool CompareAnim(const std::string& animName) const;
 
 protected:
 
@@ -97,11 +97,10 @@ protected:
 	int m_bloodFrameIndex;
 
 	bool m_isKnockUp;
+	bool m_isStun;
 	int m_fallFrame;
 
 protected:
-
-	void KnockUpUpdate();
 	
 private:
 

@@ -100,15 +100,7 @@ void EnemyPlant::OnDamage(std::weak_ptr<AttackCol> attack)
 	// 無敵なら食らわない
 	if (m_isInvincible) return;
 
-	auto attackPower = attack.lock()->GetAttackPower();
-
-	m_stopFrame = 2;
-
-#if _DEBUG
-	printf("食らった！%fダメージ！\n", attackPower);
-#endif
-
-	m_hitPoint -= attackPower;
+	Enemy::OnDamage(attack);
 
 	if (m_hitPoint.IsMin())
 	{

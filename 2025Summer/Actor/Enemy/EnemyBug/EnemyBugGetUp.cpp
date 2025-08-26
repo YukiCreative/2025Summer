@@ -4,21 +4,19 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|DownBack";
+	const std::string kAnimName = "Armature|GetUp";
 }
 
 EnemyBugGetUp::EnemyBugGetUp(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName);
-	m_parent.lock()->ReversePlaybackAnim();
+	m_parent.lock()->ChangeAnim(kAnimName, false);
 	// ƒXƒ^ƒ“’l‚ð‰ñ•œ
 	m_parent.lock()->RecoveryStunPoint();
 }
 
 EnemyBugGetUp::~EnemyBugGetUp()
 {
-	m_parent.lock()->ReversePlaybackAnim();
 }
 
 std::shared_ptr<EnemyBugState> EnemyBugGetUp::Update()
