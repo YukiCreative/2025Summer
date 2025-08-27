@@ -2,7 +2,7 @@
 #include "../../Model/AnimationModel.h"
 #include "../../Physics/Collidable.h"
 #include "../Player/Player.h"
-#include "../AttackCol.h"
+#include "../Player/PlayerAttackCol.h"
 #include "../../Geometry/Geometry.h"
 #include <DxLib.h>
 #include "../../Shader/ShaderDraw.h"
@@ -37,8 +37,7 @@ Enemy::Enemy(const float maxStunPoint) :
 	m_stunPoint(maxStunPoint),
 	m_isKnockUp(false),
 	m_fallFrame(0),
-	m_isDamageInThisFrame(false),
-	m_isStun(false)
+	m_isDamageInThisFrame(false)
 {
 }
 
@@ -219,11 +218,10 @@ void Enemy::DecreaseStunPoint(const float point)
 
 void Enemy::OnStun()
 {
-	m_isStun = true;
 	m_collidable->GetRigid().SetDrag({ m_collidable->GetRigid().GetDrag().x, kKnockUpStartDrag });
 }
 
-void Enemy::OnDamage(std::weak_ptr<AttackCol> attack)
+void Enemy::OnDamage(std::weak_ptr<PlayerAttackCol> attack)
 {
 	// 無敵なら食らわない
 	if (m_isInvincible) return;
@@ -245,8 +243,16 @@ void Enemy::OnDamage(std::weak_ptr<AttackCol> attack)
 
 	m_hitPoint -= attackPower;
 
+	// プレイヤーの攻撃が打ち上げ属性で、自分がスタンしていたらKnockUp
+	m_isKnockUp |= attack.lock()->IsKnockUpAttack() && IsStun();
+
 	// ダメージ状態、死亡状態はそれぞれのクラスによって実装が違うのでここには書けなかった
 	// それぞれのOnDamage内でEnemy::OnDamageを呼んでください
+}
+
+void Enemy::RecoveryStun()
+{
+	m_stunPoint.SetMax();
 }
 
 void Enemy::SetAnimSpeed(const float speed)

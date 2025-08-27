@@ -62,6 +62,7 @@ public:
 	// Œ•‚Ì“–‚½‚è”»’è‚ð—LŒø‰»‚·‚é
 	void EnableSwordCol(const float attackPower, const Vector3& knockbackPower, const float stunPower);
 	void SetActionKind(const IncreaseStylishPointKind kind);
+	void SetIsKnockUp(const bool knockUp);
 
 	void DisableSword();
 	void DisableSwordCol();

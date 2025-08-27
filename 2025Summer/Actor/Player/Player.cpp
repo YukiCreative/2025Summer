@@ -346,6 +346,11 @@ void Player::SetActionKind(const IncreaseStylishPointKind kind)
 	m_sword->SetActionKind(kind);
 }
 
+void Player::SetIsKnockUp(const bool knockUp)
+{
+	m_sword->SetIsKnockUp(knockUp);
+}
+
 void Player::DisableSword()
 {
 	m_sword->Disable();

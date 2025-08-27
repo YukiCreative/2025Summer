@@ -18,7 +18,7 @@ public:
 
 	void SpawnBullet();
 	void OnDeath() override;
-	void OnDamage(std::weak_ptr<AttackCol> other);
+	void OnDamage(std::weak_ptr<PlayerAttackCol> other);
 	int GetAttackInterval();
 
 private:

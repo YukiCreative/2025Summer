@@ -13,7 +13,9 @@
 #include "../../Player/Player.h"
 #include "../../../Physics/Rigid.h"
 #include "EnemyBugStun.h"
+#include "EnemyBugKnockUp.h"
 #include <DxLib.h>
+#include <typeinfo>
 
 namespace
 {
@@ -130,7 +132,7 @@ int EnemyBug::GetAttackInterval()
 	return interval;
 }
 
-void EnemyBug::OnDamage(std::weak_ptr<AttackCol> attack)
+void EnemyBug::OnDamage(std::weak_ptr<PlayerAttackCol> attack)
 {
 	// –³“G‚È‚çH‚ç‚í‚È‚¢
 	if (m_isInvincible) return;
@@ -140,6 +142,14 @@ void EnemyBug::OnDamage(std::weak_ptr<AttackCol> attack)
 	if (m_hitPoint.IsMin())
 	{
 		m_state = std::make_shared<EnemyBugDeath>(weak_from_this());
+		return;
+	}
+
+	// ‚·‚Å‚ÉƒXƒ^ƒ“‚â‘Å‚¿ã‚°ó‘Ô‚È‚ç‘JˆÚ‚µ‚È‚¢
+	// ‹êa‚ÌŒ^”äŠr
+	if (typeid(*m_state) == typeid(EnemyBugStun) ||
+		typeid(*m_state) == typeid(EnemyBugKnockUp))
+	{
 		return;
 	}
 

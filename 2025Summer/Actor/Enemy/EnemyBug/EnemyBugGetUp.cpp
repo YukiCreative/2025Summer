@@ -12,7 +12,7 @@ EnemyBugGetUp::EnemyBugGetUp(std::weak_ptr<EnemyBug> parent) :
 {
 	m_parent.lock()->ChangeAnim(kAnimName, false);
 	// ƒXƒ^ƒ“’l‚ð‰ñ•œ
-	m_parent.lock()->RecoveryStunPoint();
+	m_parent.lock()->RecoveryStun();
 }
 
 EnemyBugGetUp::~EnemyBugGetUp()

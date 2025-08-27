@@ -59,6 +59,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	if (m_frame == m_enableAttackColFrame)
 	{
 		p->EnableSwordCol(m_attackPower, m_knockbackPower, m_stunPower);
+		p->SetIsKnockUp(m_isKnockUp);
 		p->SetActionKind(m_actionKind);
 	}
 	if (m_frame == m_disableAttackColFrame)
@@ -173,10 +174,10 @@ Vector3 PlayerAttackState::TrackVec(const float strength, const float trackEnemy
 	}
 
 	auto nearestActor = p->m_cont.lock()->SearchNearestLockOnActor(m_player.lock()->GetPos());
-	// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚Ì•ûŒü
+	// ‚»‚¤‚Å‚È‚¯‚ê‚Î‹ß‚­‚Ì“G‚ÌXZ•ûŒü
 	if (nearestActor && (nearestActor->GetPos() - p->GetPos()).SqrMagnitude() < kTrackEnemyDistance * kTrackEnemyDistance)
 	{
-		return (nearestActor->GetPos() - p->GetPos()).GetNormalize() * trackEnemyStrength;
+		return (nearestActor->GetPos().XZ() - p->GetPos().XZ()).GetNormalize() * trackEnemyStrength;
 	}
 
 	// ‚³‚ç‚Éˆê’è”ÍˆÍ“à‚É“G‚à‚¢‚È‚©‚Á‚½‚çŒ»İ‚Ìƒ‚ƒfƒ‹‚ÌŒü‚«‚É‘Oi

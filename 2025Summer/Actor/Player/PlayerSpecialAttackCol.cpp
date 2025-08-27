@@ -31,7 +31,7 @@ namespace
 }
 
 PlayerSpecialAttackCol::PlayerSpecialAttackCol() :
-	AttackCol(),
+	PlayerAttackCol(),
 	m_frame(0)
 {
 }

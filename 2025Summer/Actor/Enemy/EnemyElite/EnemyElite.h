@@ -16,7 +16,7 @@ public:
 	void CommitMove() override;
 
 	void OnDeath() override;
-	void OnDamage(std::weak_ptr<AttackCol>) override;
+	void OnDamage(std::weak_ptr<PlayerAttackCol>) override;
 
 	bool CheckAnimName(const std::string& animName) const;
 

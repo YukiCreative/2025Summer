@@ -10,7 +10,7 @@
 class AnimationModel;
 class EnemyState;
 class Player;
-class AttackCol;
+class PlayerAttackCol;
 
 namespace DxLib
 {
@@ -61,13 +61,14 @@ public:
 	void KnockBack(const Vector3& power);
 	void DecreaseStunPoint(const float point);
 	void OnStun();
-	virtual void OnDamage(std::weak_ptr<AttackCol>);
+	virtual void OnDamage(std::weak_ptr<PlayerAttackCol>);
 	bool IsDamagedInThisFrame() const { return m_isDamageInThisFrame; }
 	bool IsKnockUp() const { return m_isKnockUp; }
-	void RecoveryStunPoint() { m_stunPoint.SetMax(); }
+	void RecoveryStun();
 
 	void SetAnimSpeed(const float speed);
 	bool CompareAnim(const std::string& animName) const;
+	bool IsStun() const { return m_stunPoint.IsStun(); }
 
 protected:
 
@@ -97,7 +98,6 @@ protected:
 	int m_bloodFrameIndex;
 
 	bool m_isKnockUp;
-	bool m_isStun;
 	int m_fallFrame;
 
 protected:

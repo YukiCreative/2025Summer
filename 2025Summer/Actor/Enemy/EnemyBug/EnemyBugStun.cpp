@@ -45,6 +45,7 @@ std::shared_ptr<EnemyBugState> EnemyBugStun::Update()
 	// ˆê’èŠÔŒo‰ß‚µ‚½‚ç’Êíó‘Ô‚Ö
 	if (m_frame > kStunFrame)
 	{
+		parent->RecoveryStun();
 		return std::make_shared<EnemyBugIdle>(m_parent);
 	}
 

@@ -150,6 +150,8 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 		auto enemy = std::static_pointer_cast<Enemy>(other);
 		if (enemy->IsInvincible()) return;
 
+		enemy->OnDamage(weak_from_this());
+
 		// 敵をノックバック
 		// プレイヤーの向きに飛ばす
 		Vector3 knockback = VTransformSR(m_knockbackPower, m_player.lock()->GetModelMatrix());
@@ -166,8 +168,6 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 
 		// スタイリッシュゲージを増加
 		StylishRank::GetInstance().IncreaseStylishPoint(m_actionKind);
-
-		enemy->OnDamage(weak_from_this());
 	}
 }
 

@@ -39,6 +39,7 @@ protected:
 	// ”h¶‚·‚éUŒ‚
 	std::shared_ptr<PlayerAttackState> m_comboAttack;
 	IncreaseStylishPointKind m_actionKind;
+	bool m_isKnockUp = false;
 
 
 protected:
