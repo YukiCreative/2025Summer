@@ -1,7 +1,7 @@
 #include "EnemyElite.h"
 #include "EnemyEliteState.h"
 #include "EnemyEliteIdle.h"
-#include "EnemyEliteDamage.h"
+#include "EnemyEliteStun.h"
 #include "EnemyEliteDeath.h"
 #include "../../Player/Player.h"
 #include "../../../Physics/Collider/CapsuleCollider.h"
@@ -14,6 +14,7 @@
 #include "EnemyEliteArmCol.h"
 #include <DxLib.h>
 #include "../../../Geometry/Geometry.h"
+#include "EnemyEliteKnockUp.h"
 
 namespace
 {
@@ -43,7 +44,7 @@ namespace
 std::normal_distribution<> EnemyElite::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
 
 EnemyElite::EnemyElite() :
-	Enemy(100.0f)
+	Enemy(kMaxStunPoint)
 {
 }
 
@@ -156,9 +157,20 @@ void EnemyElite::OnDamage(std::weak_ptr<PlayerAttackCol> attack)
 	if (m_hitPoint.IsMin())
 	{
 		m_state = std::make_shared<EnemyEliteDeath>(weak_from_this());
+		return;
 	}
-	else
+
+	// すでにスタンや打ち上げ状態なら遷移しない
+	if (typeid(*m_state) == typeid(EnemyEliteStun) ||
+		typeid(*m_state) == typeid(EnemyEliteKnockUp))
 	{
-		m_state = std::make_shared<EnemyEliteDamage>(weak_from_this());
+		return;
+	}
+
+	if (m_stunPoint.IsStun())
+	{
+		// スタン
+		m_state = std::make_shared<EnemyEliteStun>(weak_from_this());
+		return;
 	}
 }

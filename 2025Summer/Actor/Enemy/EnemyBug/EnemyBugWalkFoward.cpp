@@ -7,7 +7,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Walk";
+	const std::string kStunAnimName = "Armature|Walk";
 	constexpr float kWalkSpeed = 0.5f;
 	constexpr float kStopWalkDistance = 500.0f;
 	constexpr float kRotateThreshold = DX_PI_F * 0.1f;
@@ -19,7 +19,7 @@ EnemyBugWalkFoward::EnemyBugWalkFoward(std::weak_ptr<EnemyBug> parent) :
 	m_rotateTimeLength(0)
 {
 	// アニメーション
-	m_parent.lock()->ChangeAnim(kAnimName, true);
+	m_parent.lock()->ChangeAnim(kStunAnimName, true);
 }
 
 EnemyBugWalkFoward::~EnemyBugWalkFoward()

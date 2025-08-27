@@ -6,7 +6,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|AirCombo2";
+	const std::string kStunAnimName = "Armature|AirCombo2";
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr int kEnableAttackFrame = 5;
@@ -49,7 +49,7 @@ PlayerAirAttack2::~PlayerAirAttack2()
 void PlayerAirAttack2::Init()
 {
 	m_actionKind = IncreaseStylishPointKind::kSlashDown;
-	m_animName = kAnimName;
+	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
 	m_disableAttackColFrame = kDisableAttackFrame;

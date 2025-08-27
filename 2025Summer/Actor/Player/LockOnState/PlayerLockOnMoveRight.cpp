@@ -11,11 +11,11 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|WalkRight";
+	const std::string kStunAnimName = "Armature|WalkRight";
 }
 
 PlayerLockOnMoveRight::PlayerLockOnMoveRight(std::weak_ptr<Player> parent) :
-	PlayerLockOnMove(parent, kAnimName, PlayerInputDir::kRight)
+	PlayerLockOnMove(parent, kStunAnimName, PlayerInputDir::kRight)
 {
 }
 

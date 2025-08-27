@@ -3,7 +3,8 @@
 #include "../../../Physics/Collidable.h"
 #include "EnemyPlant.h"
 #include "EnemyPlantBullet.h"
-#include "EnemyPlantDamage.h"
+#include "EnemyPlantStun.h"
+#include "EnemyPlantKnockUp.h"
 #include "EnemyPlantDeath.h"
 #include "EnemyPlantIdle.h"
 #include "../../Player/Player.h"
@@ -105,9 +106,20 @@ void EnemyPlant::OnDamage(std::weak_ptr<PlayerAttackCol> attack)
 	if (m_hitPoint.IsMin())
 	{
 		m_state = std::make_shared<EnemyPlantDeath>(weak_from_this());
+		return;
 	}
-	else
+
+	// すでにスタンや打ち上げ状態なら遷移しない
+	if (typeid(*m_state) == typeid(EnemyPlantStun) ||
+		typeid(*m_state) == typeid(EnemyPlantKnockUp))
 	{
-		m_state = std::make_shared<EnemyPlantDamage>(weak_from_this());
+		return;
+	}
+
+	if (m_stunPoint.IsStun())
+	{
+		// スタン
+		m_state = std::make_shared<EnemyPlantStun>(weak_from_this());
+		return;
 	}
 }

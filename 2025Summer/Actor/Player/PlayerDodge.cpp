@@ -24,7 +24,7 @@ namespace
 	constexpr int kTypeAheadFrame = 20;
 	constexpr int kCanTransitionFrame = 35;
 
-	const std::string kAnimName = "Armature|RollingDodge";
+	const std::string kStunAnimName = "Armature|RollingDodge";
 	const std::string kJustAnimName = "Armature|JustDodge";
 }
 
@@ -40,7 +40,7 @@ PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 
 	m_canCrossState = true;
 
-	p->m_model->ChangeAnimation(kAnimName, false);
+	p->m_model->ChangeAnimation(kStunAnimName, false);
 	// “ü—Í•ûŒü‚ÉŒü‚«‚ð•Ï‚¦‚é
 
 	Vector3 inputAxis = Vector3{ input.GetLeftInputAxis().x, 0, input.GetLeftInputAxis().y };

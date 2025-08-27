@@ -10,7 +10,7 @@
 
 namespace
 {
-    const std::string kAnimName = "Armature|Jump";
+    const std::string kStunAnimName = "Armature|Jump";
     constexpr float kMoveSpeed = 0.0015f;
     constexpr float kJumpThreshold = 5.0f;
     constexpr float kLerpSpeed = 2.0f / static_cast<float>(Game::kFrameRate);
@@ -43,7 +43,7 @@ PlayerJump::PlayerJump(std::weak_ptr<Player> player) :
         m_targetPos = p->GetPos();
     }
 
-    p->ChangeAnim(kAnimName, false);
+    p->ChangeAnim(kStunAnimName, false);
 }
 
 PlayerJump::~PlayerJump()

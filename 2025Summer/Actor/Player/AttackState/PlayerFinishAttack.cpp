@@ -3,7 +3,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|FinishAttack";
+	const std::string kStunAnimName = "Armature|FinishAttack";
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr int kEnableAttackFrame = 46;
@@ -35,7 +35,7 @@ PlayerFinishAttack::~PlayerFinishAttack()
 void PlayerFinishAttack::Init()
 {
 	m_actionKind = IncreaseStylishPointKind::kFinishAttack;
-	m_animName = kAnimName;
+	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
 	m_disableAttackColFrame = kDisableAttackFrame;

@@ -4,7 +4,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Death";
+	const std::string kStunAnimName = "Armature|Death";
 }
 
 PlayerDeath::PlayerDeath(std::weak_ptr<Player> parent) :
@@ -13,7 +13,7 @@ PlayerDeath::PlayerDeath(std::weak_ptr<Player> parent) :
 {
 	auto p = m_player.lock();
 
-	p->m_model->ChangeAnimation(kAnimName, false);
+	p->m_model->ChangeAnimation(kStunAnimName, false);
 
 	// UŒ‚”»’è‚ðÁ‚µ‚Ä‚¨‚­
 	p->DisableSwordCol();

@@ -4,7 +4,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|ArmSwing";
+	const std::string kStunAnimName = "Armature|ArmSwing";
 	constexpr int kAttackFrame = 50;
 	constexpr float kRotateSpeed = 0.2f;
 }
@@ -12,7 +12,7 @@ namespace
 EnemyEliteArmSwing::EnemyEliteArmSwing(std::weak_ptr<EnemyElite> parent) :
 	EnemyEliteState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 }
 
 EnemyEliteArmSwing::~EnemyEliteArmSwing()

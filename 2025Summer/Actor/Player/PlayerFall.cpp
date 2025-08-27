@@ -7,7 +7,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|AirIdle";
+	const std::string kStunAnimName = "Armature|AirIdle";
 	constexpr float kMoveSpeed = 0.0015f;
 }
 
@@ -15,7 +15,7 @@ PlayerFall::PlayerFall(std::weak_ptr<Player> player) :
 	PlayerState(player),
 	m_frame(0)
 {
-	m_player.lock()->ChangeAnim(kAnimName, true);
+	m_player.lock()->ChangeAnim(kStunAnimName, true);
 }
 
 PlayerFall::~PlayerFall()

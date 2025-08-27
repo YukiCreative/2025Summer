@@ -31,7 +31,7 @@ namespace
 	constexpr float kAttackPower = 50.0f;
 	constexpr float kAttackPower2 = 60.0f;
 
-	const std::string kAnimName = "Armature|Drive";
+	const std::string kStunAnimName = "Armature|Drive";
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr float kShockWaveRot1 = 80.0f;
@@ -61,7 +61,7 @@ void PlayerShockWaveSlash::Init()
 	// 外部データ化して取得すれば解決する
 	m_actionKind = IncreaseStylishPointKind::kShockWaveAttack;
 	m_knockbackPower = Vector3::Zero();
-	m_animName = kAnimName;
+	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
 	m_disableAttackColFrame = kDisableAttackFrame;

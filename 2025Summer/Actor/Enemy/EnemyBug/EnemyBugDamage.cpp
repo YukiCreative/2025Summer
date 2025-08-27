@@ -4,13 +4,13 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|HitReact";
+	const std::string kStunAnimName = "Armature|HitReact";
 }
 
 EnemyBugDamage::EnemyBugDamage(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 }
 
 EnemyBugDamage::~EnemyBugDamage()

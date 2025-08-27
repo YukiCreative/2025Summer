@@ -4,7 +4,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Idle";
+	const std::string kStunAnimName = "Armature|Idle";
 	constexpr float kRotateSpeed = 0.02f;
 	constexpr float kEscapeDistance = 500.0f;
 	constexpr float kEscapeSpeed = 0.2f;
@@ -14,7 +14,7 @@ EnemyPlantIdle::EnemyPlantIdle(std::weak_ptr<EnemyPlant> parent) :
 	EnemyPlantState(parent)
 {
 	// Anim
-	m_parent.lock()->ChangeAnim(kAnimName);
+	m_parent.lock()->ChangeAnim(kStunAnimName);
 
 	// ¡‰ñ‚ÌUŒ‚ƒtƒŒ[ƒ€‚ðŽæ“¾
 	m_attackFrame = m_parent.lock()->GetAttackInterval();

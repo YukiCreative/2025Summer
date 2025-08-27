@@ -5,7 +5,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Attack";
+	const std::string kStunAnimName = "Armature|Attack";
 
 	const int kAttackFrame = 10;
 	const Vector3 kAttackForce = {0.0f, -20.0f, 30.0f};
@@ -14,7 +14,7 @@ namespace
 EnemyBugAttack::EnemyBugAttack(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 	// ŽŸ‚ÌUŒ‚ƒtƒŒ[ƒ€‚ðŒˆ’è
 	m_parent.lock()->SetAttackFrame(m_parent.lock()->GetAttackInterval());
 }

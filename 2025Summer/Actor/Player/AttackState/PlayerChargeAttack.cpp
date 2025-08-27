@@ -27,7 +27,7 @@ namespace
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 50.0f };
 	constexpr float kStunPower = 6.0f;
 
-	const std::string kAnimName = "Armature|LeftHorizontalSlash";
+	const std::string kStunAnimName = "Armature|LeftHorizontalSlash";
 	constexpr bool kIsLoopAnim = false;
 }
 
@@ -46,7 +46,7 @@ PlayerChargeAttack::~PlayerChargeAttack()
 void PlayerChargeAttack::Init()
 {
 	m_actionKind = IncreaseStylishPointKind::kChargeAttack;
-	m_animName = kAnimName;
+	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
 	m_disableAttackColFrame = kDisableAttackFrame;

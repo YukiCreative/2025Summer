@@ -143,6 +143,12 @@
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugStun.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteKnockUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteGetUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteStun.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -298,6 +304,12 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugStun.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBugGetUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteKnockUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteGetUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteStun.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

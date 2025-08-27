@@ -7,7 +7,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Idle";
+	const std::string kStunAnimName = "Armature|Idle";
 	constexpr float kApproachDistance = 600.0f;
 
 	constexpr float kRotateThreshold = DX_PI_F * 0.25f;
@@ -17,7 +17,7 @@ EnemyBugIdle::EnemyBugIdle(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
 	// アニメーション再生
-	m_parent.lock()->ChangeAnim(kAnimName, true);
+	m_parent.lock()->ChangeAnim(kStunAnimName, true);
 }
 
 EnemyBugIdle::~EnemyBugIdle()

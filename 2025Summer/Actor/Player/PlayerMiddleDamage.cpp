@@ -9,7 +9,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|MiddleDamage";
+	const std::string kStunAnimName = "Armature|MiddleDamage";
 
 	// ˆÚ“®‰Â”\‚É‚È‚éƒtƒŒ[ƒ€
 	constexpr int kEnableMoveFrame = 30;
@@ -22,7 +22,7 @@ PlayerMiddleDamage::PlayerMiddleDamage(std::weak_ptr<Player> parent) :
 {
 	auto p = m_player.lock();
 
-	p->m_model->ChangeAnimation(kAnimName, false);
+	p->m_model->ChangeAnimation(kStunAnimName, false);
 	// Œ•‚ğÁ‚·
 	p->DisableSword();
 	// “–‚½‚è”»’è‚àÁ‚·

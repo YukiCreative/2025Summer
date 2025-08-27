@@ -4,7 +4,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Attack";
+	const std::string kStunAnimName = "Armature|Attack";
 
 	constexpr int kAttackFrame = 30;
 }
@@ -13,7 +13,7 @@ EnemyPlantAttack::EnemyPlantAttack(std::weak_ptr<EnemyPlant> parent) :
 	EnemyPlantState(parent)
 {
 	// アニメーション
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 }
 
 EnemyPlantAttack::~EnemyPlantAttack()

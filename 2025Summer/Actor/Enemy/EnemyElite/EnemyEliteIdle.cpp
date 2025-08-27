@@ -7,7 +7,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Idle";
+	const std::string kStunAnimName = "Armature|Idle";
 	constexpr float kRotateSpeed = 0.01f;
 	constexpr float kMoveDistance = 550.0f;
 }
@@ -15,7 +15,7 @@ namespace
 EnemyEliteIdle::EnemyEliteIdle(std::weak_ptr<EnemyElite> parent) :
 	EnemyEliteState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName);
+	m_parent.lock()->ChangeAnim(kStunAnimName);
 	m_attackFrame = m_parent.lock()->GetAttackInterval();
 }
 

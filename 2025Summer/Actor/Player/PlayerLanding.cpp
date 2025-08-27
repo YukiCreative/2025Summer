@@ -8,7 +8,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Landing";
+	const std::string kStunAnimName = "Armature|Landing";
 	constexpr int kEnableMoveFrame = 10;
 	constexpr float kMoveSpeed = 0.001f;
 }
@@ -17,7 +17,7 @@ PlayerLanding::PlayerLanding(std::weak_ptr<Player> player) :
 	PlayerState(player),
 	m_frame(0)
 {
-	m_player.lock()->ChangeAnim(kAnimName, false);
+	m_player.lock()->ChangeAnim(kStunAnimName, false);
 	m_canCrossState = true;
 }
 

@@ -40,7 +40,9 @@
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteGetUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteIdle.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteState.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyModelList.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlant.cpp" />
@@ -48,9 +50,12 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantDamage.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantDeath.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyBug\EnemyBug.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.cpp" />
     <ClCompile Include="Actor\Enemy\StunPoint.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack1.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack2.cpp" />
@@ -83,6 +88,7 @@
     <ClCompile Include="Actor\Player\AttackState\PlayerSlashUp.cpp" />
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
     <ClCompile Include="Actor\Player\PlayerTeleportation.cpp" />
+    <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteStun.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -177,7 +183,9 @@
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteBiteCol.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDamage.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteDeath.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteGetUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteIdle.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteState.h" />
     <ClInclude Include="Actor\Enemy\EnemyModelList.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlant.h" />
@@ -185,11 +193,14 @@
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantBullet.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantDamage.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantDeath.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantState.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantIdle.h" />
     <ClInclude Include="Actor\Enemy\EnemyGenerator.h" />
     <ClInclude Include="Actor\Enemy\EnemyKind.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
+    <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.h" />
     <ClInclude Include="Actor\Enemy\StunPoint.h" />
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
@@ -225,6 +236,7 @@
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
     <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
+    <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteStun.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />

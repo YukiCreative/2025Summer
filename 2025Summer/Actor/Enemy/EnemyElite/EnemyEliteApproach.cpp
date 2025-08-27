@@ -5,7 +5,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Run";
+	const std::string kStunAnimName = "Armature|Run";
 	constexpr float kStopDistance = 500.0f;
 	constexpr float kMoveSpeed = 1.0f;
 	constexpr float kLookSpeed = 0.3f;
@@ -14,7 +14,7 @@ namespace
 EnemyEliteApproach::EnemyEliteApproach(std::weak_ptr<EnemyElite> parent) :
 	EnemyEliteState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName);
+	m_parent.lock()->ChangeAnim(kStunAnimName);
 }
 
 EnemyEliteApproach::~EnemyEliteApproach()

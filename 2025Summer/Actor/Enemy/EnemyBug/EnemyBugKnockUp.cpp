@@ -4,13 +4,13 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|DownBack";
+	const std::string kStunAnimName = "Armature|DownBack";
 }
 
 EnemyBugKnockUp::EnemyBugKnockUp(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 }
 
 EnemyBugKnockUp::~EnemyBugKnockUp()

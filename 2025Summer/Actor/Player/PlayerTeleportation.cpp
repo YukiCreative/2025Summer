@@ -10,7 +10,7 @@
 namespace
 {
 	constexpr int kDisappearFrame = 3;
-	const std::string kAnimName = "Armature|FrontStop";
+	const std::string kStunAnimName = "Armature|FrontStop";
 
 	constexpr int kTelePortFrame = 5;
 
@@ -28,7 +28,7 @@ PlayerTeleportation::PlayerTeleportation(std::weak_ptr<Player> player) :
 	PlayerState(player),
 	m_frame(0)
 {
-	m_player.lock()->ChangeAnim(kAnimName, false);
+	m_player.lock()->ChangeAnim(kStunAnimName, false);
 	m_canCrossState = true;
 	m_player.lock()->SetInvincibility(true);
 }

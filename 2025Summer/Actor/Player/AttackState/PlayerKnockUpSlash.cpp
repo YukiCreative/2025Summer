@@ -20,7 +20,7 @@ namespace
 	constexpr float kAttackPower = 130.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 85.0f, 0.0f };
 
-	const std::string kAnimName = "Armature|SlashUp";
+	const std::string kStunAnimName = "Armature|SlashUp";
 	constexpr bool kIsLoopAnim = false;
 
 	constexpr int kJumpFrame = 10;
@@ -46,7 +46,7 @@ void PlayerKnockUpSlash::Init()
 
 	m_actionKind = IncreaseStylishPointKind::kSlashDown;
 	m_isKnockUp = true;
-	m_animName = kAnimName;
+	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;
 	m_disableAttackColFrame = kDisableAttackFrame;

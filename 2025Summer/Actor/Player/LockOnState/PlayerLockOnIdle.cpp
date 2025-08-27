@@ -19,7 +19,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Idle";
+	const std::string kStunAnimName = "Armature|Idle";
 
 	// }‰½“x‚ÅˆÚ“®‚·‚é‚©
 	// 45“x•ª
@@ -29,7 +29,7 @@ namespace
 PlayerLockOnIdle::PlayerLockOnIdle(std::weak_ptr<Player> parent) :
 	PlayerState(parent)
 {
-	m_player.lock()->m_model->ChangeAnimation(kAnimName);
+	m_player.lock()->m_model->ChangeAnimation(kStunAnimName);
 }
 
 PlayerLockOnIdle::~PlayerLockOnIdle()

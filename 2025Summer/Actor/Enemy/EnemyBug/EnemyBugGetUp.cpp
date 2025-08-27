@@ -4,13 +4,13 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|GetUp";
+	const std::string kStunAnimName = "Armature|GetUp";
 }
 
 EnemyBugGetUp::EnemyBugGetUp(std::weak_ptr<EnemyBug> parent) :
 	EnemyBugState(parent)
 {
-	m_parent.lock()->ChangeAnim(kAnimName, false);
+	m_parent.lock()->ChangeAnim(kStunAnimName, false);
 	// ƒXƒ^ƒ“’l‚ð‰ñ•œ
 	m_parent.lock()->RecoveryStun();
 }

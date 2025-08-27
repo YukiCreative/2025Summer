@@ -12,7 +12,7 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|Idle";
+	const std::string kStunAnimName = "Armature|Idle";
 }
 
 PlayerIdle::PlayerIdle(std::weak_ptr<Player> parent) :
@@ -23,7 +23,7 @@ PlayerIdle::PlayerIdle(std::weak_ptr<Player> parent) :
 
 	if (m_player.lock()->m_lockOnActor.expired())
 	{
-		m_player.lock()->m_model->ChangeAnimation(kAnimName);
+		m_player.lock()->m_model->ChangeAnimation(kStunAnimName);
 	}
 }
 

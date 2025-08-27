@@ -13,14 +13,14 @@
 
 namespace
 {
-	const std::string kAnimName = "Armature|WalkFoward";
+	const std::string kStunAnimName = "Armature|WalkFoward";
 
 	// ƒhƒ‰ƒCƒu”­¶‚Ì‚½‚ß‚ÌŒã‚ë“ü—Í—P—\
 	constexpr int kBackInputRespite = 8;
 }
 
 PlayerLockOnMoveFoward::PlayerLockOnMoveFoward(std::weak_ptr<Player> parent) :
-	PlayerLockOnMove(parent, kAnimName, PlayerInputDir::kFront)
+	PlayerLockOnMove(parent, kStunAnimName, PlayerInputDir::kFront)
 {
 }
 
