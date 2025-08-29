@@ -13,6 +13,7 @@ class ActorController;
 class Image;
 class PlayerSword;
 class AttackCol;
+class Enemy;
 
 namespace DxLib
 {
@@ -21,14 +22,14 @@ namespace DxLib
 
 namespace
 {
-	constexpr float kMinHP = 0.0f;
-	constexpr float kMaxHP = 3000.0f;
+	constexpr float kMinPlayerHP = 0.0f;
+	constexpr float kMaxPlayerHP = 3000.0f;
 
 	constexpr int kMinSpecialGauge = 0;
 	constexpr int kMaxSpecialGauge = 100;
 }
 
-using PlayerHP = RangeLimitedValue<float, kMinHP, kMaxHP>;
+using PlayerHP = RangeLimitedValue<float, kMinPlayerHP, kMaxPlayerHP>;
 using PlayerSpecialGaugePoint = RangeLimitedValue<int, kMinSpecialGauge, kMaxSpecialGauge>;
 
 // アクセスレベルがpublicになっているのは、ステートクラスに情報を明け渡すため
@@ -70,6 +71,7 @@ public:
 	bool IsInvincible() const { return m_isInvincible; }
 
 	Vector3 GetLockOnActorScreenPos() const;
+	std::weak_ptr<Enemy> GetLockOnEnemy();
 	bool IsLockOn() const { return !m_lockOnActor.expired(); }
 	bool CanLockOn() const { return m_canLockOn; }
 	float GetHpRatio() const;

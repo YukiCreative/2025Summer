@@ -8,7 +8,7 @@ class Player;
 class EffekseerEffect;
 
 // モデルと当たり判定のセット
-class PlayerSword : public PlayerAttackCol, public std::enable_shared_from_this<PlayerSword>
+class PlayerSword : public PlayerAttackCol
 {
 public:
 	PlayerSword();

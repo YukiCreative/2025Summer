@@ -1,5 +1,5 @@
 #pragma once
-#include "../AttackCol.h"
+#include "PlayerAttackCol.h"
 
 class EffekseerEffect;
 class Player;
@@ -10,7 +10,7 @@ namespace DxLib
 }
 
 // 中身は当たり判定とエフェクト
-class PlayerShockWave : public AttackCol
+class PlayerShockWave : public PlayerAttackCol
 {
 public:
 

@@ -24,10 +24,10 @@ class Enemy abstract : public Actor
 {
 public:
 	// ロックオンの設定
-	Enemy(const float maxStunPoint);
+	Enemy(const float maxStunPoint, const float maxHitPoint);
 	~Enemy();
 
-	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle);
+	void Init(std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle);
 
 	void Update() override final;
 	virtual void UpdateState() abstract;
@@ -70,6 +70,10 @@ public:
 	bool CompareAnim(const std::string& animName) const;
 	bool IsStun() const { return m_stunPoint.IsStun(); }
 
+	// 0~1
+	virtual float GetHpRatio() const { return m_hitPoint.GetRatio(); }
+	float GetStunRatio() const { return m_stunPoint.GetRatio(); }
+
 protected:
 
 	// モデルディゾルブ
@@ -80,7 +84,7 @@ protected:
 		float dammy[7];
 	};
 
-	HitPoint_t m_hitPoint;
+	HitPoint m_hitPoint;
 	StunPoint m_stunPoint;
 	// モデルは共通で持っている
 	std::shared_ptr<AnimationModel> m_model;

@@ -1,7 +1,7 @@
 #pragma once
 #include "../AttackCol.h"
 
-class PlayerAttackCol : public AttackCol
+class PlayerAttackCol : public AttackCol, public std::enable_shared_from_this<PlayerAttackCol>
 {
 public:
 	PlayerAttackCol() :

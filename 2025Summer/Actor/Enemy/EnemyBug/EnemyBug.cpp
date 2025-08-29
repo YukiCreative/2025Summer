@@ -35,7 +35,7 @@ namespace
 	constexpr int kAttackFrame = 300;
 	constexpr int kRandomness = 60;
 
-	constexpr float kInitHP = 800.0f;
+	constexpr float kMaxHP = 800.0f;
 
 	constexpr int kBloodFrame = 5;
 
@@ -47,14 +47,14 @@ namespace
 std::normal_distribution<> EnemyBug::s_attackTimeNormalDist(kAttackFrame, kRandomness);
 
 EnemyBug::EnemyBug() :
-	Enemy(kMaxStunPoint),
+	Enemy(kMaxStunPoint, kMaxHP),
 	m_attackFrame(0)
 {
 }
 
 void EnemyBug::Init(std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
-	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
+	Enemy::Init(player, initPos, dupulicatedHandle);
 
 	m_enemyKind = EnemyKind::kBug;
 	m_bloodFrameIndex = kBloodFrame;
@@ -117,6 +117,8 @@ int EnemyBug::GetAinmTotalTime() const
 
 Vector3 EnemyBug::GetAttackRigPos() const
 {
+	if (!this) return Vector3::Zero();
+
 	auto ago1 = m_model->GetFramePosition(kCollisionFrameName1);
 	auto ago2 = m_model->GetFramePosition(kCollisionFrameName2);
 

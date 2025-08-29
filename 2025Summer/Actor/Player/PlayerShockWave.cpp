@@ -8,6 +8,7 @@
 #include "../../Geometry/Geometry.h"
 #include <DxLib.h>
 #include "../../GameManagement/Score/StylishRank.h"
+#include "../Enemy/Enemy.h"
 
 namespace
 {
@@ -34,7 +35,7 @@ namespace
 }
 
 PlayerShockWave::PlayerShockWave() :
-	AttackCol(),
+	PlayerAttackCol(),
 	m_frame(0),
 	m_rotateY(0.0f)
 {
@@ -124,5 +125,8 @@ void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 
 		// spëùâ¡
 		StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kShockWave);
+
+		std::shared_ptr<Enemy> enemy = std::static_pointer_cast<Enemy>(other);
+		enemy->OnDamage(weak_from_this());
 	}
 }

@@ -1,10 +1,39 @@
 #pragma once
-#include "../Utility/RangeLimitedValue.h"
+#include <algorithm>
+#include "../Geometry/Geometry.h"
 
-namespace
+// �̗͒l
+class HitPoint
 {
-	constexpr float kHitPointMin = 0.0f;
-	constexpr float kHitPointMax = 9999.0f;
-}
+public:
+	HitPoint(const float maxPoint) : m_point(maxPoint), m_maxPoint(maxPoint) {}
 
-using HitPoint_t = RangeLimitedValue<float, kHitPointMin, kHitPointMax>;
+	void DecreasePoint(const float right)
+	{
+		m_point -= right;
+		m_point = std::max(m_point, 0.0f);
+	}
+
+	void SetMax()
+	{
+		m_point = m_maxPoint;
+	}
+
+	bool IsMin() const
+	{
+		return m_point <= Geometry::kEpsilon;
+	}
+
+	float Value() const { return m_point; }
+
+	float GetRatio() const
+	{
+		return m_point / m_maxPoint;
+	}
+
+private:
+
+	float m_point;
+	float m_maxPoint;
+};
+

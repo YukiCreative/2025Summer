@@ -2,20 +2,28 @@
 #include "../Actor/Player/Player.h"
 #include "Image.h"
 #include <cmath>
+#include "../Actor/Enemy/Enemy.h"
 
 namespace
 {
-	const std::string kImageName = "LockOnCursor.png";
+	const std::string kOutsideImageName = "PlayerLockOnCursor_Outside.png";
+	const std::string kHitPointImageName = "Data/Image/PlayerLockOnCursor_HitPoint.png";
+	const std::string kStunPointImageName = "Data/Image/PlayerLockOnCursor_StunPoint.png";
 	constexpr float kStateSpeed = 0.15f;
 	constexpr float kTransparentSpeed = 0.05f;
 	constexpr float kStartExRate = 5.0f;
 	constexpr float kEndExRate = 1.0f;
+	constexpr float kLerpSpeed = 0.2f;
 }
 
 PlayerLockOnUI::PlayerLockOnUI() :
 	UIBase(ToString(PlayerLockOnUI)),
 	m_stateParam(0),
-	m_state(&PlayerLockOnUI::NoLockOn)
+	m_state(&PlayerLockOnUI::NoLockOn),
+	m_hitPointImgHandle(-1),
+	m_stunPointImgHandle(-1),
+	m_hitPointGraphRatio(1.0f),
+	m_stunPointGraphRatio(1.0f)
 {
 }
 
@@ -24,22 +32,37 @@ void PlayerLockOnUI::Init(std::weak_ptr<Player> player)
 	m_player = player;
 
 	m_image = std::make_shared<Image>();
-	m_image->Init(kImageName);
+	m_image->Init(kOutsideImageName);
 
 	m_image->SetImageBlendMode(DX_BLENDMODE_ALPHA, 0);
 
 	m_stateParam.SetMax();
 	m_image->SetExRate(kStartExRate);
+
+	m_hitPointImgHandle = LoadGraph(kHitPointImageName.c_str());
+	m_stunPointImgHandle = LoadGraph(kStunPointImageName.c_str());
 }
 
 void PlayerLockOnUI::Update()
 {
 	// 演出ステート
 	(this->*m_state)();
+
+	if (!m_player.lock()->IsLockOn()) return;
+	std::weak_ptr<Enemy> lockOnEnemy = m_player.lock()->GetLockOnEnemy();
+
+	m_hitPointGraphRatio = std::lerp(m_hitPointGraphRatio, lockOnEnemy.lock()->GetHpRatio(), kLerpSpeed);
+	m_stunPointGraphRatio = std::lerp(m_stunPointGraphRatio, lockOnEnemy.lock()->GetStunRatio(), kLerpSpeed);
 }
 
 void PlayerLockOnUI::Draw() const
 {
+	if (!m_player.lock()->IsLockOn()) return;
+	std::weak_ptr<Enemy> lockOnEnemy =  m_player.lock()->GetLockOnEnemy();
+
+	DrawCircleGauge(m_pos.x, m_pos.y, m_hitPointGraphRatio * 100.0f, m_hitPointImgHandle, 0.0, kEndExRate);
+	DrawCircleGauge(m_pos.x, m_pos.y, m_stunPointGraphRatio * 100.0f, m_stunPointImgHandle, 0.0f, kEndExRate);
+
 	m_image->Draw(m_pos);
 }
 

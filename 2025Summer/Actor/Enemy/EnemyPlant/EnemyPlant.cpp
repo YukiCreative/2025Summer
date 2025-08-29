@@ -15,7 +15,7 @@
 
 namespace
 {
-	constexpr float kInitHP = 750.0f;
+	constexpr float kMaxHP = 750.0f;
 
 	// コライダー
 	const Vector3 kCapsuleEndOffset = {0.0f, 80.0f, 0.0f};
@@ -38,13 +38,13 @@ namespace
 std::normal_distribution<> EnemyPlant::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
 
 EnemyPlant::EnemyPlant() :
-	Enemy(kMaxStunPoint)
+	Enemy(kMaxStunPoint, kMaxHP)
 {
 }
 
 void EnemyPlant::Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
-	Enemy::Init(player, initPos, kInitHP, dupulicatedHandle);
+	Enemy::Init(player, initPos, dupulicatedHandle);
 
 	m_enemyKind = EnemyKind::kPlant;
 	m_bloodFrameIndex = kBloodFrame;

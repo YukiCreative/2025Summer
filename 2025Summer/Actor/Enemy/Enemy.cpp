@@ -29,12 +29,13 @@ namespace
 	constexpr int kDamageStopFrame = 2;
 }
 
-Enemy::Enemy(const float maxStunPoint) :
+Enemy::Enemy(const float maxStunPoint, const float maxHitPoint) :
 	Actor(true), // 敵はロックオン可能
 	m_isInvincible(false),
 	m_enemyKind(EnemyKind::kNone),
 	m_bloodFrameIndex(0),
 	m_stunPoint(maxStunPoint),
+	m_hitPoint(maxHitPoint),
 	m_isKnockUp(false),
 	m_fallFrame(0),
 	m_isDamageInThisFrame(false)
@@ -45,10 +46,9 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const float initHP, const int dupulicatedHandle)
+void Enemy::Init(std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
 	m_kind = ActorKind::kEnemy;
-	m_hitPoint = initHP;
 	m_player = player;
 	m_pos = initPos;
 	m_model = std::make_shared<AnimationModel>();
@@ -241,7 +241,7 @@ void Enemy::OnDamage(std::weak_ptr<PlayerAttackCol> attack)
 	printf("食らった！%fダメージ！\n", attackPower);
 #endif
 
-	m_hitPoint -= attackPower;
+	m_hitPoint.DecreasePoint(attackPower);
 
 	// プレイヤーの攻撃が打ち上げ属性で、自分がスタンしていたらKnockUp
 	m_isKnockUp |= attack.lock()->IsKnockUpAttack() && IsStun();

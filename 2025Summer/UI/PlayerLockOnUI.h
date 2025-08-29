@@ -20,6 +20,11 @@ private:
 
 	std::shared_ptr<Image> m_image;
 	std::weak_ptr<Player> m_player;
+	int m_hitPointImgHandle;
+	int m_stunPointImgHandle;
+	float m_hitPointGraphRatio;
+	float m_stunPointGraphRatio;
+
 
 	// ロックオンの演出を関数ポインタで制御する
 	using LockOnCursorState_t = void (PlayerLockOnUI::*)();

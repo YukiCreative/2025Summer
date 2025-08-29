@@ -145,6 +145,8 @@ void PlayerLockOn::CameraMove()
     auto p = m_player.lock();
     auto camera = p->m_camera.lock();
 
+    if (!p->IsLockOn()) return;
+
     // プレイヤーが画面外に出たら
     // その向きにカメラ回転
     auto playerScreenPos = ConvWorldPosToScreenPos(p->GetPos() + kPlayerMiddlePointOffset);

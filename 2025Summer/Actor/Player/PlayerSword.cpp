@@ -18,7 +18,7 @@
 namespace
 {
 	constexpr float kSwordLength = 200.0f;
-	constexpr float kSowrdRadius = 30.0f;
+	constexpr float kSowrdRadius = 50.0f;
 
 	const std::string kModelName = "Data/Model/greatsword.mv1";
 

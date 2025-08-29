@@ -44,13 +44,13 @@ namespace
 std::normal_distribution<> EnemyElite::s_attackIntervalNormalDist(kAttackFrame, kRandomness);
 
 EnemyElite::EnemyElite() :
-	Enemy(kMaxStunPoint)
+	Enemy(kMaxStunPoint, kMaxHp)
 {
 }
 
 void EnemyElite::Init(const std::weak_ptr<Player> player, const Vector3& initPos, const int dupulicatedHandle)
 {
-	Enemy::Init(player, initPos, kMaxHp, dupulicatedHandle);
+	Enemy::Init(player, initPos, dupulicatedHandle);
 
 	m_enemyKind = EnemyKind::kElite;
 	m_bloodFrameIndex = kBloodFrame;
@@ -70,8 +70,6 @@ void EnemyElite::Init(const std::weak_ptr<Player> player, const Vector3& initPos
 
 	// ‰Šúó‘Ô
 	m_state = std::make_shared<EnemyEliteIdle>(weak_from_this());
-
-	m_hitPoint = kMaxHP;
 }
 
 void EnemyElite::UpdateState()

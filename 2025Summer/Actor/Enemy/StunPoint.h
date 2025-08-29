@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include "../../Geometry/Geometry.h"
 
 // “G‚Ì‹Câ’l
 class StunPoint
@@ -20,10 +21,15 @@ public:
 
 	bool IsStun() const
 	{
-		return m_point <= 0.00001f;
+		return m_point <= Geometry::kEpsilon;
 	}
 
 	float Value() const { return m_point; }
+
+	float GetRatio() const
+	{
+		return m_point / m_maxPoint;
+	}
 
 private:
 

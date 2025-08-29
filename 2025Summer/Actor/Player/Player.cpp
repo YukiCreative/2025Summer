@@ -21,6 +21,7 @@
 #include "../../Effect/EffectManager.h"
 #include "../../Effect/EffekseerEffect.h"
 #include "../../UI/WaveResult.h"
+#include "../Enemy/Enemy.h"
 
 namespace
 {
@@ -367,6 +368,11 @@ Vector3 Player::GetLockOnActorScreenPos() const
 	if (m_lockOnActor.expired()) return Vector3::Zero();
 
 	return ConvWorldPosToScreenPos(m_lockOnActor.lock()->GetPos());
+}
+
+std::weak_ptr<Enemy> Player::GetLockOnEnemy()
+{
+	return std::dynamic_pointer_cast<Enemy>(m_lockOnActor.lock());
 }
 
 float Player::GetHpRatio() const
