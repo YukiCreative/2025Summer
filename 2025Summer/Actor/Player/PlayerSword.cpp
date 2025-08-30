@@ -5,7 +5,6 @@
 #include "../../Physics/Rigid.h"
 #include <DxLib.h>
 #include "../../Model/AnimationModel.h"
-#include "../../Shader/ConstantBufferIndex.h"
 #include "../../Shader/ShaderDraw.h"
 #include "../../Effect/EffectManager.h"
 #include "../../Effect/EffekseerEffect.h"
@@ -122,7 +121,7 @@ void PlayerSword::Update()
 
 void PlayerSword::Draw() const
 {
-	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, static_cast<int>(CbuffIndex::kSwordDissolve));
+	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, 4);
 	ShaderDraw::DrawModel(m_model, m_psH, m_vsH, m_colTex, m_dissolveTex);
 
 #if _DEBUG

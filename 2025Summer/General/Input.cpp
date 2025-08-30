@@ -341,3 +341,30 @@ Vector2 Input::GetMousePos() const
 	GetMousePoint(&x, &y);
 	return Vector2(static_cast<float>(x), static_cast<float>(y));
 }
+
+void Input::AddEvent(const std::string& key, const Peripheral& peripheral)
+{
+	// 重複を回避
+	if (m_inputEvent.contains(key))
+	{
+		for (auto& peri : m_inputEvent[key])
+		{
+			if (peri == peripheral) return;
+		}
+	}
+
+	m_inputEvent[key].emplace_back(peripheral);
+}
+
+void Input::RemoveEvent(const std::string& key, const Peripheral& peripheral)
+{
+	// キーが存在しない場合
+	if (!m_inputEvent.contains(key)) return;
+
+	// キーはあるが指定したイベントがない場合
+	if (std::find(m_inputEvent[key].begin(), m_inputEvent[key].end(), peripheral) == m_inputEvent[key].end()) return;
+
+	// ここまで来たら存在するので、それを消す
+	auto removeIt = std::remove(m_inputEvent[key].begin(), m_inputEvent[key].end(), peripheral);
+	m_inputEvent[key].erase(removeIt);
+}

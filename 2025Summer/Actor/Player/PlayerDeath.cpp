@@ -39,7 +39,7 @@ std::shared_ptr<PlayerState> PlayerDeath::Update()
 	if (m_player.lock()->m_model->IsEnd())
 	{
 		// TODO:ゲームオーバー出す！
-
+		m_player.lock()->Gameover();
 	}
 
 	return shared_from_this();

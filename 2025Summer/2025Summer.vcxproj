@@ -89,6 +89,7 @@
     <ClCompile Include="Actor\Player\PlayerJump.cpp" />
     <ClCompile Include="Actor\Player\PlayerTeleportation.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteStun.cpp" />
+    <ClCompile Include="Scene\SceneGameover.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteStun.h" />
+    <ClInclude Include="Scene\SceneGameover.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />
@@ -299,7 +301,6 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneController.h" />
     <ClInclude Include="Scene\SceneTest.h" />
-    <ClInclude Include="Shader\ConstantBufferIndex.h" />
     <ClInclude Include="Shader\ShaderDraw.h" />
     <ClInclude Include="Shader\ShadowMap.h" />
     <ClInclude Include="Shape\Sphere.h" />
@@ -335,6 +336,16 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Data/Shader/%(Filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Data/Shader/%(Filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Data/Shader/%(Filename).pso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Data/Shader/%(Filename).pso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\GameoverDissolve.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Data/Shader/%(Filename).pso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Data/Shader/%(Filename).pso</ObjectFileOutput>

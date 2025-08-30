@@ -149,6 +149,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.cpp" />
+    <ClCompile Include="Scene\SceneGameover.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -209,7 +210,6 @@
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOn.h" />
     <ClInclude Include="Actor\Player\NormalState\PlayerNormal.h" />
     <ClInclude Include="Actor\Player\PlayerSword.h" />
-    <ClInclude Include="Shader\ConstantBufferIndex.h" />
     <ClInclude Include="Shader\ShaderDraw.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashDown.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerSlashUp.h" />
@@ -310,6 +310,7 @@
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.h" />
+    <ClInclude Include="Scene\SceneGameover.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
@@ -317,5 +318,6 @@
     <FxCompile Include="Shader\MV1Shader\MV1VertexShader.hlsl" />
     <FxCompile Include="Shader\EnemyDissolveVS.hlsl" />
     <FxCompile Include="Shader\EnemyWhiteFade.hlsl" />
+    <FxCompile Include="Shader\GameoverDissolve.hlsl" />
   </ItemGroup>
 </Project>

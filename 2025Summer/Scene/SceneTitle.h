@@ -9,6 +9,7 @@ class UIController;
 class ShadowMap;
 class Camera;
 class Image;
+class SkyBox;
 
 class SceneTitle : public Scene
 {
@@ -30,6 +31,7 @@ private:
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ShadowMap> m_shadow;
 	std::shared_ptr<Image> m_title;
+	std::shared_ptr<SkyBox> m_skyBox;
 
 	std::shared_ptr<Image> m_pressEnyImage;
 	bool m_isAnim;

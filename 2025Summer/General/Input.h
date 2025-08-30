@@ -5,6 +5,24 @@
 #include <string>
 #include <unordered_map>
 
+enum class PeripheralType
+{
+	kKeyboard,
+	kPad,
+	kMouse,
+};
+
+struct Peripheral
+{
+	PeripheralType type;
+	int inputCode;
+
+	bool operator==(const Peripheral& other)
+	{
+		return type == other.type && inputCode == other.inputCode;
+	}
+};
+
 class Input
 {
 public:
@@ -30,22 +48,10 @@ public:
 	const Vector2& GetBeforeLeftInputAxis() const;
 	const Vector2& GetRightInputAxis() const;
 	const Vector2& GetBeforeRightInputAxis() const;
-
 	Vector2 GetMousePos() const;
 
-private:
-	enum class PeripheralType
-	{
-		kKeyboard,
-		kPad,
-		kMouse,
-	};
-
-	struct Peripheral
-	{
-		PeripheralType type;
-		int inputCode;
-	};
+	void AddEvent(const std::string& key,const Peripheral& peripheral);
+	void RemoveEvent(const std::string& key,const Peripheral& peripheral);
 
 private:
 	// ‚¢‚Â‚à‚Ì‚²‚Æ‚­ƒVƒ“ƒOƒ‹ƒgƒ“

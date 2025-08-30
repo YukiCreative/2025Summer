@@ -86,7 +86,7 @@ void Camera::SetTargetPos(const Vector3& targetPos)
 	m_targetPos = targetPos;
 }
 
-void Camera::SetLerpPos(const Vector3& pos)
+void Camera::SetPos(const Vector3& pos)
 {
 	m_targetCameraPos = pos;
 }

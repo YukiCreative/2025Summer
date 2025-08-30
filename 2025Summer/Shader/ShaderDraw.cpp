@@ -81,8 +81,8 @@ void ShaderDraw::DrawScreen(const int tex, const int psH, const int tex2)
 	unsigned short index[6] = {0,1,2,2,1,3};
 
 	SetUsePixelShader(psH);
-	SetUseTextureToShader(3, tex);
-	if (tex2 != -1) SetUseTextureToShader(4, tex2);
+	SetUseTextureToShader(0, tex);
+	if (tex2 != -1) SetUseTextureToShader(1, tex2);
 
 	const int kPolyNum = 2;
 	DrawPolygonIndexed2DToShader(vertices.data(), static_cast<int>(vertices.size()), index, kPolyNum);

@@ -22,6 +22,8 @@
 #include "../../Effect/EffekseerEffect.h"
 #include "../../UI/WaveResult.h"
 #include "../Enemy/Enemy.h"
+#include "../../Scene/SceneGameover.h"
+#include "../../Scene/SceneController.h"
 
 namespace
 {
@@ -94,6 +96,9 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 
 	m_hp.SetMax();
 	m_specialGauge.SetMin();
+
+	Input::GetInstance().AddEvent("SpecialGaugeMax", {PeripheralType::kKeyboard, KEY_INPUT_1});
+	Input::GetInstance().AddEvent("Dead", {PeripheralType::kKeyboard, KEY_INPUT_2});
 }
 
 void Player::Update()
@@ -104,7 +109,9 @@ void Player::Update()
 
 	m_model->Update();
 
-	m_specialGauge.SetMax();
+#if _DEBUG
+	DebugUpdate();
+#endif
 
 	// フラグをリセット
 	m_isContactLockOnActor = false;
@@ -204,6 +211,20 @@ void Player::ReleaseLockOn()
 {
 	// 解除
 	m_lockOnActor.reset();
+}
+
+void Player::DebugUpdate()
+{
+	Input& input = Input::GetInstance();
+
+	if (input.IsTrigger("SpecialGaugeMax"))
+	{
+		m_specialGauge.SetMax();
+	}
+	if (input.IsTrigger("Dead"))
+	{
+		m_state->SetStateDeath();
+	}
 }
 
 
@@ -336,6 +357,8 @@ void Player::EnableSword()
 
 void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPower, const float stunPower)
 {
+	if (!m_sword) return;
+
 	m_sword->ColEnable();
 	m_sword->SetAttackPower(attackPower);
 	m_sword->SetKnockbackPower(knockbackPower);
@@ -344,21 +367,29 @@ void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPow
 
 void Player::SetActionKind(const IncreaseStylishPointKind kind)
 {
+	if (!m_sword) return;
+
 	m_sword->SetActionKind(kind);
 }
 
 void Player::SetIsKnockUp(const bool knockUp)
 {
+	if (!m_sword) return;
+
 	m_sword->SetIsKnockUp(knockUp);
 }
 
 void Player::DisableSword()
 {
+	if (!m_sword) return;
+
 	m_sword->Disable();
 }
 
 void Player::DisableSwordCol()
 {
+	if (!m_sword) return;
+
 	m_sword->ColDisable();
 	m_sword->ClearAttackedList();
 }
@@ -445,4 +476,9 @@ void Player::SetDragY(const float drag)
 void Player::SetDragDefault()
 {
 	m_collidable->GetRigid().SetDragDefault();
+}
+
+void Player::Gameover()
+{
+	SceneController::GetInstance().StackScene(std::make_shared<SceneGameover>());
 }

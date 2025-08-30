@@ -60,8 +60,8 @@ void PlayerLockOnUI::Draw() const
 	if (!m_player.lock()->IsLockOn()) return;
 	std::weak_ptr<Enemy> lockOnEnemy =  m_player.lock()->GetLockOnEnemy();
 
-	DrawCircleGauge(m_pos.x, m_pos.y, m_hitPointGraphRatio * 100.0f, m_hitPointImgHandle, 0.0, kEndExRate);
-	DrawCircleGauge(m_pos.x, m_pos.y, m_stunPointGraphRatio * 100.0f, m_stunPointImgHandle, 0.0f, kEndExRate);
+	DrawCircleGaugeF(m_pos.x, m_pos.y, m_hitPointGraphRatio * 100.0f, m_hitPointImgHandle, 0.0, kEndExRate);
+	DrawCircleGaugeF(m_pos.x, m_pos.y, m_stunPointGraphRatio * 100.0f, m_stunPointImgHandle, 0.0f, kEndExRate);
 
 	m_image->Draw(m_pos);
 }

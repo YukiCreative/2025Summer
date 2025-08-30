@@ -102,6 +102,8 @@ public:
 	void SetDragY(const float drag);
 	void SetDragDefault();
 
+	void Gameover();
+
 public:
 	// ©•ª‚©PlayerState‚¾‚¯‚ÅŒ©‚½‚¢ƒƒ“ƒo•Ï”
 	std::shared_ptr<AnimationModel> m_model;
@@ -136,4 +138,8 @@ public:
 	void LockOnRotate();
 	void ReleaseLockOn();
 	void SetCanLockOn(const bool canOrNot) { m_canLockOn = canOrNot; }
+
+private:
+
+	void DebugUpdate();
 };

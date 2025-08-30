@@ -9,7 +9,7 @@
 #include "../Actor/ActorController.h"
 #include "../UI/Image.h"
 #include "../General/Input.h"
-
+#include "../Shader/SkyBox.h"
 
 namespace
 {
@@ -26,6 +26,8 @@ namespace
 	constexpr float kBlinkSpeed = 0.05f;
 	constexpr float kRapidBlinkSpeed = 1.0f;
 	constexpr float kImageBlendParamLow = 50.0f;
+
+	const std::string kSkyBoxModel = "Data/Model/SkyBox.mv1";
 }
 
 SceneTitle::SceneTitle() :
@@ -38,9 +40,13 @@ void SceneTitle::Init()
 {
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
+	m_camera->RotateCameraV(-0.1f);
 
 	m_actors = std::make_shared<ActorController>();
 	m_actors->Init();
+
+	m_skyBox = std::make_shared<SkyBox>();
+	m_skyBox->Init(kSkyBoxModel, m_camera);
 
 	m_shadow = std::make_shared<ShadowMap>();
 	m_shadow->Init(kShadowAreaMin, kShadowAreaMax);
@@ -74,6 +80,7 @@ void SceneTitle::Update()
 
 	m_camera->Update();
 	m_actors->Update();
+	m_skyBox->Update();
 
 	UpdatePressEnyImage();
 }
@@ -99,7 +106,7 @@ void SceneTitle::UpdatePressEnyImage()
 
 void SceneTitle::Draw() const
 {
-	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
+	m_skyBox->Draw();
 
 	m_shadow->StartShadowMapDraw(GetLightDirection());
 
@@ -115,7 +122,10 @@ void SceneTitle::Draw() const
 	m_title->Draw(kLogoPos);
 	m_pressEnyImage->Draw(kStartButtonPos);
 
+#if _DEBUG
+	DrawFormatString(300, 0, 0xffffff, "FPS:%.2f", GetFPS());
 	DrawString(0, 0, "タイトルシーンです", 0xffffff);
+#endif 
 }
 
 void SceneTitle::Entry()
