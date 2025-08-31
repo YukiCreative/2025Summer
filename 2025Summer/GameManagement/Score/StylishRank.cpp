@@ -1,10 +1,11 @@
 #include "StylishRank.h"
 #include "../../General/Game.h"
 #include <cassert>
+#include "ScoreManager.h"
 
 namespace
 {
-	constexpr size_t kMaxHistory = 10;
+	constexpr size_t kMaxHistory = 20;
 
 	// 位置フレームに自然減少する最大速度
 	constexpr float kMaxDecreaseSpeed = 2.0f / Game::kFrameRate;
@@ -57,7 +58,10 @@ void StylishRank::IncreaseStylishPoint(const IncreaseStylishPointKind kind)
 
 	// この計算式なら一回目は100％二回目は50％三回目は33％…になっていく
 	// 後で変えるかも
-	m_sp += m_increasePointMap[kind] / (historyCount + 1);
+	const float increasePoint = m_increasePointMap[kind] / (historyCount + 1);
+	m_sp += increasePoint;
+	// スコア側に反映
+	ScoreManager::GetInstance().AddStylishPoint(increasePoint);
 
 	if (m_stylishActionHistory.size() > kMaxHistory)
 	{
@@ -149,5 +153,5 @@ void StylishRank::InitMap()
 	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 7.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 6.0f;
 
-	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 40.0f;
+	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 10.0f;
 }

@@ -90,6 +90,7 @@
     <ClCompile Include="Actor\Player\PlayerTeleportation.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyElite\EnemyEliteStun.cpp" />
     <ClCompile Include="Scene\SceneGameover.cpp" />
+    <ClCompile Include="Scene\SceneTimeUp.cpp" />
     <ClCompile Include="Shader\SkyBox.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteStun.h" />
     <ClInclude Include="Scene\SceneGameover.h" />
+    <ClInclude Include="Scene\SceneTimeUp.h" />
     <ClInclude Include="Shader\SkyBox.h" />
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="Camera\Camera.h" />

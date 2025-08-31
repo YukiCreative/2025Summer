@@ -4,6 +4,7 @@
 
 class Image;
 class ArenaMode;
+enum class WaveRank;
 
 // ウェーブ間のリザルトを出します
 class WaveResult : public UIBase
@@ -31,7 +32,7 @@ private:
 	// 時間
 	float m_second;
 	// 総合ランク
-	StylishRankKind m_rank;
+	WaveRank m_rank;
 
 	using Sequence_t = void (WaveResult::*)();
 	Sequence_t m_sequence;

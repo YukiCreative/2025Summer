@@ -44,6 +44,8 @@ public:
 	// 加点と計算式が異なる　基本的に設定された値のまま減算される
 	void DecreaseStylishPoint(const DecreaseStylishPointKind kind);
 
+	float GetTotalStylishPoint() const { return m_totalStylishPoint; }
+
 	// 0~100
 	const float GetStylishPoint() const { return m_sp.Value(); }
 	// 今のスタイリッシュランクとその割合を返す

@@ -8,6 +8,7 @@
 #include "../Scene/SceneResult.h"
 #include "../Actor/ActorController.h"
 #include "../Actor/Enemy/EnemyGenerator.h"
+#include "Score/ScoreManager.h"
 
 #include "../Actor/Actor.h"
 #include "TutorialMode.h"
@@ -18,7 +19,8 @@ namespace
 	const Vector2 kTimerPos = {Game::kScreenHalfWidth, 50};
 }
 
-ArenaMode::ArenaMode()
+ArenaMode::ArenaMode() :
+	m_waveStartFrame(0)
 {
 	m_addFrameMap[EnemyKind::kNone ] =   0;
 	m_addFrameMap[EnemyKind::kBug  ] = 300;
@@ -29,6 +31,7 @@ ArenaMode::ArenaMode()
 void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController> actors, std::weak_ptr<UIController> ui)
 {
 	m_actors = actors;
+	m_player = player;
 	m_wave = std::make_shared<WaveController>();
 	m_wave->Init(player, actors);
 
@@ -51,15 +54,18 @@ void ArenaMode::Update()
 	m_wave->Update();
 
 	// 時間切れの処理
-	if (m_timer->Update())
+	if (m_wave->IsFighting())
 	{
-		m_timer->SetCount(0);
-		m_timer->StopCount();
-		//m_wave->StopUpdate();
+		if (m_timer->Update())
+		{
+			m_timer->SetCount(0);
+			m_timer->StopCount();
+			m_wave->StopUpdate();
 
-		// シーン遷移とか
-		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
-		return;
+			// シーン遷移とか
+			SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
+			return;
+		}
 	}
 
 	// 敵が死んだら
@@ -75,6 +81,10 @@ void ArenaMode::Update()
 	// スコア出す
 	if (m_wave->IsDefeatedAllEnemy())
 	{
-
+		// クリアタイムを保存
+		ScoreManager::GetInstance().SetClearTime(m_timer->GetCountFrame() - m_waveStartFrame);
+		m_waveStartFrame = m_timer->GetCountFrame();
+		// スコア側のウェーブを進める
+		ScoreManager::GetInstance().ProceedWave();
 	}
 }

@@ -24,6 +24,7 @@
 #include "../Enemy/Enemy.h"
 #include "../../Scene/SceneGameover.h"
 #include "../../Scene/SceneController.h"
+#include "../../GameManagement/Score/ScoreManager.h"
 
 namespace
 {
@@ -156,6 +157,11 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 	// 振動
 	m_camera.lock()->SetShake(kDamageCameraShakeFrame, kDamageCameraShakeStrength);
 
+	// スタイリッシュゲージを減らす
+	StylishRank::GetInstance().DecreaseStylishPoint(DecreaseStylishPointKind::kDamage);
+	// スコアに報告
+	ScoreManager::GetInstance().AddDamageAmount(attack->GetAttackPower());
+
 	// 血しぶきを上げる
 	auto blood = EffectManager::GetInstance().GenerateEffect(kDamageEffect, m_pos + (kCapsuleEndPosOffset * static_cast<float>(GetRand(100)) * 0.01f));
 	blood.lock()->SetRotate({ static_cast<float>(GetRand(180) * Geometry::kDegToRad),Geometry::Corner(Vector3::Foward(), m_pos.XZ() - attack->GetPos().XZ()),0 });
@@ -169,8 +175,7 @@ void Player::OnDamage(std::shared_ptr<AttackCol> attack)
 #endif
 
 	// ノックバック
-	
-		const Vector3 eToPN = (m_pos - attack->GetPos()).GetNormalize();
+	const Vector3 eToPN = (m_pos - attack->GetPos()).GetNormalize();
 	m_collidable->AddVel(VTransformSR(attack->GetKnockbackPower(), MGetRotVec2(Vector3::Foward(), eToPN)));
 
 	if (m_hp.IsMin())

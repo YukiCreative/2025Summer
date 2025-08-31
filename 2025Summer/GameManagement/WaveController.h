@@ -20,6 +20,9 @@ public:
 	// ウェーブが切り替わった(敵が全滅した)フレームだけtrueになります
 	const bool IsDefeatedAllEnemy() const { return m_isDefeatedAllEnemy; }
 	const int GetNowWave() const { return m_wave; }
+	// 今戦闘中かどうか
+	// タイマーを進めるときなどに使えます
+	const bool IsFighting() const { return m_state == &WaveController::BattleUpdate; }
 
 private:
 

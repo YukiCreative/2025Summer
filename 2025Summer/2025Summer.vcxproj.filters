@@ -150,6 +150,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.cpp" />
     <ClCompile Include="Scene\SceneGameover.cpp" />
+    <ClCompile Include="Scene\SceneTimeUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -311,6 +312,7 @@
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.h" />
     <ClInclude Include="Scene\SceneGameover.h" />
+    <ClInclude Include="Scene\SceneTimeUp.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

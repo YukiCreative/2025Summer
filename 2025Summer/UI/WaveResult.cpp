@@ -3,6 +3,7 @@
 #include "Image.h"
 #include <DxLib.h>
 #include "../General/Game.h"
+#include "../GameManagement/Score/ScoreManager.h"
 
 namespace
 {
@@ -21,7 +22,10 @@ namespace
 
 WaveResult::WaveResult() :
 	UIBase(ToString(WaveResult)),
-	m_fontH(-1)
+	m_fontH(-1),
+	m_damageAmount(0),
+	m_rank(WaveRank::kNoRank),
+	m_sequence(&WaveResult::Appear)
 {
 }
 
@@ -49,6 +53,7 @@ void WaveResult::Draw() const
 void WaveResult::StartResult()
 {
 	m_pos = kInitPos;
+	m_sequence = &WaveResult::Appear;
 }
 
 void WaveResult::Appear()

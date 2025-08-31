@@ -25,9 +25,12 @@ private:
 	std::shared_ptr<WaveController> m_wave;
 	std::shared_ptr<Timer> m_timer;
 	std::weak_ptr<ActorController> m_actors;
+	std::weak_ptr<Player> m_player;
 	// 敵と、そのスコアの組み合わせ
 	std::unordered_map<EnemyKind, int> m_addFrameMap;
-
 	std::shared_ptr<EnemyGenerator> m_enemyGenerator;
+
+	// 今回のウェーブが始まったタイマーフレーム
+	int m_waveStartFrame;
 };
 
