@@ -26,6 +26,7 @@ public:
 private:
 
 	Vector2 m_lerpStartPos;
+	// 移動したり数字をカウントしたりするのに使いまわしてます
 	RangeLimitedValue<float, 0.0f, 1.0f> m_lerpTime;
 
 	int m_fontH;
@@ -39,9 +40,9 @@ private:
 
 private:
 
+	// 冗長なのは許してください
 	void Appear();
-	void Wait();
-	void CountDamage();
+	void CountDamageAmount();
 	void CountClearTime();
 	void CountTotalStylishPoint();
 	void Disappear();
@@ -49,6 +50,8 @@ private:
 
 	void BoxDraw() const;
 	void DamageDraw() const;
+	void TimeDraw() const;
+	void StylishPointDraw() const;
 	void NoDraw() const;
 };
 
