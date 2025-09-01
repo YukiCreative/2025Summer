@@ -120,7 +120,7 @@
     <ClCompile Include="UI\TimeUI.cpp" />
     <ClCompile Include="GameManagement\ArenaMode.cpp" />
     <ClCompile Include="UI\StylishRankUI.cpp" />
-    <ClCompile Include="UI\WaveResult.cpp" />
+    <ClCompile Include="UI\WaveResultUI.cpp" />
     <ClCompile Include="GameManagement\CampaignMode.cpp" />
     <ClCompile Include="Scene\SceneTutorial.cpp" />
     <ClCompile Include="GameManagement\TutorialMode.cpp" />
@@ -280,7 +280,7 @@
     <ClInclude Include="GameManagement\ArenaMode.h" />
     <ClInclude Include="UI\StylishRankUI.h" />
     <ClInclude Include="GameManagement\Score\StylishEnum.h" />
-    <ClInclude Include="UI\WaveResult.h" />
+    <ClInclude Include="UI\WaveResultUI.h" />
     <ClInclude Include="GameManagement\CampaignMode.h" />
     <ClInclude Include="Scene\SceneTutorial.h" />
     <ClInclude Include="GameManagement\TutorialMode.h" />

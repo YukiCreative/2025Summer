@@ -9,6 +9,7 @@
 #include "../Actor/ActorController.h"
 #include "../Actor/Enemy/EnemyGenerator.h"
 #include "Score/ScoreManager.h"
+#include "../UI/WaveResultUI.h"
 
 #include "../Actor/Actor.h"
 #include "TutorialMode.h"
@@ -40,6 +41,10 @@ void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController
 	m_timer->SetCount(kInitTimeLimit);
 	m_timer->SetStateCountDown();
 	m_timer->StartCount();
+
+	m_resultUI = std::make_shared<WaveResultUI>();
+	m_resultUI->Init();
+	ui.lock()->AddUI(m_resultUI);
 
 	auto timer = std::make_shared<TimeUI>();
 	timer->Init(kTimerPos, m_timer);
@@ -84,6 +89,7 @@ void ArenaMode::Update()
 		// クリアタイムを保存
 		ScoreManager::GetInstance().SetClearTime(m_timer->GetCountFrame() - m_waveStartFrame);
 		m_waveStartFrame = m_timer->GetCountFrame();
+		m_resultUI->StartResult();
 		// スコア側のウェーブを進める
 		ScoreManager::GetInstance().ProceedWave();
 	}

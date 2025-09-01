@@ -5,7 +5,7 @@ ScoreManager::ScoreManager() :
 	m_wave(0)
 {
 	// Å‰‚Ì—v‘f‚ğ’Ç‰Á
-	m_waveResultList.resize(1);
+	m_waveResultList.emplace_back(std::make_shared<WaveResult>());
 }
 
 ScoreManager& ScoreManager::GetInstance()
@@ -53,15 +53,20 @@ void ScoreManager::AddStylishPoint(const float point)
 	m_waveResultList[m_wave]->m_stylishRankPoint += point;
 }
 
-std::shared_ptr<ScoreManager::WaveResult> ScoreManager::GetWaveResult(const int waveNum)
+std::shared_ptr<WaveResult> ScoreManager::GetWaveResult(const int waveNum)
 {
 	if (m_waveResultList.size() < waveNum) return nullptr;
 
 	return m_waveResultList[waveNum];
 }
 
+std::shared_ptr<WaveResult> ScoreManager::GetNowWaveResult()
+{
+	return m_waveResultList[m_wave];
+}
+
 void ScoreManager::ProceedWave()
 {
 	++m_wave;
-	m_waveResultList.resize(m_waveResultList.size() + 1);
+	m_waveResultList.push_back(std::make_shared<WaveResult>());
 }

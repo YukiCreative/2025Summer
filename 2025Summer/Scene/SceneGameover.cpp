@@ -59,7 +59,9 @@ void SceneGameover::Update()
 void SceneGameover::Draw() const
 {
 	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, 4);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	ShaderDraw::DrawScreen(m_imgH, m_psH, m_dissolveH);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	DrawString(1000, 700, "Œˆ’èƒ{ƒ^ƒ“‚ÅŸ‚Öi‚Ş", 0xffffff);
 }

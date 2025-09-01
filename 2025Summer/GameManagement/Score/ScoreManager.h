@@ -14,17 +14,16 @@ enum class WaveRank
 	kNoRank,
 };
 
+struct WaveResult
+{
+	// ウェーブのプレイ結果
+	float m_damageAmount;
+	int m_clearTime;
+	float m_stylishRankPoint;
+};
+
 class ScoreManager
 {
-private:
-	struct WaveResult
-	{
-		// ウェーブのプレイ結果
-		float m_damageAmount;
-		int m_clearTime;
-		float m_stylishRankPoint;
-	};
-
 private:
 	ScoreManager();
 	ScoreManager(const ScoreManager&) = delete;
@@ -43,6 +42,7 @@ public:
 	void AddStylishPoint(const float point);
 
 	std::shared_ptr<WaveResult> GetWaveResult(const int waveNum);
+	std::shared_ptr<WaveResult> GetNowWaveResult();
 
 	// ウェーブを進める
 	// 今まで設定したスコアを1ウェーブの結果として保存する

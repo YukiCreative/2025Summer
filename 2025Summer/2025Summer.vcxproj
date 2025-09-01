@@ -158,7 +158,7 @@
     <ClCompile Include="UI\ImageStore.cpp" />
     <ClCompile Include="UI\UIBase.cpp" />
     <ClCompile Include="UI\UIPositionLoader.cpp" />
-    <ClCompile Include="UI\WaveResult.cpp" />
+    <ClCompile Include="UI\WaveResultUI.cpp" />
     <ClCompile Include="Utility\MyRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +318,7 @@
     <ClInclude Include="UI\UIBase.h" />
     <ClInclude Include="UI\UIKind.h" />
     <ClInclude Include="UI\UIPositionLoader.h" />
-    <ClInclude Include="UI\WaveResult.h" />
+    <ClInclude Include="UI\WaveResultUI.h" />
     <ClInclude Include="Utility\MyRandom.h" />
     <ClInclude Include="Utility\RangeLimitedValue.h" />
     <ClInclude Include="Utility\Utility.h" />
