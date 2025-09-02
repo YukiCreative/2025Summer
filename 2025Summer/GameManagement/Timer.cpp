@@ -4,7 +4,8 @@
 Timer::Timer() :
 	m_count(0),
 	m_state(&Timer::CountDownUpdate),
-	m_isStop(true)
+	m_isStop(true),
+	m_measureTime(0)
 {
 }
 
@@ -26,6 +27,8 @@ bool Timer::CountDownUpdate()
 
 	if (m_count < 0) return true;
 
+	++m_measureTime;
+
 	return false;
 }
 
@@ -37,6 +40,8 @@ bool Timer::CountUpUpdate()
 	++m_count;
 
 	if (m_count < 0) return true;
+
+	++m_measureTime;
 
 	return false;
 }
@@ -69,4 +74,14 @@ void Timer::SetStateCountUp()
 void Timer::SetStateCountDown()
 {
 	m_state = &Timer::CountDownUpdate;
+}
+
+void Timer::StartMeasurement()
+{
+	m_measureTime = 0;
+}
+
+float Timer::GetMeasureSecond() const
+{
+	return static_cast<float>(m_measureTime) / static_cast<float>(Game::kFrameRate);
 }

@@ -2,6 +2,7 @@
 #include "UIBase.h"
 #include "../GameManagement/Score/StylishEnum.h"
 #include "../Utility/RangeLimitedValue.h"
+#include <array>
 
 class Image;
 class ArenaMode;
@@ -38,6 +39,10 @@ private:
 	using DrawFunc_t = void (WaveResultUI::*)() const;
 	DrawFunc_t m_draw;
 
+	std::array<std::shared_ptr<Image>, 3> m_rankImage;
+
+	int m_frame;
+
 private:
 
 	// ç’·‚È‚Ì‚Í‹–‚µ‚Ä‚­‚¾‚³‚¢
@@ -53,5 +58,7 @@ private:
 	void TimeDraw() const;
 	void StylishPointDraw() const;
 	void NoDraw() const;
+
+	void ResultTextDraw() const;
 };
 

@@ -23,6 +23,7 @@ public:
 	// 今戦闘中かどうか
 	// タイマーを進めるときなどに使えます
 	const bool IsFighting() const { return m_state == &WaveController::BattleUpdate; }
+	const bool IsGenerateEnemyInThisFrame() const { return m_isGeneratedEnemy; }
 
 private:
 
@@ -31,6 +32,8 @@ private:
 	int m_wave;
 	int m_stateFrame;
 	bool m_isDefeatedAllEnemy;
+	// 生成されたフレームにtrue
+	bool m_isGeneratedEnemy;
 
 	using WaveState_t = void (WaveController::*)();
 	WaveState_t m_state;

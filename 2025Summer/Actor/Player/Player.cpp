@@ -20,7 +20,6 @@
 #include <DxLib.h>
 #include "../../Effect/EffectManager.h"
 #include "../../Effect/EffekseerEffect.h"
-#include "../../UI/WaveResult.h"
 #include "../Enemy/Enemy.h"
 #include "../../Scene/SceneGameover.h"
 #include "../../Scene/SceneController.h"

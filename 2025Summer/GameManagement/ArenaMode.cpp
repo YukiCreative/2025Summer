@@ -20,8 +20,7 @@ namespace
 	const Vector2 kTimerPos = {Game::kScreenHalfWidth, 50};
 }
 
-ArenaMode::ArenaMode() :
-	m_waveStartFrame(0)
+ArenaMode::ArenaMode()
 {
 	m_addFrameMap[EnemyKind::kNone ] =   0;
 	m_addFrameMap[EnemyKind::kBug  ] = 300;
@@ -58,6 +57,11 @@ void ArenaMode::Update()
 {
 	m_wave->Update();
 
+	if (m_wave->IsGenerateEnemyInThisFrame())
+	{
+		m_timer->StartMeasurement();
+	}
+
 	// 時間切れの処理
 	if (m_wave->IsFighting())
 	{
@@ -87,8 +91,7 @@ void ArenaMode::Update()
 	if (m_wave->IsDefeatedAllEnemy())
 	{
 		// クリアタイムを保存
-		ScoreManager::GetInstance().SetClearTime(m_timer->GetCountFrame() - m_waveStartFrame);
-		m_waveStartFrame = m_timer->GetCountFrame();
+		ScoreManager::GetInstance().SetClearTime(m_timer->GetMeasureSecond());
 		m_resultUI->StartResult();
 		// スコア側のウェーブを進める
 		ScoreManager::GetInstance().ProceedWave();

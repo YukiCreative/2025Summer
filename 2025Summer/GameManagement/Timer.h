@@ -21,6 +21,9 @@ public:
 	void SetStateCountDown();
 	void AddCount(const int count) { m_count += count; }
 
+	void StartMeasurement();
+	float GetMeasureSecond() const;
+
 private:
 	using State_t = bool (Timer::*)();
 	bool CountDownUpdate();
@@ -31,5 +34,6 @@ private:
 	int m_count;
 	State_t m_state;
 	bool m_isStop;
+	int m_measureTime;
 };
 

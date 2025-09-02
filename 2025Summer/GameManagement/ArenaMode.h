@@ -31,8 +31,5 @@ private:
 	std::unordered_map<EnemyKind, int> m_addFrameMap;
 	std::shared_ptr<EnemyGenerator> m_enemyGenerator;
 	std::shared_ptr<WaveResultUI> m_resultUI;
-
-	// 今回のウェーブが始まったタイマーフレーム
-	int m_waveStartFrame;
 };
 

@@ -18,7 +18,7 @@ struct WaveResult
 {
 	// ウェーブのプレイ結果
 	float m_damageAmount;
-	int m_clearTime;
+	float m_clearTime;
 	float m_stylishRankPoint;
 };
 
@@ -38,7 +38,7 @@ public:
 	WaveRank CalcWaveStylishRank(const int waveNum);
 
 	void AddDamageAmount(const float damageAmount);
-	void SetClearTime(const int clearTime);
+	void SetClearTime(const float clearTime);
 	void AddStylishPoint(const float point);
 
 	std::shared_ptr<WaveResult> GetWaveResult(const int waveNum);

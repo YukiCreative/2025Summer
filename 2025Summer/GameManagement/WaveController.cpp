@@ -2,20 +2,20 @@
 #include "../Actor/Enemy/EnemyGenerator.h"
 #include "../Actor/ActorController.h"
 #include "../General/Input.h"
-#include "../Actor/ActorController.h"
 #include "../Actor/Enemy/Enemy.h"
 
 namespace
 {
 	constexpr int kMaxWave = 2;
-	constexpr int kWaitFrame = 180;
+	constexpr int kWaitFrame = 300;
 }
 
 WaveController::WaveController() :
 	m_wave(0),
 	m_stateFrame(0),
 	m_state(&WaveController::IntervalUpdate),
-	m_isDefeatedAllEnemy(false)
+	m_isDefeatedAllEnemy(false),
+	m_isGeneratedEnemy(false)
 {
 }
 
@@ -30,6 +30,7 @@ void WaveController::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorContr
 void WaveController::Update()
 {
 	m_isDefeatedAllEnemy = false;
+	m_isGeneratedEnemy = false;
 
 #if _DEBUG
 	Input& input = Input::GetInstance();
@@ -39,6 +40,7 @@ void WaveController::Update()
 		// 今のウェーブを出現させる
 		m_enemyGenerator->SpawnWave(m_wave);
 		m_stateFrame = 0;
+		m_isGeneratedEnemy = true;
 		m_state = &WaveController::BattleUpdate;
 		return;
 	}
@@ -89,6 +91,7 @@ void WaveController::IntervalUpdate()
 		m_enemyGenerator->SpawnWave(m_wave);
 		++m_wave;
 		m_stateFrame = 0;
+		m_isGeneratedEnemy = true;
 		m_state = &WaveController::BattleUpdate;
 		return;
 	}

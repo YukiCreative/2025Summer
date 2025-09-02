@@ -43,7 +43,7 @@ void ScoreManager::AddDamageAmount(const float damageAmount)
 	m_waveResultList[m_wave]->m_damageAmount += damageAmount;
 }
 
-void ScoreManager::SetClearTime(const int clearTime)
+void ScoreManager::SetClearTime(const float clearTime)
 {
 	m_waveResultList[m_wave]->m_clearTime = clearTime;
 }

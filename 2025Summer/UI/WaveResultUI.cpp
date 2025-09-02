@@ -9,24 +9,27 @@
 
 namespace
 {
-	const std::string kFontName = "";
-	constexpr int kFontSize = 10;
+	const std::string kFontName = "BIZ UDP明朝 Medium";
+	constexpr int kFontSize = 15;
 	constexpr int kFontThick = 1;
 
 	constexpr int kAppearFrame = 60;
 	constexpr int kLifeFrame = 180;
 	constexpr int kDisappearFrame = 60;
 
-	const Vector2 kInitPos = { Game::kScreenWidth + 500.0f, 500.0f};
-	const Vector2 kAppearTargetPos = { Game::kScreenWidth - 500.0f, 500.0f};
-	const Vector2 kDamageDrawOffset = {-100.0f, 0.0f};
-	const Vector2 kTimeDrawOffset = {0.0f, 0.0f};
-	const Vector2 kStylishPointDrawOffset = {100.0f, 0.0f};
+	const Vector2 kResultTextOffset = { -150.0f, -75.0f };
+	const Vector2 kInitPos = { Game::kScreenWidth + 500.0f, 150.0f };
+	const Vector2 kAppearTargetPos = { Game::kScreenWidth - 200.0f, 150.0f };
+	const Vector2 kDamageDrawOffset = {-150.0f, -25.0f};
+	const Vector2 kTimeDrawOffset = {-150.0f, 0.0f};
+	const Vector2 kStylishPointDrawOffset = {-150.0f, 25.0f};
 
 	constexpr float kLerpSpeed = 0.02f;
 
-	constexpr float kBoxWidth = 100.0f;
+	constexpr float kBoxWidth = 150.0f;
 	constexpr float kBoxHeight = 100.0f;
+
+	constexpr int kShowWaitTime = 120;
 }
 
 WaveResultUI::WaveResultUI() :
@@ -34,7 +37,8 @@ WaveResultUI::WaveResultUI() :
 	m_fontH(-1),
 	m_sequence(&WaveResultUI::Disable),
 	m_draw(&WaveResultUI::NoDraw),
-	m_lerpStartPos()
+	m_lerpStartPos(),
+	m_frame(0)
 {
 }
 
@@ -47,7 +51,12 @@ void WaveResultUI::Init()
 {
 	// フォント作る
 	m_fontH = CreateFontToHandle(kFontName.c_str(), kFontSize, kFontThick);
-	m_pos = kInitPos;
+
+	for (auto& img : m_rankImage)
+	{
+		img = std::make_shared<Image>();
+		img->Init(-1);
+	}
 }
 
 void WaveResultUI::Update()
@@ -96,6 +105,8 @@ void WaveResultUI::CountDamageAmount()
 	{
 		m_lerpTime.SetMin();
 		m_sequence = &WaveResultUI::CountClearTime;
+		m_draw = &WaveResultUI::TimeDraw;
+		return;
 	}
 }
 
@@ -107,6 +118,8 @@ void WaveResultUI::CountClearTime()
 	{
 		m_lerpTime.SetMin();
 		m_sequence = &WaveResultUI::CountTotalStylishPoint;
+		m_draw = &WaveResultUI::StylishPointDraw;
+		return;
 	}
 }
 
@@ -114,17 +127,32 @@ void WaveResultUI::CountTotalStylishPoint()
 {
 	m_lerpTime += kLerpSpeed;
 
-	if (m_lerpTime.IsMax())
+	if (m_lerpTime.IsMax() && m_frame > kShowWaitTime)
 	{
 		m_lerpTime.SetMin();
-		m_sequence = &WaveResultUI::CountTotalStylishPoint;
+		m_sequence = &WaveResultUI::Disappear;
+		m_lerpStartPos = m_pos;
+		m_frame = 0;
+		return;
 	}
+
+	++m_frame;
 }
 
 void WaveResultUI::Disappear()
 {
+	m_lerpTime += kLerpSpeed;
+	float temp = Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart);
 	// 戻る
-	m_pos.LerpMyself(kInitPos, kLerpSpeed);
+	m_pos = m_lerpStartPos + m_lerpStartPos.Lerp(kInitPos, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart));
+
+	if (m_lerpTime.IsMax())
+	{
+		m_lerpTime.SetMin();
+		m_sequence = &WaveResultUI::Disable;
+		m_draw = &WaveResultUI::NoDraw;
+		return;
+	}
 }
 
 void WaveResultUI::Disable()
@@ -142,25 +170,33 @@ void WaveResultUI::BoxDraw() const
 void WaveResultUI::DamageDraw() const
 {
 	BoxDraw();
+	ResultTextDraw();
 	// 数字出す
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH, "ダメージ：%f", std::lerp(0.0f, m_resultData.lock()->m_damageAmount, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", std::lerp(0.0f, m_resultData.lock()->m_damageAmount, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::TimeDraw() const
 {
 	BoxDraw();
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH, "ダメージ　　：%f", m_resultData.lock()->m_damageAmount);
-	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH, "クリアタイム：%f", std::lerp(0.0f, m_resultData.lock()->m_clearTime, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	ResultTextDraw();
+	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
+	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", std::lerp(0.0f, m_resultData.lock()->m_clearTime, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::StylishPointDraw() const
 {
 	BoxDraw();
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH, "ダメージ　　：%f", m_resultData.lock()->m_damageAmount);
-	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH, "クリアタイム：%f", m_resultData.lock()->m_clearTime);
-	DrawFormatStringToHandle(m_pos.x + kStylishPointDrawOffset.x, m_pos.y + kStylishPointDrawOffset.y, 0xffffff, m_fontH, "スタイリッシュポイント：%f", std::lerp(0.0f, m_resultData.lock()->m_stylishRankPoint, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	ResultTextDraw();
+	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
+	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", m_resultData.lock()->m_clearTime);
+	DrawFormatStringToHandle(m_pos.x + kStylishPointDrawOffset.x, m_pos.y + kStylishPointDrawOffset.y, 0xffffff, m_fontH, "スタイリッシュポイント：%.0f", std::lerp(0.0f, m_resultData.lock()->m_stylishRankPoint, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::NoDraw() const
 {
+}
+
+void WaveResultUI::ResultTextDraw() const
+{
+	DrawStringToHandle(m_pos.x + kResultTextOffset.x, m_pos.y + kResultTextOffset.y, "Result", 0xffffff, m_fontH);
 }
