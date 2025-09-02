@@ -24,7 +24,7 @@ public:
 	// Œ»İ‚Ì‰½”{‚Ì‘å‚«‚³‚É‚·‚é‚©
 	void ExpandGraph(const float& exRate);
 	// ‘ã“ü
-	void SetExRate(const float& value)    { m_expandRate = value; }
+	void SetExRatio(const float& value)    { m_expandRate = value; }
 	// Œ»ó‚©‚ç‰½“x‰ñ“]‚³‚¹‚é‚©
 	void RotateGraph(const float& deg)    { m_angle += deg * Geometry::kDegToRad; }
 	// ‘ã“ü

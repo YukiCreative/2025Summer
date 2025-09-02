@@ -96,6 +96,16 @@ float Geometry::Easing(RangeLimitedValue<float, 0.0f, 1.0f> time, EasingKind kin
 		// https://easings.net/ja#easeInOutQuint
 		return (time.Value() < 0.5f) ? 16 * static_cast<float>(pow(time.Value(), 5)) : 1 - static_cast<float>(pow(-2 * time.Value() + 2, 5)) / 2;
 		break;
+	case Geometry::EasingKind::kInExpo:
+		// https://easings.net/ja#easeInExpo
+		return time.IsMin() ? 0.0f : std::pow(2, 10 * time.Value() - 10);
+		break;
+	case Geometry::EasingKind::kOutElastic:
+		// https://easings.net/ja#easeOutElastic
+		if (time.IsMin()) return 0.0f;
+		if (time.IsMax()) return 1.0f;
+		return std::pow(2, -10 * time.Value()) * std::sinf((time.Value() * 10 - 0.75) * ((2 * kPi) / 3)) + 1;
+		break;
 	default:
 		assert(false && "—ñ‹“‚Éˆ—‚ªì‚ç‚ê‚Ä‚¢‚È‚¢");
 		return time.Value();

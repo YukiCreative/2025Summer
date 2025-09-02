@@ -36,6 +36,8 @@ namespace Geometry
 	{
 		kOutQuart,
 		kInOutQuint,
+		kInExpo,
+		kOutElastic,
 	};
 
 	float Easing(RangeLimitedValue<float, 0.0f, 1.0f> time, EasingKind kind);

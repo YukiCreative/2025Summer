@@ -37,7 +37,7 @@ void PlayerLockOnUI::Init(std::weak_ptr<Player> player)
 	m_image->SetImageBlendMode(DX_BLENDMODE_ALPHA, 0);
 
 	m_stateParam.SetMax();
-	m_image->SetExRate(kStartExRate);
+	m_image->SetExRatio(kStartExRate);
 
 	m_hitPointImgHandle = LoadGraph(kHitPointImageName.c_str());
 	m_stunPointImgHandle = LoadGraph(kStunPointImageName.c_str());
@@ -73,13 +73,13 @@ void PlayerLockOnUI::StartLockOn()
 	m_stateParam -= kStateSpeed;
 
 	// k¬‚µ‚È‚ª‚ç“§‰ß“x‚ð‰º‚°‚é
-	m_image->SetExRate(std::lerp(kEndExRate, kStartExRate, m_stateParam.Value()));
+	m_image->SetExRatio(std::lerp(kEndExRate, kStartExRate, m_stateParam.Value()));
 	m_image->SetImageBlendParam(255 - m_stateParam.Value() * 255);
 
 	// I‚í‚Á‚½‚çDuring‚Ö
 	if (m_stateParam.IsMin())
 	{
-		m_image->SetExRate(kEndExRate);
+		m_image->SetExRatio(kEndExRate);
 		m_state = &PlayerLockOnUI::DuringLockOn;
 	}
 
@@ -95,13 +95,13 @@ void PlayerLockOnUI::EndLockOn()
 	// Šg‘å‚µ‚È‚ª‚ç“§–¾‚É‚È‚Á‚Ä‚¢‚­
 	m_stateParam += kStateSpeed;
 
-	m_image->SetExRate(std::lerp(kEndExRate, kStartExRate, m_stateParam.Value()));
+	m_image->SetExRatio(std::lerp(kEndExRate, kStartExRate, m_stateParam.Value()));
 	m_image->SetImageBlendParam(255 - m_stateParam.Value() * 255);
 
 	// I‚í‚Á‚½‚çNo‚Ö
 	if (m_stateParam.IsMax())
 	{
-		m_image->SetExRate(kStartExRate);
+		m_image->SetExRatio(kStartExRate);
 		m_state = &PlayerLockOnUI::NoLockOn;
 	}
 

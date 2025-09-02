@@ -42,8 +42,8 @@ void StylishRankUI::Init()
 	m_fillImage = std::make_shared<Image>();
 	m_fillImage->Init(kNoImageFill);
 
-	m_baseImage->SetExRate(m_scale);
-	m_fillImage->SetExRate(m_scale);
+	m_baseImage->SetExRatio(m_scale);
+	m_fillImage->SetExRatio(m_scale);
 
 	ResetAnim();
 }
@@ -65,8 +65,8 @@ void StylishRankUI::Update()
 
 	m_nowParam = param;
 
-	m_baseImage->SetExRate(m_exRate.Value());
-	m_fillImage->SetExRate(m_exRate.Value());
+	m_baseImage->SetExRatio(m_exRate.Value());
+	m_fillImage->SetExRatio(m_exRate.Value());
 	m_baseImage->SetImageBlendParam(m_alphaRate.Value());
 
 	m_exRate -= kImageShrinkingSpeed;

@@ -123,6 +123,8 @@ void PlayerLockOn::SetTargetPos()
 {
     auto p = m_player.lock();
 
+    if (p->m_lockOnActor.expired()) return;
+
     // ”]“V‚©‚çü‚ðo‚·
     auto pTargetStart = p->GetPos() + kLockOnLineStartOffset;
     auto eTargetStart = p->m_lockOnActor.lock()->GetPos() + kLockOnLineStartOffset;

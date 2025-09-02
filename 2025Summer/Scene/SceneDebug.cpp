@@ -28,7 +28,7 @@ void SceneDebug::Init()
 
 	a = std::make_shared<Image>();
 	a->Init("Flame01.png");
-	a->SetExRate(5.0f);
+	a->SetExRatio(5.0f);
 }
 
 void SceneDebug::Update()

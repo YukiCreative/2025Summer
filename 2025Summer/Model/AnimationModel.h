@@ -21,7 +21,6 @@ public:
 
 	void Init(const std::string& path, const float animSpeed);
 	// すでにあるハンドルを参照するパターン
-	// デストラクタでモデルを削除しない
 	void Init(const int handle, const float animSpeed);
 
 	void Update();

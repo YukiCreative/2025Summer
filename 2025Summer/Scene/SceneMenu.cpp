@@ -100,12 +100,12 @@ void SceneMenu::MenuButton::Draw() const
 void SceneMenu::MenuButton::OnFocused()
 {
 	// ‰¼
-	m_image->SetExRate(2.0f);
+	m_image->SetExRatio(2.0f);
 }
 
 void SceneMenu::MenuButton::OnDisfocused()
 {
-	m_image->SetExRate(1.0f);
+	m_image->SetExRatio(1.0f);
 }
 
 void SceneMenu::MenuButton::OnPressed()

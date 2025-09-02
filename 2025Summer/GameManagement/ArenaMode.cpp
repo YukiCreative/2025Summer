@@ -93,7 +93,20 @@ void ArenaMode::Update()
 		// クリアタイムを保存
 		ScoreManager::GetInstance().SetClearTime(m_timer->GetMeasureSecond());
 		m_resultUI->StartResult();
-		// スコア側のウェーブを進める
-		ScoreManager::GetInstance().ProceedWave();
+
+		// もし次のウェーブがあるなら
+		if (!m_wave->IsEndWave())
+		{
+			// スコア側のウェーブを進める
+			ScoreManager::GetInstance().ProceedWave();
+		}
+	}
+
+	// 最後のウェーブリザルトが終わったら
+	if (m_wave->IsEndWave() && m_resultUI->IsDisable())
+	{
+		// リザルトへ
+		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneResult>());
+		return;
 	}
 }

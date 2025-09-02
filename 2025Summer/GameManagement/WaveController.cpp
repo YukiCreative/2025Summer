@@ -58,6 +58,11 @@ void WaveController::Update()
 	(this->*m_state)();
 }
 
+const bool WaveController::IsEndWave()
+{
+	return m_wave > kMaxWave;
+}
+
 void WaveController::BattleUpdate()
 {
 	// “G‚ª‘S–Å‚µ‚Ä‚é‚©ŠÄŽ‹
@@ -65,6 +70,7 @@ void WaveController::BattleUpdate()
 
 	if (m_actors.lock()->SearchEnemy().size() == 0)
 	{
+		++m_wave;
 		m_isDefeatedAllEnemy = true;
 		if (m_wave > kMaxWave)
 		{
@@ -89,7 +95,6 @@ void WaveController::IntervalUpdate()
 	if (m_stateFrame > kWaitFrame)
 	{
 		m_enemyGenerator->SpawnWave(m_wave);
-		++m_wave;
 		m_stateFrame = 0;
 		m_isGeneratedEnemy = true;
 		m_state = &WaveController::BattleUpdate;

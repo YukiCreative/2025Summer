@@ -163,7 +163,7 @@ void WaveResultUI::Disable()
 void WaveResultUI::BoxDraw() const
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(m_pos.x - kBoxWidth, m_pos.y - kBoxHeight, m_pos.x + kBoxWidth, m_pos.y + kBoxHeight, 0x000000, true);
+	DrawBox(static_cast<int>(m_pos.x - kBoxWidth), static_cast<int>(m_pos.y - kBoxHeight), static_cast<int>(m_pos.x + kBoxWidth), static_cast<int>(m_pos.y + kBoxHeight), 0x000000, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
@@ -172,24 +172,24 @@ void WaveResultUI::DamageDraw() const
 	BoxDraw();
 	ResultTextDraw();
 	// 数字出す
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", std::lerp(0.0f, m_resultData.lock()->m_damageAmount, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kDamageDrawOffset.x), static_cast<int>(m_pos.y + kDamageDrawOffset.y), 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", std::lerp(0.0f, m_resultData.lock()->m_damageAmount, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::TimeDraw() const
 {
 	BoxDraw();
 	ResultTextDraw();
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
-	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", std::lerp(0.0f, m_resultData.lock()->m_clearTime, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kDamageDrawOffset.x), static_cast<int>(m_pos.y + kDamageDrawOffset.y), 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kTimeDrawOffset.x), static_cast<int>(m_pos.y + kTimeDrawOffset.y), 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", std::lerp(0.0f, m_resultData.lock()->m_clearTime, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::StylishPointDraw() const
 {
 	BoxDraw();
 	ResultTextDraw();
-	DrawFormatStringToHandle(m_pos.x + kDamageDrawOffset.x, m_pos.y + kDamageDrawOffset.y, 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
-	DrawFormatStringToHandle(m_pos.x + kTimeDrawOffset.x, m_pos.y + kTimeDrawOffset.y, 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", m_resultData.lock()->m_clearTime);
-	DrawFormatStringToHandle(m_pos.x + kStylishPointDrawOffset.x, m_pos.y + kStylishPointDrawOffset.y, 0xffffff, m_fontH, "スタイリッシュポイント：%.0f", std::lerp(0.0f, m_resultData.lock()->m_stylishRankPoint, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kDamageDrawOffset.x), static_cast<int>(m_pos.y + kDamageDrawOffset.y), 0xffffff, m_fontH,             "ダメージ　　　　　　　：%.0f", m_resultData.lock()->m_damageAmount);
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kTimeDrawOffset.x), static_cast<int>(m_pos.y + kTimeDrawOffset.y), 0xffffff, m_fontH,                 "クリアタイム　　　　　：%.2fs", m_resultData.lock()->m_clearTime);
+	DrawFormatStringToHandle(static_cast<int>(m_pos.x + kStylishPointDrawOffset.x), static_cast<int>(m_pos.y + kStylishPointDrawOffset.y), 0xffffff, m_fontH, "スタイリッシュポイント：%.0f", std::lerp(0.0f, m_resultData.lock()->m_stylishRankPoint, Geometry::Easing(m_lerpTime, Geometry::EasingKind::kOutQuart)));
 }
 
 void WaveResultUI::NoDraw() const
@@ -198,5 +198,5 @@ void WaveResultUI::NoDraw() const
 
 void WaveResultUI::ResultTextDraw() const
 {
-	DrawStringToHandle(m_pos.x + kResultTextOffset.x, m_pos.y + kResultTextOffset.y, "Result", 0xffffff, m_fontH);
+	DrawStringToHandle(static_cast<int>(m_pos.x + kResultTextOffset.x), static_cast<int>(m_pos.y + kResultTextOffset.y), "Result", 0xffffff, m_fontH);
 }

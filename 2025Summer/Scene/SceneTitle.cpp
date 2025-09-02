@@ -53,7 +53,7 @@ void SceneTitle::Init()
 
 	m_title = std::make_shared<Image>();
 	m_title->Init(kLogoName);
-	m_title->SetExRate(kLogoExRate);
+	m_title->SetExRatio(kLogoExRate);
 
 	m_pressEnyImage = std::make_shared<Image>();
 	m_pressEnyImage->Init(kStartButtonImage);

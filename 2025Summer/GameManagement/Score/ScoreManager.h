@@ -33,9 +33,10 @@ public:
 	static ScoreManager& GetInstance();
 
 	// 指定したウェーブのランクを計算して出します
-	WaveRank CalcWaveDamageRank(const int waveNum);
-	WaveRank CalcWaveTimeRank(const int waveNum);
-	WaveRank CalcWaveStylishRank(const int waveNum);
+	WaveRank CalcWaveDamageRank(const int waveNum) const;
+	WaveRank CalcWaveTimeRank(const int waveNum) const;
+	WaveRank CalcWaveStylishRank(const int waveNum) const;
+	WaveRank CalcWaveOverallRank(const int waveNum) const;
 
 	void AddDamageAmount(const float damageAmount);
 	void SetClearTime(const float clearTime);
@@ -43,6 +44,10 @@ public:
 
 	std::shared_ptr<WaveResult> GetWaveResult(const int waveNum);
 	std::shared_ptr<WaveResult> GetNowWaveResult();
+	std::vector<std::shared_ptr<WaveResult>> GetAllWaveResult();
+	
+	WaveRank CalcAllWaveOverallResult() const;
+	std::vector<WaveRank> CalcAllWaveRank() const;
 
 	// ウェーブを進める
 	// 今まで設定したスコアを1ウェーブの結果として保存する

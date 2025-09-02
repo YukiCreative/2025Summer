@@ -24,6 +24,8 @@ public:
 	// ¡‚Ìó‘Ô‚©‚çƒŠƒUƒ‹ƒgo‚·
 	void StartResult();
 
+	bool IsDisable() const { return m_sequence == &WaveResultUI::Disable; }
+
 private:
 
 	Vector2 m_lerpStartPos;
