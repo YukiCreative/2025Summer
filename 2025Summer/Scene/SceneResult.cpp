@@ -46,7 +46,7 @@ namespace
 	const Vector2 kTotalRankDrawPos = { 450.0f, 500.0f };
 
 	constexpr float kShowTrophyFrame = 120.0f;
-	constexpr float kRotateTrophySpeed = 0.05f;
+	constexpr float kRotateTrophySpeed = 0.02f;
 	const Vector3 kTrophyDrawPos = {100.0f, -100.0f, 0.0f};
 
 	const Vector3 kCameraPos = {0.0f, 0.0f, -200.0f};

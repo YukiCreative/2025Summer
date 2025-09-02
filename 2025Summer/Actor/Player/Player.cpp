@@ -356,12 +356,14 @@ Vector3 Player::GetRightHandVec() const
 
 void Player::EnableSword()
 {
+	if (!this) return;
+
 	m_sword->Enable();
 }
 
 void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPower, const float stunPower)
 {
-	if (!m_sword) return;
+	if (!this) return;
 
 	m_sword->ColEnable();
 	m_sword->SetAttackPower(attackPower);
@@ -371,28 +373,28 @@ void Player::EnableSwordCol(const float attackPower, const Vector3& knockbackPow
 
 void Player::SetActionKind(const IncreaseStylishPointKind kind)
 {
-	if (!m_sword) return;
+	if (!this) return;
 
 	m_sword->SetActionKind(kind);
 }
 
 void Player::SetIsKnockUp(const bool knockUp)
 {
-	if (!m_sword) return;
+	if (!this) return;
 
 	m_sword->SetIsKnockUp(knockUp);
 }
 
 void Player::DisableSword()
 {
-	if (!m_sword) return;
+	if (!this) return;
 
 	m_sword->Disable();
 }
 
 void Player::DisableSwordCol()
 {
-	if (!m_sword) return;
+	if (!this) return;
 
 	m_sword->ColDisable();
 	m_sword->ClearAttackedList();

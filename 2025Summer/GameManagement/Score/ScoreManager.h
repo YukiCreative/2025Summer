@@ -11,7 +11,7 @@ enum class WaveRank
 	kBRank,
 	kCRank,
 	kDRank,
-	kNoRank,
+	kNoRank, // –¢’è‹`
 };
 
 struct WaveResult
