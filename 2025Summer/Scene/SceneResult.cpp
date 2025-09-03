@@ -74,7 +74,7 @@ void SceneResult::Init()
 	m_backGroundH = MakeGraph(Game::kScreenWidth, Game::kScreenHeight);
 	FillGraph(m_backGroundH, kBackGroundColor[0], kBackGroundColor[1], kBackGroundColor[2]);
 
-	m_fontH = CreateFontToHandle(kFontName.c_str(), );
+	m_fontH = CreateFontToHandle(kFontName.c_str(), kFontSize, kFontThick);
 
 	m_resultTextImage = std::make_shared<Image>();
 	m_resultTextImage->Init(kResultTextImgName);
@@ -204,6 +204,8 @@ void SceneResult::Draw() const
 	m_totalRankImg->Draw(kTotalRankDrawPos);
 
 	m_trophyModel->Draw();
+
+	DrawStringToHandle(600, 300, "‰½‚©ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä–ß‚é", 0x000000, m_fontH, 0xffffff);
 }
 
 void SceneResult::Entry()

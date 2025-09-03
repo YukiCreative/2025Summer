@@ -3,6 +3,7 @@
 #include "SceneDebug.h"
 #include "ScreenFade.h"
 #include <cassert>
+#include "SceneTitle.h"
 
 SceneController::SceneController() :
 	m_changeKind(SceneChangeKind::kStackScene)
@@ -19,7 +20,11 @@ void SceneController::Init()
 {
 	m_fade = std::make_shared<ScreenFade>();
 	m_fade->Init();
+#if _DEBUG
 	StackSceneWithFade(std::make_shared<SceneDebug>());
+#else
+	StackSceneWithFade(std::make_shared<SceneTitle>());
+#endif
 }
 
 void SceneController::Update()
