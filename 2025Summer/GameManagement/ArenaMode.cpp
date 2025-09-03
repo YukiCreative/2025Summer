@@ -10,6 +10,7 @@
 #include "../Actor/Enemy/EnemyGenerator.h"
 #include "Score/ScoreManager.h"
 #include "../UI/WaveResultUI.h"
+#include "Score/StylishRank.h"
 
 #include "../Actor/Actor.h"
 #include "TutorialMode.h"
@@ -53,6 +54,7 @@ void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController
 	m_enemyGenerator->Init(player, actors);
 
 	ScoreManager::GetInstance().InitWaveResult();
+	StylishRank::GetInstance().ResetRank();
 }
 
 void ArenaMode::Update()

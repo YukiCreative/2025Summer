@@ -44,7 +44,7 @@ namespace
 	// ‚Æ‚è‚ ‚¦‚¸‰ß‹Ž1•b‚Ì“ü—Í—š—ð‚ðŽc‚·
 	constexpr int kInputHistoryMax = 60;
 
-	constexpr float kLockOnRotateSpeed = 0.2f;
+	constexpr float kLockOnRotateSpeed = 0.5f;
 
 	constexpr int kDamageChargeRatio = 150;
 

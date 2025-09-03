@@ -80,7 +80,7 @@ std::shared_ptr<PlayerState> PlayerAttackState::Update()
 	}
 
 	// UŒ‚ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ
-	if (input.IsTrigger("Dodge"))
+	if (input.IsTrigger("Dodge") && p->IsGround())
 	{
 		return std::make_shared<PlayerDodge>(m_player);
 	}
