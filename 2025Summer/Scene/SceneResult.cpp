@@ -9,6 +9,9 @@
 #include "SceneTitle.h"
 #include "../Model/AnimationModel.h"
 #include "../General/Game.h"
+#include "../Sound/Music.h"
+#include <cassert>
+
 namespace
 {
 	const std::string kResultTextImgName = "Result.png";
@@ -58,13 +61,16 @@ namespace
 	constexpr int kFontSize = 20;
 	constexpr int kFontThick = 1;
 	const Vector2 kGuideTextPos = {1000, 650};
+
+	const std::string kBGM = "Data/BGM/Result.wav";
 }
 
 SceneResult::SceneResult() :
 	m_frame(0),
 	m_sequence(&SceneResult::ShowWaveRank),
 	m_backGroundH(-1),
-	m_fontH(-1)
+	m_fontH(-1),
+	m_waveRanks()
 {
 }
 
@@ -72,6 +78,8 @@ void SceneResult::Init()
 {
 	m_UI = std::make_shared<UIController>();
 	m_UI->Init();
+
+	Music::GetInstance().Play(kBGM);
 
 	m_backGroundH = MakeGraph(Game::kScreenWidth, Game::kScreenHeight);
 	FillGraph(m_backGroundH, kBackGroundColor[0], kBackGroundColor[1], kBackGroundColor[2]);
@@ -112,6 +120,7 @@ void SceneResult::Init()
 			img->Init(kDRankImgName);
 			break;
 		default:
+			assert(false && "—ñ‹“‚É‘Î‰‚µ‚½ˆ—‚ª‚È‚¢");
 			break;
 		}
 

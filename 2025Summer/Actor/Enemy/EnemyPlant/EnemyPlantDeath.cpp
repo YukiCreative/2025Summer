@@ -44,6 +44,8 @@ EnemyPlantDeath::EnemyPlantDeath(std::weak_ptr<EnemyPlant> parent) :
 	m_parent.lock()->SetInvincibility(true);
 	m_parent.lock()->StartBloodEffect();
 	m_parent.lock()->SetCanLockOn(false);
+
+	m_parent.lock()->ShotDeathSound();
 }
 
 EnemyPlantDeath::~EnemyPlantDeath()

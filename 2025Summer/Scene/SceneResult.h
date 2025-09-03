@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "../Geometry/Vector2.h"
+#include "../GameManagement/WaveConstants.h"
 
 class UIController;
 class Image;
@@ -27,7 +28,7 @@ private:
 	std::shared_ptr<Image> m_resultTextImage;
 	std::shared_ptr<Image> m_wavesTextImage;
 	std::shared_ptr<Image> m_totalTextImage;
-	std::vector<WaveRank> m_waveRanks;
+	WaveConstants::WaveRankArray_t m_waveRanks;
 	std::vector<std::shared_ptr<Image>> m_waveRankImages;
 	std::shared_ptr<Image> m_totalRankImg;
 

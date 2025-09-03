@@ -10,6 +10,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Geometry/Geometry.h"
 #include "AttackState/PlayerSlashDown.h"
+#include "../../Sound/SoundManager.h"
 
 namespace
 {
@@ -26,6 +27,8 @@ namespace
 
 	const std::string kStunAnimName = "Armature|RollingDodge";
 	const std::string kJustAnimName = "Armature|JustDodge";
+	const std::string kDodgeSound = "Dodge.wav";
+	const std::string kJustDodgeSound = "JustDodge.mp3";
 }
 
 PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
@@ -56,6 +59,7 @@ PlayerDodge::PlayerDodge(std::weak_ptr<Player> parent) :
 
 	p->m_model->RotateUpVecY(corner);
 	p->DisableSword();
+	SoundManager::GetInstance().Play(kDodgeSound);
 }
 
 PlayerDodge::~PlayerDodge()
@@ -135,4 +139,6 @@ void PlayerDodge::JustDodge()
 	StylishRank::GetInstance().IncreaseStylishPoint(IncreaseStylishPointKind::kJustDodge);
 	// この後アニメーションが終わるまで無敵
 	p->SetInvincibility(true);
+	// 音出す
+	SoundManager::GetInstance().Play(kJustDodgeSound);
 }

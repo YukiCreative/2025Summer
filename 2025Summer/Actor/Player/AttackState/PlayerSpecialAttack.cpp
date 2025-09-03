@@ -5,6 +5,7 @@
 #include "../NormalState/PlayerMove.h"
 #include "../NormalState/PlayerIdle.h"
 #include "../../../Camera/Camera.h"
+#include "../../../Sound/SoundManager.h"
 
 namespace
 {
@@ -21,6 +22,10 @@ namespace
 	const std::string kStartAnimName = "Armature|SpecialAttack";
 	const std::string kEndAnimName = "Armature|FrontStop";
 	constexpr bool kIsLoopAnim = false;
+
+	const std::string kStartSound = "SpecialAttackStart.mp3";
+	const std::string kSlashSound = "SpecialAttackSlash.wav";
+	const std::string kEndSound = "SpecialAttackEnd.mp3";
 }
 
 PlayerSpecialAttack::PlayerSpecialAttack(std::weak_ptr<Player> parent) :
@@ -45,6 +50,8 @@ PlayerSpecialAttack::PlayerSpecialAttack(std::weak_ptr<Player> parent) :
 
 	// ゲージを空に
 	p->ResetSpecialGauge();
+
+	SoundManager::GetInstance().Play(kStartSound);
 }
 
 PlayerSpecialAttack::~PlayerSpecialAttack()
@@ -72,6 +79,7 @@ std::shared_ptr<PlayerState> PlayerSpecialAttack::Update()
 	if (m_frame == kAttackFrame)
 	{
 		p->SpecialAttack();
+		SoundManager::GetInstance().Play(kSlashSound);
 	}
 
 	// 攻撃が終わったら戻ってくるアニメーションを流す
@@ -79,6 +87,7 @@ std::shared_ptr<PlayerState> PlayerSpecialAttack::Update()
 	{
 		p->Apeear();
 		p->ChangeAnim(kEndAnimName, kIsLoopAnim);
+		SoundManager::GetInstance().Play(kEndSound);
 	}
 
 	// 入力があればMove

@@ -19,6 +19,7 @@ public:
 	void Stop() const;
 	bool IsPlaying() const;
 	void SetVolume(const int param) const;
+	void SetFrequency(const int param) const;
 
 private:
 	void Loop(const bool value);

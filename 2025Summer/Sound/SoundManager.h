@@ -22,6 +22,9 @@ public:
 
 	// UnityのInstantiateみたいな感じで、生成した後にその参照を返す
 	std::weak_ptr<Sound> Play(const std::string& fileName, const bool isLoop = false);
+	// 第二引数によってランダムにピッチが上下する
+	// 効果音を想定しているのでループの有無を求めていない
+	std::weak_ptr<Sound> Play(const std::string& fileName, const int pitchFluctuation);
 	// 一括で変えられる
 	// 0(無音)~255(デフォルト)
 	void SetAllSoundVolume(int volume);

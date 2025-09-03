@@ -9,6 +9,7 @@
 #include <DxLib.h>
 #include "../../GameManagement/Score/StylishRank.h"
 #include "../Enemy/Enemy.h"
+#include "../../Sound/SoundManager.h"
 
 namespace
 {
@@ -32,6 +33,8 @@ namespace
 	constexpr float kShockWaveAtk = 130.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 10.0f };
 	constexpr float kStunPower = 10.0f;
+
+	const std::string kHitSound = "ShockWave.wav";
 }
 
 PlayerShockWave::PlayerShockWave() :
@@ -128,5 +131,7 @@ void PlayerShockWave::OnCollisionEnter(std::shared_ptr<Actor> other)
 
 		std::shared_ptr<Enemy> enemy = std::static_pointer_cast<Enemy>(other);
 		enemy->OnDamage(weak_from_this());
+
+		if (m_se.expired()) m_se = SoundManager::GetInstance().Play(kHitSound);
 	}
 }

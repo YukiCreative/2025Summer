@@ -5,6 +5,8 @@
 #include <DxLib.h>
 #include "../../../Physics/Rigid.h"
 #include "../../../Physics/Collidable.h"
+#include "../../../Sound/SoundManager.h"
+#include "../../Player/Player.h"
 
 namespace
 {
@@ -15,6 +17,8 @@ namespace
 	constexpr float kAttackPower = 100.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 30.0f };
 	const Vector2 kDrag = { 0.0f, 0.0f };
+
+	const std::string kSound = "EliteBite.wav";
 }
 
 EnemyEliteBiteCol::EnemyEliteBiteCol() :
@@ -63,10 +67,22 @@ void EnemyEliteBiteCol::Update()
 
 void EnemyEliteBiteCol::Draw() const
 {
+#if _DEBUG
 	m_collidable->GetCol().Draw();
+#endif
 }
 
 void EnemyEliteBiteCol::CommitMove()
 {
 	m_collidable->SetPos(m_pos);
+}
+
+void EnemyEliteBiteCol::OnCollisionEnter(std::shared_ptr<Actor> other)
+{
+	// プレイヤーが食らったら音を鳴らす
+	if (other->GetKind() != ActorKind::kPlayer) return;
+
+	if (std::static_pointer_cast<Player>(other)->IsInvincible()) return;
+
+	SoundManager::GetInstance().Play(kSound);
 }

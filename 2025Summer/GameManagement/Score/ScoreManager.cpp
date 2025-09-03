@@ -1,6 +1,7 @@
 #include "ScoreManager.h"
 #include <array>
 #include <algorithm>
+#include "../../Geometry/Geometry.h"
 
 namespace
 {
@@ -78,6 +79,12 @@ WaveRank ScoreManager::CalcWaveStylishRank(const int waveNum) const
 
 WaveRank ScoreManager::CalcWaveOverallRank(const int waveNum) const
 {
+	// そのウェーブをクリアしていない時はD
+	if (m_waveResultList[waveNum]->m_clearTime <= Geometry::kEpsilon)
+	{
+		return WaveRank::kDRank;
+	}
+
 	// 三つのランクの平均
 	std::array<WaveRank, 3> allRanks{CalcWaveDamageRank(waveNum), CalcWaveTimeRank(waveNum), CalcWaveStylishRank(waveNum)};
 	WaveRank result = static_cast<WaveRank>(static_cast<int>(static_cast<float>(static_cast<int>(allRanks[0]) + static_cast<int>(allRanks[1]) + static_cast<int>(allRanks[2])) / 3.0f));
@@ -111,14 +118,14 @@ std::shared_ptr<WaveResult> ScoreManager::GetNowWaveResult()
 	return m_waveResultList[m_wave];
 }
 
-std::vector<std::shared_ptr<WaveResult>> ScoreManager::GetAllWaveResult()
+std::array<std::shared_ptr<WaveResult>, WaveConstants::kWaveNum> ScoreManager::GetAllWaveResult()
 {
 	return m_waveResultList;
 }
 
 WaveRank ScoreManager::CalcAllWaveOverallResult() const
 {
-	std::vector<WaveRank> ranks = CalcAllWaveRank();
+	std::array<WaveRank, WaveConstants::kWaveNum> ranks = CalcAllWaveRank();
 
 	int sumRank = 0;
 
@@ -130,13 +137,13 @@ WaveRank ScoreManager::CalcAllWaveOverallResult() const
 	return static_cast<WaveRank>(static_cast<float>(sumRank) / static_cast<float>(ranks.size()));
 }
 
-std::vector<WaveRank> ScoreManager::CalcAllWaveRank() const
+WaveConstants::WaveRankArray_t ScoreManager::CalcAllWaveRank() const
 {
-	std::vector<WaveRank> result;
+	std::array<WaveRank, WaveConstants::kWaveNum> result;
 
-	for (int i = 0; i < m_waveResultList.size(); ++i)
+	for (int i = 0; i < WaveConstants::kWaveNum; ++i)
 	{
-		result.emplace_back(CalcWaveOverallRank(i));
+		result[i] = CalcWaveOverallRank(i);
 	}
 
 	return result;
@@ -145,11 +152,13 @@ std::vector<WaveRank> ScoreManager::CalcAllWaveRank() const
 void ScoreManager::ProceedWave()
 {
 	++m_wave;
-	m_waveResultList.push_back(std::make_shared<WaveResult>());
 }
 
 void ScoreManager::InitWaveResult()
 {
-	m_waveResultList.clear();
-	m_waveResultList.push_back(std::make_shared<WaveResult>());
+	for (auto& waveResult : m_waveResultList)
+	{
+		waveResult = std::make_shared<WaveResult>();
+	}
+	m_wave = 0;
 }

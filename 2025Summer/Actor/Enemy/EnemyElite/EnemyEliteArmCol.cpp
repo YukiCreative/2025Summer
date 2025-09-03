@@ -3,6 +3,8 @@
 #include "../../../Physics/Collidable.h"
 #include "../../../Physics/Collider/CapsuleCollider.h"
 #include "../../../Physics/Rigid.h"
+#include "../../../Sound/SoundManager.h"
+#include "../../Player//Player.h"
 
 namespace
 {
@@ -11,6 +13,7 @@ namespace
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 80.0f };
 	const Vector2 kDrag = { 0.0f, 0.0f };
 	constexpr int kLifeTime = 50;
+	const std::string kSound = "ElitePunch.wav";
 }
 
 EnemyEliteArmCol::EnemyEliteArmCol() :
@@ -71,6 +74,14 @@ void EnemyEliteArmCol::CommitMove()
 	auto& capsule = static_cast<CapsuleCollider&>(m_collidable->GetCol());
 	// 始点と終点を設定
 	capsule.SetPos(m_pos, m_endPos);
+}
+
+void EnemyEliteArmCol::OnCollisionEnter(std::shared_ptr<Actor> other)
+{
+	if (other->GetKind() != ActorKind::kPlayer) return;
+	if (std::static_pointer_cast<Player>(other)->IsInvincible()) return;
+
+	SoundManager::GetInstance().Play(kSound);
 }
 
 void EnemyEliteArmCol::SetCapsulePos()

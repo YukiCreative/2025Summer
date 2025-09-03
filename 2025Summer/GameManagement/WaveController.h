@@ -25,7 +25,7 @@ public:
 	const bool IsFighting() const { return m_state == &WaveController::BattleUpdate; }
 	const bool IsGenerateEnemyInThisFrame() const { return m_isGeneratedEnemy; }
 	// 最終ウェーブ到達
-	const bool IsEndWave();
+	const bool IsEndWave() const;
 
 private:
 

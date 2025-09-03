@@ -10,6 +10,7 @@
 #include "../UI/Image.h"
 #include "../General/Input.h"
 #include "../Shader/SkyBox.h"
+#include "../Sound/Music.h"
 
 namespace
 {
@@ -28,6 +29,8 @@ namespace
 	constexpr float kImageBlendParamLow = 50.0f;
 
 	const std::string kSkyBoxModel = "Data/Model/SkyBox.mv1";
+
+	const std::string kBGM = "Data/BGM/Title.wav";
 }
 
 SceneTitle::SceneTitle() :
@@ -58,6 +61,8 @@ void SceneTitle::Init()
 	m_pressEnyImage = std::make_shared<Image>();
 	m_pressEnyImage->Init(kStartButtonImage);
 	m_pressEnyImage->SetImageBlendMode(DX_BLENDMODE_ALPHA, 255.0f);
+
+	Music::GetInstance().Play(kBGM);
 }
 
 void SceneTitle::Update()

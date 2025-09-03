@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <vector>
+#include <array>
+#include "../WaveConstants.h"
 
 class StylishRank;
 
@@ -44,10 +45,10 @@ public:
 
 	std::shared_ptr<WaveResult> GetWaveResult(const int waveNum);
 	std::shared_ptr<WaveResult> GetNowWaveResult();
-	std::vector<std::shared_ptr<WaveResult>> GetAllWaveResult();
+	WaveConstants::WaveResultArray_t GetAllWaveResult();
 	
 	WaveRank CalcAllWaveOverallResult() const;
-	std::vector<WaveRank> CalcAllWaveRank() const;
+	WaveConstants::WaveRankArray_t CalcAllWaveRank() const;
 
 	// ウェーブを進める
 	// 今まで設定したスコアを1ウェーブの結果として保存する
@@ -61,6 +62,6 @@ private:
 	float m_score;
 	int m_wave;
 
-	std::vector<std::shared_ptr<WaveResult>> m_waveResultList;
+	WaveConstants::WaveResultArray_t m_waveResultList;
 };
 

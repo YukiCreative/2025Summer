@@ -11,6 +11,7 @@
 #include "../../Effect/EffekseerEffect.h"
 #include "../Player/PlayerSword.h"
 #include "../../Physics/Rigid.h"
+#include "../../Sound/SoundManager.h"
 
 namespace
 {
@@ -27,6 +28,8 @@ namespace
 	constexpr float kKnockUpDecreaseDragAmount = 0.001f;
 
 	constexpr int kDamageStopFrame = 2;
+
+	const std::string kDeathSound = "EnemyDeath.wav";
 }
 
 Enemy::Enemy(const float maxStunPoint, const float maxHitPoint) :
@@ -193,6 +196,12 @@ void Enemy::StartBloodEffect()
 {
 	// ê∂ê¨
 	m_bloodEffect = EffectManager::GetInstance().GenerateEffect(kDeathEffect, m_pos);
+}
+
+void Enemy::ShotDeathSound()
+{
+	// âπ
+	SoundManager::GetInstance().Play(kDeathSound);
 }
 
 void Enemy::DisableLockOn()

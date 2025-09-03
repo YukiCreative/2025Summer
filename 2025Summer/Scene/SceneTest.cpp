@@ -17,6 +17,7 @@
 #include "../Model/Model.h"
 #include "../Geometry/Geometry.h"
 #include "../Shader/SkyBox.h"
+#include "../Sound/Music.h"
 
 namespace
 {
@@ -29,6 +30,8 @@ namespace
 	const Vector3& kShadowAreaMax = {  1500,  1000,  1500 };
 
 	const std::string kSkyBoxImg = "SkyBox_Dark.png";
+
+	const std::string kBGMName = "Data/BGM/BattleBGM.wav";
 }
 
 SceneTest::SceneTest()
@@ -80,6 +83,8 @@ void SceneTest::Init()
 
 	m_skyBox = std::make_shared<SkyBox>();
 	m_skyBox->Init(kSkyBoxImg, m_camera);
+	
+	Music::GetInstance().Play(kBGMName);
 }
 
 void SceneTest::Update()

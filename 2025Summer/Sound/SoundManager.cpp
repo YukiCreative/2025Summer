@@ -62,8 +62,22 @@ void SoundManager::RemoveFinishedSounds()
 
 std::weak_ptr<Sound> SoundManager::Play(const std::string& fileName, const bool isLoop)
 {
+	const bool isContain = m_store.contains(fileName);
+	assert(isContain && "指定されたファイル名のサウンドファイルがありません");
+	if (!isContain) return std::weak_ptr<Sound>();
+
 	auto sound = std::make_shared<Sound>();
 	sound->Init(m_store[fileName], isLoop);
+	m_sounds.emplace_back(sound);
+	return sound;
+}
+
+std::weak_ptr<Sound> SoundManager::Play(const std::string& fileName, const int pitchFluctuation)
+{
+	auto sound = std::make_shared<Sound>();
+	sound->Init(m_store[fileName], false);
+	// 第二引数で±
+	sound->SetFrequency(GetRand(pitchFluctuation * 2) - pitchFluctuation);
 	m_sounds.emplace_back(sound);
 	return sound;
 }

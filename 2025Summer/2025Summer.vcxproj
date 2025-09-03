@@ -239,6 +239,7 @@
     <ClInclude Include="Actor\Player\PlayerJump.h" />
     <ClInclude Include="Actor\Player\PlayerTeleportation.h" />
     <ClInclude Include="Actor\Enemy\EnemyElite\EnemyEliteStun.h" />
+    <ClInclude Include="GameManagement\WaveConstants.h" />
     <ClInclude Include="Scene\SceneGameover.h" />
     <ClInclude Include="Scene\SceneTimeUp.h" />
     <ClInclude Include="Shader\SkyBox.h" />

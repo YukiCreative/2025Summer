@@ -1,6 +1,7 @@
 #include "Music.h"
 #include <algorithm>
 #include <DxLib.h>
+#include <cassert>
 
 Music::Music() :
 	m_playType(DX_PLAYTYPE_LOOP),
@@ -24,7 +25,8 @@ void Music::Play(const std::string& path)
 	if (m_nowPlayingFilePath == path) return;
 
 	m_nowPlayingFilePath = path;
-	PlayMusic(path.c_str(), m_playType);
+	int result = PlayMusic(path.c_str(), m_playType);
+	assert(result != -1 && "BGMÇÃçƒê∂Ç…é∏îsÇµÇΩ");
 }
 
 void Music::Loop(const bool& loopOrNot)

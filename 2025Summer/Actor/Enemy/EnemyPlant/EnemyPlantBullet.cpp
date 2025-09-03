@@ -6,6 +6,7 @@
 #include "../../../Effect/EffectManager.h"
 #include "../../../Effect/EffekseerEffect.h"
 #include "../../Player/Player.h"
+#include "../../../Sound/SoundManager.h"
 
 namespace
 {
@@ -19,6 +20,9 @@ namespace
 	const Vector3 kKnockback = { 0.0f, 0.0f,10.0f };
 
 	const Vector2 kDrag = { 0.1f, 0.05f };
+
+	const std::string kSound = "FireHit.wav";
+	constexpr int kPitch = 5000;
 }
 
 EnemyPlantBullet::EnemyPlantBullet() :
@@ -96,6 +100,9 @@ void EnemyPlantBullet::OnCollisionEnter(std::shared_ptr<Actor> other)
 	{
 		// プレイヤーが無敵なら消滅しない
 		if (std::static_pointer_cast<Player>(other)->IsInvincible()) return;
+
+		// 当たった音を出す
+		SoundManager::GetInstance().Play(kSound, kPitch);
 
 		Destroy();
 	}

@@ -6,6 +6,8 @@
 #include <DxLib.h>
 #include "../General/Input.h"
 #include "SceneController.h"
+#include "../Sound/Music.h"
+#include "../Sound/SoundManager.h"
 
 namespace
 {
@@ -16,6 +18,9 @@ namespace
 	constexpr float kDissolveSpeed = 0.02f;
 
 	const Vector2 kTextPos = {1000.0f, 700.0f};
+
+	const std::string kBGMPath = "Data/BGM/Gameover.wav";
+	const std::string kSoundName = "Gameover.wav";
 }
 
 SceneGameover::SceneGameover() :
@@ -43,6 +48,9 @@ void SceneGameover::Init()
 	m_psH = LoadPixelShader(kPSPath.c_str());
 	m_cBuffH = CreateShaderConstantBuffer(sizeof(CBuff));
 	m_cBuff = static_cast<CBuff*>(GetBufferShaderConstantBuffer(m_cBuffH));
+
+	SoundManager::GetInstance().Play(kSoundName);
+	Music::GetInstance().Play(kBGMPath);
 }
 
 void SceneGameover::Update()

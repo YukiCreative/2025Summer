@@ -3,6 +3,7 @@
 
 class EffekseerEffect;
 class Player;
+class Sound;
 
 namespace DxLib
 {
@@ -35,5 +36,7 @@ private:
 	std::weak_ptr<Player> m_player;
 	// ©g‚ÌY²‰ñ“]‚ğ‹L‰¯‚µ‚Ä‚¨‚­
 	float m_rotateY;
+
+	std::weak_ptr<Sound> m_se;
 };
 

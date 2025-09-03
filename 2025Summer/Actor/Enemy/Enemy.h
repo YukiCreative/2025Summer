@@ -52,6 +52,7 @@ public:
 
 	virtual void OnDeath() abstract;
 	void StartBloodEffect();
+	void ShotDeathSound();
 
 	EnemyKind GetEnemyKind() const { return m_enemyKind; }
 

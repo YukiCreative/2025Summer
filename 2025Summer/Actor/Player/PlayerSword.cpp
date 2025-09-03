@@ -13,6 +13,7 @@
 #include "../../Camera/Camera.h"
 #include "../../GameManagement/Score/StylishRank.h"
 #include "../Enemy/Enemy.h"
+#include "../../Sound/SoundManager.h"
 
 namespace
 {
@@ -42,6 +43,11 @@ namespace
 	constexpr int kShakeStrength = 5;
 
 	const std::string kHitEffectName = "HitEffect.efkefc";
+
+	const std::string kHitSound = "SwordHit.mp3";
+	const std::string kHardHitSound = "SwordHardHit.mp3";
+	constexpr int kPitch = 10000;
+	const std::string kSwingSound = "SwordSwing.mp3";
 }
 
 PlayerSword::PlayerSword() :
@@ -167,6 +173,17 @@ void PlayerSword::OnCollisionEnter(const std::shared_ptr<Actor> other)
 
 		// スタイリッシュゲージを増加
 		StylishRank::GetInstance().IncreaseStylishPoint(m_actionKind);
+
+		// 効果音
+		// ノックバックの強さに応じて音を変える
+		if (m_knockbackPower.SqrMagnitude() < 250.0f)
+		{
+			SoundManager::GetInstance().Play(kHitSound, kPitch);
+		}
+		else
+		{
+			SoundManager::GetInstance().Play(kHardHitSound, kPitch);
+		}
 	}
 }
 
@@ -212,6 +229,8 @@ void PlayerSword::ColEnable()
 	m_collidable->GetCol().ValidCol();
 	// ここでエフェクトを生成
 	m_effect = EffectManager::GetInstance().GenerateEffect(kTrajectoryEffectName, {0,0,0});
+	// 音
+	SoundManager::GetInstance().Play(kSwingSound, kPitch);
 }
 
 void PlayerSword::ColDisable()

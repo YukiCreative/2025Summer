@@ -8,10 +8,10 @@
 #include "../ActorController.h"
 #include "../../Geometry/Geometry.h"
 #include <cassert>
+#include "../../GameManagement/WaveConstants.h"
 
 namespace
 {
-	constexpr int kWaveNum = 3;
 	const std::string kWaveBasePath = "Data/WaveData/Wave";
 	constexpr float kPosMult = 100.0f;
 
@@ -81,7 +81,7 @@ void EnemyGenerator::InitFactory()
 
 void EnemyGenerator::LoadWaveData()
 {
-	for (int wave = 0; wave < kWaveNum; ++wave)
+	for (int wave = 0; wave < WaveConstants::kWaveNum; ++wave)
 	{
 		std::vector<SpawnData> waveData;
 

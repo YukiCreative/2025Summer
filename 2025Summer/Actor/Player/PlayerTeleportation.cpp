@@ -6,6 +6,9 @@
 #include "NormalState//PlayerIdle.h"
 #include "../../General/Input.h"
 #include "NormalState/PlayerMove.h"
+#include "../../Sound/SoundManager.h"
+#include "AttackState/PlayerSlashDown.h"
+#include "AttackState/PlayerAirAttack1.h"
 
 namespace
 {
@@ -22,6 +25,8 @@ namespace
 	constexpr int kCanTransitionFrame = 15;
 
 	constexpr float kTeleDistance = 150.0f;
+
+	const std::string kSound = "Teleport.mp3";
 }
 
 PlayerTeleportation::PlayerTeleportation(std::weak_ptr<Player> player) :
@@ -31,6 +36,8 @@ PlayerTeleportation::PlayerTeleportation(std::weak_ptr<Player> player) :
 	m_player.lock()->ChangeAnim(kStunAnimName, false);
 	m_canCrossState = true;
 	m_player.lock()->SetInvincibility(true);
+
+	SoundManager::GetInstance().Play(kSound);
 }
 
 PlayerTeleportation::~PlayerTeleportation()
@@ -79,6 +86,17 @@ std::shared_ptr<PlayerState> PlayerTeleportation::Update()
 		if (input.GetLeftInputAxis().SqrMagnitude() > kMoveThreshold)
 		{
 			return std::make_shared<PlayerMove>(m_player);
+		}
+		if (input.IsTrigger("Attack"))
+		{
+			if (player->IsGround())
+			{
+				return std::make_shared<PlayerSlashDown>(m_player);
+			}
+			else
+			{
+				return std::make_shared<PlayerAirAttack1>(m_player);
+			}
 		}
 	}
 	if (m_frame > kStateWholeFrame)

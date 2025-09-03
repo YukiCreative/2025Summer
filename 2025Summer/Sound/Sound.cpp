@@ -51,3 +51,8 @@ void Sound::SetVolume(const int param) const
 	int vol = std::clamp(param, kVolumeMin, kVolumeMax);
 	ChangeVolumeSoundMem(param, m_handle);
 }
+
+void Sound::SetFrequency(const int param) const
+{
+	SetFrequencySoundMem(GetFrequencySoundMem(m_handle) + param, m_handle);
+}

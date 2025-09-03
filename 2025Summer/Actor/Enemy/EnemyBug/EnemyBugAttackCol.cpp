@@ -6,6 +6,7 @@
 #include "../../../Physics/Collider/CapsuleCollider.h"
 #include "../../../Physics/Rigid.h"
 #include <DxLib.h>
+#include "../../../Sound/SoundManager.h"
 
 namespace
 {
@@ -16,6 +17,8 @@ namespace
 	constexpr float kAttackPower = 100.0f;
 	const Vector3 kKnockbackPower = { 0.0f, 0.0f, 30.0f };
 	const Vector2 kDrag = { 0.0f, 0.0f };
+
+	const std::string kHitSound = "BugMelee.mp3";
 }
 
 EnemyBugAttackCol::EnemyBugAttackCol() :
@@ -85,4 +88,12 @@ void EnemyBugAttackCol::Draw() const
 
 void EnemyBugAttackCol::CommitMove()
 {
+}
+
+void EnemyBugAttackCol::OnCollisionEnter(std::shared_ptr<Actor> other)
+{
+	if (other->GetKind() != ActorKind::kPlayer) return;
+
+	// ‰¹–Â‚ç‚·
+	SoundManager::GetInstance().Play(kHitSound);
 }

@@ -19,6 +19,8 @@ public:
 
 	void CommitMove() override;
 
+	void OnCollisionEnter(std::shared_ptr<Actor> other) override;
+
 private:
 
 	std::weak_ptr<EnemyBug> m_parent;

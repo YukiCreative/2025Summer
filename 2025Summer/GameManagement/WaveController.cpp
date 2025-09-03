@@ -3,10 +3,10 @@
 #include "../Actor/ActorController.h"
 #include "../General/Input.h"
 #include "../Actor/Enemy/Enemy.h"
+#include "WaveConstants.h"
 
 namespace
 {
-	constexpr int kMaxWave = 2;
 	constexpr int kWaitFrame = 300;
 }
 
@@ -58,9 +58,9 @@ void WaveController::Update()
 	(this->*m_state)();
 }
 
-const bool WaveController::IsEndWave()
+const bool WaveController::IsEndWave() const
 {
-	return m_wave > kMaxWave;
+	return m_wave >= WaveConstants::kWaveNum;
 }
 
 void WaveController::BattleUpdate()
@@ -72,7 +72,7 @@ void WaveController::BattleUpdate()
 	{
 		++m_wave;
 		m_isDefeatedAllEnemy = true;
-		if (m_wave > kMaxWave)
+		if (m_wave >= WaveConstants::kWaveNum)
 		{
 			// I—¹
 			StopUpdate();

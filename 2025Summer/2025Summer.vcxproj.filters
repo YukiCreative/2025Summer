@@ -313,6 +313,7 @@
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.h" />
     <ClInclude Include="Scene\SceneGameover.h" />
     <ClInclude Include="Scene\SceneTimeUp.h" />
+    <ClInclude Include="GameManagement\WaveConstants.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />
