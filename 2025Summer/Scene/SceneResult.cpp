@@ -62,7 +62,8 @@ namespace
 SceneResult::SceneResult() :
 	m_frame(0),
 	m_sequence(&SceneResult::ShowWaveRank),
-	m_backGroundH(-1)
+	m_backGroundH(-1),
+	m_fontH(-1)
 {
 }
 
@@ -196,7 +197,7 @@ void SceneResult::Draw() const
 
 	for (int i = 0; auto& img : m_waveRankImages)
 	{
-		img->Draw(kRankStartPos + kRankImageOffset * i);
+		img->Draw(kRankStartPos + kRankImageOffset * static_cast<float>(i));
 
 		++i;
 	}
