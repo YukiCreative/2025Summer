@@ -36,8 +36,6 @@ ScoreManager::ScoreManager() :
 	m_score(0),
 	m_wave(0)
 {
-	// Å‰‚Ì—v‘f‚ğ’Ç‰Á
-	m_waveResultList.emplace_back(std::make_shared<WaveResult>());
 }
 
 ScoreManager& ScoreManager::GetInstance()
@@ -147,5 +145,11 @@ std::vector<WaveRank> ScoreManager::CalcAllWaveRank() const
 void ScoreManager::ProceedWave()
 {
 	++m_wave;
+	m_waveResultList.push_back(std::make_shared<WaveResult>());
+}
+
+void ScoreManager::InitWaveResult()
+{
+	m_waveResultList.clear();
 	m_waveResultList.push_back(std::make_shared<WaveResult>());
 }

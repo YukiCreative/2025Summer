@@ -33,6 +33,8 @@ namespace
 PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
 	PlayerAttackState(player)
 {
+	if (m_player.expired()) return;
+
 	Init();
 	PlayAnim();
 
@@ -49,6 +51,8 @@ PlayerAirAttack1::PlayerAirAttack1(std::weak_ptr<Player> player) :
 
 PlayerAirAttack1::~PlayerAirAttack1()
 {
+	if (m_player.expired()) return;
+
 	m_player.lock()->AddVel(m_beforeVel);
 }
 
@@ -57,7 +61,7 @@ void PlayerAirAttack1::Init()
 	// ˆê’i–Ú‚È‚Ì‚ÅŒ•‚ðo‚·
 	m_player.lock()->EnableSword();
 
-	m_actionKind = IncreaseStylishPointKind::kSlashDown;
+	m_actionKind = IncreaseStylishPointKind::kAir1;
 	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

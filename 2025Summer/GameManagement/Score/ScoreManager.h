@@ -53,6 +53,9 @@ public:
 	// 今まで設定したスコアを1ウェーブの結果として保存する
 	// 次のスコア追加関数は別の変数に記録される
 	void ProceedWave();
+
+	// 配列をきれいにする
+	void InitWaveResult();
 private:
 
 	float m_score;

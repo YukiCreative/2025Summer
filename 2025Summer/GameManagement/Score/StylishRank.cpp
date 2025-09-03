@@ -5,7 +5,7 @@
 
 namespace
 {
-	constexpr size_t kMaxHistory = 20;
+	constexpr size_t kMaxHistory = 12;
 
 	// 位置フレームに自然減少する最大速度
 	constexpr float kMaxDecreaseSpeed = 2.0f / Game::kFrameRate;
@@ -13,12 +13,12 @@ namespace
 	constexpr float kContinueDecreaseAccel = 0.0003f;
 
 	// ここまで達したらそのランク
-	constexpr float kDRankThreshold = 10.0f;
-	constexpr float kCRankThreshold = 20.0f;
-	constexpr float kBRankThreshold = 30.0f;
+	constexpr float kDRankThreshold = 7.0f;
+	constexpr float kCRankThreshold = 15.0f;
+	constexpr float kBRankThreshold = 25.0f;
 	constexpr float kARankThreshold = 40.0f;
-	constexpr float kSRankThreshold = 50.0f;
-	constexpr float kSSRankThreshold = 70.0f;
+	constexpr float kSRankThreshold = 60.0f;
+	constexpr float kSSRankThreshold = 80.0f;
 	constexpr float kSSSRankThreshold = 90.0f;
 }
 
@@ -138,20 +138,20 @@ void StylishRank::InitMap()
 {
 	// ひとまず定数
 	// あとで外部化するかも
-	m_increasePointMap[IncreaseStylishPointKind::kSlashDown] = 3.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 3.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 3.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 6.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 7.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 7.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashDown] = 4.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashLeftSide] = 4.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashRightSide] = 5.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kSlashUp] = 8.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kFinishAttack] = 10.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kChargeAttack] = 8.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWaveAttack] = 3.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kShockWave] = 6.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kSpecialAttack] = 20.0f;
 	m_increasePointMap[IncreaseStylishPointKind::kJustDodge] = 15.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir1] = 4.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir2] = 4.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 7.0f;
-	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 6.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir1] = 10.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir2] = 10.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kAir3] = 15.0f;
+	m_increasePointMap[IncreaseStylishPointKind::kKnockUpSlash] = 8.0f;
 
 	m_decreasePointMap[DecreaseStylishPointKind::kDamage] = 10.0f;
 }

@@ -31,6 +31,8 @@ namespace
 PlayerAirAttack3::PlayerAirAttack3(std::weak_ptr<Player> player) :
 	PlayerAttackState(player)
 {
+	if (m_player.expired()) return;
+
 	m_beforeVel = m_player.lock()->GetRigid().GetVel();
 	// ã¸‚µ‚Ä‚¢‚é•ª‚Í•Û‘¶‚µ‚È‚¢
 	if (m_beforeVel.y > 0.0f)
@@ -43,12 +45,14 @@ PlayerAirAttack3::PlayerAirAttack3(std::weak_ptr<Player> player) :
 
 PlayerAirAttack3::~PlayerAirAttack3()
 {
-	m_player.lock()->AddVel(m_beforeVel);
+	if (m_player.expired()) return;
+
+ 	m_player.lock()->AddVel(m_beforeVel);
 }
 
 void PlayerAirAttack3::Init()
 {
-	m_actionKind = IncreaseStylishPointKind::kSlashDown;
+	m_actionKind = IncreaseStylishPointKind::kAir3;
 	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
 	m_enableAttackColFrame = kEnableAttackFrame;

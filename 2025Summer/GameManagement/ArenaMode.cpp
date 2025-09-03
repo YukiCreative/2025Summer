@@ -51,6 +51,8 @@ void ArenaMode::Init(std::weak_ptr<Player> player, std::weak_ptr<ActorController
 
 	m_enemyGenerator = std::make_shared<EnemyGenerator>();
 	m_enemyGenerator->Init(player, actors);
+
+	ScoreManager::GetInstance().InitWaveResult();
 }
 
 void ArenaMode::Update()

@@ -14,6 +14,8 @@ namespace
 	const std::string kDissolvePath = "Data/Image/pattern.png";
 
 	constexpr float kDissolveSpeed = 0.02f;
+
+	const Vector2 kTextPos = {1000.0f, 700.0f};
 }
 
 SceneGameover::SceneGameover() :
@@ -63,7 +65,7 @@ void SceneGameover::Draw() const
 	ShaderDraw::DrawScreen(m_imgH, m_psH, m_dissolveH);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	DrawString(1000, 700, "決定ボタンで次へ進む", 0xffffff);
+	DrawString(static_cast<int>(kTextPos.x), static_cast<int>(kTextPos.y), "決定ボタンで次へ進む", 0xffffff);
 }
 
 void SceneGameover::Entry()

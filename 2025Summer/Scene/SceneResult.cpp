@@ -52,17 +52,19 @@ namespace
 	const Vector3 kCameraPos = {0.0f, 0.0f, -200.0f};
 	const Vector3 kCameraTarget = {0.0f, 0.0f, 0.0f};
 
-	const int kBackGroundColor[3] = {230, 230, 230};
+	const int kBackGroundColor[3] = {120, 120, 120};
 
 	const std::string kFontName = "BIZ UDP明朝 Medium";
-	constexpr int kFontSize = 15;
+	constexpr int kFontSize = 20;
 	constexpr int kFontThick = 1;
+	const Vector2 kGuideTextPos = {1000, 650};
 }
 
 SceneResult::SceneResult() :
 	m_frame(0),
 	m_sequence(&SceneResult::ShowWaveRank),
-	m_backGroundH(-1)
+	m_backGroundH(-1),
+	m_fontH(-1)
 {
 }
 
@@ -196,7 +198,7 @@ void SceneResult::Draw() const
 
 	for (int i = 0; auto& img : m_waveRankImages)
 	{
-		img->Draw(kRankStartPos + kRankImageOffset * i);
+		img->Draw(kRankStartPos + kRankImageOffset * static_cast<float>(i));
 
 		++i;
 	}
@@ -205,7 +207,7 @@ void SceneResult::Draw() const
 
 	m_trophyModel->Draw();
 
-	DrawStringToHandle(600, 300, "何かボタンを押して戻る", 0x000000, m_fontH, 0xffffff);
+	DrawStringToHandle(static_cast<int>(kGuideTextPos.x), static_cast<int>(kGuideTextPos.y), "何かボタンを押して戻る", 0x000000, m_fontH, 0xffffff);
 }
 
 void SceneResult::Entry()

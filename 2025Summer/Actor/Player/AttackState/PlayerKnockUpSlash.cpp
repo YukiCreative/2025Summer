@@ -44,7 +44,7 @@ void PlayerKnockUpSlash::Init()
 {
 	m_player.lock()->EnableSword();
 
-	m_actionKind = IncreaseStylishPointKind::kSlashDown;
+	m_actionKind = IncreaseStylishPointKind::kKnockUpSlash;
 	m_isKnockUp = true;
 	m_animName = kStunAnimName;
 	m_isLoopAnim = kIsLoopAnim;
