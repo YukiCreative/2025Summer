@@ -8,7 +8,7 @@
 #include "../UI/Image.h"
 #include "SceneTitle.h"
 #include "../Model/AnimationModel.h"
-
+#include "../General/Game.h"
 namespace
 {
 	const std::string kResultTextImgName = "Result.png";
@@ -51,11 +51,18 @@ namespace
 
 	const Vector3 kCameraPos = {0.0f, 0.0f, -200.0f};
 	const Vector3 kCameraTarget = {0.0f, 0.0f, 0.0f};
+
+	const int kBackGroundColor[3] = {230, 230, 230};
+
+	const std::string kFontName = "BIZ UDP明朝 Medium";
+	constexpr int kFontSize = 15;
+	constexpr int kFontThick = 1;
 }
 
 SceneResult::SceneResult() :
 	m_frame(0),
-	m_sequence(&SceneResult::ShowWaveRank)
+	m_sequence(&SceneResult::ShowWaveRank),
+	m_backGroundH(-1)
 {
 }
 
@@ -63,6 +70,11 @@ void SceneResult::Init()
 {
 	m_UI = std::make_shared<UIController>();
 	m_UI->Init();
+
+	m_backGroundH = MakeGraph(Game::kScreenWidth, Game::kScreenHeight);
+	FillGraph(m_backGroundH, kBackGroundColor[0], kBackGroundColor[1], kBackGroundColor[2]);
+
+	m_fontH = CreateFontToHandle(kFontName.c_str(), );
 
 	m_resultTextImage = std::make_shared<Image>();
 	m_resultTextImage->Init(kResultTextImgName);
@@ -174,6 +186,8 @@ void SceneResult::Update()
 
 void SceneResult::Draw() const
 {
+	DrawGraph(0, 0, m_backGroundH, true);
+
 	DrawString(0, 0, "リザルトシーンです", 0xffffff);
 
 	m_resultTextImage->Draw(kResultImgInitPos);

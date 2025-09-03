@@ -31,6 +31,10 @@ private:
 	std::vector<std::shared_ptr<Image>> m_waveRankImages;
 	std::shared_ptr<Image> m_totalRankImg;
 
+	int m_backGroundH;
+
+	int m_fontH;
+
 	using ResultSequence_t = void (SceneResult::*)();
 	ResultSequence_t m_sequence;
 
