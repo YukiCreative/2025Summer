@@ -11,6 +11,7 @@
 #include "../General/Input.h"
 #include "../Shader/SkyBox.h"
 #include "../Sound/Music.h"
+#include "../General/Application.h"
 
 namespace
 {
@@ -63,14 +64,25 @@ void SceneTitle::Init()
 	m_pressEnyImage->SetImageBlendMode(DX_BLENDMODE_ALPHA, 255.0f);
 
 	Music::GetInstance().Play(kBGM);
+
+	Input::GetInstance().AddEvent("QuitGame", {PeripheralType::kKeyboard, KEY_INPUT_ESCAPE});
 }
 
 void SceneTitle::Update()
 {
 	Input& input = Input::GetInstance();
+#if _DEBUG
+
 	if (input.IsTrigger("GoDebug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneDebug>());
+		return;
+	}
+#endif
+
+	if (input.IsTrigger("QuitGame"))
+	{
+		Application::GetInstance().QuitGame();
 		return;
 	}
 

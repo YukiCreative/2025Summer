@@ -18,6 +18,7 @@
 #include "../Geometry/Geometry.h"
 #include "../Shader/SkyBox.h"
 #include "../Sound/Music.h"
+#include "SceneTitle.h"
 
 namespace
 {
@@ -46,7 +47,7 @@ void SceneTest::Init()
 {
 	m_field = std::make_shared<Model>();
 	m_field->Init(kFieldModel);
-	m_field->SetPos({0,-100, 0});
+	m_field->SetPos({ 0,-100, 0 });
 
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
@@ -63,7 +64,7 @@ void SceneTest::Init()
 
 	m_UI = std::make_shared<UIController>();
 	m_UI->Init();
-	
+
 	// UI‚Æ‚©
 	auto lockOn = std::make_shared<PlayerLockOnUI>();
 	lockOn->Init(player);
@@ -83,8 +84,10 @@ void SceneTest::Init()
 
 	m_skyBox = std::make_shared<SkyBox>();
 	m_skyBox->Init(kSkyBoxImg, m_camera);
-	
+
 	Music::GetInstance().Play(kBGMName);
+
+	Input::GetInstance().AddEvent("GoTitle", {PeripheralType::kKeyboard, KEY_INPUT_ESCAPE});
 }
 
 void SceneTest::Update()
@@ -103,10 +106,17 @@ void SceneTest::Update()
 
 	StylishRank::GetInstance().Update();
 
+#if _DEBUG
 	if (input.IsTrigger("GoDebug"))
 	{
 		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneDebug>());
 		return;
+	}
+#endif
+
+	if (input.IsTrigger("GoTitle"))
+	{
+		SceneController::GetInstance().ChangeSceneWithFade(std::make_shared<SceneTitle>());
 	}
 }
 
