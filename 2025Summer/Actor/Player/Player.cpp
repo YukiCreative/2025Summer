@@ -74,14 +74,18 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 {
 	m_kind = ActorKind::kPlayer;
 
+	SetPosLimit(false);
+
 	m_camera = camera;
 	m_cont = cont;
 
 	m_model = std::make_shared<AnimationModel>();
 	m_model->Init("Data/Model/Player.mv1", kAnimPlaySpeed);
 
-	auto col = std::make_shared<CapsuleCollider>();
-	col->Init(m_pos, m_pos + kCapsuleEndPosOffset, kWeight, false, false, kCapsuleRadius);
+	auto col = std::make_shared<SphereCollider>();
+	col->Init(m_pos, kWeight, false, false, kCapsuleRadius);
+	//auto col = std::make_shared<CapsuleCollider>();
+	//col->Init(m_pos, m_pos + kCapsuleEndPosOffset, kWeight, false, false, kCapsuleRadius);
 	auto rigid = std::make_shared<Rigid>();
 	rigid->Init(kDrag);
 

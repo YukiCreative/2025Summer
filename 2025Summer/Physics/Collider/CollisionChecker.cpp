@@ -86,12 +86,13 @@ void CollisionChecker::FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagM
 	SphereCollider& sphere = static_cast<SphereCollider&>(sCol.GetCol());
 
 	// ˆê”ÔÅ‰‚Ì“–‚½‚Á‚½ƒ|ƒŠƒSƒ“‚Ì‚Ý‚É‘Î‚µ‚Ä‰Ÿ‚µ–ß‚·
-	auto aPolygon = hitData.Dim[0];
+	auto aPolygon = hitData.HitNum > 1 ? hitData.Dim[1] : hitData.Dim[0];
+	//auto aPolygon = hitData.Dim[0];
 	const Vector3 hitPos =
 	{
 		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0] +
-		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0] +
-		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0]
+		Vector3(aPolygon.Position[1]) * aPolygon.PositionWeight[1] +
+		Vector3(aPolygon.Position[2]) * aPolygon.PositionWeight[2]
 	};
 
 	const Vector3 overlap = Vector3(aPolygon.Normal) * sphere.GetRadius() + (hitPos - sphere.GetPos());
