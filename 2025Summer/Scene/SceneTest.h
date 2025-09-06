@@ -31,7 +31,6 @@ private:
 	std::shared_ptr<ShadowMap> m_shadow;
 	std::shared_ptr<ArenaMode> m_gameManager;
 
-	std::shared_ptr<Model> m_field;
 	std::shared_ptr<SkyBox> m_skyBox;
 
 private:

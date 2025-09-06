@@ -57,6 +57,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantKnockUp.cpp" />
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.cpp" />
     <ClCompile Include="Actor\Enemy\StunPoint.cpp" />
+    <ClCompile Include="Actor\Field\Field.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack1.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack2.cpp" />
     <ClCompile Include="Actor\Player\AttackState\PlayerAirAttack3.cpp" />
@@ -120,7 +121,7 @@
     <ClCompile Include="Physics\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Physics\Collider\Collider3D.cpp" />
     <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
-    <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
+    <ClCompile Include="Physics\Collider\MeshCollider.cpp" />
     <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
     <ClCompile Include="Physics\NoCollidable.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
     <ClInclude Include="Actor\Enemy\EnemyPlant\EnemyPlantStun.h" />
     <ClInclude Include="Actor\Enemy\StunPoint.h" />
+    <ClInclude Include="Actor\Field\Field.h" />
     <ClInclude Include="Actor\HitPoint.h" />
     <ClInclude Include="Actor\LockOnState.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack1.h" />
@@ -272,7 +274,7 @@
     <ClInclude Include="Physics\Collider\CapsuleCollider.h" />
     <ClInclude Include="Physics\Collider\Collider3D.h" />
     <ClInclude Include="Physics\Collider\CollisionChecker.h" />
-    <ClInclude Include="Physics\Collider\PolygonCollider.h" />
+    <ClInclude Include="Physics\Collider\MeshCollider.h" />
     <ClInclude Include="Physics\Collider\SphereCollider.h" />
     <ClInclude Include="Physics\NoCollidable.h" />
     <ClInclude Include="Physics\Physics.h" />

@@ -2,12 +2,13 @@
 #include "../Actor/Actor.h"
 #include "Collider/Collider3D.h"
 #include "Collider/SphereCollider.h"
-#include "Collider/PolygonCollider.h"
+#include "Collider/MeshCollider.h"
 #include "Collider/CollisionChecker.h"
 #include "Collidable.h"
 #include "Rigid.h"
 #include <algorithm>
 #include <iostream>
+#include <DxLib.h>
 
 namespace
 {
@@ -81,18 +82,17 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 						}
 					}
 				}
-				else if (colKindA == ColKind3D::kSphere && colKindB == ColKind3D::kPolygon)
+				else if (colKindA == ColKind3D::kPolygon && colKindB == ColKind3D::kSphere)
 				{
-					PolyHitData hitData;
-					// これ反対のケースも列挙しないといけないのゴミコード過ぎん？
-					hitResult = CollisionChecker::CheckHitSP(colA, colB, hitData);
+					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMS(colA, colB);
+					hitResult = polyHit.HitNum;
 
 					if (hitResult)
 					{
 						// 押し戻し
 						if (!skipPushBack)
 						{
-							CollisionChecker::FixMoveSP(colA, colB, hitData);
+							CollisionChecker::FixMoveMS(colA, colB, polyHit);
 						}
 					}
 				}

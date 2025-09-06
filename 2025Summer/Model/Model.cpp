@@ -29,6 +29,11 @@ void Model::SetPos(const Vector3& pos) const
 	MV1SetPosition(m_handle, pos);
 }
 
+const Vector3 Model::GetPos() const
+{
+	return MV1GetPosition(m_handle);
+}
+
 void Model::Draw() const
 {
 	MV1DrawModel(m_handle);

@@ -19,6 +19,7 @@
 #include "../Shader/SkyBox.h"
 #include "../Sound/Music.h"
 #include "SceneTitle.h"
+#include "../Actor/Field/Field.h"
 
 namespace
 {
@@ -45,15 +46,15 @@ SceneTest::~SceneTest()
 
 void SceneTest::Init()
 {
-	m_field = std::make_shared<Model>();
-	m_field->Init(kFieldModel);
-	m_field->SetPos({ 0,-100, 0 });
-
 	m_camera = std::make_shared<Camera>();
 	m_camera->Init();
 
 	m_actors = std::make_shared<ActorController>();
 	m_actors->Init();
+
+	auto field = std::make_shared<Field>();
+	field->Init(kFieldModel);
+	m_actors->AddActor(field);
 
 	auto player = std::make_shared<Player>();
 	player->Init(m_camera, m_actors);
@@ -126,12 +127,10 @@ void SceneTest::Draw() const
 
 	m_shadow->StartShadowMapDraw(GetLightDirection());
 
-	m_field->Draw();
 	m_actors->Draw();
 
 	m_shadow->EndShadowMapDraw();
 
-	m_field->Draw();
 	m_actors->Draw();
 
 	m_shadow->UnsetShadowMap();

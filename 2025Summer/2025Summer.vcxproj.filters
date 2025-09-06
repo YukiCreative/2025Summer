@@ -38,7 +38,7 @@
     <ClCompile Include="Physics\Rigid.cpp" />
     <ClCompile Include="Physics\Collider\Collider3D.cpp" />
     <ClCompile Include="Physics\Collider\CollisionChecker.cpp" />
-    <ClCompile Include="Physics\Collider\PolygonCollider.cpp" />
+    <ClCompile Include="Physics\Collider\MeshCollider.cpp" />
     <ClCompile Include="Physics\Collider\SphereCollider.cpp" />
     <ClCompile Include="Sound\Music.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
@@ -151,6 +151,7 @@
     <ClCompile Include="Actor\Enemy\EnemyPlant\EnemyPlantGetUp.cpp" />
     <ClCompile Include="Scene\SceneGameover.cpp" />
     <ClCompile Include="Scene\SceneTimeUp.cpp" />
+    <ClCompile Include="Actor\Field\Field.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -185,7 +186,7 @@
     <ClInclude Include="Physics\Rigid.h" />
     <ClInclude Include="Physics\Collider\Collider3D.h" />
     <ClInclude Include="Physics\Collider\CollisionChecker.h" />
-    <ClInclude Include="Physics\Collider\PolygonCollider.h" />
+    <ClInclude Include="Physics\Collider\MeshCollider.h" />
     <ClInclude Include="Physics\Collider\SphereCollider.h" />
     <ClInclude Include="Actor\ActorKind.h" />
     <ClInclude Include="Sound\Music.h" />
@@ -314,6 +315,7 @@
     <ClInclude Include="Scene\SceneGameover.h" />
     <ClInclude Include="Scene\SceneTimeUp.h" />
     <ClInclude Include="GameManagement\WaveConstants.h" />
+    <ClInclude Include="Actor\Field\Field.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SwordDissolve.hlsl" />

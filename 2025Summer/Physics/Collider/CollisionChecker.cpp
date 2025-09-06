@@ -3,6 +3,8 @@
 #include "../Collidable.h"
 #include "CollisionChecker.h"
 #include "../../Geometry/Geometry.h"
+#include "SphereCollider.h"
+#include "MeshCollider.h"
 #include "../Rigid.h"
 #include <algorithm>
 #include <array>
@@ -71,83 +73,36 @@ void CollisionChecker::FixMoveSS(Collidable& colA, Collidable& colB)
 	colB.AddVel(overlap * (1 - weightRate));
 }
 
-void CollisionChecker::ComparePolyHit(PolyHitData& a, const PolyHitData& b)
+MV1_COLL_RESULT_POLY_DIM CollisionChecker::CheckHitMS(Collidable& mCol, Collidable& sCol)
 {
-	if (a.time < b.time) return;
+	MeshCollider& mesh = static_cast<MeshCollider&>(mCol.GetCol());
+	SphereCollider& sphere = static_cast<SphereCollider&>(sCol.GetCol());
 
-	a = b;
+	return MV1CollCheck_Sphere(mesh.GetModelHadle(), mesh.GetCollisionFrameIndex(), sphere.GetPos(), sphere.GetRadius());
 }
 
-bool CollisionChecker::CheckHitSP(const Collidable& sCol, const Collidable& pCol, PolyHitData& hit)
+void CollisionChecker::FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
 {
-	auto& sphereCol = static_cast<SphereCollider&>(sCol.GetCol());
-	auto& polygonCol = static_cast<PolygonCollider&>(pCol.GetCol());
+	SphereCollider& sphere = static_cast<SphereCollider&>(sCol.GetCol());
 
-	bool isHit = false;
-
-	const Vector3 sumVel = sCol.GetVel() - pCol.GetVel(); // 球体から見た相対速度で考える
-
-	// まず、ポリゴンのメッシュの状態を取得する
-	// ための更新処理
-	polygonCol.RefreshRefMesh();
-	auto& refMesh = polygonCol.GetRefMesh();
-
-	// 取得したポリゴンすべてに対して実行(やばそう)
-	for (int i = 0; i < refMesh.PolygonNum; ++i)
+	// 一番最初の当たったポリゴンのみに対して押し戻す
+	auto aPolygon = hitData.Dim[0];
+	const Vector3 hitPos =
 	{
-		// とりあえず必要な情報を取得
-		const auto& polygon = refMesh.Polygons[i];
-		const auto& vertices = refMesh.Vertexs;
-		// 頂点の座標
-		const std::array<Vector3, 3> polygonVertices =
-		{
-			vertices[polygon.VIndex[0]].Position,
-			vertices[polygon.VIndex[1]].Position,
-			vertices[polygon.VIndex[2]].Position,
-		};
-		DrawSphere3D(polygonVertices[0], 100, 10, 0xff0000, 0xff0000, true);
-		DrawSphere3D(polygonVertices[1], 100, 10, 0xff0000, 0xff0000, true);
-		DrawSphere3D(polygonVertices[2], 100, 10, 0xff0000, 0xff0000, true);
-		// 辺
-		const std::array<Vector3, 3> polygonLines =
-		{
-			polygonVertices[1] - polygonVertices[0], // 0~1に向かうベクトル
-			polygonVertices[2] - polygonVertices[1], // 1~2
-			polygonVertices[0] - polygonVertices[2], // 2~0
-		};
-		// (面の)法線
-		const Vector3 normal = polygonLines[2].Cross(polygonLines[0]).GetNormalize();
-		DrawLine3D(pCol.GetPos(), pCol.GetPos() + normal * 500, 0xffffff);
-		const float dot = sumVel.Dot(normal); // いまの移動方向と面の向きの関係がどれぐらいかがわかる
-		const Vector3 c0 = sphereCol.GetPos() - polygonVertices[0]; // どこか適当なポリゴンの頂点から球の現在位置まで
-		const float dotC0 = c0.Dot(normal);
-		const float distPlaneToPoint = fabsf(dotC0); // 面から点への距離
+		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0] +
+		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0] +
+		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0]
+	};
 
-		const float collideTime = (sphereCol.GetRadius() - dotC0) / dot; // これが衝突時間
+	const Vector3 overlap = Vector3(aPolygon.Normal) * sphere.GetRadius() + (hitPos - sphere.GetPos());
 
-		if (dot >= 0) continue; // 移動方向が面に対して離れる
-		if (collideTime > 1 || collideTime < 0) continue; // 今回の移動で衝突しない場合
+	const float weightRate = WeightRate(mCol, sCol);
 
-		// 衝突した
-		// より近い衝突だった場合のみ更新
-		ComparePolyHit(hit, PolyHitData(collideTime, polygonVertices, normal));
-		//isHit = true;
-	}
+	mCol.AddVel(-overlap * weightRate);
+	sCol.AddVel(overlap * (1.0f - weightRate));
 
-	return isHit;
-}
-
-void CollisionChecker::FixMoveSP(Collidable& _sphereCol, Collidable& _polygonCol, const PolyHitData& hitData)
-{
-	auto& sphereCol = static_cast<SphereCollider&>(_sphereCol.GetCol());
-	auto& polygonCol = static_cast<PolygonCollider&>(_polygonCol.GetCol());
-
-	// 場所を固定してみる
-	_sphereCol.SetPos(_sphereCol.GetPos() + _sphereCol.GetVel() * hitData.time);
-	_polygonCol.SetPos(_polygonCol.GetPos() + _polygonCol.GetVel() * hitData.time);
-
-	// バウンド
-	_sphereCol.GetRigid().SetVel(_sphereCol.GetVel() * (hitData.time - 1));
+	// 当たり判定データの解放
+	MV1CollResultPolyDimTerminate(hitData);
 }
 
 bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol)
@@ -349,27 +304,4 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 
 	colA.AddVel(-overlap * weightRate);
 	colB.AddVel(overlap * (1.0f - weightRate));
-}
-
-// ===============================================
-
-PolyHitData::PolyHitData() :
-	time(kBigNum),
-	vertices(),
-	normal()
-{
-}
-
-PolyHitData::PolyHitData(const float _time, const Vertices& _vertices, const Vector3& _normal)
-{
-	time = _time;
-	vertices = _vertices;
-	normal = _normal;
-}
-
-void PolyHitData::operator=(const PolyHitData& other)
-{
-	time = other.time;
-	vertices = other.vertices;
-	normal = other.normal;
 }

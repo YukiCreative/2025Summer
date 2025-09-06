@@ -3,6 +3,7 @@
 #include <string>
 
 class AnimationModel;
+class MeshCollider;
 
 namespace DxLib
 {
@@ -13,6 +14,7 @@ namespace DxLib
 class Model
 {
 	friend AnimationModel;
+	friend MeshCollider;
 public:
 	Model();
 	~Model();
@@ -23,6 +25,7 @@ public:
 	void Init(const std::string& path);
 
 	void SetPos(const Vector3& pos) const;
+	const Vector3 GetPos() const;
 	void Draw() const;
 
 	void RotateUpVecY(const float rad);

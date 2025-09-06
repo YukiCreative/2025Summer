@@ -1,27 +1,15 @@
 #pragma once
-
-#include "SphereCollider.h"
-#include "PolygonCollider.h"
 #include <array>
 
 class Actor;
 class Collidable;
 class Physics;
 
-struct PolyHitData
+namespace DxLib
 {
-	using Vertices = std::array<Vector3, 3>;
-	const float kBigNum =3.4e38f;
-	float time;
-	// ポリゴンを形成する頂点3つ
-	// 時計回りに頂点が入る
-	Vertices vertices;
-	Vector3 normal; // 法線。頂点から求まるけど、判定の途中で計算するので入れとく
-
-	PolyHitData();
-	PolyHitData(const float _time, const Vertices& _vertices, const Vector3& _normal);
-	void operator=(const PolyHitData& other);
-};
+	struct tagMV1_COLL_RESULT_POLY_DIM;
+	struct tagMV1_REF_POLYGONLIST;
+}
 
 // 衝突判定の関数をまとめました
 // Physicsに書くと長いので
@@ -54,17 +42,11 @@ private:
 	/// <param name="time">衝突時間</param>
 	static void FixMoveSS(Collidable& colA, Collidable& colB);
 
-	// 球体xポリゴン
+	// ポリゴンx球
+	static DxLib::tagMV1_COLL_RESULT_POLY_DIM CheckHitMS(Collidable& mCol, Collidable& sCol);
 
-	// AとBを比べて、より衝突時間が早い方をAに代入します。
-	static void ComparePolyHit(PolyHitData& a, const PolyHitData& b);
-
-	/// <param name="sCol">球体</param>
-	/// <param name="pCol">ポリゴン</param>
-	/// <param name="hit">一番近い衝突時間＆ポリゴンが返ってくる</param>
-	/// <returns>当たったかどうか</returns>
-	static bool CheckHitSP(const Collidable& sCol, const Collidable& pCol, PolyHitData& hit);
-	static void FixMoveSP(Collidable& sphereCol, Collidable& polygonCol, const PolyHitData& hitData);
+	// hitDataの解放も行う
+	static void FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData);
 
 	// カプセルx球
 	// 貫通は検知できません
