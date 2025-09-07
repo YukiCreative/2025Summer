@@ -28,11 +28,12 @@ void MeshCollider::Init(std::shared_ptr<Model> model, const int weight, const bo
 
 	// 当たり判定用のフレームを確認、記憶しておく
 	// Serchという名前から比較的処理負荷のかかる関数と推測
-	m_collisionFrameIndex = MV1SearchFrame(m_model->m_handle, kCollisionFrameName.c_str());
+	//m_collisionFrameIndex = MV1SearchFrame(m_model->m_handle, kCollisionFrameName.c_str());
+	m_collisionFrameIndex = -1;
 	assert(m_collisionFrameIndex != -2 && "メッシュの当たり判定はCollisionFrameというフレームが必要です");
 
 	// 当たり判定の準備
-	const int setUp = MV1SetupCollInfo(m_model->m_handle, m_collisionFrameIndex, 8,8,8);
+	const int setUp = MV1SetupCollInfo(m_model->m_handle, m_collisionFrameIndex, 8, 8, 8);
 	assert(setUp != -1 && "コリジョン情報の初期化に失敗した");
 }
 
@@ -53,5 +54,6 @@ int MeshCollider::GetModelHadle() const
 
 int MeshCollider::GetCollisionFrameIndex() const
 {
-	return m_collisionFrameIndex;
+	return -1;
+	//return m_collisionFrameIndex;
 }

@@ -78,24 +78,27 @@ MV1_COLL_RESULT_POLY_DIM CollisionChecker::CheckHitMS(Collidable& mCol, Collidab
 	MeshCollider& mesh = static_cast<MeshCollider&>(mCol.GetCol());
 	SphereCollider& sphere = static_cast<SphereCollider&>(sCol.GetCol());
 
-	return MV1CollCheck_Sphere(mesh.GetModelHadle(), mesh.GetCollisionFrameIndex(), sphere.GetPos(), sphere.GetRadius());
+	const Vector3 sphereNextPos = sphere.GetPos() + sCol.GetRigid().GetVel();
+
+	return MV1CollCheck_Sphere(mesh.GetModelHadle(), mesh.GetCollisionFrameIndex(), sphereNextPos, sphere.GetRadius());
 }
 
 void CollisionChecker::FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
 {
 	SphereCollider& sphere = static_cast<SphereCollider&>(sCol.GetCol());
+	const Vector3 sphereNextPos = sphere.GetPos() + sCol.GetRigid().GetVel();
 
 	// 一番最初の当たったポリゴンのみに対して押し戻す
-	auto aPolygon = hitData.HitNum > 1 ? hitData.Dim[1] : hitData.Dim[0];
-	//auto aPolygon = hitData.Dim[0];
-	const Vector3 hitPos =
-	{
-		Vector3(aPolygon.Position[0]) * aPolygon.PositionWeight[0] +
-		Vector3(aPolygon.Position[1]) * aPolygon.PositionWeight[1] +
-		Vector3(aPolygon.Position[2]) * aPolygon.PositionWeight[2]
-	};
+	auto aPolygon = hitData.Dim[0];
 
-	const Vector3 overlap = Vector3(aPolygon.Normal) * sphere.GetRadius() + (hitPos - sphere.GetPos());
+	const Vector3 normal = aPolygon.Normal;
+	// 三つのうち一つの適当な頂点
+	const Vector3 aVertexPos = aPolygon.Position[0];
+	const Vector3 vertexToSphere = sphereNextPos - aVertexPos;
+
+	const float hitLength = abs(normal.Dot(vertexToSphere)) / normal.Magnitude();
+
+	const Vector3 overlap = normal * (sphere.GetRadius() - hitLength);
 
 	const float weightRate = WeightRate(mCol, sCol);
 

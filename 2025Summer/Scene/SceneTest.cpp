@@ -26,7 +26,7 @@ namespace
 	constexpr float kLineOffset = 100;
 	constexpr float kLineLength = 500;
 
-	const std::string kFieldModel = "Data/Model/cube.mv1";
+	const std::string kFieldModel = "Data/Model/Field.mv1";
 
 	const Vector3& kShadowAreaMin = { -1500, -1000, -1500 };
 	const Vector3& kShadowAreaMax = {  1500,  1000,  1500 };
