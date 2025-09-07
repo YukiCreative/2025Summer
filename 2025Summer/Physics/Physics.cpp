@@ -119,6 +119,16 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 						}
 					}
 				}
+				else if (colKindA == ColKind3D::kPolygon && colKindB == ColKind3D::kCapsule)
+				{
+					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMC(colA, colB);
+					hitResult = polyHit.HitNum;
+
+					if (hitResult)
+					{
+						CollisionChecker::FixMoveMC(colA, colB, polyHit);
+					}
+				}
 				// ‘¼‚Ì“–‚½‚è”»’è‚ğ‘‚â‚µ‚½‚¢‚Æ‚«‚Í‚±‚±‚Éelse‚Å‚Â‚È‚°‚é
 
 				if (hitResult)

@@ -109,6 +109,58 @@ void CollisionChecker::FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagM
 	MV1CollResultPolyDimTerminate(hitData);
 }
 
+DxLib::tagMV1_COLL_RESULT_POLY_DIM CollisionChecker::CheckHitMC(Collidable& mCol, Collidable& cCol)
+{
+	MeshCollider& mesh = static_cast<MeshCollider&>(mCol.GetCol());
+	CapsuleCollider& capsule = static_cast<CapsuleCollider&>(cCol.GetCol());
+
+	const Vector3 nextStartPos = capsule.StartPos() + cCol.GetRigid().GetVel();
+	const Vector3 nextEndPos = capsule.EndPos() + cCol.GetRigid().GetVel();
+
+	return MV1CollCheck_Capsule(mesh.GetModelHadle(), mesh.GetCollisionFrameIndex(), nextStartPos, nextEndPos, capsule.GetRadius());
+}
+
+void CollisionChecker::FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
+{
+	CapsuleCollider& capsule = static_cast<CapsuleCollider&>(cCol.GetCol());
+
+	const Vector3 nextStartPos = capsule.StartPos() + cCol.GetRigid().GetVel();
+	const Vector3 nextEndPos = capsule.EndPos() + cCol.GetRigid().GetVel();
+
+	// 1.平行かそうでないかを調べる
+	// 2.平行でないなら、startからendに球体が移動して、ちょうど接している二点を探す
+	// 3.法線との内積をとって、表側の点を採用
+	// 4.あとはそれがstartなのかendなのかを、なんかいい感じに出して適用
+	// これを当たらなくなるまでor上限回数やる
+
+	for (int i = 0; i < hitData.HitNum; ++i)
+	{
+		MV1_COLL_RESULT_POLY aPolygon = hitData.Dim[i];
+		Vector3 normal = aPolygon.Normal;
+		Vector3 overlap{};
+		// 平行なら
+		if (abs(capsule.Direction().Dot(normal)) < Geometry::kEpsilon)
+		{
+			// どの点をとっても同じなので端っこを適当に採用
+			// あとは球体と面の押し戻し
+			const Vector3 aVertexPos = aPolygon.Position[0];
+			const Vector3 vertexToSphere = nextStartPos - aVertexPos;
+
+			const float hitLength = abs(normal.Dot(vertexToSphere)) / normal.Magnitude();
+
+			overlap = normal * (capsule.GetRadius() - hitLength);
+		}
+		else
+		{
+			// そうでないなら
+
+		}
+	}
+
+	// 当たり判定データの解放
+	MV1CollResultPolyDimTerminate(hitData);
+}
+
 bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol)
 {
 	auto& sphereCol = static_cast<SphereCollider&>(sCol.GetCol());

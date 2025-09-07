@@ -44,15 +44,19 @@ private:
 
 	// ポリゴンx球
 	static DxLib::tagMV1_COLL_RESULT_POLY_DIM CheckHitMS(Collidable& mCol, Collidable& sCol);
-
 	// hitDataの解放も行う
 	static void FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData);
+
+	// ポリゴンxカプセル
+	static DxLib::tagMV1_COLL_RESULT_POLY_DIM CheckHitMC(Collidable& mCol, Collidable& cCol);
+	static void FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData);
 
 	// カプセルx球
 	// 貫通は検知できません
 	static bool CheckHitCS(const Collidable& cCol, const Collidable& sCol);
 	static void FixMoveCS(Collidable& cCol, Collidable& sCol);
 
+	// カプセルxカプセル
 	static bool CheckHitCC(const Collidable& colA, const Collidable& colB);
 	static void FixMoveCC(Collidable& colA,  Collidable& sCol);
 };
