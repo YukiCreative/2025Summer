@@ -58,7 +58,6 @@ private:
 
 	int m_psH;
 	int m_vsH;
-	int m_colTex;
 	int m_dissolveTex;
 	int m_frame;
 	RangeLimitedValue<float, 0.0f, 1.0f> m_dissolveParam;

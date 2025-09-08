@@ -34,7 +34,7 @@ cbuffer BoundingBox : register(b4)
 };
 
 Texture2D tex : register(t0);
-Texture2D dissolveTex : register(t4);
+Texture2D dissolveTex : register(t3);
 SamplerState smp : register(s0);
 
 // mainŠÖ”

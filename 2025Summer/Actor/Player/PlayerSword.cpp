@@ -55,7 +55,6 @@ PlayerSword::PlayerSword() :
 	m_cBuffH(-1),
 	m_cBuff(nullptr),
 	m_frame(0),
-	m_colTex(-1),
 	m_dissolveTex(-1),
 	m_psH(-1),
 	m_vsH(-1),
@@ -98,8 +97,6 @@ void PlayerSword::Init(std::weak_ptr<Player> player)
 	assert(m_psH != -1);
 	m_vsH = LoadVertexShader("Data/Shader/MV1VertexShader.vso");
 	assert(m_vsH != -1);
-	m_colTex = LoadGraph("Data/Image/dia.png");
-	assert(m_colTex != -1);
 	m_dissolveTex = LoadGraph("Data/Image/pattern.png");
 	assert(m_dissolveTex != -1);
 
@@ -128,7 +125,7 @@ void PlayerSword::Update()
 void PlayerSword::Draw() const
 {
 	SetShaderConstantBuffer(m_cBuffH, DX_SHADERTYPE_PIXEL, 4);
-	ShaderDraw::DrawModel(m_model, m_psH, m_vsH, m_colTex, m_dissolveTex);
+	ShaderDraw::DrawModel(m_model, m_psH, m_vsH, m_dissolveTex);
 
 #if _DEBUG
 	//m_collidable->GetCol().Draw();
