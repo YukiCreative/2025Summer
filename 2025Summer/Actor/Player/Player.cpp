@@ -34,7 +34,7 @@ namespace
 	constexpr float kCameraHSpeed = 0.00001f;
 	constexpr float kCameraVSpeed = 0.00001f;
 
-	const Vector3 kCapsuleEndPosOffset = {0, 200, 0};
+	const Vector3 kCapsuleEndPosOffset = {2000, 0, 0};
 	constexpr float kCapsuleRadius = 30;
 	constexpr float kAnimPlaySpeed = 30.0f;
 
@@ -82,8 +82,8 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 	m_model = std::make_shared<AnimationModel>();
 	m_model->Init("Data/Model/Player.mv1", kAnimPlaySpeed);
 
-	auto col = std::make_shared<SphereCollider>();
-	col->Init(m_pos, kWeight, false, false, kCapsuleRadius);
+	auto col = std::make_shared<CapsuleCollider>();
+	col->Init(m_pos, m_pos + kCapsuleEndPosOffset,kWeight, false, false, kCapsuleRadius);
 	//auto col = std::make_shared<CapsuleCollider>();
 	//col->Init(m_pos, m_pos + kCapsuleEndPosOffset, kWeight, false, false, kCapsuleRadius);
 	auto rigid = std::make_shared<Rigid>();

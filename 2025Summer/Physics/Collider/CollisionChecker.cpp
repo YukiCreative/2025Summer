@@ -150,8 +150,22 @@ void CollisionChecker::FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagM
 		else
 		{
 			// そうでないなら
+			// 線分と面の当たり判定
+			
+			// 半径分余分に長くした座標を作る
+			const Vector3 addRadiusStartPos = nextStartPos - capsule.Direction() * capsule.GetRadius();
+			const Vector3 addRadiusEndPos = nextEndPos + capsule.Direction() * capsule.GetRadius();
 
+			// その線分と当たっている点を出す
+			HITRESULT_LINE hitResult = HitCheck_Line_Triangle(addRadiusStartPos, addRadiusEndPos, aPolygon.Position[0], aPolygon.Position[1], aPolygon.Position[2]);
+			// それに近いほうの端点から当たっている点までのベクトルを、法線方向に射影
+			hitResult.Position;
 		}
+
+		const float weightRate = WeightRate(mCol, cCol);
+
+		mCol.AddVel(-overlap * weightRate);
+		cCol.AddVel(overlap * (1.0f - weightRate));
 	}
 }
 
