@@ -34,7 +34,7 @@ namespace
 	constexpr float kCameraHSpeed = 0.00001f;
 	constexpr float kCameraVSpeed = 0.00001f;
 
-	const Vector3 kCapsuleEndPosOffset = {2000, 0, 0};
+	const Vector3 kCapsuleEndPosOffset = {0, 200, 0};
 	constexpr float kCapsuleRadius = 30;
 	constexpr float kAnimPlaySpeed = 30.0f;
 

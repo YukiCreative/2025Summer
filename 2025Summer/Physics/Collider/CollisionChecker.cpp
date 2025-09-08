@@ -133,6 +133,9 @@ void CollisionChecker::FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagM
 	for (int i = 0; i < hitData.HitNum; ++i)
 	{
 		MV1_COLL_RESULT_POLY aPolygon = hitData.Dim[i];
+
+		if (!aPolygon.HitFlag) continue;
+
 		Vector3 normal = aPolygon.Normal;
 		Vector3 overlap{};
 		// 平行なら
@@ -152,14 +155,29 @@ void CollisionChecker::FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagM
 			// そうでないなら
 			// 線分と面の当たり判定
 			
-			// 半径分余分に長くした座標を作る
-			const Vector3 addRadiusStartPos = nextStartPos - capsule.Direction() * capsule.GetRadius();
-			const Vector3 addRadiusEndPos = nextEndPos + capsule.Direction() * capsule.GetRadius();
+			// 十分に余分に長くした座標を作る
+			const Vector3 addRadiusStartPos = nextStartPos - capsule.Direction() * (capsule.GetRadius() * 10.0f);
+			const Vector3 addRadiusEndPos = nextEndPos + capsule.Direction() * (capsule.GetRadius() * 10.0f);
 
 			// その線分と当たっている点を出す
 			HITRESULT_LINE hitResult = HitCheck_Line_Triangle(addRadiusStartPos, addRadiusEndPos, aPolygon.Position[0], aPolygon.Position[1], aPolygon.Position[2]);
+
+			// カプセルは当たっているが、線分は当たっていなかった
+			// こんな時は他のポリゴンが押し戻してくれるはず
+			if (!hitResult.HitFlag) continue;
+
 			// それに近いほうの端点から当たっている点までのベクトルを、法線方向に射影
-			hitResult.Position;
+			float dot = 0;
+			if ((nextStartPos - hitResult.Position).SqrMagnitude() < (nextEndPos - hitResult.Position).SqrMagnitude())
+			{
+				 dot = (Vector3(hitResult.Position) - nextStartPos).Dot(normal);
+			}
+			else
+			{
+				dot = (Vector3(hitResult.Position) - nextEndPos).Dot(normal);
+			}
+
+			overlap = normal * (dot + capsule.GetRadius());
 		}
 
 		const float weightRate = WeightRate(mCol, cCol);
