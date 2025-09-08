@@ -104,9 +104,6 @@ void CollisionChecker::FixMoveMS(Collidable& mCol, Collidable& sCol, DxLib::tagM
 
 	mCol.AddVel(-overlap * weightRate);
 	sCol.AddVel(overlap * (1.0f - weightRate));
-
-	// 当たり判定データの解放
-	MV1CollResultPolyDimTerminate(hitData);
 }
 
 DxLib::tagMV1_COLL_RESULT_POLY_DIM CollisionChecker::CheckHitMC(Collidable& mCol, Collidable& cCol)
@@ -156,9 +153,6 @@ void CollisionChecker::FixMoveMC(Collidable& mCol, Collidable& cCol, DxLib::tagM
 
 		}
 	}
-
-	// 当たり判定データの解放
-	MV1CollResultPolyDimTerminate(hitData);
 }
 
 bool CollisionChecker::CheckHitCS(const Collidable& cCol, const Collidable& sCol)

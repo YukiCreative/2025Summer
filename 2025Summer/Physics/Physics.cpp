@@ -95,6 +95,8 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 							CollisionChecker::FixMoveMS(colA, colB, polyHit);
 						}
 					}
+
+					MV1CollResultPolyDimTerminate(polyHit);
 				}
 				else if (colKindA == ColKind3D::kCapsule && colKindB == ColKind3D::kSphere)
 				{
@@ -128,6 +130,8 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					{
 						CollisionChecker::FixMoveMC(colA, colB, polyHit);
 					}
+
+					MV1CollResultPolyDimTerminate(polyHit);
 				}
 				// ‘¼‚Ì“–‚½‚è”»’è‚ğ‘‚â‚µ‚½‚¢‚Æ‚«‚Í‚±‚±‚Éelse‚Å‚Â‚È‚°‚é
 
