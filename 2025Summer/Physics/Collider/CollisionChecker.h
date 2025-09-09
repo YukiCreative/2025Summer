@@ -62,4 +62,8 @@ private:
 
 	// このポリゴンに床ポリゴンが含まれているかを返してるだけ
 	static bool CheckIsGround(DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData);
+
+	// 第一引数の点から垂直に見て一番近い面の法線を返します
+	// 下に面がないときは0を返します
+	static Vector3 GetGroundNormal(const Vector3& startPos, const Collidable& mCol);
 };

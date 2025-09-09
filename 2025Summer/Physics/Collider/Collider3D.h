@@ -41,6 +41,11 @@ public:
 	bool IsGround() const { return m_isGround; }
 	void SetIsGround(const bool isGroundOrNot) { m_isGround = isGroundOrNot; }
 
+	// 地面の法線
+	// 接地してないときは無効
+	Vector3 GroundNormal() const { return m_groundNormal; }
+	void SetGroundNormal(const Vector3& normal) { m_groundNormal = normal; }
+
 protected:
 	ColKind3D m_colKind;
 	Vector3 m_pos;
@@ -57,4 +62,5 @@ protected:
 	// 有効かどうか
 	bool m_isValid;
 	bool m_isGround = true;
+	Vector3 m_groundNormal;
 };

@@ -86,9 +86,6 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMS(colA, colB);
 					hitResult = polyHit.HitNum;
 
-					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
-					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
-
 					if (hitResult)
 					{
 						// 押し戻し
@@ -96,6 +93,16 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 						{
 							CollisionChecker::FixMoveMS(colA, colB, polyHit);
 						}
+					}
+
+					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
+					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
+
+					// 接地していたら
+					if (colB.GetCol().IsGround())
+					{
+						// 地面の法線を渡す
+						colB.GetCol().SetGroundNormal(CollisionChecker::GetGroundNormal(colB.GetPos(), colA));
 					}
 
 					MV1CollResultPolyDimTerminate(polyHit);
@@ -128,12 +135,20 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMC(colA, colB);
 					hitResult = polyHit.HitNum;
 
-					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
-					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
-
 					if (hitResult)
 					{
 						CollisionChecker::FixMoveMC(colA, colB, polyHit);
+					}
+
+					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
+					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
+
+					// 接地していたら
+					if (colB.GetCol().IsGround())
+					{
+						// 地面の法線を渡す
+						auto temp = CollisionChecker::GetGroundNormal(colB.GetPos(), colA);
+						colB.GetCol().SetGroundNormal(temp);
 					}
 
 					MV1CollResultPolyDimTerminate(polyHit);

@@ -402,3 +402,21 @@ bool CollisionChecker::CheckIsGround(DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
 	}
 	return result;
 }
+
+Vector3 CollisionChecker::GetGroundNormal(const Vector3& startPos, const Collidable& mCol)
+{
+	constexpr float kEndOffset = 999999.0f;
+	const Vector3 endPos = { startPos.x, startPos.y - kEndOffset, startPos.z };
+
+	MeshCollider& mesh = static_cast<MeshCollider&>(mCol.GetCol());
+
+	auto hitResult = MV1CollCheck_Line(mesh.GetModelHadle(), mesh.GetCollisionFrameIndex(), startPos, endPos);
+	if (hitResult.HitFlag)
+	{
+		return hitResult.Normal;
+	}
+	else
+	{
+		return Vector3::Zero();
+	}
+}
