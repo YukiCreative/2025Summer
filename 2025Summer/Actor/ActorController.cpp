@@ -62,8 +62,6 @@ void ActorController::Update()
 	{
 		if (actor->IsStop()) continue;
 		actor->CommitMove();
-		// キャラクターが地面についているか調べる
-		actor->CheckIsGround();
 	}
 }
 

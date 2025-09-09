@@ -102,7 +102,7 @@ void Enemy::KnockUpUpdate()
 	}
 
 	// —Ž‰º‚ðŽn‚ß‚Ä’…’n‚·‚é‚Ü‚ÅŒp‘±
-	if (m_fallFrame && m_isGround)
+	if (m_fallFrame && IsGround())
 	{
 		rigid.SetGravityMagnification(1.0f);
 		m_isKnockUp = false;

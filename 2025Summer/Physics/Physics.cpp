@@ -24,7 +24,6 @@ void Physics::Update(std::list<std::shared_ptr<Actor>> actorList)
 	Gravity(actorList);
 
 	CheckHit(actorList);
-	LimitMoveRange(actorList);
 
 	SendOnCollision();
 }
@@ -87,6 +86,9 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMS(colA, colB);
 					hitResult = polyHit.HitNum;
 
+					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
+					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
+
 					if (hitResult)
 					{
 						// 押し戻し
@@ -126,6 +128,9 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 					MV1_COLL_RESULT_POLY_DIM polyHit = CollisionChecker::CheckHitMC(colA, colB);
 					hitResult = polyHit.HitNum;
 
+					// 当たったポリゴンの角度に応じて着地しているかどうかを設定
+					colB.GetCol().SetIsGround(CollisionChecker::CheckIsGround(polyHit));
+
 					if (hitResult)
 					{
 						CollisionChecker::FixMoveMC(colA, colB, polyHit);
@@ -145,16 +150,6 @@ void Physics::CheckHit(std::list<std::shared_ptr<Actor>>& actorList)
 			}
 		}
 		++loopCount;
-	}
-}
-
-void Physics::LimitMoveRange(std::list<std::shared_ptr<Actor>>& actorList)
-{
-	for (auto& actor : actorList)
-	{
-		if (!actor->IsPosLimited()) continue;
-
-		actor->LimitMovementRange();
 	}
 }
 

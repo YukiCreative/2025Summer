@@ -38,6 +38,9 @@ public:
 	void ValidCol() { m_isValid = true; }
 	void InvalidCol() { m_isValid = false; }
 
+	bool IsGround() const { return m_isGround; }
+	void SetIsGround(const bool isGroundOrNot) { m_isGround = isGroundOrNot; }
+
 protected:
 	ColKind3D m_colKind;
 	Vector3 m_pos;
@@ -53,4 +56,5 @@ protected:
 	int m_weight;
 	// —LŒø‚©‚Ç‚¤‚©
 	bool m_isValid;
+	bool m_isGround = true;
 };

@@ -96,7 +96,6 @@ public:
 	// Rigid‚Ì’‡‰î
 	void AddVel(const Vector3& vel);
 	bool IsAnimEnd() const;
-	bool IsGround() const { return m_isGround; }
 	void StopY();
 	void StopVel();
 	void SetDragY(const float drag);

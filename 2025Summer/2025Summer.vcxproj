@@ -207,7 +207,7 @@
     <ClInclude Include="Actor\Enemy\StunPoint.h" />
     <ClInclude Include="Actor\Field\Field.h" />
     <ClInclude Include="Actor\HitPoint.h" />
-    <ClInclude Include="Actor\LockOnState.h" />
+    <ClInclude Include="Actor\ActorAttribute.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack1.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack2.h" />
     <ClInclude Include="Actor\Player\AttackState\PlayerAirAttack3.h" />

@@ -81,7 +81,6 @@ std::shared_ptr<PlayerState> PlayerJump::Update()
         {
             return std::make_shared<PlayerFall>(m_player);
         }
-        p->CheckIsGround();
     }
 
     if (p->IsGround())

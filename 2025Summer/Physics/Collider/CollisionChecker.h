@@ -59,4 +59,7 @@ private:
 	// カプセルxカプセル
 	static bool CheckHitCC(const Collidable& colA, const Collidable& colB);
 	static void FixMoveCC(Collidable& colA,  Collidable& sCol);
+
+	// このポリゴンに床ポリゴンが含まれているかを返してるだけ
+	static bool CheckIsGround(DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData);
 };

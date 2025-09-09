@@ -74,8 +74,6 @@ void Player::Init(const std::weak_ptr<Camera> camera, std::weak_ptr<ActorControl
 {
 	m_kind = ActorKind::kPlayer;
 
-	SetPosLimit(false);
-
 	m_camera = camera;
 	m_cont = cont;
 
@@ -120,7 +118,7 @@ void Player::Update()
 	// フラグをリセット
 	m_isContactLockOnActor = false;
 	m_isDamageFromEnemy = false;
-	m_isGround = false;
+	m_collidable->GetCol().SetIsGround(false);
 }
 
 void Player::CameraMove()

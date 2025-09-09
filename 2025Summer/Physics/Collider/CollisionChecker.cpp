@@ -387,3 +387,18 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 	colA.AddVel(-overlap * weightRate);
 	colB.AddVel(overlap * (1.0f - weightRate));
 }
+
+bool CollisionChecker::CheckIsGround(DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
+{
+	// Ç±ÇÃì‡êœílÇ‹Ç≈è∞îªíË
+	constexpr float kFloorThreshold = 0.7f;
+
+	bool result = false;
+
+	for (int i = 0; i < hitData.HitNum; ++i)
+	{
+		MV1_COLL_RESULT_POLY aPolygon = hitData.Dim[i];
+		result |= Vector3(aPolygon.Normal).Dot(Vector3::Up()) > kFloorThreshold;
+	}
+	return result;
+}

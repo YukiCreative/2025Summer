@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "../Physics/Collidable.h"
+#include "../Physics//Collider/Collider3D.h"
 
 namespace
 {
@@ -55,6 +56,11 @@ Rigid& Actor::GetRigid() const
 	return m_collidable->GetRigid();
 }
 
+bool Actor::IsGround() const
+{
+	return m_collidable->GetCol().IsGround();
+}
+
 const ActorKind Actor::GetKind() const
 {
 	return m_kind;
@@ -78,41 +84,6 @@ SpawnActorList_t Actor::GetSpawnActor()
 	return m_spawnActorList;
 }
 
-void Actor::LimitMovementRange()
-{
-	//地面にめり込まないようにする
-	if (m_pos.y < 0.0f)
-	{
-		m_pos.y = 0;
-		const Vector3& vel = m_collidable->GetVel();
-		if (vel.y > 50)
-		{
-			printf("通った");
-		}
-		m_collidable->SetVel({ vel.x, std::max(vel.y, 0.0f), vel.z});
-		//m_isGround = true;
-	}
-	else
-	{
-		//m_isGround = false;
-	}
-
-	// 円形のフィールドから出ないようにする
-	const Vector3 nextPos = m_pos + m_collidable->GetVel();
-
-	// 移動後一定のエリアから出ていたら
-	if (nextPos.SqrMagnitude() > kFieldRadius * kFieldRadius)
-	{
-		// それを阻止するように移動速度を変えたい
-
-		// 補正後の位置
-		const Vector3 radiusDir = nextPos.GetNormalize() * kFieldRadius;
-
-		// 速度にして設定
-		m_collidable->SetVel(radiusDir - m_pos);
-	}
-}
-
 void Actor::SetStopFrame(const int frame)
 {
 	m_stopFrame = std::max(m_stopFrame, frame);
@@ -132,11 +103,6 @@ void Actor::CountStopFrame()
 void Actor::Destroy()
 {
 	m_isAlive = false;
-}
-
-void Actor::CheckIsGround()
-{
-	m_isGround = m_pos.y <= 0.0f;
 }
 
 void Actor::SpawnActor(std::shared_ptr<Actor> spawnActor)

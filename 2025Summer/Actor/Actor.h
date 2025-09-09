@@ -3,7 +3,7 @@
 #include "../Geometry/Vector3.h"
 #include <list>
 #include <memory>
-#include "LockOnstate.h"
+#include "ActorAttribute.h"
 
 class Collidable;
 class Rigid;
@@ -31,6 +31,7 @@ public:
 	Collider3D& GetCol() const;
 	bool        HasRigid() const;
 	Rigid&      GetRigid() const;
+	bool        IsGround() const;
 	const ActorKind GetKind() const;
 	const bool      IsAlive() const;
 	virtual void    OnCollisionEnter(std::shared_ptr<Actor> other) {}
@@ -43,23 +44,17 @@ public:
 	const bool IsSpawnedActor() const;
 	SpawnActorList_t GetSpawnActor();
 
-	// ※このゲーム限定の機能
-	// ライブラリとして使いまわすときは削除してね
-	void LimitMovementRange();
-
 	void SetStopFrame(const int frame);
 	bool IsStop() const;
 	void CountStopFrame();
 	// このActorを削除
 	void Destroy();
-	void CheckIsGround();
 
 protected:
 	Vector3 m_pos;
 	std::shared_ptr<Collidable> m_collidable;
 	ActorKind m_kind;
 	int m_stopFrame;
-	bool m_isGround = true;
 
 protected:
 	// Actorを生成する

@@ -203,7 +203,7 @@
     <ClInclude Include="Actor\Player\NormalState\PlayerIdle.h" />
     <ClInclude Include="Physics\Collider\CapsuleCollider.h" />
     <ClInclude Include="Actor\Enemy\EnemyBug\EnemyBug.h" />
-    <ClInclude Include="Actor\LockOnState.h" />
+    <ClInclude Include="Actor\ActorAttribute.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnIdle.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveRight.h" />
     <ClInclude Include="Actor\Player\LockOnState\PlayerLockOnMoveLeft.h" />

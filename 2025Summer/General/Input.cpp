@@ -178,7 +178,7 @@ void Input::Update()
 	if (IsPressed("Left"))  dPadX += -1000;
 	int lStickX = 0, lStickY = 0;
 	GetJoypadAnalogInput(&lStickX, &lStickY, DX_INPUT_PAD1);
-	// 十字キーとアナログスティックの入力を両立するための処理
+	// アナログスティックの入力がなければ十字キーの入力をスティックに適用
 	if (lStickX == 0)	lStickX = dPadX;
 	if (lStickY == 0)	lStickY = dPadY;
 
