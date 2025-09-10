@@ -249,12 +249,6 @@ void Player::Move(const float moveSpeed)
 	Vector3 vel = Vector3{ inputAxis.x, 0,inputAxis.y } * moveSpeed;
 	// 移動量をカメラの向きに補正
 	vel = m_camera.lock()->RotateVecToCameraDirXZ(vel, Vector3::Back());
-	// 地面についているなら、その法線方向にさらに補正
-	if (IsGround())
-	{
-		vel = VTransformSR(vel ,MGetRotVec2(Vector3::Up(), m_collidable->GetCol().GroundNormal()));
-		DrawLine3D(m_pos, m_pos + vel * 1000, 0xffffff);
-	}
 
 	// プレイヤーの現在の向きを取得
 	const Vector3 dir = m_model->GetDirection();

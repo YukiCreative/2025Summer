@@ -390,15 +390,15 @@ void CollisionChecker::FixMoveCC(Collidable& colA, Collidable& colB)
 
 bool CollisionChecker::CheckIsGround(DxLib::tagMV1_COLL_RESULT_POLY_DIM hitData)
 {
-	// ‚±‚Ì“àÏ’l‚Ü‚Å°”»’è
-	constexpr float kFloorThreshold = 0.7f;
+	// ‚±‚Ìƒ‰ƒWƒAƒ“‚Ü‚Å°”»’è
+	constexpr float kFloorThreshold = 60.0f * Geometry::kDegToRad;
 
 	bool result = false;
 
 	for (int i = 0; i < hitData.HitNum; ++i)
 	{
 		MV1_COLL_RESULT_POLY aPolygon = hitData.Dim[i];
-		result |= Vector3(aPolygon.Normal).Dot(Vector3::Up()) > kFloorThreshold;
+		result |= Vector3(aPolygon.Normal).Dot(Vector3::Up()) < kFloorThreshold;
 	}
 	return result;
 }
